@@ -1,0 +1,385 @@
+
+
+
+
+
+
+
+
+
+--> OK... AGORA SABEMOS QUE O QUE APRENDEMOS NESSE CURSO
+
+
+
+VAI SE APLICAR EM TODO TIPO DE CÓDIGO QUE ESCREVEREMOS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS É CLARO QUE 
+
+
+
+EXISTIRÃO 1 MONTE DE PATTERNS E PRINCIPLES, LÁ FORA...
+
+ALGUNS PARA 
+
+
+ALGUMA 
+
+
+LINGUAGEM ESPECÍFICA,
+
+
+
+OUTROS PARA 1 FRAMEWORK,
+
+
+
+
+
+
+OUTRAS PARA 1 
+
+SPECIFIC PROGRAMMING-PARADIGM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS COMO TUDO ISSO 
+
+
+
+SE RELACIONA COM A IDEIA DE 'WRITE CLEAN CODE'?
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> VC SEMPRE DEVE SEGUIR TUDO ISSO PARA ESCREVER CLEAN CODE?
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- >BEM, CLEAN CODE É 
+
+'CÓDIGO QUE É FÁCIL DE LER E ENTENDER'...
+
+
+
+
+
+
+
+
+
+
+-> BEM, 
+
+ 
+ TODOS OS PATTERNS E PRINCIPLES VISTOS LÁ FORA 
+
+ QUEREM 
+
+
+ QUE 
+
+ VC 
+
+
+
+
+ TENHA CODE QUE SEJA 'MAINTAINABLE E EXTENSIBLE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> BEM.... MAS SE VC FORMATAR OS NOMES 
+
+
+ DE FORMA RUIM,
+
+ SE TIVERMOS 
+
+
+ FUNCTIONS SUPER CLUNKY E 
+
+ DIFÍCEIS 
+
+
+ DE LER,
+
+
+
+
+
+
+
+
+ VC AINDA NÃO TERÁ CLEAN CODE...
+
+
+
+
+
+
+
+
+
+
+
+
+ -> ALGUNS PRINCIPLES NÃO SÃO TÃO IMPORTANTES,
+
+ DE 1 PERSPECTIVA 'CLEAN CODE'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ OK..
+
+
+
+
+
+
+
+ AGORA TEREMOS 1 DIFFERENTIATION:
+
+
+
+
+
+
+
+
+ CLEAN CODE VS CLEAN ARCHITECTURE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> OK...
+
+
+
+
+
+ MAS O 'CLEAN CODE' -> É SOBRE O CODE QUE VC ESCREVE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ CLEAN ARCHITECTURE -> É SOBRE COMO VC ESTRUTURA SEU PROJETO... -> SOBRE 
+
+ COMO 
+
+
+ VC SEPARA SUAS ENTIDADES,
+
+ COMO 
+
+ VC 
+
+ ARMAZENA SUA DATA... 'EM QUE LUGAR WRITAR CADA CÓDIGO' -----> SE VC USA DEPENDENCIES 
+
+ OU NÃO,
+  
+  ETC...
+
+
+
+
+
+
+
+
+
+  -> E A CLEAN ARCHITECTURE É BEM DIFERENTE DO CLEAN CODE...
+
+
+
+
+
+
+
+
+
+
+
+E A CLEAN ARCHITECTURE DEPENDE 
+
+MT 
+
+
+DA LANGUAGE QUE VC ESTÁ USANDO,
+
+E DO PROGRAMMING PARADIGM 
+
+QUE 
+
+VC 
+ESTÁ SEGUINDO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM O CLEAN CODE,
+
+FOCAMOS EM 'SINGLE PROBLEMS/FILES'...
+
+
+
+
+
+
+
+
+
+
+
+COM A CLEAN ARCHITECTURE,
+
+
+FOCAMOS NO PROJECT COMO 1 TODO 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS FOCAR NO CLEAN CODE,
+
+OU SEJA,
+
+N VAMOS 
+
+
+
+FOCAR NO 'REPOSITORY PATTERN' 
+
+OU 
+
+COISA DO GÊNERO,
+
+
+
+PQ 
+
+ISSO 
+
+NÃO TEM NADA A VER COM O CLEAN CODE...
+
+
+
+
+
+
+
