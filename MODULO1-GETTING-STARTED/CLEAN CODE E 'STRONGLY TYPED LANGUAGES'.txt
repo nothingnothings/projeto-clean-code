@@ -1,0 +1,307 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... O PROFESSOR TAMBÉM TEM OUTRA NOTA SOBRE AS PROGRAMMING 
+
+LANGUAGES QUE USAREMOS NESSE CURSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR USOU PYTHON NO PRIMEIRO EXEMPLO...
+
+
+
+
+
+
+
+
+
+-> NESSE PRIMEIRO EXEMPLO,
+
+O PROFESSOR 
+
+
+
+NÃO DEFINIU NENHUM TYPE EXPLICITAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS TEREMOS EXEMPLOS COM TYPESCRIPT..
+
+
+
+
+
+
+-> o typescript é uma EXTENSION DO JAVASCRIPT --> A COISA PRIMÁRIA QUE 
+
+ELE FAZ É 
+
+ADICIONAR 
+
+TYPES EXPLÍCITOS PARA AS COISAS...
+
+
+
+
+
+
+
+
+
+
+-> e isso é bem melhor...
+
+
+
+
+
+
+
+
+
+OK... É CLARO QUE HÁ OUTRAS LINGUAGENS,
+COMO O 
+
+'JAVA' 
+
+E 
+
+
+
+'C#',
+
+
+QUE 
+
+'EMBRACE'
+
+O CONCEITO DE TYPES,
+
+E QUE 
+
+TAMBÉM 
+
+
+
+
+RECONHECEM 
+
+
+EXPLICIT TYPE ASSIGNMENTS..
+
+
+
+
+
+
+
+
+
+
+
+
+--> E TEMOS OUTRAS LINGUAGENS 
+
+QUE NÃO SE IMPORTAM TANTO,
+
+COMO O PYTHON,
+
+
+
+OU O JAVASCRIPT,
+
+QUE NEM MESMO CONHECE O CONCEITO... 
+
+
+
+
+
+
+
+
+
+
+
+VC PODERIA PENSAR QUE 'TYPES SÃO NECESSÁRIOS PARA ESCREVER CLEAN CODE'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+> E, BEM ,
+
+
+TYPE ASSIGNMENTS TE AJUDAM 
+
+A ENTENDER CÓDIGO..
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+function add(num1: number, num2: number) {
+    return num1 + num2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM... APESAR DE TYPES NOS AJUDAREM 1 POUCO COM READING E UNDERSTANDING,
+
+
+ELES PRIMARIAMENTE NOS AJUDAM A EVITAR ERRORS...
+
+
+(
+
+    COMO SEGUNDO PONTO POSITIVO,
+    NOS AJUDAM 1 POUCO COM READABILITY...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS A RAZÃO MAIN PARA VC USAR 
+
+STRONG TYPING É QUE __ ELES __ TE AJUDAM _ A PREVENIR _ ERRORS...
+
+
+
+
+
+
+
+
+PQ ESTE CÓDIGO AQUI É IGUALMENTE FÁCIL:
+
+
+
+
+
+
+function add(num1: number, num2: number) {
+    return num1 + num2;
+}
+
+
+
+def add(num1, num2):
+    return num1 + num2
+
+
+
+
+
+
+
+
+
+
+
+
+    IGUALMENTE FÁCIL,
+
+    MESMO SEM TER 
+
+    STRONG TYPING...
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE USAR 
+
+1 LANGUAGE COM TYPE ASSIGNMENTS EXPLÍCITOS 
+
+
+NÃO É TOTALMENTE NECESSÁRIO para ter 
+
+clean code...
+
+
+
+
+
+
+
+
+
+certo...
+
+
+
