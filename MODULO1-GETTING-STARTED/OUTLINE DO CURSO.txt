@@ -1,0 +1,72 @@
+
+
+
+
+
+
+
+
+
+--> OK... TODAS AS COURSE SECTIONS VÃO SEGUIR 1 CERTA ESTRUTURA:
+
+
+
+
+
+
+
+
+
+
+1) VEMOS OS PROBLEMS, RULES E CONCEPTS QUE VC DEVE SABER, PARA RESOLVER 
+
+ESSES PROBLEMAS...
+
+
+
+
+ex: professor mostra bons names,
+
+e como eles se parecem,
+e pq 
+
+
+eles são bons...
+
+
+
+
+
+
+
+
+
+
+
+
+2) MAS SÓ A TEORIA NÃO BASTA -> EM TODAS COURSE SECTIONS,
+
+O PROFESSOR MOSTRARÁ DEMOS E EXAMPLES..
+
+
+
+
+veremos bom e bad code... --> E O PROFESSOR NOS MOSTRARÁ 
+
+A TRANSFORMAÇÃO 
+
+
+
+DO BAD CODE PARA BOM CODE...
+
+
+
+
+
+3) CADA SECTION TERÁ CHALLENGES PARA NÓS...
+
+
+
+
+
+--> devemos transformar código ruim por conta própria....
