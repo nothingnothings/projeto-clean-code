@@ -1,0 +1,1017 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, O QUE EXATAMENTE É 'CLEAN CODE'?
+
+
+
+
+
+
+
+
+
+
+-> DEVEMOS VER ESTE EXEMPLO:
+
+
+
+
+
+
+function processTransactions(transactions) {
+    if (transactions && transactions.length > 0) {
+        for (const transaction of transactions) {
+            if (transaction.type === 'PAYMENT') {
+                if(transaction.status === 'OPEN') {
+                    if(transaction.method === 'CREDIT_CARD') {
+                        processCreditCardPayment(transaction);
+                    } else if (transaction.method === 'PAYPAL') {
+                        processPayPalPayment(transaction);
+                    } else if (transaction.method === 'PLAN') {
+                        processPlanPayment(transaction);
+                    }
+                } else {
+                    console.log('Invalid transaction type!');
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.. ISSO NÃO É UM BOM CLEAN CODE..
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS CONCORDAR QUE __ ISSO É 1 MONTE DE CÓDIGO,
+
+
+
+MT DEEPLY NESTED CONTROL STRUCTURES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS AGORA VEJA ESTE EXEMPLO:
+
+
+
+
+
+
+
+
+
+'max = create('Max', 31);'
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM...
+
+
+
+
+
+
+
+
+
+
+
+--> É APENAS 1 ÚNICA LINHA DE CÓDIGO,
+
+
+E PARECE QUE _ ESTAMOS CHAMANDO 1 FUNCTION, de 'create()',
+
+QUE VAI CRIAR 
+
+1 
+
+USER, 
+
+DE NOME 
+
+MAX,
+
+
+COM AGE DE 31...
+
+
+
+
+
+
+
+
+
+
+--> BEM...
+
+
+
+
+
+
+
+MAS AGORA DEVEMOS VER O EXEMPLO INTEIRO...
+
+
+
+
+
+def create(m, n):
+    if m == 'Max':
+        return lambda v: v < n
+    elif m == 'Min':
+        return lambda v: v > n
+
+
+
+max = create('Max', 31)
+
+
+print(max(15))
+print(max(32))
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO É PYTHON...
+
+
+
+
+
+
+-> O PROFESSOR ESTÁ DEFININDO UMA FUNCTION,
+
+e, dentro dessa function,
+
+a 
+
+keyword de 
+
+'lambda'
+
+É USADA 
+
+
+PARA ACTUALLY CRIAR __ MAIS FUNCTIONS__ (
+    que são então 
+
+    RETORNADAS daquela function de 'create()'...
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS O QUE DIABOS ESSE CÓDIGO ESTÁ FAZENDO?
+ 
+
+
+
+
+
+
+EU NÃO ENTENDI...
+
+
+
+
+
+
+
+
+
+-> O QUE TEMOS AQUI, ACTUALLY,
+
+É UMA __ FUNCTION___, A FUNCTION DE 'create',
+
+
+
+
+
+
+
+QUE _ NÃO __ CRIA_ USERS,
+
+
+
+
+
+
+
+ou qualquer coisa do gênero...
+
+
+
+
+
+
+
+
+--> EM VEZ DISSO,
+
+
+É UMA __ 'FUNCTION QUE CRIA OUTRAS FUNCTIONS'...
+
+
+
+
+
+
+
+
+
+
+
+FUNCTION QUE CRIA OUTRAS FUNCTIONS --> SÃO CHAMADAS DE 'FACTORY FUNCTIONS',
+
+
+
+
+
+OU 'HIGHER-ORDER FUNCTION'...
+
+
+
+
+
+
+
+
+
+
+-> E ESSAS OUTRAS FUNCTIONS QUE SÃO CRIADAS,
+
+
+
+
+AS FUNCTIONS DE 
+
+
+'lambda v: v < n' 
+
+
+e 
+
+'lambda v: v > n',
+
+
+
+
+
+
+ELAS SÃO ACTUALLY VALIDATION FUNCTIONS...
+
+
+
+
+
+
+
+-> O QUE ACONTECE AQUI:
+
+
+
+
+
+
+
+
+def create(m, n):
+    if m == 'Max':
+        return lambda v: v < n
+    elif m == 'Min':
+        return lambda v: v > n
+
+
+
+max = create('Max', 31)
+
+
+print(max(15))
+print(max(32))
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> nós PRÉ-CONFIGURAMOS ESSAS 'FUNCTIONS' retornadas... --> fazemos com que 
+
+elas TENHAM 'n' como o value passado 
+
+ali em 'create('Max', 31)',
+
+
+O SEGUNDO VALUE DESSA FUNCTION (31)...
+
+
+
+
+
+
+
+
+
+--> isso feito,
+
+o formato das functions fica assim:
+
+
+ return lambda v: ARGUMENTO < 31
+
+
+
+  return lambda v: ARGUMENTO > 31
+
+
+
+
+
+
+
+
+
+--> isso feito, o _aRGUMENTO__ é
+
+
+a coisa passada ali em 'max(15)'
+
+
+e 'max(32)'..
+
+
+
+
+(e que é PRINTADA)..
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+def create(m, n):
+    if m == 'Max':
+        return lambda v: v < n
+    elif m == 'Min':
+        return lambda v: v > n
+
+
+
+max = create('Max', 31) # vai retornar a function de 'lambda v: v < 31' (pq 'n' vai ser esse segundo paramter, de 31)... 
+
+
+print(max(15)) # vai retornar 'True' pq 15 é menor que 31
+print(max(32))  # vai retornar 'False' pq 32 não é menor que 31
+
+
+#código extremamente confuso, que poderia ser melhor.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok... isso quer dizer que ele vai retornar validation  functions..
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS ESSE CÓDIGO ABSOLUTAMENTE NÃO É 
+
+
+CLEAN CODE --> ENTENDER ESSE CÓDIGO CERTAMENTE LEVARÁ
+ 
+
+
+ 1 TEMPO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PQ 1 COISA O CLEAN CODE CERTAMENTE NÃO É:
+
+
+
+
+ '''O CLEAN CODE ___ NÃO É CÓDIGO QUE ___ SIMPLESMENTE FUNCIONA'' 
+
+
+
+
+
+
+
+ (
+    ITS NOT ABOUT WHETHER CODE WORKS...
+ )
+
+
+
+
+
+
+
+
+
+ -> O EXEMPLO DO PROFESSOR FUNCIONA, SIM,
+
+  
+
+  MAS __ NÃO INTERSSA...
+
+
+
+
+
+
+
+
+
+
+
+  --> TUDO DEPENDE SE O CÓDIGO É FÁCIL DE LER E ENTENDER...
+
+
+
+
+
+
+
+
+
+--> COMO DESENVOLVEDORES,
+
+GASTAMOS BASTANTE 
+
+
+TEMPO LENDO E ENTENDENDO CÓDIGO....
+
+
+
+
+
+
+
+
+
+
+
+-> PQ TEMOS QUE FREQUENTEMENTE VOLTAR A CÓDIGO QUE ESCREVEMOS NO PASSADO,
+
+PARA _ CONSERTAR 1 BUG OU ADICIONAR 1 FEATURE,
+
+
+OU TALVEZ 
+
+PQ 
+
+
+PRECISAMOS ANALISAR O CÓDIGO ESCRITO POR 1 COLEGA/OUTRO DEV...
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS QUE LER 1 MONTE DE CÓDIGO --> E A LEITURA DE CÓDIGO TEM QUE 
+
+SER FÁCIL,
+
+
+
+PQ O UNDERSTAND DE CODE DEVE SER FÁCIL,
+
+PQ 
+
+SENÃO PERDEMOS 
+
+MT TEMPO E PRODUTIVIDADE....
+
+
+
+
+
+
+
+
+
+
+
+
+--> CODE-BASES INTEIRAS PODEM MORRER,
+
+SE NINGUÉM ENTENDER O CÓDIGO...
+
+
+
+
+
+
+
+OK... AGORA TEMOS O MESMO CÓDIGO DE ANTES,
+
+
+
+
+
+MAS __ REESCRITO 
+
+
+DE MANEIRA 1 POUCO DIFERENTE..
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def create_validator(mode, number):
+    if mode == 'Max':
+        return lambda value: value < number
+    elif mode == 'Min':
+        return lambda value: value > number 
+
+
+
+is_below_max = create_validator('Max', 31)
+
+
+print(is_below_max(15))
+print(is_below_max(32))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+o professor basicamente APENAS ESCOLHEU NOMES MELHORES...
+
+
+
+
+
+
+
+
+
+
+-> O CÓDIGO FICA MAIS FÁCIL DE LER E COMPREENDER,
+
+
+
+NÃO DEMORA TANTO PARA VC ENTENDER O QUE ESTÁ ACONTECENDO,
+
+como antes...
+
+
+
+
+
+
+
+
+
+-> É CLARO QUE PODERÍAMOS 
+
+ESCREVER ISSO DE OUTRAS FORMAS..
+
+
+
+
+
+
+
+
+
+
+
+--> REFATORAR DE OUTRAS FORMAS...
+
+
+
+
+
+
+
+
+
+-> POR EXEMPLO, PODERÍAMOS ESCREVER 1 CLASS COM BONS NOMES,
+
+
+E COM 
+
+TODA A VALIDATION LOGIC __ 'BAKED' DENTRO DA CLASS,
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+class ValidatableNumber:
+    def __init__(self, number):
+        self.number = number
+    
+    def is_bigger_than(self, other_number):
+        return other_number < self.number
+    
+    def is_smaller_than(self, other_number):
+        return other_number > self.number
+
+
+
+input_number = ValidatableNumber(31)
+
+
+print(input_number.is_bigger_than(15))
+print(input_number.is_bigger_than(32))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+É CLARO QUE NÃO EXISTE 1 ÚNICA MANEIRA DE ESCREVER 
+
+
+
+
+CLEAN CODE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS VÁRIAS POSSIBLE SOLUTIONS NESSE CURSO,
+
+E VÁRIOS
+ 
+ CONCEITOS E REGRAS DIFERENTES,
+
+ QUE 
+
+ PODEM 
+
+
+
+ SE APLICAR A SUAS SITUAÇÕES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... MAS O QUE É __ CLEAN CODE...?
+
+
+
+
+
+
+
+
+
+
+
+
+1) NO FINAL DAS CONTAS, É CÓDIGO QUE É READABLE E UNDERSTANDABLE...
+
+(readable and meaningful)..
+
+
+
+
+
+
+2) É CÓDIGO QUE DEVE REDUZIR A 'COGNITIVE LOAD'
+
+que vc 
+
+recebe quando lê 1 código...
+
+
+
+
+
+
+
+3) O CÓDIGO DEVE SER CONCISO E 'TO THE POINT'...
+
+
+
+
+
+4) vc deve evitar NOMES NADA INTUITIVOS,
+
+COMPLES NESTING E GRANDES CODE BLOCKS...
+
+
+
+
+
+
+
+
+
+5) VC QUER SEGUIR COMMON BEST PRACTICES E PATTERNS...
+
+
+
+
+
+
+
+
+
+
+
+6) VC TAMBÉM DEVE SEGUIR 1 MONTE DE CONCEPTS E RULES,
+QUE O PROFESSOR ENSINARÁ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEVE SER FUN __ wRITE E MAINTAINING DE CODE...
+
+
+
+
+
+
+
+
+
+
+
+
+COM O CLEAN CODE,
+
+VC GARANTE QUE O MAINTAIN SERÁ DIVERTIDO,
+
+PQ 
+
+
+SERÁ 
+
+
+
+COMPREENDIDO POR OUTRAS PESSOAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> VC DEVE TRATAR SEU 
+
+CÓDIGO COMO 1 REDAÇÃO..
+
+
+
+
+--> VC É O AUTOR DO SEU CÓDIGO...
+
+
+
+
+
+E VC QUER ESCREVER SEU CÓDIGO 
+
+
+DE MODO QUE 
+
+ELE 
+SEJA 
+
+DE FÁCIL LEITURA 
+E COMPREENSÃO...
+
+
+
+
+
+
+
+O PROFESSOR NOS MOSTRARÁ ALGUMAS TECNICAS E RULES que 
+
+VAO NOS AJUDAR A ESCREVER CLEANER CODE..
