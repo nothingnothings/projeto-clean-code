@@ -1,0 +1,218 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> MAIS 1 COISA SOBRE OS CODE EXAMPLES USADOS NESSE CURSO:
+
+
+
+
+
+
+
+
+
+
+
+ TODOS OS EXAMPLES USADOS NO CURSO,
+
+
+
+
+
+
+ MTOS EXEMPLOS,
+
+ SÃO 
+
+
+ 'SHORT, FOCUSED EXAMPLES',
+
+ todos 
+
+
+ focando 
+
+
+
+ em 
+ 1
+  
+  único conceito ou ideia...
+
+
+
+
+
+
+
+--> BEM, ESSES SÃO CODE SNIPPETS,
+
+E A
+
+
+MAIOR PARTE DELES NÃO VAI SER EXECUTADA...
+
+
+
+
+
+
+
+
+
+
+-> VOCê NÃO SERÁ CAPAZ DE RODAR ESSES SNIPPETS -> É CÓDIGO VÁLIDO E TALS,
+
+
+MAS TIRADO FORA DE CONTEXTO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OS EXEMPLOS TAMBÉM NÃO USAM 
+
+1 ESTILO DE PROGRAMMING 
+
+ESPECÍFIICO,
+
+
+
+
+NEM ___ SEGUEM 1 PARADIGM ESPECÍFICO...
+
+
+
+
+
+
+
+
+
+
+
+--> NÃO SERÁ 
+
+FUNCTION PROGRAMMING,
+
+NEM OBJECT-ORIENTED...
+
+
+
+
+
+
+
+
+
+
+-----> CERTO...
+
+
+
+
+
+1 DETALHE PARA TODOS OS DESENVOLVEDORES JAVA E C# 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> EM JAVASCRIPT E EM PYTHON,
+
+
+E EM OUTRAS PROGRAMMING LANGUAGES,
+
+
+
+NÃO É NECESSÁRIO 
+
+WRAPPAR
+ 
+ TUDO 
+
+ EM 
+
+ 1 CLASS... (como vc tem que fazer no JAVA)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> É POR ISSO QUE VC 
+
+TEM 
+
+
+FUNCTIONS STANDALONE,
+
+COMO ESTA:
+
+
+
+
+
+
+
+
+
+
+function createUser(email, password) {
+    if(!email ) {
+        return ;
+    }
+}
