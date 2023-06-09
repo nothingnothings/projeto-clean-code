@@ -1,0 +1,170 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO MENCIONADO,
+
+
+ESTE CURSO 
+
+
+NÃO FOCA EM 1 PARADIGM ESPECÍFICO DE PROGRAMAÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OOP, FUNCTIONAL, PROCEDURAL...
+
+
+
+
+
+
+
+
+
+
+-> TANTO FAZ...
+
+
+
+
+
+
+
+
+
+
+--> O WRITE DE FUNCTIONS E NAMING CONVENTIONS 
+
+
+
+SÃO USADOS EM TODOS ELES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS TEMOS CONVENTIONS E 'PARADIGM-SPECIFIC RULES'
+
+QUE DEVEMOS LEVAR EM CONSIDERAÇÃO,
+
+
+MESMO QUANDO TERMINARMOS ESTE CURSO...
+
+
+
+
+
+
+
+
+
+SE TEMOS EXTRA STYLE RULES,
+
+DEVEMOS SEGUIR ESSAS RULES (de cada framework/language)....
+
+
+
+
+
+
+
+
+
+
+--> NÃO DEVEMOS ABANDONAR OUTRAS REGRAS QUE SE APLICAM 
+
+
+AOS NEGÓCIOS QUE USAMOS..
+
+
+
+
+
+
+
+
+
+
+
+
+certo...
+
+
+
+
+
+
+
+
+
+faz sentido...
+
+
+
+
+
+
+
+
+
+
+
+devemos ter readable  e meaningful names...
+
+
+
+
+
+
+
+
+
+
+
+
+SLIM, CONCISE FUNCTIONS OR METHODS..
+
+
+
+
+
+
+
+
+
+
+-> UNDERSTANDABLE CODE FLOW....
