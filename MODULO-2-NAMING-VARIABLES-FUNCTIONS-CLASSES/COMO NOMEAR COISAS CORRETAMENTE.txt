@@ -1,0 +1,571 @@
+
+
+
+
+
+
+
+
+
+ANTES DE EXPLORARMOS CÓDIGO RUIM,
+
+DEVEMOS 
+
+
+
+
+
+
+ESTUDAR 'COMO NOMEAR COISAS BEM, NO NOSSO CÓDIGo'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM... DEVEMOS DIFERENCIAR ENTRE 3 BLOCKS PRINCIPAIS...
+
+
+
+
+
+
+
+
+
+
+1) VARIABLES E CONSTANTS 
+
+
+
+
+
+
+
+
+
+2) FUNCTIONS E METHODS 
+
+
+
+
+
+
+
+
+
+3) CLASSES
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+VARIABLES E CONSTANTES (também PROPERTIES E OBJECTS) --> SÃO TODOS 
+
+
+
+
+
+'DATA CONTAINERS' --> NÓS OS UTILIZAMOS PARA 
+
+ARMAZENAR ALGUMA DATA... -----> PODE SER:
+
+
+
+
+
+'INPUT DATA',
+
+'VALIDATION RESULTS',
+
+
+
+'1 LISTA DE PRODUCTS'...
+
+
+
+
+
+qualquer coisa assim...
+
+
+
+
+
+
+
+
+
+
+--> CERTO... --> AQUI, PARA OS NOMES DESSAS VARIABLES E CONSTANTES,
+
+
+
+DEVEMOS ESCOLHER:
+
+
+
+
+1) SUBSTANTIVOS
+
+2) FRASES PEQUENAS COM ADJETIVOS (isLoggedIn) ,
+
+
+
+
+
+
+
+
+
+PQ ESSES TERMOS VÃO EXPLICAR O QUE TEMOS DENTRO 
+
+
+DO DATA CONTAINER...
+
+
+
+
+
+EX:
+
+
+
+
+const userData = {}
+
+
+const isValid = true 
+
+
+
+
+
+
+
+
+
+
+
+CERTO... 
+
+
+
+
+
+
+ESSES SÃO BONS NOMES, E VEREMOS MAIS EXEMPLOS DURANTE ESTA SECTION...
+
+
+
+
+
+
+
+
+
+
+
+OK... É ASSIM QUE QEUREMOS NOMEAR CONSTANTS,
+
+VARIABLES, OBJECTS E PROPERTIES...
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUEREMOS DESCREVER O QUE FICA ARMAZENADO DENTRO DELES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) FUNCTIONS/METHODS -> COM ELES, A IDEIA É DIFERENTE --> NÓS 
+
+NÃO 
+
+
+
+ARMAZENAMOS COISAS DENTRO DELES,
+
+E SIM 
+
+
+
+
+_ OS EXECUTAMOS ... -> É POR ISSO QUE, NO FINAL DAS CONTAS,
+
+FUNCTIONS 
+
+
+SÃO 
+
+
+'COMANDOS' QUE PODEMOS EXECUTAR 
+
+
+
+A QUALQUER MOMENTO --> 
+
+
+
+
+
+
+
+
+
+COMMANDS...
+
+
+
+
+
+
+
+
+MAS PODEM SER TAMBÉM 'CALCULATED VALUES' (cálculos, coisas que calculam)...
+
+
+
+
+
+
+
+
+
+
+
+
+ex: PODEMOS TER 1 FUNCTION QUE ENVIA DATA A 1 SERVER...
+
+
+
+
+
+
+
+PODEMOS TER OUTRA FUNCTION QUE CHECA SE O USER INPUT É VÁLIDO..
+
+
+
+
+
+
+
+
+
+
+-->>>>> É POR ISSO QUE, PARA FUNCTION E METHOD NAMES,
+
+USAMOS:
+
+
+
+
+
+
+1) VERBOS 
+
+
+
+
+2) FRASES PEQUENAS COM ADJETIVOS (como as variables/constantes)...
+
+
+
+
+
+
+ex:
+
+
+
+
+sendData() 
+
+
+inputIsValid()
+
+
+
+
+
+
+
+
+
+
+--> OK... ou então só 'isValid()'...
+
+
+
+
+
+
+
+
+
+-> MAS PQ USAR 'isValid()" é 
+
+
+algo 
+
+
+normal/bom?
+
+
+
+
+
+
+É PQ __ ESTAMOS ''''DESCREVENDO 1 VALUE, VALUE QUE _ É PRODUZIDO 
+POR ESSA FUNCTION'''...
+
+
+
+
+
+
+
+
+
+
+MAS O PROFESSOR DESTACA:
+
+
+
+
+
+'''BOOLEANS SÃO 1 CASO ESPECIAL, AQUI... PQ SE TIVÉSSEMOS 
+1 FUNCTION QUE CRIA 1 USER OBJECT,
+
+PROVAVELMENTE CHAMARÍAMOS ESSA FUNCTION DE 'createUser' ou 'getUser',
+ou algo assim''''..
+
+
+
+
+
+
+
+
+
+
+
+
+
+3) OK... MAS COM AS CLASSES, TEMOS 1 SITUAÇÃO DIFERENTE...
+
+
+
+
+
+
+
+
+
+CLASSES -----> USAMOS CLASSES PARA CRIAR COISAS --> 
+
+
+
+
+
+
+
+
+
+CRIAMOS OBJECTS...
+
+
+
+
+
+
+
+
+
+
+
+CRIAMOS 1 USER OBJECT,
+
+
+1 HTTP REQUEST BODY,
+
+
+1 PRODUCT,
+
+ETC...
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE PARA NOMEAR CLASSES, USAMOS:
+
+
+
+
+
+1) SUBSTANTIVOS 
+
+
+
+
+
+
+
+
+2) FRASES CURTAS COM _ SUBSTANTIVOS...
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+class User {...}
+
+
+class RequestBody {... }
+
+
+
+
+
+
+
+
+
+
+
+
+É ASSIM QUE QUEREMOS USAR CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> SE VC MANTER ESSES STANDARDS,
+
+VC JÁ VAI PODER NOMEAR ASC COISAS DO SEU CÓDIGO 
+
+
+BEM..
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS AGORA VEREMOS AS VARIAÇÕES QUE 
+
+EXISTEM,
+
+
+
+TAMBÉM 
+
+'COMO PEGAR O MELHOR SUBSTANTIVO PARA 
+
+1 GIVEN VALUE ARMAZENADO EM 1 VARIABLE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ VC QUER SEMPRE ESCOLHER O MELHOR SUBSTANTIVO 
+
+PARA 
+
+DESCREVER O QUE EXISTE DENTRO
+
+
+
+
+DE 
+
+1 VARIABLE...
