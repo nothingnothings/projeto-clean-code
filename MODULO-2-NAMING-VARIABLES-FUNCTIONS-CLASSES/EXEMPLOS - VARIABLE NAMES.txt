@@ -1,0 +1,308 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... AGORA QUE SABEMOS COMO NOMEAR VARIABLES, CONSTS E PROPERTIES,
+
+
+
+
+
+
+
+DEVEMOS _ vER MAIS EXEMPLOS,
+
+
+
+E VER MAIS VARIATIONS DE NOMES...
+
+
+
+
+
+
+
+
+
+
+--> OK... PARA ISSO,
+
+VAMOS CONSIDERAR:
+
+
+
+
+
+
+1) O QUE ESTÁ SENDO ARMAZENADO...
+
+
+
+
+
+
+2) NOMES RUINS 
+
+
+
+3) NOMES OK 
+
+
+
+
+4) BONS NOMES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMEÇAMOS COM O OBJECT DE 'user':
+
+
+
+
+
+
+
+
+
+
+
+DIGAMOS QUE TEMOS 1 VARIABLE EM QUE VAMOS ARMAZENAR 
+
+1 USER OBJECT... (tanto faz se for 1 let, 1 const ou 1 property)..
+
+
+
+
+
+
+E DIGAMOS QUE O USER OBJECT SERÁ SIMPLESMENTE 1 COMBO 
+
+DO 
+
+'name + email + age'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) BAD NAMES --> 'u'  ou 'data' -> u É MT CURTO E VAGO,
+
+
+e data é MT VAGO -------> ESSAS VARIÁVEIS PODERIAM ARMAZENAR QUALQUER COISA...
+
+
+
+
+
+
+
+
+
+2) OK NAMES -> 'userData' --> o problema é que 'userData' --> É MEIO REDUNDANTE... info redundante anexada a si... se temos 1 object de 'user', é claro que não vamos querer chamar a variable de 'userData' . 
+
+
+
+                person --> É MEIO NADA ESPECÍFICO --> pq 'person' pode ser 1 author, 1 administrator, 1 client, qualquer coisa...
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE ESTIVÉSSEMOS FAZENDO OUTRA COISA, E NÃO ARMAZENANDO O VALUE 
+
+DE 
+1 USER OBJECt,
+
+
+
+
+
+
+
+e sim 
+
+
+
+
+DATA QUE É '1 MISTO DE ENTERED VALUES E ENTERED RESULTS' feitos 
+
+pelo user... ----> PQ ISSO SERIA 
+
+
+
+1 OBJECT MISTO ENTRE O COLLECT 
+
+DE USERS 
+
+
+E O COLLECT DE INPUT DESSES USERS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+3) BONS NOMES -> 'user' --> É BEM DESCRITIVO..
+                    'customer' -> É AINDA MELHOR, PQ DEIXA BEM CLARO O TIPO DE USER QUE ESTÁ SENDO ARMAZENADO...
+
+
+
+
+
+
+
+
+
+
+
+OK.. AGORA O PROFESSOR TEM 1 PRIMEIRO EXERCÍCIO PARA NÓS...
+
+
+
+
+
+
+
+
+
+
+
+
+DIGAMOS QUE 
+
+
+__ESTAMOS VALIDANDO 
+
+
+1 USER INPUT...  E O RESULT DESSA VALIDATION 
+
+VAI SER ARMAZENADO 
+
+
+EM 
+1 
+
+
+
+VARIABLE/PROPERTY...
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMO NOMEARÍAMOS ISSO?
+
+
+
+
+
+
+
+
+
+'isValid', acho...
+
+
+
+
+
+
+
+
+
+
+-> COMEÇAMOS AGORA:
+
+
+
+
+
+
+
+
+1) BAD NAMES -> 'v'    --> V PODE SER QUALQUER COISA...
+                'val' -->  'val' PODERIA SER VALUE, EM VEZ DE VALIDATION RESULT...
+
+
+
+                OK.... ESSES 2 NOMES SÃO MT VAGOS, E NÃO NOS DIZEM NADA...
+
+
+
+
+2) OK NAMES --> 'correct' 
+                'validatedInput' -> O PROBLEMA COM ESSES NAMES É QUE ELES NÃO DEIXAM IMPLÍCITO QUE 
+                SEGURAM 
+                TRUE OU FALSE VALUES...
+
+
+                (pq 'correct' poderia estar segurando TEXT... ) 
+                validatedInput --> isso poderia SEGURAR O VALUE 
+                QUE 
+                FOI VALIDADO, EM VEZ DO 'VALIDATION RESULT'..
+
+
+
+
+
+
+
+
+
+
+3) GOOD NAMES --> 'isCorrect' --> NOMES DESCRITIVOS, QUE APONTAM QUE PODEREMOS TER VALUES 'TRUE' OU 'FALSE' dentro daquela variable...
+                    'isValid'
