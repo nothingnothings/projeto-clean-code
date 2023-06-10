@@ -1,0 +1,221 @@
+
+
+
+
+
+
+
+OK, MAS COMO DEVEMOS NOMEAR FUNCTIONS E METHODS?
+
+
+
+
+
+
+
+
+aqui podemos diferenciar functions methods em 2 categorias:
+
+
+
+
+
+
+
+
+
+1) FUNCTIONS QUE REALIZAM OPERAÇÕES...
+
+
+PODE SER QUALQUER TIPO DE OPERAÇÃO...
+
+
+
+--> PODE SER 1 CÁLCULO QUE RETORNA 1 VALUE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) MAS O OUTRO TIPO DE FUNCTION É 
+
+
+
+'''FUNCTION QUE COMPUTA 1 BOOLEAN''' 
+
+
+
+
+
+
+portanto, coisas como VALIDATION FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) NO PRIMEIRO CASO, O FUNCTION NAME DEVERÁ 'APENAS DESCREVER 
+
+A OPERATION'....
+
+
+
+
+
+
+
+'getUser' --> deve descrever que estamos pegando 1 user de uma database...
+
+
+
+
+
+
+
+
+
+
+response.send() --> estamos enviando uma response...
+
+
+
+
+
+
+
+
+MAIS DETALHES SEMPRE SÃO BONS, A NÃO SER QUE SEJAM 
+
+REDUNDANTES...
+
+
+
+(
+
+    ex:
+
+SE PEGAMOS O USER PELO EMAIL,
+SERIA 
+
+MELHOR ESCREVER 
+
+ASSIM:
+
+
+'getUserByEmail()'...
+)
+
+
+
+
+
+
+já 'response.sendResponse()', isso é REDUNDANTE...
+
+
+
+
+
+
+
+
+
+2) FUNCTION QUE COMPUTA 1 BOOLEAN --> AQUI, QUEREMOS DESCREVER 
+
+
+1 RESPOSTA 
+
+A 1 QUESTÃO DE 'TRUE/FALSE'... --------> QUASE IGUAL 
+
+
+
+AO CASO DAS VARIABLES QUE 
+
+RETORNAM BOOLEANS...
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+'isValid(...)'
+
+
+
+
+'purchase.isPaid()'...
+
+
+
+
+
+
+
+
+
+--> TAMBÉM PODEMOS PROVIDENCIAR MAIS DETALHES, COM 'BOOLEANS',
+
+
+se isso faz sentido...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+emailIsValid()  (em vez de 'isValid()')...
+
+
+
+
+
+
+
+
+
+purchase.isPaid() --> isso já é bem claro...
