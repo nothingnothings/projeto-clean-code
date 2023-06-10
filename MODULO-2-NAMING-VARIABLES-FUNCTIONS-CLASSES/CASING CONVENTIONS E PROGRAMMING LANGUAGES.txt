@@ -1,0 +1,412 @@
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ANTES DE ANALISARMOS OS CONCRETE EXAMPLES E DIFERENTES VARIAÇÕES,
+
+
+DEVEMOS 
+
+
+PARAR 
+
+E VER O TÓPICO DE 'casing'...
+
+
+
+
+
+
+
+
+
+
+
+--> em programação,
+
+temos 
+
+
+4 MAIN WAYS DE NOMEAR NOSSOS CÓDIGOS, 4 TIPOS DE CASIING..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) snake_case (python)
+
+
+2) camelCase  (javascript)
+
+
+3) PascalCase 
+
+
+
+
+4) kebab-case (vue-js jsx)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> is_valid 
+
+
+send_response 
+
+
+
+
+
+
+
+
+-> É USADO COM O PYTHON....
+
+
+
+
+
+
+TUDO É LOWER CASE,
+
+
+
+
+e as coisas são separadas com underline..
+
+
+
+
+
+
+
+
+
+
+-> no python, vc usa esse tipo de nomes 
+
+para 
+
+
+VARIABLES,
+ FUNCTIONS E METHODS..
+
+
+
+
+
+
+
+
+
+
+
+
+SNAKE_CASE...
+
+
+
+
+
+
+
+
+MTAS OUTRAS PROGRAMMING LANGUAGES USAM:
+
+
+
+
+
+
+
+
+2) camelCase 
+
+
+
+
+
+isValid 
+
+
+sendResponse 
+
+
+
+
+
+
+
+-------> palavras todas juntas,
+
+
+separadas com maiúsculas...
+
+
+
+
+
+camelCase --> É USADO COM O JAVA E O JAVASCRIPT...
+
+
+
+
+
+
+
+--> usado com VARIABLES, FUNCTIONS E METHODS...
+
+
+
+
+
+
+
+
+
+
+
+
+3) PascalCase 
+
+
+
+
+
+
+--> AdminRole 
+
+
+
+UserRepository 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE CASING É USADO POR VÁRIAS PROGRAMMING LANGUAGES..
+
+
+
+
+
+
+
+
+
+-> É USADO PELO PYTHON, JAVA E JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É USADO TIPICAMENTE __ COM CLASS NAMES..
+
+
+
+
+
+-_ PQ CLASS NAMES,
+
+NESSAS LINGUAGENS,
+
+
+
+GERALMENTE SÃO ESCRITAS COM PASCAL CASE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+4) kebab-case 
+
+
+
+
+
+--> CONHECEMOS O KEBAB-CASE LÁ DO HTML MESMO,
+
+
+EM QUE 
+
+O UTILIZAMOS PARA 
+
+ASSIGNAR
+ 
+
+ NAMES 
+
+
+
+ A CUSTOM HTML ELEMENTS (
+
+
+
+    coisas do vue,
+    react,
+
+    angular...
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ OK... ESSAS SÃO AS 4 MANEIRAS PRINCIPAIS DE COMO NOMEAR AS COISAS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> E ISSO TUDO VEM DE CONVENTIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> AS CONVENTIONS MAIS IMPORTANTES SÃO ESSAS...
+
+
+
+
+
+
+
+
+
+
+
+ -> STYLE GUIDES PARA SUA PROGRAMMING LANGUAGE 
+ TIPICAMENTE 
+
+
+
+ TE INDICAM QUAL CASING VC DEVE USAR...
+
+
+
+
+
+
+
+
+
+
+
+ --> O NAME É SEMPRE O MESMO,,
+
+
+
+ SÓ 
+
+ O FORMATO É DIFERENTE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> O CLEAN CODE É UNIVERSAL,
+
+
+
+ NÃO 
+
+
+ É APLICADO A 1 LINGUAGEM APENAS...
+
+
+
+
+ 
