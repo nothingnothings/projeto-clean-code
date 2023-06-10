@@ -1,0 +1,496 @@
+
+
+
+
+
+
+
+
+
+-> OK... QUANDO DAMOS NOMES, DURANTE O DESENVOLVIMENTO,
+
+HÁ UMA 
+
+REGRA MAIOR:
+
+
+
+
+
+
+
+
+'''NAMES SHOULD BE MEANINGFUL'' -> SEMPRE QUE 
+
+VC 
+NOMEIA ALGO,
+
+O NOME DEVE SER 'MEANINGFUL',
+
+
+
+
+DEVE 
+
+__tRANSPORTAR O 'SIGNIFICADO'
+
+
+DE UMA VARIABLE (do que fica armazenado nela),
+
+
+O SIGNIFICADO DE ALGUM METHOD OU FUNCTION,
+
+
+
+
+
+
+
+
+__ TUDO SEM PRECISARMOS ANALISAR O CÓDIGO DENTRO DESSA FUNCTION/METHOD..
+
+
+
+
+
+
+
+
+
+
+
+
+OU SEM __ PRECISARMOS ___ ANALISAR O VALUE ARMAZENADO EM 1 VALUE...
+
+
+
+
+
+
+
+CONSIDERE ESTE SNIPPET:
+
+
+
+
+
+
+
+
+
+cosnt us = new MainEntity();
+
+us.process();
+
+
+
+if (login) {
+    //...
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--> SÃO POUCAS LINHAS, MAS É IMPOSSÍVEL PROCESSAR O QUE 
+
+ESTÁ ACONTECENDO ALI DENTRO...
+
+
+
+
+
+
+
+
+
+-> '''o que estamos fazendo aqui??''
+
+
+
+
+
+
+
+--> o que é 'MainEntity()'?
+
+
+
+
+
+
+
+--> o que 'process()' faz?
+
+
+
+
+
+
+
+-> e qual é o value de 'login'?
+
+
+
+
+
+
+
+
+-> é um boolean value, é uma function?
+
+é uma 
+
+string,
+
+
+
+é um errorCode?
+
+
+
+
+
+
+
+
+
+
+
+-> NÃO HÁ COMO SABER...
+
+
+
+
+
+
+
+AGORA OLHE ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+const user = new User();
+
+
+user.save();
+
+
+
+if (isLoggedIn) {
+    // ...
+}
+
+
+
+
+
+
+
+
+
+é o mesmo código, mas bem mais claro..
+
+
+
+
+
+
+
+
+
+-> TEMOS 1 USER, E ELE ESTÁ SENDO SALVO...
+
+
+
+E TEMOS  
+
+
+'isLoggedIn' (em vez de `login`) --> E ISSO PROVAVELMENTE 
+
+
+
+
+SEGURA 
+
+
+
+O RESULT ___ DO CHECK _ ACERCA DO STATUS DE LOGIN DAQUELE USER (
+
+    1 boolean, true ou false...
+)
+
+
+
+
+
+
+
+
+
+É BEM MAIS FÁCIL DE LER E ENTENDER...
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE ESCOLHER BONS NOMES É ALGO EXCELENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> SE TIVERMOS COISAS 'WELL-NAMED',
+
+VARIABLES E ETC, NO NOSSO CÓDIGO,
+
+
+
+
+NÓS __ 
+
+
+FORÇAMOS AS PESSOAS QUE LEÊM NOSSO CÓDIGO A COMPREENDÊ-LO 
+
+
+
+SEM PRECISAR IR POR DENTRO DE TODOS OS DETALHES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CONSIDERE ESTES EXEMPLOS:
+
+
+
+
+
+
+
+
+const user = new User();
+
+
+
+
+
+database.insert(user);
+
+
+
+
+
+
+if(isLoggedIn) {
+
+}
+
+
+
+
+
+
+
+
+
+--> NÃO PRECISAMOS ENTRAR NO RESTO DO CÓDIGO PARA ENTENDER 
+
+ESSES PEQUENOS SNIPPETS...
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE 
+
+
+NOMES BONS IMPORTAM...
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE EXISTE MAIS DE 1 WAY DE NOMEAR AS COISAS...
+
+
+
+
+
+
+
+
+
+
+
+NESSA COURSE SECTION,
+
+
+VEREMOS ALGUMAS REGRAS QUE PODEMOS SEGUIR PARA ESCOLHER BONS NOMES...
+
+
+
+
+
+
+
+
+
+
+
+-> MAS, NO FINAL DAS CONTAS,
+
+VC SEMPRE TERÁ MAIS DE 1 OPÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+const admin = new Admin();
+
+
+
+
+
+
+
+
+
+const admin = new AdminUser();
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSAS 2 OPÇÕES SÃO READABLE,
+
+
+
+E NÃO HÁ 1 MELHOR DO QUE A OUTRA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+->  FICA 'UP TO US'
+
+
+DECIDIR 
+
+
+QUAL FORMATO ESCOLHER..
+
+
+
+
+
+
+
+
+
+
+--> MAS HÁ ALGUNS FORMATOS QUE SÃO CLEARLY BAD...
+
+
+
+
+
+
+
+
+
+certo...
+
+
+
+
+
+
+
+
+
+
