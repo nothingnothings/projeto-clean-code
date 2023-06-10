@@ -1,0 +1,113 @@
+
+
+
+
+
+
+AGORA VEREMOS O PRIMEIRO PAIN POINT...
+
+
+
+
+
+
+
+
+
+--> SÃO OS NAMES...
+
+
+
+
+
+
+
+-> FOCAREMOS NO ASSIGN DE BONS NOMES...
+
+
+
+
+
+
+
+
+-> VAMOS FOCAR EM TODOS OS 'NAMEABLE THINGS'
+
+
+EM DEVELOPMENT:
+
+
+
+
+
+1) VARIABLES, CONSTANTES E PROPERTIES 
+
+
+
+
+
+2) FUNCTIONS 
+
+
+
+3) CLASSES..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+VEREMOS:
+
+
+
+1) PQ NOMES IMPORTAM...
+
+
+
+
+
+
+
+
+2) REGRAS, CONCEITOS 
+
+
+
+
+
+
+
+
+3) BAD NAMES...
+
+
+
+
+
+
+
+
+
+-> TEREMOS VÁRIOS PEQUENOS EXEMPLOS E DEMOS...
+
+
+
+
+
+
+
+
+E TEREMOS 1 CHALLENGE NO FINAL DESTE MÓDULO, PARA 
+
+TESTARMOS O QUE APRENDEMOS...
