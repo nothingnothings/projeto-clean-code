@@ -1,0 +1,302 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... AGORA TEREMOS UNS EXEMPLOS DE NOMES BONS E RUINS DE FUNCTIONS/METHODS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O QUE A FUNCTION FAZ?
+
+
+
+
+
+
+
+salva o user em uma database...
+
+
+
+
+
+
+
+
+
+
+
+
+--> BAD NAMES --> 'process()'
+              --> 'handle()'.. --> NOMES MT RUINS, PQ PODERÍAMOS ESTAR PROCESSANDO OU HANDLANDO QUALQUER COISA...   
+                                    E 'PROCESS' PODERIA SER QUALQUER COISA, PODERIA SER SAVE, UPDATE OU DELETE...
+                                     
+
+
+
+
+
+
+def process(user):
+    del user
+
+
+
+user = {'first_name': 'Max', 'age': 31}
+
+
+process(user);
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... ESSE NOME É HORRÍVEL....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK NAMES -> 'save(...)'
+                'storeData()' -> OK, ISSO MOSTRA QUE ESTAMOS SALVANDO ALGO,
+                                MAS NÃO SABEMOS _ 'o QUE' ESTÁ SENDO SALVO.
+
+
+
+
+A ÚNICA EXCEÇÃO É SE ESSE METHOD DE 
+
+'.save()" está sendo executado em 1 object de nome 'user',
+
+tipo 
+
+'user.save()"... --> ISSO É PERFECTLY FINE..
+
+
+
+
+
+
+
+
+
+
+-> mas se vc tem 1 function standalone de nome 'save()',
+
+é melhor ter 1 nome mais específico....
+
+
+
+
+
+
+
+
+
+
+
+
+BONS NOMES --> 'saveUser(...)'
+                user.store() -----> COM ISSO, SABEMOS QUE _ É PROVAVELMENTE ESSE OBJECT 
+                                    QUE PRECISA SER SALVO....
+
+
+
+
+
+
+
+
+
+VEREMOS MAIS EXEMPLOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+É HORA DE 
+
+
+
+
+TENTARMOS A MESMA COISA, MAS COM 'VALIDATE THE USER INPUT'...
+
+
+
+
+
+
+
+
+--> como nomearíamos essa function?
+
+
+
+
+
+
+
+
+
+
+
+'isValid()'
+
+
+
+
+
+'user.isValid()'
+
+
+
+
+user.validateUser()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NOMES RUINS --> 'process()'
+                'save() ' ->  VALIDATING NÃO É A MESMA COISA QUE SAVING...
+                                TALVEZ SALVAMOS DEPOIS DE VALIDAR ALGUMA 
+                                COISA,  mas não salvamos nada, no caso 
+                                de validate...
+
+
+
+
+
+
+
+
+
+
+
+NOMES OK --> 'validateSave()'
+                'check()" ----------> AMBOS NOMES NÃO SÃO BEM ESPECÍFICOS..
+            
+
+
+
+
+
+
+
+
+
+
+NOMES BONS --> 'isValid()'
+                'validate()' -->  VALIDATE PODERIA SER USADO 
+                                SE NÃO ESTAMOS RETORNANDO 'TRUE OU FALSE',
+
+                                E SIM SE ESTAMOS 
+
+                                FAZENDO THROW DE 1 ERROR SE A VALIDATION FALHA...
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+def validate(value):
+    if (value == ''):
+        raise ValueError('The value must not be empty!')
+
+validate('Max') #Nothing - i.e. code proceeds thereafter 
+validate('') # Error!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... E O 'isValid' PODE SER USADO 
+
+SE ESSA FUNCTION ESTÁ RETORNANDO 1 BOOLEAN..
