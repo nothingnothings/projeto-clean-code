@@ -1,0 +1,431 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... VAMOS COMEÇAR COM 
+VARIABLES,
+
+CONSTANTS E PROPERTIES...
+
+
+
+
+
+
+COMO PODEMOS NOMEAR ESSAS COISAS?
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS DIFERENCIAR ENTRE 3 PRINCIPAIS TIPOS DE VALUE 
+
+
+QUE SÃO 
+
+ARMAZENADOS DENTRO DELES...
+
+
+
+
+
+
+
+
+
+
+
+
+VALUES:
+
+
+
+
+
+
+
+1) OBJECTS (
+
+    E ESSES OBJECTS INCLUEM LISTS, MAPS, OU QUALQUER 
+
+    DATA STRUCTURE MAIS COMPLEXA...
+)
+
+
+
+
+
+
+2) NUMBER OU STRING 
+
+
+
+
+
+
+
+
+3) BOOLEAN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E OS BOOLEANS VÃO RECEBER NOMES DIFERENTES DOS OUTROS VALUES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE SEU VALUE É 1 OBJECT OU UMA COISA 'OBJECT-LIKE',
+
+
+O NOME 
+
+
+DA SUA COISA DEVERÁ 
+
+SIMPLESMENTE 
+
+DESCREVER O VALUE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX: ESTOU ARMAZENANDO 1 USER OBJECT EM MINHA VARIABLE...
+
+
+
+
+
+-> DEVO DAR O NOME DE 'user' ao meu object/variable..
+
+
+
+
+->  estou usando 1 variable que armazena minha database.. --> coloco o nome de 'database'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE TENHO 1 VARIABLE QUE SEGURA O NAME DE 1 USER,
+
+
+
+
+SERÁ BOM CHAMÁ-LA DE 'name'...
+
+
+
+
+
+
+
+
+
+
+-> mesma coisa para a 'age'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) MAS PARA BOOLEANS,
+
+TEMOS 1 SPECIAL CASE... --> DEVE SER 1 QUESTION QUE PODERÁ
+ 
+
+ SER RESPONDIDA COM TRUE OU FALSE...
+
+
+
+
+
+
+ TIPO 
+
+
+
+ isActive 
+
+
+
+
+
+
+ valuesAreRetrieved 
+
+
+
+
+
+
+
+
+
+    isLoggedIn 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+isLoggedOut...
+
+
+
+
+
+
+
+
+
+
+
+
+-> VOCê TALVEZ QUEIRA PROVIDENCIAR 
+
+
+MAIS DETALHES/INFORMATION EM LUGARES QUE ISSO FAZ SENTIDO:
+
+
+
+
+
+
+
+
+
+
+
+
+EX OBJECT:
+
+
+
+
+
+
+
+
+authenticatedUser 
+
+
+
+sqlDatabase...
+
+
+
+
+
+
+
+
+
+--> MAS VC NAO VAI QUERER INTRODUZIR REDUNDANCIA EXTRA..
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+firstName 
+
+
+
+age
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> se colocamos 'authenticatedUser',
+
+ISSO DEIXA BEM CLARO QUE 
+
+'ESTAMOS ATUANDO APENAS SOBRE 1 USER AUTENTICADO'...
+
+
+
+(users não autenticados não serão afetados)...
+
+
+
+
+
+
+
+
+
+'firstName' -> isso é DIFERENTE DE 'name' (pq name implica O NOME COMPLETO DO CARA)....
+
+
+
+
+
+
+
+
+
+
+
+VC DEVE DEIXAR 
+
+
+SUAS VARIABLES CONCISAS, NA MEDIDA DO POSSÍVEL..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA BOOLEANS, TEMOS A MESMA IDEIA...
+
+
+
+
+PODEMOS ADICIONAR MAIS DETALHES, SE ISSO FAZ SENTIDO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'isActiveUser' -> vai se referir a 1 user...
+
+
+
+
+
+
+
+
+
+'userIsLoggedIn' --> É MEIO REDUNDANTE, dependendo do contexto (pq sempre os users serão a coisa 'loggedIn')..
