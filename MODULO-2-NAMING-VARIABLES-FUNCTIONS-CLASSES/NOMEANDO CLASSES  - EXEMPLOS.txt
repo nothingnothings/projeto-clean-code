@@ -1,0 +1,178 @@
+
+
+
+
+
+
+
+
+
+AGORA É HORA DE MAIS EXEMPLOS, DESSA VEZ DE CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) QUAL TIPO DE OBJECT É DESCRITO..
+
+
+
+-> DIGAMOS QUE SEJA UM 'USER'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NOMES RUINS -> 'UEntity' 
+                'ObjectA'  -> esses nomes de classes são 
+                horríveis, não explicam nada 
+
+
+
+
+
+
+
+
+
+NOMES OK ---> 'class UserObj
+                class AppUser' --> NÓS TEMOS INFORMAÇÃO REDUNDANTE  
+                                NESSAS CLASSES ------> 
+
+
+                                    É CLARO QUE 
+                                    1 USER É UM OBJECT,
+
+                                    E É CLARO QUE 1 USER SERÁ 
+
+                                    1 USER NA NOSSA APPLICATION..
+
+
+
+
+ESSES NOMES NÃO FAZEM MT SENTIDO, A NÃO SER QUE VC TENHA 1 RAZÃO MT BOA PARA ISSO....
+
+
+
+
+
+
+
+
+
+
+
+BONS NOMES --> 'class User' 
+                'class Admin' ..--> NOMES BEM ESPECÍFICOS E CLAROS (admin não é 1 user comum, é um admin)...
+
+
+
+
+
+
+
+
+
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+SEGUNDO EXEMPLO, NOMEIE 1 CLASS QUE INSTANCIE 1 DATABASE, NO SEU CÓDIGO..
+
+
+
+
+
+
+poderia ser 'class Database'  (eu acho)
+
+
+
+'class DatabaseConnection'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) NOMES RUINS --> 'class Data 
+                    class DataStorage '' --> ESSES NOMES SÃO RUINS
+                                            PQ NÃO SÃO ESPECÍFICOS, 
+                                            PQ 'DATA STORAGE' PODERIA SER 
+
+                                            1 FILE STORAGE, OU 1 STORAGE EM 
+                                            MEMORY... -> meio misleading...
+
+
+
+
+
+
+2) okay names --> 'class Db' 
+                    'class Data' -> DATA PODERIA SER QUALQUER COISA... 
+                                    'db' é comum, mas é ruim....
+
+
+
+
+
+
+3) bons nomes seriam 
+
+
+'class Database'
+
+
+e 
+
+
+'class SQLDatabase'... -------> nos diz exatamente o tipo 
+
+de database que está sendo usada... (pq já descreve os methods que teremos dentro dessa class)
+
+
+
+
