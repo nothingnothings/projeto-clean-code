@@ -1,0 +1,1650 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AGORA QUE TEMOS TODA A TEORIA,
+
+
+
+
+DEVEMOS 
+
+VER ALGUNS DEMOS,
+
+
+
+
+
+
+TAMBÉM 
+PARA 
+
+
+
+
+ALGUMAS CONVERSIONS DE 'BAD CODE'
+
+PARA 'GOOD CODE'...
+
+
+
+
+
+
+
+
+temos essa file de 'demo-01-bad-name-examples.py'...
+
+
+
+
+
+
+ESTE CÓDIGO:
+
+
+
+
+
+
+
+from datetime import datetime
+
+
+class Entity:
+    def __init__(self, title, description, ymdhm):
+        self.title = title
+        self.description = description
+        self.ymdhm = ymdhm
+
+
+def output(item):
+    print('Title: ' + item.title)
+    print('Description: ' + item.description)
+    print('Published: ' + item.ymdhm)
+
+
+summary = 'Clean Code Is Great!'
+desc = 'Actually, writing Clean Code can be pretty fun. You\'ll see!'
+new_date = datetime.now()
+publish = new_date.strftime('%Y-%m-%d %H:%M')
+
+item = Entity(summary, desc, publish)
+
+output(item)
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> É UM CÓDIGO PYTHON...
+
+
+
+
+
+
+
+
+
+
+CERTo...
+
+
+
+
+QUEREMOS TRANSFORMAR ESSE CODE EM CLEAN CODE...
+
+
+
+
+
+
+
+
+-> mas o que faz esse program?
+
+
+
+
+
+
+
+
+
+
+
+
+DEFINIMOS 1 CLASS, COM NOME DE 'entity'...
+
+
+
+
+
+
+
+
+-> essa class tem 1 constructor funciton (com 'def __init__')...
+
+
+
+
+ESSA CONSTRUCTOR FUNCTION RECEBE 3 MAIN PARAMETERS,
+
+
+
+
+
+
+o 'self' 
+
+é ignorado (é quase como o 'this' EM OUTRAS PROGRAMMING LANGUAGES)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO... TEMOS 3 PARAMETERS,
+
+ARMAZENADOS EM PROPRIEDADES 
+
+
+
+DESSE OBJECT/CLASS AÍ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> AÍ TEMOS 1 FUNCTION (E NÃO 1 METHOD, pq está indentada do lado de fora da class)..
+
+
+
+
+
+
+
+
+
+
+
+
+---> ESSA FUNCTION ACEITA 1 ITEM,
+
+
+E AÍ 
+
+
+
+ACESSA VÁRIAS PROPRIEDADES,
+NESSE ITEM,
+
+
+PARA PRINTAR SEUS VALUES NO CONSOLE...
+
+
+
+
+
+
+
+
+
+-> e o 'item' SERÁ CLARAMENTE 1 INSTANCIA/OBJECT 
+
+
+
+de 
+
+'Entity',
+
+
+visto que 
+
+estamos 
+
+
+
+rodando este código:
+
+
+def output(item):
+    print('Title: ' + item.title)
+    print('Description: ' + item.description)
+    print('Published: ' + item.ymdhm)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAIS PARA BAIXO, TENHO VÁRIAS VARIABLES,
+
+
+COM VÁRIOS VALUES:
+
+
+
+
+summary = 'Clean Code Is Great!'
+desc = 'Actually, writing Clean Code can be pretty fun. You\'ll see!'
+new_date = datetime.now()
+publish = new_date.strftime('%Y-%m-%d %H:%M')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ESSAS VARIABLES ESTÃO SENDO PASSADOS AO 
+
+CONSTRUCTOR
+
+
+de 'Entity()',
+
+PARA CONSTRUIR 
+
+1 ITEM 
+QUE 
+
+
+É PASSADO 
+
+
+
+à function de 'output'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... É ISSO QUE A FUNCTION FAZ __ TECNICAMENTE,
+
+
+
+MAS O QUE __ ELA FAZ 'LOGICAMENTE'?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> BEM...  --> O QUE PARECE, NO CASO,
+
+É QUE 
+
+'Entity'
+
+
+
+
+É QUASE COMO 1 'BLOG POST',
+
+
+
+
+
+
+
+pq temos 1 'title',
+
+'description',
+
+e 
+
+1 
+
+date...
+
+
+
+
+
+
+
+
+CERTO... QUER DIZER QUE O NOME ESTÁ SUPER VAGO...
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE 'Entity'
+
+DEVE SER 1 BLOG POST...
+
+
+
+
+
+
+
+
+
+
+PODEMOS COMEÇAR ASSIM:
+
+
+
+
+
+
+
+
+
+
+from datetime import datetime
+
+
+class BlogPost:
+    def __init__(self, title, description, ymdhm):
+        self.title = title
+        self.description = description
+        self.ymdhm = ymdhm
+
+
+def output(item):
+    print('Title: ' + item.title)
+    print('Description: ' + item.description)
+    print('Published: ' + item.ymdhm)
+
+
+summary = 'Clean Code Is Great!'
+desc = 'Actually, writing Clean Code can be pretty fun. You\'ll see!'
+new_date = datetime.now()
+publish = new_date.strftime('%Y-%m-%d %H:%M')
+
+item = Entity(summary, desc, publish)
+
+output(item)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO DESCREVE O QUE DEVERÁ SER ESSA CLASS,
+
+
+
+
+
+E QUE TIPO DE OBJECTS PODEMOS CRIAR COM ESSA CLASS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> certo, mas e quanto aos PARAMETERS QUE RECEBEMOS NESSA CLASS?
+
+
+
+temos 
+
+
+'ymdhm' 
+
+
+
+
+
+
+
+
+
+
+ISSO É HORRÍVEL,
+
+
+O MELHOR 
+
+
+SERIA 
+
+
+
+
+
+'timestamp',
+
+pq 
+é 
+
+
+YEAR MONTH DAY HOUR MINUTE...
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+from datetime import datetime
+
+
+class BlogPost:
+    def __init__(self, title, description, timestamp):
+        self.title = title
+        self.description = description
+        self.timestamp = timestamp
+
+
+def output(item):
+    print('Title: ' + item.title)
+    print('Description: ' + item.description)
+    print('Published: ' + item.timestamp)
+
+
+summary = 'Clean Code Is Great!'
+desc = 'Actually, writing Clean Code can be pretty fun. You\'ll see!'
+new_date = datetime.now()
+publish = new_date.strftime('%Y-%m-%d %H:%M')
+
+item = Entity(summary, desc, publish)
+
+output(item)
+
+
+
+
+
+
+
+
+
+
+
+------>  SE TIVÉSSEMOS MAIS DETALHES SOBRE ESSA DATE,
+
+
+como 'O DATE EM QUE O BLOG FOI POSTADO',
+
+
+
+
+poderíamos 
+
+escrever 
+
+
+'publish_date',
+
+
+ou 
+
+'publish_timestamp'...
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+from datetime import datetime
+
+
+class BlogPost:
+    def __init__(self, title, description, publish_timestamp):
+        self.title = title
+        self.description = description
+        self.publish_timestamp = publish_timestamp
+
+
+def output(item):
+    print('Title: ' + item.title)
+    print('Description: ' + item.description)
+    print('Published: ' + item.publish_timestamp)
+
+
+summary = 'Clean Code Is Great!'
+desc = 'Actually, writing Clean Code can be pretty fun. You\'ll see!'
+new_date = datetime.now()
+publish = new_date.strftime('%Y-%m-%d %H:%M')
+
+item = Entity(summary, desc, publish)
+
+output(item)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ESSA CLASS NÃO PARECE TÃO RUIM... ESTÁ 
+
+BEM MAIS DESCRIPTIVE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+mas e 'output'?
+
+
+
+
+
+
+
+
+
+
+BEM, ISSO FAZ OUTPUT DO BLOG POST...
+
+
+
+
+
+
+
+
+
+
+-> é por isso que seria melhor 
+
+
+
+
+
+
+
+
+
+
+colocar 
+
+'output_blog_post'
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+from datetime import datetime
+
+
+class BlogPost:
+    def __init__(self, title, description, publish_timestamp):
+        self.title = title
+        self.description = description
+        self.publish_timestamp = publish_timestamp
+
+
+def output_blog_post(item):
+# def print_blog_post(item):
+    print('Title: ' + item.title)
+    print('Description: ' + item.description)
+    print('Published: ' + item.publish_timestamp)
+
+
+summary = 'Clean Code Is Great!'
+desc = 'Actually, writing Clean Code can be pretty fun. You\'ll see!'
+new_date = datetime.now()
+publish = new_date.strftime('%Y-%m-%d %H:%M')
+
+item = Entity(summary, desc, publish)
+
+output(item)
+
+
+
+
+
+
+
+
+
+
+
+
+
+output_blog_post
+
+
+
+
+DEIXA BEM MAIS CLARO O QUE ESSA FUNCTION FAZ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... E ESSE NEGÓCIO REALMENTE SÓ SERVE 
+
+PARA OUTPUTTAR 
+
+BLOG POSTS... 
+
+(
+    pq tentamos 
+
+    ACESSAR 
+    PROPRIEDADES DE 'BlogPost',
+
+    como 
+
+    'title',
+
+    'description'
+
+    e 
+    'published'
+
+
+    DENTRO 
+
+
+    DESSE 
+
+
+    BLOG POST..
+
+
+)
+
+
+
+
+
+
+
+
+
+
+-> é por isso que 'output'
+
+
+ou 
+
+
+'print_data'
+
+É MISLEADING,
+
+PQ 
+
+
+__ ESTARÍAMOS DIZENDO QUE QUALQUER 
+
+DATA PODERIA SER OUTPUTTADA 
+
+POR MEIO 
+
+DESSA FUNCTION..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> também é bom mudarmos o parameter name,
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+from datetime import datetime
+
+
+class BlogPost:
+    def __init__(self, title, description, publish_timestamp):
+        self.title = title
+        self.description = description
+        self.publish_timestamp = publish_timestamp
+
+
+def output_blog_post(blog_post):
+# def print_blog_post(item):
+    print('Title: ' + blog_post.title)
+    print('Description: ' + blog_post.description)
+    print('Published: ' + blog_post.publish_timestamp)
+
+
+summary = 'Clean Code Is Great!'
+desc = 'Actually, writing Clean Code can be pretty fun. You\'ll see!'
+new_date = datetime.now()
+publish = new_date.strftime('%Y-%m-%d %H:%M')
+
+blog_post = BlogPost(summary, desc, publish)
+
+output_blog_post(blog_post)
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... ISSO TUDO FICOU MAIS READABLE...
+
+
+
+
+
+
+
+
+summary,
+
+desc 
+
+
+
+e 
+
+'new_date'
+
+ 
+
+
+
+
+
+
+ ESTÃO TODOS 'MESSED UP'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 'summary' NÃO ESTÁ BOM --> deveria ser 'title',
+
+
+
+
+
+
+ e 'desc'
+
+ seria melhor como 'description'... (pq é uma abbreviation)...
+
+
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+ from datetime import datetime
+
+
+class BlogPost:
+    def __init__(self, title, description, publish_timestamp):
+        self.title = title
+        self.description = description
+        self.publish_timestamp = publish_timestamp
+
+
+def output_blog_post(blog_post):
+# def print_blog_post(item):
+    print('Title: ' + blog_post.title)
+    print('Description: ' + blog_post.description)
+    print('Published: ' + blog_post.publish_timestamp)
+
+
+title = 'Clean Code Is Great!'
+description = 'Actually, writing Clean Code can be pretty fun. You\'ll see!'
+new_date = datetime.now()
+publish = new_date.strftime('%Y-%m-%d %H:%M')
+
+blog_post = BlogPost(summary, desc, publish)
+
+output_blog_post(blog_post)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 'new_date'
+
+É RUIM, TAMBÉM...
+
+
+
+
+
+
+
+
+ESTAMOS FETCHEANDO A CURRENT DATE,
+
+DE HOJE... --> 
+
+
+
+
+
+
+
+
+seria melhor 'current_date'..
+
+
+
+
+ou 'now'...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+from datetime import datetime
+
+
+class BlogPost:
+    def __init__(self, title, description, publish_timestamp):
+        self.title = title
+        self.description = description
+        self.publish_timestamp = publish_timestamp
+
+
+def output_blog_post(blog_post):
+# def print_blog_post(item):
+    print('Title: ' + blog_post.title)
+    print('Description: ' + blog_post.description)
+    print('Published: ' + blog_post.publish_timestamp)
+
+
+title = 'Clean Code Is Great!'
+description = 'Actually, writing Clean Code can be pretty fun. You\'ll see!'
+#now = datetime.now()
+current_date = datetime.now()
+publish = new_date.strftime('%Y-%m-%d %H:%M')
+
+blog_post = BlogPost(summary, desc, publish)
+
+output_blog_post(blog_post)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> publish é um nome PÉSSIMo...
+
+
+
+
+
+
+
+
+
+
+
+-> PQ PARECE QUE ESTAMOS ESCREVENDO 1 COMMAND... -> E QUEREMOS QUE NOSSAS 
+
+VARIABLES 
+
+DESCREVAM 'QUE TIPO DE DATA TEMOS NO NOSSO DATA CONTAINER (variable)'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> é por isso que 1 nome melhor 
+
+
+
+
+
+
+
+'publish_date'...
+
+
+
+
+
+
+
+ou 
+
+'formatted_date'...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+from datetime import datetime
+
+
+class BlogPost:
+    def __init__(self, title, description, publish_timestamp):
+        self.title = title
+        self.description = description
+        self.publish_timestamp = publish_timestamp
+
+
+def output_blog_post(blog_post):
+# def print_blog_post(item):
+    print('Title: ' + blog_post.title)
+    print('Description: ' + blog_post.description)
+    print('Published: ' + blog_post.publish_timestamp)
+
+
+title = 'Clean Code Is Great!'
+description = 'Actually, writing Clean Code can be pretty fun. You\'ll see!'
+#now = datetime.now()
+current_date = datetime.now()
+formatted_date = new_date.strftime('%Y-%m-%d %H:%M')
+
+blog_post = BlogPost(summary, desc, publish)
+
+output_blog_post(blog_post)
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AGORA BASTA CORRIGIR O RESTO DO CÓDIGO:
+
+
+
+
+
+
+
+
+from datetime import datetime
+
+
+class BlogPost:
+    def __init__(self, title, description, publish_timestamp):
+        self.title = title
+        self.description = description
+        self.publish_timestamp = publish_timestamp
+
+
+def output_blog_post(blog_post):
+# def print_blog_post(item):
+    print('Title: ' + blog_post.title)
+    print('Description: ' + blog_post.description)
+    print('Published: ' + blog_post.publish_timestamp)
+
+
+title = 'Clean Code Is Great!'
+description = 'Actually, writing Clean Code can be pretty fun. You\'ll see!'
+#now = datetime.now()
+current_date = datetime.now()
+formatted_date = current_date.strftime('%Y-%m-%d %H:%M')
+
+blog_post = BlogPost(title, description, formatted_date)
+
+output_blog_post(blog_post)
+
+
+
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+OK.. FICAMOS COM 1 VERSÃO MAIS CLEAN DAQUELE CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+MAS NÃO É A ÚNICA MANEIRA ALTERNATIVA DE ESCREVER AQUELE CÓDIGO..
+
+
+
+
+
+
+
+
+
+
+É UM CÓDIGO BEM MAIS READABLE DO QUE A VERSÃO ANTERIOR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM... ESSE CÓDIGO PODERIA SER MELHORADO AINDA MAIS...
+
+
+
+
+
+
+
+
+
+--> O PROBLEMA COM ESSE CÓDIGO, AGORA,
+
+É QUE 
+
+AINDA TEMOS 
+
+1 
+
+POUCO 
+
+DE REDUNDANCY,
+
+ALGUNS ASPECTOS MEIO RUINS...
+
+
+
+
+
+
+
+
+
+tipo a function de 
+
+
+'print_blog_post'...
+
+
+
+
+
+
+
+
+PQ TEMOS 1 ARGUMENT DE 'blog_post',
+
+
+
+E 
+
+'blog_post'
+
+
+NO NOME --> ISSO É MEIO REDUNDANTE- -> MAS COMO O PROFESSOR 
+
+
+
+MENCIONOU,
+
+
+
+
+
+
+'print_data' seria errado (mt vago/abstrato)....
+
+
+
+
+
+
+
+
+
+
+
+
+------> 1 MANEIRA 
+
+MELHOR DE 
+
+
+
+ENHANCEAR ESSE CÓDIGO 
+
+SERIA 
+TRANSFORMAR
+
+
+
+
+
+
+O 'print_blog_post'
+
+
+EM 
+1
+
+METHOD 
+
+DA CLASS 
+
+
+
+DE 
+
+
+'BlogPost' -----> TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+from datetime import datetime
+
+
+class BlogPost:
+    def __init__(self, title, description, publish_timestamp):
+        self.title = title
+        self.description = description
+        self.publish_timestamp = publish_timestamp
+
+    def output(self):
+        print('Title: ' + self.title)
+        print('Description: ' + self.description)
+        print('Published: ' + self.publish_timestamp)
+
+
+
+
+
+title = 'Clean Code Is Great!'
+description = 'Actually, writing Clean Code can be pretty fun. You\'ll see!'
+#now = datetime.now()
+current_date = datetime.now()
+formatted_date = current_date.strftime('%Y-%m-%d %H:%M')
+
+blog_post = BlogPost(title, description, formatted_date)
+
+
+blog_post.output()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM ISSO,
+
+
+NOSSO POST SERÁ OUTPUTTADO COM A SIMPLES ESCRITA DE 
+
+
+
+'blog_post.output()' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... ISSO AGORA FICOU BEM DESCRIPTIVE E EXPRESSIVE -> FICA BEM CLARO QUE 
+
+ESTAMOS PRINTANDO AQUELE BLOG POST...
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ESSA É UMA MANEIRA FÁCIL DE MELHORAR ESSE CODE..
+
+
+
+
+
+
+
+
+
+
+-> ÀS vezes 
+
+
+
+não basta só trocar o nome ..... -> sometimes é 
+
+
+NECESSÁRIO 
+TROCAR 
+
+ALGO NO NOSSO PRÓPRIO CÓDIGO,
+
+
+
+ALGO QUE JÁ VAI FAZER O NOSSO NAMING FICAR MAIS FÁCIL E DESCRIPTIVE..
+
+
+
+
+
+
+
+
+
+
+
+
+-> ok... essa é a melhor solução -> DEIXAR DE 'MESS AROUND' COM OS NOMES,
+
+E SIM 
+
+
+MOVER 
+
+
+ALGUMA 
+COISA 
+
+
+
+NO NOSSO CÓDIGO (
+
+    como agora,
+
+    em que 
+
+    transformamos 1 function standalone em 1 
+
+    method 
+
+    da 
+
+    class 
+
+    de 
+
+    'BlogPost'...
+)
