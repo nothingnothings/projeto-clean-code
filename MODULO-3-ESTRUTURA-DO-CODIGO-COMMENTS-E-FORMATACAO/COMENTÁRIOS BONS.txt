@@ -1,0 +1,453 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MTOS COMENTÁRIOS SÃO RUINS,
+
+
+MAS HÁ ALGUNS QUE SÃO BONS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIPOS BONS:
+
+
+
+
+
+
+
+
+PRIMEIRO TIPO)  LEGAL INFORMATION..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, NAQUELE EXEMPLO DO PROFESSOR, TEMOS 1
+ 
+
+ LEGAL DISCLAIMER LÁ EM CIMA:
+
+
+
+
+
+
+
+ // (c) Maximilian Schwarzmüller / Academind GmbH
+// Created in 2020
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> DEPENDENDO DO TRABALHO EM QUE VC ESTÁ NO MOMENTO,
+
+
+TALVEZ 
+
+PEÇAM QUE VC COLOQUE ISSO NO TOPO DE QUALQUER 
+
+
+CÓDIGO QUE VC ESCREVER...
+
+
+
+
+
+
+
+
+
+
+
+
+--> EM MTAS ORGANIZAÇÕES, É NECESSÁRIO FAZER ISSO.. (vc não tem alternativa)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> isso fica em cima do arquivo,
+
+
+e é rapidamente skipped e ignored..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SEGUNDO TIPO)  COMMENTS QUE ADICIONAM 1 EXPLICAÇÃO 
+
+QUE 
+
+NÃO 
+PODE 
+
+SER DELIVERED
+
+OU 
+
+
+SUBSTITUÍDA POR PROPER NAMING...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+//accepts [text]@[text].[text],  i.e. it simply requires an "@" and a dot 
+
+
+
+
+// accepts [text]@[text].[text], i.e. it simply requires an "@" and a dot
+const emailRegex = /\S+@\S+\.\S+/;
+
+// Only works in browser environment
+localStorage.setItem('user', 'test@test.com');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... É UMA REGULAR EXPRESSION...
+
+
+
+
+
+
+
+EMBORA ELA SEJA 1 EXPRESSION RELATIVAMENTE SIMPLES,
+
+
+REGULAR EXPRESSIONS PODEM FICAR BEM LONGAS...
+
+
+
+
+
+
+
+
+
+
+
+E TER 1 COMMENT DO LADO DA REGULAR EXPRESSION PODE 
+
+VALER MT..
+
+
+
+
+
+
+
+
+
+
+
+
+TERCEIRO TIPO)  O TIPO DE COMMENT QUE __ TE __ AVISA_ SOBRE ALGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EXEMPLO:
+
+
+// Only works in browser environment
+localStorage.setItem('user', 'test@test.com');
+
+
+
+
+
+
+
+
+ESSE WARNING NOS AVISA QUE 
+
+
+
+ESSE CÓDIGO SÓ FUNCIONARÁ 
+
+
+
+EM 1 PLATAFORMA BROWSER,
+
+E QUE 
+
+NÃO VAI RODAR 
+
+NO NODEJS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> vc deve pensar se outros developers 
+
+vão 
+
+
+ter ciência disso...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUARTO TIPO) COISAS COMO 'TODO NOTES' -->  coisas por fazer...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+findOne(id: string) { // to dos podem ser bons, pq nos sinalizam que algo ainda está por fazer
+    // Todo: Needs to be implemented   
+  }
+
+
+
+-------------------------
+
+
+
+
+
+
+
+
+
+
+
+SE VC TEM 1 CÓDIGO QUE ESTÁ INACABADO,
+COLOCAR 1 
+
+
+
+
+COMMENT ASSIM PODE SER OK...
+
+
+
+
+
+
+
+
+
+
+-> VC DEVE FOCAR NO FINISH DE SEU CÓDIGO,
+
+EM VEZ DE 
+
+IR DEIXANDO 1 MONTE DE 
+
+
+
+COISAS INACABADAS NO SEU CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUINTO TIPO)  COMMENT EM QUE VC 
+
+
+ADICIONA DOCUMENTATION.... ESPECIALMENTE QUANDO 
+
+VC 
+
+PROVIDENCIA 
+
+1 
+
+PUBLIC API... 
+
+
+
+
+-> OU SEJA,
+
+QUANDO VC CONSTRÓI 1 LIBRARY,
+
+QUE 
+
+VC 
+
+
+COMPARTILHA COMO 
+
+LIBRARY A OUTRAS PESSOAS -----> NESSES CASOS,
+
+ADICIONAR 
+
+'DOCUMENTATION STRINGS' (Que são capturadas pelos IDEs),
+
+
+ISSO PODE FAZER SENTIDO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CLARO QUE ISSO TUDO DEPENDE DA PROGRAMMING LANGUAGE QUE VC 
+
+ESTÁ USANDO... ( o python usa ' """ ' )
+
+
+
+
+
+
+
+
+
+-> OK... QUER DIZER QUE ESSE TIPO DE COMMENT FAZ SENTIDO, 
+
+DEPENDENDO DO TIPO DE PROJETO EM QUE VC ESTÁ TRABALHANDO...
