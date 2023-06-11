@@ -1,0 +1,461 @@
+
+
+
+
+
+
+
+
+
+AGORA DEVEMOS DAR 1 OLHADA 
+
+
+
+
+EM 1 PUNHADO DE EXEMPLOS 
+
+PARA 
+
+'FUNCTIONS COM APENAS 1 ARGUMENT.'..
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+function log(message) {
+  console.log(message);
+}
+
+log('Hi there!');
+
+class Message {
+  constructor(message) {
+    this.message = message;
+  }
+
+  log() {
+    console.log(this.message);
+  }
+}
+
+const msg = new Message('Hi!');
+msg.log();
+
+function square(number) {
+  return number * number;
+}
+
+const result = square(3);
+
+function emailIsValid(email) {
+  return email.includes('@');
+}
+
+const isValid = emailIsValid('max@test.com');
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... TEMOS ESSE CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> BEM... TEMOS 1 FUNCTION DE 'log',
+
+QUE 
+
+SIMPLESMENTE WRAPPA 
+
+
+A FUNCTION DE 'console.log()"
+
+
+
+
+
+--> PODERÍAMOS USAR ISSO SE QUEREMOS 
+
+A OPÇÃO 
+
+
+
+DE 
+
+TROCAR 'console.log()'
+
+POR 
+
+ALGUM 
+OUTRO 
+
+LOG OUTPUTTING MECHANISM...
+
+
+
+
+
+
+
+
+--> ISSO PQ, SE QUISERMOS TROCAR DE 'console.log()'
+
+PARA OUTRA MANEIRA DE OUTPUTTAR LOGS,
+
+
+
+SERÁ MT BOM DEFINIR ISSO EM APENAS 1 
+
+ÚNICO LUGAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> e é exatamente por isso que o professor colocou 'message'
+
+
+COMO ÚNICO PARAMETER DESSA FUNCTION:
+
+
+
+
+
+
+function log(message) {
+  console.log(message);
+}
+
+
+log('exemplo');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE 
+
+PODERÍAMOS 
+
+
+
+ESCREVER ISSO DE MODO QUE 
+
+_NENHUM PARAMETER FOSSE NECESSÁRIO,
+
+tipo assim (constructor/class):
+
+
+
+
+
+
+
+
+class Message {
+  constructor(message) {
+    this.message = message;
+  }
+
+  log() {
+    console.log(this.message);
+  }
+}
+
+const msg = new Message('Hi!');
+msg.log();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS O PROFESSOR ACHA QUE ISSO NÃO É 1 MELHORA.. --> PQ 
+
+
+
+TIVEMOS DE ESCREVER 1 MONTE DE CÓDIGO EXTRA,
+
+
+E APENAS 
+
+SUBSTITUÍMOS 
+1
+ FUNCTION 
+
+
+
+
+ EM QUE 
+
+
+ ERA 
+
+ BEM ÓBVIO QUE 
+
+
+TÍNHAMOS 1 PARAMETER,
+
+
+
+
+
+E EM QUE __ O KIND E VALUE DESSE PARAMETER 
+
+
+TAMBÉM 
+
+
+NÃO ERAM MISTÉRIO ALGUM...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+function log(message) {// código que faz sentido, de certa forma...
+  console.log(message);
+}
+
+log('Hi there!');
+
+// class Message { //TODO mt código, código desnecessário (não vale a pena fazer tudo isso só para podermos chamar a function de 'log()' sem passar nenhum arg)
+//   constructor(message) {
+//     this.message = message;
+//   }
+
+//   log() {
+//     console.log(this.message);
+//   }
+// }
+
+// const msg = new Message('Hi!');
+// msg.log();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> CERTO... depois disso,
+
+
+TEMOS OUTRAS FUNCTIONS EM QUE 
+
+TER 
+
+1 ÚNICO ARGUMENT FAZ MT SENTIDO,
+
+e é óbvio:
+
+
+
+
+
+
+
+function square(number) {
+  return number * number;
+}
+
+const result = square(3);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PQ ISSO VAI ELEVAR 1 NÚMERO AO QUADRADO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... -> AÍ, COM 'emailIsValid',
+
+
+
+VALIDAMOS 
+
+
+
+
+1 _ EMAIL,
+
+
+
+
+com 1 único argument,..
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+function emailIsValid(email) {
+  return email.includes('@');
+}
+
+const isValid = emailIsValid('max@test.com');
+
+
+
+
+
+
+
+
+
+
+
+
+COM TODOS ESSES EXEMPLOS,
+TEMOS 
+
+FUNCTIONS EM QUE 
+
+
+DEIXAR 
+
+
+
+APENAS 1 ÚNICO ARGUMENT 
+
+AINDA 
+
+
+DEIXA 
+
+
+
+A FUNCTION FÁCIL DE CHAMAR E ENTENDER...
