@@ -1,0 +1,330 @@
+
+
+
+
+
+
+
+OK...
+
+
+
+
+
+
+
+
+COMMENTS PODEM RARAMENTE NOS AJUDAR,
+
+
+E FREQUENTEMENTE PODEM MACHUCAR NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS CODE FORMATTING É ALGO QUE PODE REALMENTE TE AJUDAR,
+
+
+
+
+AJUDAR A DEIXAR O CÓDIGO MAIS LEGÍVEL E COMPREENSÍVEL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PQ O CODE FORMATTING:
+
+
+
+
+
+
+1) MELHORA A LEGIBILIDADE E O TRANSPORTE DE SIGNIFICADO NO NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> EXISTEM 2 TIPOS DE FORMATTING:
+
+
+
+
+1) VERTICAL FORMATTING -->  SIMPLESMENTE 
+
+SE REFERE A QUALQUER FORMATTING, CODE STRUCTURING,
+
+
+QUE FAZEMOS __ DO TOPO __ PARA BAIXO, NO NOSSO CÓDIGO...
+
+
+
+
+
+
+
+** QUER DIZER:
+
+'''SPACE ENTRE LINHAS'',
+
+E 
+
+'GROUPINGS OF CODE''....
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) HORIZONTAL FORMATTING --> ISSO, POR OUTRO LADO,
+
+
+É 
+
+'TUDO QUE ACONTECE DENTRO DE 1 LINHA DE CÓDIGO'...
+
+
+
+
+
+-> ISSO ENVOLVE INDENTATION,
+
+
+--> ENVOLVE 'SPACE BETWEEN CODE' 
+
+
+---> E A LARGURA DE NOSSAS CODE LINES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUANDO O ASSUNTO É FORMATTING,
+
+
+
+É CLARO QUE ISSO É IMPORTANTE E NOS 
+
+AJUDA 
+
+COM A LEGIBILIDADE... MAS APENAS 
+
+SE 
+
+
+FOR FEITA CORRETAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AQUI, TEMOS MAIS DO QUE 
+
+EXEMPLOS E RULES,
+
+
+
+
+
+PQ EXISTEM 'LANGUAGE-SPECIFIC FORMATTING RULES'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> os exemplos mostrados nesse curso se aplicam a quase todas 
+
+
+as línguas,
+
+
+
+MAS HÁ ALGUMAS FORMATTING RULES QUE DIFEREM,
+
+
+
+AO LONGO DE DIFERENTES LANGUAGES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PARA PROCURAR AJUDA SOBRE O STYLING DE ALGUMA LANGUAGE,
+
+
+escreva 
+
+
+
+
+'LANGUAGE style guide'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SE VC PENSA SOBRE INDENTATION,
+
+
+VC PODE PENSAR 
+
+
+
+'''SERÁ QUE USO 2 SPACES,
+
+
+OU USO 4 SPACES.... OU USO TABS''' -> serão os 
+
+
+
+STYLE GUIDELINES QUE VÃO 
+
+
+
+TE RESPONDER ESSA PERGUNTA,
+
+DE COMO 
+
+VC 
+
+DEVE INDENTAR CORRETAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+-> o professor nos mostrará 
+
+os 
+
+conceitos 
+
+e rules mais importantes...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS ESSES 2 TIPOS DE FORMATTING,
+
+E OS TIPOS DE RULES QUE DEVEMOS SEGUIR,
+
+COM ELES...
