@@ -1,0 +1,672 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... 
+
+
+
+
+
+
+
+O PROFESSOR NOS COLOCA ALGUNS EXAMPLES...
+
+
+
+
+
+
+
+
+
+ESTE AQUI:
+
+
+
+
+
+
+
+
+
+
+
+function saveUser(email, password) {
+  const user = {
+    id: Math.random().toString(),
+    email: email,
+    password: password,
+  };
+
+  db.insert('users', user);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> BEM, TEMOS 1 FUNCTION DE 'saveUser',
+
+
+
+QUE EXIGE 1 EMAIL E 1 PASSWORD...
+
+
+
+
+
+
+
+
+--> AÍ CRIAMOS 1 OBJECT 'user'
+
+
+
+
+
+NA HORA...
+
+
+
+
+
+
+NESSE OBJECT,
+
+SALVAMOS 
+
+O 
+
+
+
+EMAIL E O PASSWORD,
+
+
+
+E AÍ 
+
+
+
+
+
+
+RODAMOS 1 UNIQUE ID (que não é perfeito, pq é Math.random())
+
+
+
+
+
+
+
+
+
+
+ISSO FEITO,
+
+RODAMOS 
+
+'db.insert()'
+PARA 
+
+
+
+INSERIR ESSE USER 
+
+EM 1 TABLE,
+
+
+
+
+EM 1 COLLECTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+esse código não é horrível,
+
+
+
+
+MAS O CALL 
+
+
+
+
+
+
+DA FUNCTION FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+function saveUser(email, password) {
+  const user = {
+    id: Math.random().toString(),
+    email: email,
+    password: password,
+  };
+
+  db.insert('users', user);
+}
+
+saveUser('test@test.com', 'testers');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VC PROVAVELMENTE TERIA DE DAR UMA OLHADA 
+
+
+NO CÓDIGO DESSA FUNCTION PARA 
+
+
+COMPREENDER QUE 
+
+O EMAIL DEVE SER 
+
+O PRIMEIRO ARG,
+
+
+E o 
+
+
+'password'
+
+DEVE 
+
+SER 
+
+
+
+O SEGUNDO ARG...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS __ QUANDO ESCREVEMOS CÓDIGO ASSIM,
+
+
+
+É 
+
+
+
+POSSÍVEL PENSAR EM SOLUÇÕES MELHORES...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+'function saveUser(user) {
+    db.insert('users', user);
+}' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM ISSO, POR MEIO DESSA FUNCTION,
+
+
+
+
+
+OUTSOURCEAMOS A TASK DE 'CRIAR O USER'
+
+
+
+
+PARA __ FORA __ DE ESSA FUNCTION,
+
+PARA OUTRO 
+
+LUGAR 
+
+
+DE NOSSO CÓDIGO (
+
+    pessoa precisa criar 
+
+    tipo 
+
+
+    '{
+        email: 'xxx@xx.com',
+        password: 'exemplo'
+    }'
+
+
+
+
+    e depois 
+
+    chamar 
+
+
+
+    const user =  {
+        email: 'xxx@xx.com',
+        password: 'exemplo'
+    }
+    saveUser(user)
+)
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+const newUser = {
+  id: Math.random().toString(),
+  email: 'exemplo@exemplo.com',
+  password: '123456',
+};
+
+function saveUser(user) {
+  db.insert('users', user);
+}
+
+saveUser(newUser);
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO AGORA ACEITA APENAS 1 PARAMETER,
+
+
+E ISSO DEIXA MAIS FÁCIL O CALL DESSA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+A SOLUÇÃO AINDA MELHOR SERIA O USO DE 1 CLASS:
+
+
+
+
+
+
+
+
+
+
+class User {
+  constructor(email, password) {
+    this.email = email;
+    this.password = password;
+    this.id = Math.random().toString();
+  }
+
+  save() {
+    db.insert('users', this);
+  }
+}
+
+const user = new User('test@test.com', 'testers');
+user.save();
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> USAMOS ESSA CLASS COMO BLUEPRINT PARA NOVOS USER 
+
+
+OBJECTS,
+
+
+
+e aí 
+
+
+
+basta chamar 
+
+'user.save()'
+
+
+PARA 
+
+
+
+
+
+SALVAR 
+
+
+
+
+NOSSO USER NA DATABASE...
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, OUTSOURCEAMOS O PROBLEMA 
+
+DO PASS 
+
+DE PARAMETERS 
+
+
+
+
+
+DE 'name' 
+
+e 
+'password'
+
+
+PARA 
+
+
+
+
+O CONSTRUCTOR 
+
+
+DE 'User'... ----> 
+
+
+
+
+
+
+
+
+class User {
+  constructor(email, password) {
+    this.email = email;
+    this.password = password;
+    this.id = Math.random().toString();
+  }
+
+  save() {
+    db.insert('users', this);
+  }
+}
+
+const user = new User('test@test.com', 'testers');
+user.save(); // TODO - agora podemos chamar o method save() SEM NENHUM PARAMETER, pq é chamado de dentro do OBJECT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ESSE CÓDIGO FAZ AINDA MAIS SENTIDO,
+
+PORTANTO... (
+
+    pq é claro que cada user terá 1 email e password....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO É UM EXEMPLO DE COMO VOCê PODE DEIXAR SEU CÓDIGO 
+
+MAIS FÁCIL DE COMPREENDER E CHAMAR...
+
+
+
+
+
+--> TAMBÉM É UM EXEMPLO DE QUE 
+
+''NÃO DEVEMOS USAR VÁRIOS PARAMETERS 
+
+
+
+EM LOCAIS DE NOSSO CÓDIGO EM QUE A ORDER PODE SER NÃO TÃO CLARA'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AGORA O PROFESSOR TEM OUTRO EXEMPLO DE 1 FUNCTION QUE NÃO RECEBE
+
+
+ARGUMENT ALGUM:
+
+
+
+
+
+
+
+function toggleLoginStatus() {
+  isLoggedIn = !isLoggedIn;
+}
+
+toggleLoginStatus();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA É UMA FUNCTION 
+
+QUE 
+
+ALTERA O STATE de 'loggedIn'
+
+
+
+
+
+QUE ESTÁ EM ALGUM LUGAR DE NOSSO CÓDIGO ------> ESSA FUNCTION 
+
+APENAS 
+
+INVERTE ESSE STATE DE LOGIN O TEMPO TODO --> 
+
+
+É OUTRO 
+
+EXEMPLO DE FUNCTION SEM NENHUM ARGUMENT,
+
+
+PQ 
+
+
+ELA REALMENTE NÃO PRECISA 
+DE ARGUMENT ALGUM....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... ESSES FORAM ALGUNS EXEMPLOS.. --> 
+
+
+
+
+
+A SOLUÇÃO DA CLASS REALMENTE FAZ MAIS SENTIDO 
+
+
+DO QUE O USO DAQUELA FUNCTION INICIal... melhor a legibilidade 
+
+e usabilidade...
