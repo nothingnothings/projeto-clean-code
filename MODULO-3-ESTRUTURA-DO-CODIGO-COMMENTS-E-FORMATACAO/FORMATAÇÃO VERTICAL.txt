@@ -1,0 +1,1086 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK...
+
+
+
+
+
+
+
+
+
+AGORA COMECEMOS COM O 'VERTICAL FORMATTING'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DE CIMA PARA BAIXO..
+
+
+
+
+
+
+
+
+
+
+
+-> TEMOS 1 SIMPLES RULE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SEU CÓDIGO DEVE SER LIDO COMO 
+
+
+1 'REDAÇÃO',
+
+
+TOP FROM BOTTOM,
+
+
+
+BEM COESO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> SEU CÓDIGO DEVE SER DE FÁCIL LEITURA..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUANDO VC LÊ UM LIVRO,
+ 
+ VC NÃO QUER 
+
+ PULAR DA PAGE 1 PARA A PAGE 3,
+
+
+ E DO 
+
+ INÍCIO 
+
+ DA 
+
+ PAGE 3 
+
+
+ PARA O FIM DA PAGE 3, SEM LER O MEIO...
+
+
+
+
+
+
+
+
+
+
+
+ -> VC QUER TER 1 'SMOOTH READING FLOW'....
+
+
+
+
+
+
+
+
+
+--> E QUEREMOS TER O MESMO FLOW PARA O CÓDIGO QUE ESCREVEMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CONSEGUIRMOS ESSE SMOOTH READING FLOW,
+
+
+TEMOS ALGUMAS REGRAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+REGRA 1:  SE SEU ARQUIVO FICA MT GRANDE,
+
+
+FICA COM 
+
+MTOS CONCEITOS DIFERENTES,
+
+ 
+
+
+
+
+TALVEZ SEJA BOM CONSIDERAR _ SPLITTAR __ 
+
+
+1 POUCO DE SEU CONTEÚDO 
+
+AO LONGO DE MÚLTIPLOS ARQUIVOS....
+
+
+
+
+
+
+
+
+(
+
+    NÃO EXISTE 1 REGRA FIXA DO 'LIMITE DE CONTEÚDO' EM 1 FILE...
+)
+
+
+
+
+
+
+
+
+
+
+
+---> MAS, EM GERAL,
+
+SEMPRE QUE 
+VC 
+
+TEM 1 FILE COM 
+
+MÚLTIPLOS DIFERENTES CONCEITOS ,
+
+
+
+
+
+
+COMO MÚLTIPLAS CLASSES EM 1 MESMO ARQUIVOO,
+
+
+
+
+
+ESSA FILE VAI FICAR MT GRANDE,
+
+E AÍ 
+
+SERÁ 
+
+BOM SPLITTÁ-LA 
+
+
+EM MÚLTIPLAS 
+FILES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR EXEMPLO, COMO RULE OF THUMB,
+
+SE VC 
+
+
+ESTÁ TRABALHANDO COM CLASSES,
+
+É UMA BOA 
+
+
+REGRA 
+
+
+
+''TER 1 CLASS POR 
+
+FILE,
+
+E NÃO MAIS DO QUE ISSO''...   --> ISSO VAI DEIXAR 
+
+SEU CÓDIGO 
+
+
+
+
+BEM MAIS 
+
+
+
+
+SHORT E READABLE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... -> MAS DENTRO DE 1 MESMA FILE,
+
+AINDA 
+
+TEREMOS 
+
+VÁRIOS 
+CONCEITOS DIFERENTES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+REGRA 2:  EM 1 MESMO ARQUIVO,
+
+
+DIFERENTES 'CONCEITOS' ("areas") DEVEM 
+
+SER 
+
+
+SEPARADAS POR __ SPACING...
+
+
+
+
+
+
+
+
+AQUI TEMOS 1 EXEMPLO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const path = require('path');
+const fs = require('fs');
+
+class DiskStorage {
+  constructor(storageDirectory) {
+    this.storagePath = path.join(__dirname, storageDirectory);
+    this.setupStorageDirectory();
+  }
+
+  setupStorageDirectory() {
+    if (!fs.existsSync(this.storagePath)) {
+      this.createStorageDirectory();
+    } else {
+      console.log('Directory exists already.');
+    }
+  }
+
+  createStorageDirectory() {
+    fs.mkdir(this.storagePath, this.handleOperationCompletion);
+  }
+
+  insertFileWithData(fileName, data) {
+    if (!fs.existsSync(this.storagePath)) {
+      console.log("The storage directory hasn't been created yet.");
+      return;
+    }
+    const filePath = path.join(this.storagePath, fileName);
+    fs.writeFile(filePath, data, this.handleOperationCompletion);
+  }
+
+  handleOperationCompletion(error) {
+    if (error) {
+      this.handleFileSystemError(error);
+    } else {
+      console.log('Operation completed.');
+    }
+  }
+
+  handleFileSystemError(error) {
+    if (error) {
+      console.log('Something went wrong - the operation did not complete.');
+      console.log(error);
+    }
+  }
+}
+
+const logStorage = new DiskStorage('logs');
+const userStorage = new DiskStorage('users');
+
+setTimeout(function () {
+  logStorage.insertFileWithData('2020-10-1.txt', 'A first demo log entry.');
+  logStorage.insertFileWithData('2020-10-2.txt', 'A second demo log entry.');
+  userStorage.insertFileWithData('max.txt', 'Maximilian Schwarzmüller');
+  userStorage.insertFileWithData('maria.txt', 'Maria Jones');
+}, 1500);
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ NESSE EXEMPLO, COMEÇAMOS TUDO PELO 
+
+
+ IMPORT 
+
+
+
+
+
+
+
+DE MODULES/THIRD PARTY PACKAGES...
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO...
+
+
+
+
+
+
+
+isso feito,
+
+
+
+
+IMPORTADAS ESSAS FUNCTIONALITIES,
+
+
+o professor define a class de 'DiskStorage',
+
+
+QUE TEM 1 CONSTRUCTOR E VÁRIOS METHODS PARA 
+
+
+A CRIAÇÃO 
+
+DE DIRECTORIES 
+
+
+
+E INSERÇÃO DE FILES...
+
+
+
+
+
+
+
+
+
+
+--> também tem methods que handlam 
+
+
+as completion operations e errors...
+
+
+
+
+
+
+
+--> NO FINAL, O PROFESSOR INSTANCIA 
+
+
+ESSA CLASS 2 VEZES,
+
+PARA TERMOS 
+
+
+
+2 DIFERENTES STORAGES,
+
+2 DIFERENTES 
+FOLDERS,
+
+E AÍ 
+
+
+INSERE 
+2 
+
+FILES 
+
+
+
+EM CADA 
+
+1 DESSES 
+
+
+
+
+FOLDERS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O QUE PODEMOS PERCEBER É QUE 
+
+TEMOS ALGUMAS BLANK LINES 
+
+
+entre 
+
+
+
+as partes do código...
+
+
+
+
+
+
+
+
+
+
+--> VC DEVE TER 
+
+
+ESSAS BLANK LINES...
+
+
+
+
+
+
+--> ELAS DEIXAM O CÓDIGO BEM MAIS READABLE...
+
+
+
+
+
+
+
+
+
+
+
+
+AGORA CONSIDERE ESTA VERSÃO ALTERNATIVA DESSA FILE:
+
+
+const path = require('path');
+const fs = require('fs');
+class DiskStorage {
+  constructor(storageDirectory) {
+    this.storagePath = path.join(__dirname, storageDirectory);
+    this.setupStorageDirectory();
+  }
+  setupStorageDirectory() {
+    if (!fs.existsSync(this.storagePath)) {
+      this.createStorageDirectory();
+    } else {
+      console.log('Directory exists already.');
+    }
+  }
+  createStorageDirectory() {
+    fs.mkdir(this.storagePath, this.handleOperationCompletion);
+  }
+  insertFileWithData(fileName, data) {
+    if (!fs.existsSync(this.storagePath)) {
+      console.log("The storage directory hasn't been created yet.");
+      return;
+    }
+    const filePath = path.join(this.storagePath, fileName);
+    fs.writeFile(filePath, data, this.handleOperationCompletion);
+  }
+  handleOperationCompletion(error) {
+    if (error) {
+      this.handleFileSystemError(error);
+    } else {
+      console.log('Operation completed.');
+    }
+  }
+
+  handleFileSystemError(error) {
+    if (error) {
+      console.log('Something went wrong - the operation did not complete.');
+      console.log(error);
+    }
+  }
+}
+const logStorage = new DiskStorage('logs');
+const userStorage = new DiskStorage('users');
+setTimeout(function () {
+  logStorage.insertFileWithData('2020-10-1.txt', 'A first demo log entry.');
+  logStorage.insertFileWithData('2020-10-2.txt', 'A second demo log entry.');
+  userStorage.insertFileWithData('max.txt', 'Maximilian Schwarzmüller');
+  userStorage.insertFileWithData('maria.txt', 'Maria Jones');
+}, 1500);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICAMOS COM 1 ARQUIVO BEM MAIS DIFÍCIL DE LER...
+
+
+
+
+
+
+
+
+
+--> não removemos indentation, e sim só as 
+
+blank lines...
+
+
+
+
+
+
+
+
+
+e isso já nos mostra 
+
+o quão importante é o vertical space no nosso código...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->> devemos colocar blank space 
+
+entre 
+
+as áreas de nosso código...
+
+
+
+
+
+
+
+
+
+CERTO... FAZ SENTIDO...
+
+
+
+
+
+
+
+
+
+
+
+-> DEVE-SE ADICIONAR BLANK LINES ENTRE A DEFINIÇÃO DO CONSTRUCTOR 
+
+
+
+E O RESTO DOS METHODS..
+
+
+
+
+
+
+
+
+
+
+--> CERTO... ISSO TUDO DEIXA BEM CLARO QUE SÃO DIFERENTES METHODS,
+
+E NÃO 
+
+1 
+
+METHOD GIGANTE...
+
+
+
+
+
+
+
+
+CERTO...
+
+
+
+
+
+
+
+AÍ VAMOS ADICIONANDO ESPAÇOS, TAMBÉM 
+
+ENTRE 
+
+
+
+
+AS INSTÂNCIAS DO OBJECT..
+
+
+
+
+
+
+
+
+
+
+É CLARO QUE DEVEMOS ESTRUTURAR 
+
+NOSSO CÓDIGO 
+
+
+
+DE MODO QUE ISSO FAÇA SENTIDO PARA NÓS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+REGRA 3:  CONCEITOS _SIMILARES, POR OUTRO LADO,
+
+
+NÃO DEVEM SER SEPARADOS POR SPACING...
+
+
+
+
+
+
+
+EXEMPLO É ISTO:
+
+
+
+
+
+const logStorage = new DiskStorage('logs');
+const userStorage = new DiskStorage('users');
+
+setTimeout(function () {
+  logStorage.insertFileWithData('2020-10-1.txt', 'A first demo log entry.');
+  logStorage.insertFileWithData('2020-10-2.txt', 'A second demo log entry.');
+  userStorage.insertFileWithData('max.txt', 'Maximilian Schwarzmüller');
+  userStorage.insertFileWithData('maria.txt', 'Maria Jones');
+}, 1500);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO TEMOS O MESMO TIPO DE OPERAÇÃO,
+
+
+NÃO HÁ NENHUMA RAZÃO PARA TER 
+
+ SEPARAÇÃO 
+
+
+ DE LINHAS, AQUI....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ REGRA 4: TAMBÉM DEVEMOS TER 'RELATED CONCEPTS'
+
+
+
+ _ PRÓXIMOS 1 DOS OUTROS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> de fato, 
+
+ SE OBSERVARMOS ESSA FILE DEMO,
+
+
+
+ no constructor,
+
+
+
+ O PROFESSOR 
+
+ CHAMA O METHOD DE 
+
+ 'setupStorageDirectory'...
+
+
+
+
+
+
+
+
+ 'this.setupStorageDirectory()'...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> DENTRO DESSE METHOD,
+
+ o PROFESSOR CHAMA O 'createStorageDirectory()'...
+
+
+
+
+
+ --> E ESSE METHOD É O PRÓXIMO NA LINHA...
+
+
+
+
+
+
+ -> temos 1 cascata entre methods que vão sendo chamados...
+
+
+
+
+
+
+
+
+
+
+
+ --> QUER DIZER QUE O PROFESSOR MANTÉM 
+
+ ESSES METHODS QUE CHAMAM 1 AO OUTRO 
+
+
+ __PRÓXIMOS UNS DOS OUTROS... na medida do possível...
+
+
+
+
+
+
+
+
+
+
+ --> NÃO DEVEMOS TER 'JUMPS' NAS NOSSAS FILES... --> QEUREMOS QUE 
+
+ TUDO SEJA LIDO 1 ATRÁS DO OUTRO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ COM ESSE CONCEITO DE 'TER COISAS PRÓXIMAS UMA DAS OUTRAS',
+
+
+
+
+ TOCAMOS NO ASSUNTO DE 'ORDERING' --> A ORDER 
+ DE COISAS 
+
+
+
+ TAMBÉM É IMPORTANTE,
+
+ QUANDO ESTRUTURAMOS 
+
+ NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> A ORDEM DAS COISAS TAMBÉM DEPENDE DA 
+
+ LANGUAGE QUE ESTAMOS USANDO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+ EXEMPLO: 
+
+
+ SE TIVERMOS PUBLIC E PRIVATE PROPERTIES,
+
+ GERALMENTE AS PUBLIC 
+
+
+ PROPERTIES 
+
+
+
+
+ VEM ANTES...
+
+
+ ou o contrário...
+
+
+
+
+
+
+
+
+ vc deve checar os STYLE GUIDES DE SUA PROGRAMMING LANGUAGE...
