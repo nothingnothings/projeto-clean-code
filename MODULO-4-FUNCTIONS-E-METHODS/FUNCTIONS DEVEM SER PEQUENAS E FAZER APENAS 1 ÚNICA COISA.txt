@@ -1,0 +1,1928 @@
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AGORA QUE 
+
+OLHAMOS UM MONTE A QUESTÃO DOS FUNCTION PARAMETERS E ARGUMENTS,
+
+
+DEVEMOS 
+
+
+ESTUDAR 
+
+
+A PARTE 
+
+DOS FUNCTION BODIES...
+
+
+
+
+
+
+
+
+
+
+
+
+PQ QUANDO FALAMOS SOBRE CLEAN FUNCTIONS E 
+O WRITE 
+
+DE CLEAN FUNCTIONS,
+
+
+
+É ÓBVIO QUE 
+
+
+OS FUNCTION BODIES 
+
+
+
+
+
+SÃO EXTREMAMENTE IMPORTANTES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O FUNCTION BODY COMPÕE 
+
+A MAIOR PARTE 
+
+DAS FUNCTIONS..
+
+
+
+
+
+
+
+
+
+-> MAS COMO PODEMOS ASSEGURAR QUE 
+
+O CÓDIGO DENTRO DE UMA FUNCTION É 'CLEAN'?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PRIMEIRA COISA:
+
+
+
+
+
+
+
+
+
+
+FUNCTIONS DEVEM SER PEQUENAS___...
+
+
+
+
+
+
+
+
+
+
+SE FUNCTIONS FICAM MT GRANDES,
+
+
+
+FICA BEM MAIS DIFÍCIL COMPREENDER SEU CONTEÚDO...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+function renderContent(renderInformation) {
+  const element = renderInformation.element;
+  if (element === 'script' || element === 'SCRIPT') {
+    throw new Error('Invalid element.');
+  }
+
+  let partialOpeningTag = '<' + element;
+
+  const attributes = renderInformation.attributes;
+
+  for (const attribute of attributes) {
+    partialOpeningTag =
+      partialOpeningTag + ' ' + attribute.name + '="' + attribute.value + '"';
+  }
+
+  const openingTag = partialOpeningTag + '>';
+
+  const closingTag = '</' + element + '>';
+  const content = renderInformation.content;
+
+  const template = openingTag + content + closingTag;
+
+  const rootElement = renderInformation.root;
+
+  rootElement.innerHTML = template;
+}
+
+
+
+
+
+
+
+
+
+--> ESSA FUNCTION É GRANDE...
+
+
+
+
+
+FAZ UM MONTE DE COISAS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... É UMA FUNCTION QUE FAZ RENDER DE 1 ELEMENTO NO DOM...
+
+
+
+
+
+
+
+
+
+
+
+
+-> ele renderiza  algo assim:
+
+
+
+
+
+<root-element>
+<element>
+content
+</element>
+</root-element>
+
+
+
+
+
+
+
+
+
+
+
+
+
+NÃO É IMPOSSÍVEL ENTENDER ESSA FUNCTION,
+
+
+
+
+
+
+
+
+MAS DEMORAMOS 1 POUCO...
+
+
+
+
+
+
+
+
+
+
+
+
+-> É UMA DUMMY FUNCTION QUE RENDERIZA 1 CONTEÚDO HTML...
+
+
+
+
+
+
+
+
+
+-> ELE CHECA SE NENHUM SCRIPT 
+
+
+ELEMENT ESTÁ SENDO RENDERIZADO.... SE NÃO É 1 
+
+
+SCRIPT ELEMENT,
+
+ELE NÃO DÁ 
+THROW 
+
+DE ERROR...
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS DISSO,
+
+
+AS HTML tags 
+
+SÃO 
+
+CONSTRUÍDAS (
+    com opening e closing tags
+)
+
+
+
+
+
+
+
+
+-> A OPENING TAG É CONSTRUÍDA POR MEIO 
+
+DO ADD 
+
+DE QUAISQUER 
+
+
+ATTRIBUTES 
+
+QUE 
+
+DEVAM SER ADICIONADOS 
+
+A ESSE 
+
+
+ELEMENTO...
+
+
+
+
+
+
+
+
+
+
+-> AÍ ELE CRIA ' TEMPLATE',
+
+por meio 
+
+do 
+
+combine 
+
+de 
+
+'openingTag + content + closingTag'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FEITO,
+
+
+ESSE TEMPLATE É __ ATTACHEADO 
+
+A 
+1 
+
+'ROOT ELEMENT '--->  E ESSE rootElement,
+
+
+
+portanto, 
+
+
+É 
+
+
+KINDA 
+
+
+1 
+
+OUTPUT PARAMETER (apesar de isso ser aceitável, nesse caso)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+APESAR DE USAR BONS NOMES,
+
+BOM FORMATTING E TUDO MAIS,
+
+
+
+ESSA FUNCTION AINDA 
+
+NÃO É TOTALMENTE CLEAN...
+
+
+
+
+
+
+
+
+
+
+
+NÃO É CLEAN PQ DEMORAMOS UM MONTE PARA 
+
+
+COMPREENDER o 
+
+
+
+código dela...
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA VEJA O MESMO CÓDIGO, MAS COM OUTSOURCING:
+
+
+
+
+
+
+function renderContent(renderInformation) {
+  const element = renderInformation.element;
+  const rootElement = renderInformation.root;
+
+  validateElementType(element);
+
+  const content = createRenderableContent(renderInformation);
+
+  renderOnRoot(content, rootElement);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... VÁRIAS PARTES DESSE CÓDIGO FORAM OUTSOURCEADAS 
+
+
+PARA 
+
+
+
+
+
+LUGARES DIFERENTES...
+
+
+
+
+
+
+
+
+
+
+
+--> VC SERIA CAPAZ DE 
+
+ENTENDER 
+
+
+O QUE ESSA FUNCTION 
+
+
+
+
+
+___ FAZ _ MT 
+
+
+MAIS RÁPIDO DO QUE 
+
+
+A OUTRA FUNCTION,
+
+COM TUDO 
+
+EM 
+
+
+1 FUNCTION SÓ..
+
+
+
+
+
+
+
+
+
+
+-> E ISSO FICA FÁCIL DE ENTENDER 
+
+
+
+
+
+
+
+ATÉ MESMO COM AS EXTRACTED FUNCTIONS COLOCADAS NA TELA:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function renderContent(renderInformation) {
+  const element = renderInformation.element;
+  const rootElement = renderInformation.root;
+
+  validateElementType(element);
+
+  const content = createRenderableContent(renderInformation);
+
+  renderOnRoot(content, rootElement);
+}
+
+function validateElementType(element) {
+  if (element === 'script' || element === 'SCRIPT') {
+    throw new Error('Invalid element.');
+  }
+}
+
+function createRenderableContent(renderInformation) {
+  const openingTag = createOpeningTag(renderInformation);
+  const closingTag = createClosingTag(renderInformation);
+  const content = renderInformation.content;
+
+  const template = openingTag + content + closingTag;
+
+  return template;
+}
+
+function renderOnRoot(content, rootElement) {
+  rootElement.innerHTML = content;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+É BEM FÁCIL ENTENDER que 
+
+
+
+'renderContent'
+
+
+VALIDA 
+
+
+O TIPO DE ELEMENTO,
+
+
+
+
+
+
+depois 
+
+
+
+__ ELE __ CRIA O 'RENDERABLE CONTENT' (o conteúdo que deve ser outputtado),
+
+
+e aí 
+
+RENDERIZAMOS 
+
+
+
+
+ESSE ELEMENT COM A FUNCTION DE 'renderOnRoot()"...
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function renderContent(renderInformation) {
+  const element = renderInformation.element;
+  const rootElement = renderInformation.root;
+
+  validateElementType(element);
+
+  const content = createRenderableContent(renderInformation);
+
+  renderOnRoot(content, rootElement);
+}
+
+function validateElementType(element) {
+  if (element === 'script' || element === 'SCRIPT') {
+    throw new Error('Invalid element.');
+  }
+}
+
+function createRenderableContent(renderInformation) {
+  const tags = createTags(
+    renderInformation.element,
+    renderInformation.attributes
+  );
+
+  const content = renderInformation.content;
+
+  const template = tags.opening + content + tags.closing;
+
+  return template;
+}
+
+function renderOnRoot(content, rootElement) {
+  rootElement.innerHTML = content;
+}
+
+function createTags(element, attributes) {
+  const attributeList = generateAttributeList(attributes);
+  const openingTag = BuildTag({
+    element: element,
+    attributes: attributeList,
+    isOpening: true,
+  });
+
+  const closingTag = BuildTag({
+    element: element,
+    isOpening: false,
+  });
+
+  return { opening: openingTag, closing: closingTag };
+}
+
+function generateAttributeList(attributes) {
+  let attributeList = '';
+
+  for (const attribute of attributes) {
+    attributeList = `${attributeList} ${attribute.name}= "${attribute.value}"`;
+  }
+
+  return attributeList;
+}
+
+function BuildTag(tagInformation) {
+  const element = tagInformation.element;
+  const attributes = tagInformation.attributes;
+  const isOpening = tagInformation.isOpening;
+
+  let tag;
+
+  if (isOpening) {
+    tag = '<' + element + attributes + '>';
+  } else {
+    tag = '</' + element + '>';
+  }
+
+  return tag;
+}
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO OVERALL CRESCEU, SIM,
+
+
+
+MAS 
+
+
+CADA 
+
+FUNCTION FICOU MAIS SIMPLES..
+
+
+
+
+
+
+
+
+
+O PROPÓSITO DE ESCREVER CLEAN CODE É JUSTAMENTE 
+
+
+
+NÃO PRECISAR 
+
+'READ ALL RELATED CODE'...
+
+
+
+
+
+
+
+
+
+
+(
+
+
+    podemos focar apenas nas functions que interessam...
+
+
+)
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE 
+
+
+
+ESSA FUNCTION FICOU BEM MAIS SIMPLES 
+
+DO QUE O EXEMPLO ANTERIOR...
+
+
+
+
+
+
+
+
+
+E CADA FUNCTION FICOU FOCUSED E STRAIGHTFORWARD,
+
+
+E MAIS FÁCIL DE ENTENDER...
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE FUNCTIONS CLEAN DEVEM SER PEQUENAS...
+
+
+
+
+
+
+
+
+
+
+--> E OBTEMOS ISSO ATRAVÉS DO SPLIT DE NOSSA LÓGICA EM MÚLTIPLAS FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... MAS AGORA DEVEMOS CONTEMPLAR:
+
+
+
+
+
+''COMO SEI QUE CÓDIGO DEVO COLOCAR EM OUTRAS FUNCTIONS''????
+
+
+
+
+
+
+
+
+
+
+BEM,
+
+AQUI,
+
+PARA 
+
+ESCREVER FUNCTIONS SIMPLES E PEQUENAS,
+
+
+
+
+DEVEMOS TER 1 REGRA:
+
+
+
+
+
+
+
+
+
+
+
+
+'''FUNCTIONS DEVEM FAZER EXATAEMNTE 1 ÚNICA COISA'''....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS O QUE É 'ONE THING'?
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO PQ,
+
+SE OLHARMOS A FUNCTION 
+
+
+
+DE 
+
+
+
+'function renderContent(renderInformation) {
+  const element = renderInformation.element;
+  const rootElement = renderInformation.root;
+
+  validateElementType(element);
+
+  const content = createRenderableContent(renderInformation);
+
+  renderOnRoot(content, rootElement);
+}
+
+',
+
+
+
+
+
+
+É 
+
+
+FÁCIL ARGUMENTAR QUE ESSA FUNCTION ESTÁ FAZENDO 
+
+
+MAIS DO QUE 
+
+1 ÚNICA COISA...
+
+
+
+
+
+
+
+
+PQ ELA ESTÁ:
+
+
+
+
+1) VALIDANDO 
+O ELEMENT TYPE 
+
+
+
+2) CRIANDO RENDABLE CONTENT 
+
+
+
+
+3) OUTPUTTANDO 
+
+
+
+ESSE CONTENT 
+
+
+
+EM 1 ROOT ELEMENT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> VOCÊ PODERIA ARGUMENTAR QUE ISSO 
+
+ESTÁ FAZENDO 3 COISAS, EM VEZ DE 1 COISA SÓ...
+
+
+
+
+
+
+
+
+
+
+
+
+EM PROGRAMAÇÃO, 
+
+É COMUM 
+
+TER 
+
+
+FUNCTIONS QUE INICIAM MÚLTIPLAS OPERATIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O OBJETIVO NÃO É 
+
+ESCREVER FUNCTIONS COM APENAS 1 LINHA DE CÓDIGO...
+
+
+
+
+
+
+
+-> ISSO É IRREALISTA,
+
+E ABSURDO...
+
+
+
+
+
+
+
+
+
+
+
+--> EM VEZ DISSO,
+
+
+
+
+DEVEMOS PENSAR NAS 'DIFERENTES OPERAÇÕES QUE 1 FUNCTION FARÁ'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex: 'VALIDATE + SAVE USER INPUT'...
+
+
+
+
+
+
+
+
+
+---> PODEMOS ARGUMENTAR QUE ISSO É 2 OPERATIONS DIFERENTES...
+
+
+
+
+
+
+
+
+
+-> MAS NÃO OLHAMOS AS DIFERENTES OPERATIONS... EM VEZ DISSO,
+
+
+COMBINAMOS 
+
+A 
+
+IDEIA 
+
+
+
+
+DE 
+
+'FAZER APENAS 1 ÚNICA COISA'
+
+
+
+
+
+COM A IDEIA DE 'NÍVEIS DE ABSTRAÇÃO'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''DEVEMOS OLHAR OS NÍVEIS DE ABSTRAÇÃO DE NOSSA FUNCTION/FUNCTIONS''...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESSE CONCEITO,
+
+DE NÍVEIS DE ABSTRAÇÃO DE OPERATIONS DENTRO DE 1 FUNCTION,
+
+
+
+
+ELE NOS AJUDA 
+
+
+ A DECIDIR 
+
+
+ 
+
+ ACERCA DE 'QUANDO NOSSO CÓDIGO DEVE SER SPLITTADO EM MAIS FUNCTIONS'..
+
+
+
+
+
+
+
+
+
+
+
+
+--> AQUI TEMOS 1 EXEMPLO:
+
+
+
+
+
+
+
+email.includes(@)
+
+saveUser(email, password)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE EXAMINARMOS ESSAS 2 OPERAÇÕES,
+
+VEREMOS QUE 
+
+
+
+'email.includes()"
+
+É UMA 
+
+operação API
+
+
+BEM 'low level'
+
+EM CIMA 
+
+
+DE UMA __ STRING... --------> EM JAVASCRIPT,
+
+
+
+'includes()'
+É UM METHOD 
+
+
+
+BUILT-IN QUE PDEMOS CHAMAR EM STRINGS 
+
+
+
+para checar 
+
+SE 
+
+
+
+__ 1 STRING CONTÉM CERTO CARACTER OU TEXT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA 'saveUser'
+
+
+É UM CONCEITO BEM MAIS 'HIGH-LEVEL '-->  É UMA 
+
+
+FUNCTION 
+
+DEFINIDA POR NÓS,
+
+DESENVOLVEDORES,
+
+
+PARA __ SALVAR 1 USER... --> QUER DIZER QUE __ NÃO ESTAMOS USANDO 
+
+
+1 
+API LOW LEVEL BUILT-In,
+
+AQUI...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ISSO SÃO NÍVEIS DE ABSTRAÇÃO...
+
+
+
+
+
+
+
+
+
+
+TEMOS NÍVEIS __ aLTOS DE ABSTRAÇÃO 
+
+
+
+
+
+E 
+
+
+
+
+NÍVEIS BAIXOS DE ABSTRAÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> níveis altos de abstração, 'linguagens de nível alto'...
+
+
+
+
+
+
+
+
+
+
+
+
+HIGH-LEVEL OPERATIONS --> SÃO OPERATIONS EM QUE 
+
+APENAS CHAMAMOS 1 
+
+METHOD OU FUNCTION,
+
+
+
+
+
+QUE 
+
+
+TEM UM ___ NOME ESPECÍFICO,
+
+E QUE 
+
+AÍ FAZ ALGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+JÁ UMA 'LOW-LEVEL OPERATION'
+
+
+
+REALMENTE 
+
+
+MERGULHA 
+
+NOS METHODS 
+
+'LOW-LEVEL API'/OPERAÇÕES 
+
+
+
+
+DE 1
+ 
+
+GIVEN PROGRAMMING LANGUAGE (oferecida pela programmin language)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+VEJA ISTO COM ESTE EXEMPLO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) isEmail(email) -----> ESSA FUNCTION NÃO EXISTE NO LOW-LEVEL 
+
+
+DE NOSSA LANGUAGE --> NÓS __ NÃO CONTROLAMOS 'COMO O EMAIL É VALIDADO',
+
+
+E SIM __ APENAS __ 'QUEREMOS QUE SEJA VALIDADO'...
+
+
+
+
+
+(
+
+    NÃO SABEMOS O QUE ESTÁ ACONTECENDO DENTRO DO METHOD 
+
+    'isEmail()',
+
+
+
+    __ ESTAMOS APENAS __ INTERESSADOS NO RESULTADO...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) email.includes('@') -----> COM ESSE EXEMPLO LOW-LEVEL,
+
+
+REALMENTE CONTROLAMOS 'COMO O EMAIL É VÁLIDADO' --> PQ ESSE É O 
+
+CÓDIGO CONCRETO
+ 
+
+
+
+QUE DECIDE SE O EMAIL É VÁLIDO OU NÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS A COISA INTERESSANTE COM ESSE EXEMPLO 'LOW-LEVEL'
+
+
+
+
+
+É QUE __ 
+
+
+
+ELE NÃO SE IMPORTA 
+
+
+COM O FATO DE 
+
+
+TER SIDO USADO __ 1 EMAIL COM SEU METHOD...
+
+
+
+
+
+
+
+
+
+
+
+
+-->  PODERIA SER QUALQUER STRING 
+
+ENFIADA NESSE '.includes()'...
+
+
+
+
+
+
+
+
+
+
+--> PODE SER CHAMADO EM QUALQUER STRING..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SOMOS NÓS, COMO DESENVOLVEDORES,
+
+
+QUE __ ADICIONAMOS 
+
+
+
+SIGNIFICADO,
+
+POR MEIO 
+
+DA
+
+
+INTERPRETAÇÃO DO RESULT...
+
+
+
+
+
+
+
+
+
+
+
+
+'email.includes('@')' --> AH, ISSO É 1 CÓDIGO DE VALIDAÇÃO DE 1 EMAIL...
+
+
+
+
+
+MAS ISSO É UM SIGNIFICADO EXTRA QUE EU, COMO DESENVOLVEDOR,
+
+
+ATRIBUÍ
+
+A ESSA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+-> PQ 'includes()',
+
+POR SI SÓ,
+
+
+O NOME DESSE METHOD,
+
+
+
+NÃO TRAZ NENHUM SIGNIFICADO 
+
+além 
+
+de 
+
+'1 CERTA STRING 
+
+TEM CERTO CARACTER'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+já 'isEmail',
+
+POR OUTRO LADO,
+É DE FÁCIL 
+
+LEITURA,
+
+E NÃO HÁ ESPAÇO PARA INTERPRETATION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+'isEmail' --> É CLARO QUE QUERO CHECAR SE É 1 EMAIL OU NÃO,
+
+
+SE É TRUE OU FALSE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AGORA COM '.includes()',
+
+
+
+
+É TECNICAMENTE CLARO QUE 
+
+ELE 
+
+CHECA 
+
+A PRESENÇA DE 
+
+1 '@" 
+
+
+DENTRO 
+
+DE UMA STRING ---------> MAS 
+
+A 
+
+
+INTERPRETAÇÃO  DE QUE 
+
+''ISSO SIGNIFICA QUE 
+
+
+1 EMAIL ADDRESS É OU NÃO VÁLIDO'',
+
+
+
+ISSO É UMA INTERPRETAÇÃO 
+
+QUE 
+
+DEVE 
+
+SER ADICIONADA 
+
+
+
+PELO LEITOR/DESENVOLVEDOR ------------> É POR ISSO QUE 
+
+
+É UMA OPERAÇÃO 
+
+'LOW-LEVEL',
+
+
+
+PQ 
+
+
+
+DEVEMOS OBRIGATORIAMENTE 
+
+
+
+
+__ ADICIONAR SIGNIFICADO, MENTALMENTE,
+
+
+NESSAS OPERATIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+JÁ 'HIGH LEVEL' OPERATIONS,
+
+NELAS 
+
+O SIGNIFICADO É 'BAKED-IN'
+
+
+nas 
+
+
+operations...
+
+
+
+
+
+
+
+
+
+
+-> OK...
+
+
+
+
+ESSA É A DIFERENÇA ENTRE AS DUAS...
+
+
+
+
+ 
+ NO CASO DO LOW-LEVEL,
+
+
+
+
+
+ SABEMOS '''' O QUE ESTÁ SENDO EFFECTIVELY FEITO'' (e é seu trabalho 
+ entender PQ ISSO ESTÁ SENDO EXECUTADO, QUAL É O OBJETIVO),
+
+
+
+
+
+
+
+ E 
+
+ NO HIGH LEVEL 
+
+ APENAS 
+
+ SABEMOS 
+
+
+ O 'RESULTADO',
+
+ E 
+
+ A 
+
+ TASK QUE DEVE SER EXECUTADA...
+
+
+
+
+
+
+
+
+
+
+
+ --> E VC NÃO DEVE ESCREVER APENAS 
+
+ 'HIGH LEVEL CODE'...
+
+
+
+
+
+
+
+
+
+
+
+ --> PQ LOW LEVEL CODE TAMBÉM PODE SER BEM UNDERSTANDABLE,
+
+ SE VC O ESCREVER NO LUGAR CORRETO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> OK... MAS VEREMOS ISSO NA PRÓXIMA AULA,
+
+
+ A RAZÃO 
+
+
+ DE 
+
+
+ ESSA DIFERENCIAÇÃO DE 'LEVEL'
+
+
+ IMPORTAR,
+
+
+ 
+
+
+
+
+
+
+
+ OS NÍVEIS DE ABSTRAÇÃO IMPORTAM,
+
+
+
+ E SOBRE QUANDO DEVEMOS ESCREVER CADAA TIPO DE CODE...
