@@ -1,0 +1,981 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... VAMOS COMEÇAR COM O PONTO DE 
+
+
+
+
+
+
+'''FUNCTIONS DEVEM SER FACILMENTE CHAMADAS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> IMPORTAM:
+
+
+
+
+
+
+1) O NÚMERO DE ARGUMENTOS 
+
+
+
+
+2) A ORDEM DOS ARGUMENTOS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ESCREVER CLEAN CODE E PARA SER 
+
+CAPAZ DE 
+
+CHAMAR FUNCTIONS DE MANEIRA CLEAN E UNDERSTANDABLE,
+
+VC DEVE 
+
+
+
+
+
+
+
+
+
+
+
+
+__________MINIMIZAR __ O NÚMERO DE PARAMETERS QUE 
+
+
+SUA FUNCTION USA..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PQ QUANTO MAIS 
+
+PARAMETERS 1 FUNCTION USA/EXPECTS,
+
+
+
+
+
+__ MAIS DIFÍCIL FICA CHAMAR _ ESSA FUNCTION ----> 
+
+
+
+QUANDO DIZEMOS 
+
+HARDER,
+
+QUEREMOS 
+
+DIZER 
+
+
+
+
+'''FICA MAIS DIFÍCIL DE MEMORIZAR 
+
+__ QUAL VALUE DEVE SER PASSADO __ PARA 
+
+CADA ARGUMENT''' --> 
+
+
+
+
+
+
+ALÉM DISSO, VC FICA COM 1 MONTE DE CÓDIGO 
+
+
+A SER ESCRITO,
+
+
+
+E TUDO ISSO 
+
+
+
+LEVA A MAIS CÓDIGO QUE 
+
+VC 
+
+PRECISA LER E TER EM MENTE (ex: callbacks do fidelizou.me)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TODOS CONCORDAMOS QUE CHAMAR 1 FUNCTION/METHOD SEM NENHUM 
+
+PARAMETER É MT SIMPLES:
+
+
+
+
+
+
+
+
+
+
+
+
+
+console.log()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR EXEMPLO, SE TEMOS 1 USER OBJECT,
+
+e dentro 
+
+
+
+desse OBJECT
+
+
+
+temos 1 method de '.save()',
+
+
+ISSO FICA 
+
+MT FÁCIL DE 
+
+CHAMAR 
+
+E LER:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+user.save();
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÃO TEMOS QUE PASSAR MÚLTIPLOS VALUES E LEMBRAR DA ORDEM CORRETA,
+
+
+
+
+PQ _ TEMOS APENAS 1 FUNCTION CALL,
+
+SEM NENHUM PARAM... BEM FÁCIL DE ENTENDER,
+
+
+E FÁCIL 
+
+
+
+DE CHAMAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE ESSA É A MELHOR MANEIRA DE CHAMAR 
+
+1 FUNCTION,
+
+
+
+
+
+MAS O PROFESSOR JÁ NOS APONTA QUE 
+
+'''ISSO NÃO É SEMPRE POSSÍVEL'''...
+
+
+
+
+
+
+
+---> AINDA ASSIM,
+
+
+
+ÀS VEZES VC CONSEGUE 
+
+
+
+
+ESCREVER FUNCTIONS ASSIM,
+
+
+
+
+
+E, SE CONSEGUIR,
+
+FAÇA-O...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A SEGUNDA MELHOR OPÇÃO É 
+
+
+
+
+
+
+
+
+
+
+
+2) FUNCTIONS COM 1 ÚNICO ARGUMENTO...
+
+
+
+
+
+
+
+
+
+
+
+ex: 
+'log(message)'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO AINDA É MT FÁCIL DE ENTENDER,
+
+
+
+E 
+
+
+FÁCIL DE CHAMAR...
+
+
+
+
+
+
+
+
+
+
+--> SÓ TEMOS QUE CHAMAR 1 ÚNICO VALUE,
+
+E SE VC LÊ ESSE CÓDIGO, AINDA É BEM CLARO O QUE ELE FAZ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AS COISAS COMEÇAM A FICAR TRICKY A PARTIR DE 2 PARAMETERS...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+Point(10, 20)...
+
+
+
+
+
+
+
+
+
+
+
+
+OK... É UM CONSTRUCTOR,
+
+A QUE 
+
+PASSAMOS 2 
+
+ARGUMENTS... 
+
+
+
+
+
+
+
+
+
+
+--> ISSO É OK DE ENTENDER,
+
+PQ 
+
+
+
+É _ KINDA _ COMMON SENSE QUE 
+
+O 
+
+X 
+
+SERÁ O PRIMEIRO VALUE,
+
+E O 
+
+Y 
+
+SERÁ O SEGUNDO VALUE...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO,
+
+AINDA EXISTE 1 ORDER... 
+
+
+
+
+
+
+
+
+
+--> É ACCEPTABLE CHAMAR ISSO,
+
+MAS VC 
+TALVEZ TENHA 
+QUE 
+
+PENSAR NISSO POR 1 SEGUNDO,
+
+PARA ASSEGURAR 
+QUE 
+
+O 
+
+
+PRIMEIRO 
+
+VALUE É O X,
+
+E O SEGUNDO É O Y (nesse caso aí)..
+
+
+
+
+
+
+
+
+
+
+É POR ISSO QUE, COM FUNCTIONS COM MAIS DE 1 ARGUMENTO,
+
+
+DEVEMOS 
+
+CHAMAR COM CUIDADO... -> DEVEMOS PENSAR BEM 
+
+
+
+'QUAL ARGUMENTO É O QUE'..
+
+
+
+
+
+
+
+
+
+
+
+
+-> PQ EM ALGUMAS FUNCTIONS, NÃO SERÁ TÃO CLARA 
+
+A ORDEM 
+
+DE ARGUMENTS 
+
+
+
+
+NELAS...
+
+
+
+
+
+
+
+
+-> isso pode se tornar menos fácil, portanto...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AGORA DIGAMOS QUE TEMOS 3 ARGUMENTS:
+
+
+
+
+
+
+
+
+
+4) 3 ARGUMENTS EM 1 FUNCTION ----> QUANDO CHEGAMOS A ESSE 
+
+PONTO,
+
+
+FICA BEM DIFÍCIL JUSTIFICAR 
+
+
+A NECESSIDADE 
+
+DE 3 PARAMS 
+
+EM FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+calc(5, 10, add) 
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS 2 PARAMETERS,
+
+E AÍ 1 
+PARAMETER QUE 
+
+DEFINE QUE TIPO DE CÁLCULO QUEREMOS 
+
+RODAR...
+
+
+
+
+
+
+
+
+
+
+--> ESSE TIPO DE FUNCTION É 
+
+CHALLENGING 
+
+DE 
+
+COMPREENDER,
+
+E 
+
+CHALLENGING DE CHAMAR...
+
+
+
+
+
+
+
+
+--> SE LERMOS 
+
+
+A FUNCTION E O TYPE FOR DE 'ADD',
+
+
+AS COISAS SÃO SIMPLES...
+
+
+
+
+
+
+
+
+
+
+
+MAS SE O TYPE FOR DE 'subtract',
+
+JÁ FICA DIFÍCIL 
+
+
+DE SABER 
+
+
+'QUAL NUMBER É SUBTRAÍDO DE QUAL NUMBER'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS ESPECIALMENTE QUANDO CHAMAMOS ISSO,
+
+
+AS COISAS FICAM 
+
+DIFÍCEIS 
+DE ENTENDER 
+
+PQ __ A ORDER NÃO É ÓBVIA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROVAVELMENTE TEREMOS DE DIVAR NO CÓDIGO,
+OU 
+
+
+
+USAR ALGUMAS IDE FEATURES,
+
+PARA 
+
+ENTENDER 
+
+
+'EM QUE 
+
+LUGAR ALGUMA COISA VAI'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR EXEMPLO, O TIPO DE CÁLCULO (add, subtract),
+
+
+
+PODERIA
+ 
+ SER 
+
+ O PRIMEIRO PARÂMETRO...
+
+
+
+
+
+
+
+--> ESSA NÃO É UMA COMMON FUNCTION,
+
+POR ISSO NÃO SABEMOS SE O PARAMETER DE 'add' 'subtract'
+ 
+
+
+ vai ser o primeiro ou o último, etc..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> VC TERÁ ESSE TIPO DE FUNCTIONS 
+
+
+
+EM ALGUNS CASOS,
+
+SIM,
+
+
+
+
+MAS SERÃO EM MENOR NÚMERO DO QUE FUNCTIONS COM 
+
+
+1 OU 2 PARAMETERS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O ÚLTIMO TIPO DE FUNCTION:
+
+
+
+
+
+
+
+
+
+
+5) FUNCTIONS COM MAIS DE 3 PARAMETERS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+coords(10, 3, 9, 12)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM 4 PARAMETERS,
+
+NOSSAS FUNCTIONS FICAM BEM DIFÍCEIS DE LER E COMPREENDER,
+
+
+
+
+E AINDA MAIS DE CHAMAR...
+
+
+
+
+
+
+
+
+
+------> É POR ISSO QUE VC SEMPRE VAI QUERER EVITAR 
+
+
+TER FUNCTIONS COM MAIS DO QUE 3 ARGUMENTS...
+
+
+
+
+
+
+
+
+
+
+-> JÁ TENHO 
+
+
+
+
+
+ALGUNS CASOS NA CABEÇA EM QUE 
+
+PENSO 
+
+
+'preciso de mais de 3 pieces of data para essa function'..
+
+
+
+
+
+
+
+
+
+
+
+
+-> BEM, EXISTEM ALGUMAS SOLUÇÕES PARA ESSES TIPOS DE FUNCTIONS,
+
+
+
+QUE 
+
+
+EXIGEM MAIS DO QUE 3 PIECES OF DATA..
