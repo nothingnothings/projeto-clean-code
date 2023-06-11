@@ -1,0 +1,1003 @@
+
+
+
+
+
+
+
+
+
+OK... É CLARO QUE O NÚMERO DE PARAMETERS IMPORTA...
+
+
+
+
+
+ENTRETANTO, ALÉM DISSO,
+
+OUTRA COISA QUE IMPORTA É 
+
+
+O __ NÚMERO DE PARAMETERS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO PQ _ HÁ 1 TIPO ESPECÍFICO 
+
+
+
+
+DE PARAMETER QUE VC VAI QUERER 
+
+
+
+EVITAR...
+
+
+
+
+
+
+
+
+
+--> ESSE TIPO DE PARAMETER É O 
+
+'OUTPUT PARAMETER'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VC DEVE TENTAR EVITAR 
+
+
+
+
+
+OS 'OUTPUT ARGUMENTS' ->  ESPECIALMENTE SE ESSES PARAMETERS 
+
+
+FOREM 
+
+'INESPERADOS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... ISSO PQ, EM CERTOS CASOS,
+
+
+
+TIPICAMENTE QUANDO TRABALHAMOS COM CERTAS THIRD PARTY LIBRARIES 
+
+OU FRAMEWORKS,
+
+
+
+NÃO 
+
+
+SERÁ POSSÍVEL 
+
+
+
+OS EVITAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> MAS ELES NUNCA DEVEM SER 'UNEXPECTED'..
+
+
+
+
+
+
+
+
+
+
+imagine este exemplo:
+
+
+
+
+
+
+
+
+
+
+
+
+
+''''temos 1 function que chamamos,
+
+
+de nome 'createId(user)'''',
+
+
+
+
+ela exige 1 user...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+createId(user)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK ... AGORA ASSUMAMOS QUE ESSA FUNCTION,
+INTERNAMENTE,
+
+
+
+VAI _ ADICIONAR 1 FIELD DE 'id'
+
+
+A ESSE 
+
+OBJECT DE 'user'
+
+
+
+
+
+QUE 
+
+
+
+
+__ ELE ___ RECEBE COMO INPUT...
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+ -> E ISSO __ NÃO É BOM __.... --> NÃO É BOM PQ 
+
+
+ O __ USER _ QUE _ 
+
+
+ FOI PASSADO à FUNCTION ___ ACABA__ MODIFICADO __ POR 
+
+ ELA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> ISSO QUER DIZER QUE A FUNCTION  NÃO RETORNA 
+
+
+
+
+'''1 ID __ PARA O USER __ QUE FOI PASSED IN''',
+
+
+
+e sim 
+
+
+
+
+MANIPULA, INTERNAMENTE,
+
+
+O 
+
+
+USER OBJECT QUE 
+
+RECEBEU...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> o exemplo, em code, é este:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function createId(user) {
+    user.id = 'u1';
+}
+
+
+
+const user = {name: 'Max'}
+
+createId(user)
+
+
+
+console.log(user);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ou seja,
+é uma 
+
+
+
+
+function de 'createId',
+
+
+
+MAS ELA __ MANIPULA __ O 
+
+
+
+VALUE QUE RECEBEU (user)
+
+
+
+
+
+
+
+E DEFINE O VALUE DESSE FIELD COMO ISSO AÍ...
+
+
+
+
+
+
+(
+    e se seu 
+
+    USER 
+
+
+    NÃO TINHA ESSA PROPRIEDADE 
+
+
+    'id',
+
+
+    ELA ACABA ADICIONADA, ASSIM...
+) -----> E ISSO 
+
+
+
+É MT RUIM,
+
+PQ 
+
+
+
+ISSO NÃO É NECESSARIAMENTE ÓBVIO -->  NÃO É ÓBVIO PQ 
+
+
+
+
+
+TALVEZ NÃO 
+
+
+ESPERAMOS QUE O USER SEJA EDITADO ASSIM... ->  
+
+
+
+
+
+
+
+
+
+na verdade,
+
+
+o mais comum,
+
+
+aqui,
+seria 
+um código como 
+
+
+
+
+
+
+
+
+
+'const user = { name: 'Max'}
+
+
+const id = createId(user);' ,
+
+
+
+
+
+
+
+
+
+
+EM QUE 
+
+CONSEGUIRÍAMOS DE VOLTA 1 ID, a partir desse user,
+
+
+que 
+
+
+
+então colocaríamos em 1 constant,..
+
+
+
+
+
+
+
+
+
+
+MAS NÃO É ISSO QUE ESSA FUNCTION ESTÁ FAZENDO,..
+
+
+
+
+
+
+
+
+
+
+PORTANTO,
+
+
+
+ESSA  FUNCTION NÃO PODE SER CONSIDERADA 
+
+COMO CLEAN CODE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O NOME É 'OUTPUT PARAMETER'
+
+
+PQ __ ELA SIMPLESMENTE_ 
+
+
+
+
+
+
+
+OUTPUTTA _ __ O RESULTADO___ DO TRABALHO DELA (no caso, o 'generate' do id e definição dele no próprio object user)
+
+
+
+
+COMO PARTE _ DO PARAMETER QUE ELA __ RECEBEU (pq ela coloca DENTRO DELE a coisa que 
+ela manipulou)...
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO QUER DIZER QUE __ ELA _ ''MANIPULA O PARAMETER''',
+
+
+
+EM VEZ DE 
+
+RETORNAR 1 NOVO VALUE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+->  VC SEMPRE VAI QUERER _ EVITAR __ 
+
+
+ESSE TIPO DE COISA..
+
+
+
+
+
+
+
+
+E VC 
+
+SEMPRE VAI QUERER 
+
+EVITAR 
+
+
+
+__ ESCREVER NOMES DE FUNCTIONS 
+
+
+
+QUE NÃO PARECEM ESTAR FAZENDO O QUE ESTÃO FAZENDO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> SERIA MELHOR SE O NOME DE NOSSA FUNCTION FOSSE 
+
+
+
+'addId(user)',
+
+EM VEZ 
+
+DE 
+
+
+'createId(user)'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> COM ISSO, A FUNCTION AINDA VAI FAZER O QUE 
+ESTAVA FAZENDO, INTERNAMENTE,
+
+MAS 
+
+AGORA 
+
+
+O 
+
+NOME DE 
+
+'addId'
+
+
+DEIXA 
+MAIS ÓBVIO QUE 
+
+
+
+ESTÁ __ ADICIONANDO 1 FIELD DE 'id'
+
+
+AO OBJECT 'user'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ele ainda não retorna o id em si,
+
+
+
+
+
+mas DEIXA MAIS CLARO QUE O USER EM SI 
+
+
+SERÁ EDITADO... --> é mais clean, é mais EXPECTED...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS É MAIS CLEAN _ NÃO USAR _ OUTPUT PARAMETERS 
+
+EM PRIMEIRO LUGAR --> MAS SE N FOR POSSÍVEL 
+
+
+FAZER 
+
+ISSO 
+
+DE OUTRA 
+
+MANEIRA,
+
+
+
+
+DEIXE BEM CLARO QUE __ 
+
+
+
+VC __ TEM 1 'OUTPUT PARAMETER'
+
+naquele local...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> UMA SOLUÇÃO MAIS CLEAN 
+
+SERIA SEGUIR UM OOP (object oriented approach),
+
+
+
+
+
+
+
+EM QUE 
+
+
+VC 
+
+
+
+
+TERIA ALGO COMO 
+
+
+'user.addId()",
+
+
+
+
+em que 
+
+
+vc 
+
+
+
+TERIA 1 OBJECT EM QUE 
+
+VC 
+
+
+CHAMARIA '.addId()"
+
+
+SEM 
+
+
+NENHUM 
+
+PARAMETER ---------> ISSO DEIXARIA 
+
+BEM ÓBVIO QUE 
+
+
+ISSO 
+
+
+
+__ PROVAVELMENTE 
+
+
+EDITA O __ USER QUE JÁ EXISTE -------> COM ESSE CALL,
+
+
+
+O RESULTADO NÃO SERIA 
+
+
+INESPERADO ----->  E, COMO N TEMOS PARAMETER AQUI,
+
+
+
+
+
+
+
+NÃO TEREMOS __ 1 OUTPUT PARAMETER...
+
+
+
+
+
+
+
+
+
+
+-> quer dizer que 
+
+'user.addId()'
+
+
+É 
+
+TOTALMENTE 
+
+
+OK,
+
+PQ NÃO VAI FAZER NADA ESTRANHO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AQUI TEMOS 1 PSEUDO EXEMPLO, EM CÓDIGO:
+
+
+
+class User {
+    constructor(name) {
+        this.name = name;
+    }
+
+
+    addId() {
+        this.id = 'u1';
+    }
+}
+
+
+
+
+const customer = new User('Max');
+
+customer.addId();
+
+console.log(customer);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+// VERSÃO MELHOR DO CÓDIGO DE CIMA (pq não temos comportamentos inesperados, e não temos OUTPUT PARAMETERS):
+
+class User {
+  constructor(name) {
+    this.name = name;
+  }
+
+  addId() {
+    this.id = 'u1';
+  }
+}
+
+const customer = new User('Max');
+
+customer.addId();
+
+console.log(customer);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... É POR ISSO QUE É MELHOR 'OUTPUT ARGUMENTS'
+
+
+
+
+DE QUALQUER JEITO POSSÍVEL,
+
+
+
+
+
+MAS 
+
+SE 
+
+VC 
+
+
+TIVER 
+
+ESSE TIPO DE FUNCTION,
+
+DEIXE 
+
+
+
+CLARO, NO NOME DE SUA FUNCTION,
+O QUE 
+
+ESTAMOS FAZENDO __DENTRO __ DA FUNCTION ----> PQ OUTPUT PARAMETERS 
+
+PODEM 
+
+SER SUPER CONFUSOS,
+
+E PODEM LEVAR 
+
+A BUGS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PODEM LEVAR A BUGS -> PQ VC ESTÁ EDITANDO 1 VALUE QUE 
+
+
+__ FOI PASSADO A  1 FUNCTION,
+
+E AÍ 
+
+O RETORNANDO EM SI.. -> E ISSO NÃO É ALGO QUE GERALMENTE ESPERAMOS,
+
+VINDO
+DE FUNCTIONS...
