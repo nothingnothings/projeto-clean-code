@@ -1,0 +1,605 @@
+
+
+AGORA DEVEMOS ESTUDAR 'HORIZONTAL FORMATTING'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> com horizontal formatting, estamos 
+falando 
+
+
+
+de LINHAS ÚNICAS DE CÓDIGO.. 
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEVEMOS EVITAR 'HORIZONTAL SCROLLING'...
+
+
+
+
+
+
+
+
+
+SENTENCES MT LONGAS devem ser evitadas...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> TUDO DEVE COMEÇAR COM INDENTATION,
+
+MESMO 
+
+SE 
+
+
+ISSO NÃO FOR NECESSÁRIO, TECNICAMENTE...
+
+
+(
+
+    em algumas languages, como python,
+
+    indentation É NECESSÁRIA, TECNICAMENTE,
+
+    PARA 
+
+    DEFINIR FUNCTION BODIES, CLASSES, ETC...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK....
+
+
+
+
+
+
+TEMOS O MESMO EXEMPLO DE 'DiskStorage',
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+const path = require('path');
+const fs = require('fs');
+
+class DiskStorage {
+  constructor(storageDirectory) {
+    this.storagePath = path.join(__dirname, storageDirectory);
+    this.setupStorageDirectory();
+  }
+
+  setupStorageDirectory() {
+    if (!fs.existsSync(this.storagePath)) {
+      this.createStorageDirectory();
+    } else {
+      console.log('Directory exists already.');
+    }
+  }
+
+  createStorageDirectory() {
+    fs.mkdir(this.storagePath, this.handleOperationCompletion);
+  }
+
+  insertFileWithData(fileName, data) {
+    if (!fs.existsSync(this.storagePath)) {
+      console.log("The storage directory hasn't been created yet.");
+      return;
+    }
+    const filePath = path.join(this.storagePath, fileName);
+    fs.writeFile(filePath, data, this.handleOperationCompletion);
+  }
+
+  handleOperationCompletion(error) {
+    if (error) {
+      this.handleFileSystemError(error);
+    } else {
+      console.log('Operation completed.');
+    }
+  }
+
+  handleFileSystemError(error) {
+    if (error) {
+      console.log('Something went wrong - the operation did not complete.');
+      console.log(error);
+    }
+  }
+}
+
+const logStorage = new DiskStorage('logs');
+const userStorage = new DiskStorage('users');
+
+setTimeout(function () {
+  logStorage.insertFileWithData('2020-10-1.txt', 'A first demo log entry.');
+  logStorage.insertFileWithData('2020-10-2.txt', 'A second demo log entry.');
+  userStorage.insertFileWithData('max.txt', 'Maximilian Schwarzmüller');
+  userStorage.insertFileWithData('maria.txt', 'Maria Jones');
+}, 1500);
+
+
+
+
+
+
+
+
+
+
+
+
+MAS AGORA O PROFESSOR REMOVEU A INDENTATION.... colocou tudo em 1 linha só:
+
+
+
+
+
+
+
+
+
+
+
+
+const path = require('path');
+const fs = require('fs');
+
+class DiskStorage {
+  constructor(storageDirectory) {this.storagePath = path.join(__dirname, storageDirectory); this.setupStorageDirectory();
+  }
+
+  setupStorageDirectory() {
+    if (!fs.existsSync(this.storagePath)) {
+      this.createStorageDirectory();
+    } else {
+      console.log('Directory exists already.');
+    }
+  }
+
+  createStorageDirectory() {
+    fs.mkdir(this.storagePath, this.handleOperationCompletion);
+  }
+
+  insertFileWithData(fileName, data) {
+    if (!fs.existsSync(this.storagePath)) {
+      console.log("The storage directory hasn't been created yet.");
+      return;
+    }
+    const filePath = path.join(this.storagePath, fileName);
+    fs.writeFile(filePath, data, this.handleOperationCompletion);
+  }
+
+  handleOperationCompletion(error) {
+    if (error) {
+      this.handleFileSystemError(error);
+    } else {
+      console.log('Operation completed.');
+    }
+  }
+
+  handleFileSystemError(error) {
+    if (error) {
+      console.log('Something went wrong - the operation did not complete.');
+      console.log(error);
+    }
+  }
+}
+
+const logStorage = new DiskStorage('logs');
+const userStorage = new DiskStorage('users');
+
+setTimeout(function () {
+  logStorage.insertFileWithData('2020-10-1.txt', 'A first demo log entry.');
+  logStorage.insertFileWithData('2020-10-2.txt', 'A second demo log entry.');
+  userStorage.insertFileWithData('max.txt', 'Maximilian Schwarzmüller');
+  userStorage.insertFileWithData('maria.txt', 'Maria Jones');
+}, 1500);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICOU HORRÍVEL..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SOMOS FORÇADOS A SCROLLAR HORIZONTALMENTE PARA LERMOS O CÓDIGO..
+
+
+
+
+
+
+
+
+
+NÃO É NADA READABLE...
+
+
+
+
+
+
+
+
+
+
+--. É POR ISSO QUE DEVEMOS USAR MÚLTIPLAS LINHAS, E INDENTATION,
+
+PARA QUE 
+
+ISSO FIQUE READABLE:
+
+
+
+
+
+
+
+
+
+class DiskStorage {
+  constructor(storageDirectory) {
+    
+    this.storagePath = path.join(__dirname, storageDirectory); 
+    this.setupStorageDirectory();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -> É POR ISSO QUE USAR LINHAS MENORES E USAR INDENTATION 
+
+  AJUDA 
+
+  COM 
+
+  A LEGIBILIDADE E COMPREENSÃO DO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ALÉM DE INDENTATION,
+
+VC DEVE QUEBRAR 
+
+'LONG STATEMENTS'
+
+
+
+EM STATEMENTS MENORES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> considere esta linha:
+
+
+
+
+
+  createStorageDirectory() {
+    fs.mkdir(path.join(__dirname, 'temp', '2020-10', 'images'), this.handleOperationCompletion);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> O PROFESSOR COLOCOU 'path.join' INLINE...
+   
+
+
+
+
+   ISSO DEIXOU A LINHA GIGANTE...
+
+
+
+
+
+
+
+
+
+   isso é bem ruiim...
+
+
+
+
+
+
+
+
+
+
+   em casos como esses, é melhor outsourcear 
+
+   o código para 
+
+   1 
+
+   constant 
+
+   separada,
+
+   tipo assim:
+
+
+
+
+
+     createStorageDirectory() {
+    fs.mkdir(this.storagePath, this.handleOperationCompletion);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  certo...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+POR FIM,
+
+
+QUANDO VC FORMATA HORIZONTALMENTE,
+
+
+
+VC 
+
+
+
+DEVE USAR NOMES CLAROS,
+
+
+
+
+MAS NÃO 
+
+PODEM 
+
+
+SER 
+
+
+ABSURDAMENTE LONGOS...
+
+
+
+
+
+
+
+
+
+VARIABLES E PROPERTY NAMES 
+
+
+
+PODEM SER 1 POUCO MAIORES,
+
+PODEM CONSISTIR DE MÚLTIPLAS PALAVRAS...
+
+
+
+
+
+
+
+
+
+
+
+mas considere 
+
+esta constante:
+
+
+
+
+
+
+const storagePathForStoringImagesInATemporaryFolderFor2020 = path.join(...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO OCULTA O RESTO DO CÓDIGO,
+
+
+
+O QUE É BEM RUIM...
+
+
+
+
+
+
+
+
+
+
+
+
+e esse código é tão ruim que vai 
+
+
+
+afetar o resto 
+
+
+
+do código (todas as menções ficarão gigantes)...
+
+
+
+
+
+
+
