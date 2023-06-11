@@ -1,0 +1,788 @@
+
+
+
+
+
+
+
+OK, MAS E QUANTO A FUNCTIONS QUE EXIGEM 2 ARGUMENTS?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> DEVEMOS CONSIDERAR ESTA FUNCTION:
+
+
+
+
+
+
+
+function login(email, password) {
+  //Log a user in
+  //...
+}
+
+login('max@test.com', 'testers');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESSA FUNCTION ACEITA 1 EMAIL E 1 PASSWORD...
+
+
+
+
+
+
+
+E AÍ 
+
+
+
+
+USA 1 LÓGICA PARA CRIAR 1 SESSION, POR EXEMPLO...
+
+
+
+
+
+
+
+
+ISSO FAZ SENTIDO,
+E É ESPERADO....
+
+
+
+
+
+
+
+
+
+TEMOS 2 PARAMETERS,
+
+
+MAS A ORDER NÃO É NENHUMA SURPRESA,
+
+ISSO 
+
+PQ 
+
+NA MAIOR PARTE DAS FORMS 
+
+TEMOS 
+O 
+
+
+field de 'email'
+
+antes,
+
+e 
+
+o 
+
+
+password 
+depois...
+
+
+
+
+
+
+
+CERTO...
+
+
+
+
+
+
+
+
+
+-> ISSO PODE SER 1 EXEMPLO PARA 1 FUNCTION DE 
+
+2 ARGUMENTOS QUE NÃO 
+
+TRAZ 
+
+PROBLEMA ALGUM...
+
+
+
+
+
+
+
+
+
+
+OUTRO POSSÍVEL EXEMPLO É O DO 'point',
+
+
+PQ É MEIO ÓBVIO QUE VAMOS USAR 
+
+
+
+
+
+AS COORDENADAS X E Y..
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+class Point {
+    constructor(x,y ) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+const point = new Point(10, 13);
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function login(email, password) {
+  //Log a user in
+  //...
+}
+
+login('max@test.com', 'testers');
+
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+const point = new Point(10, 13);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+É BEM ÓBVIO 
+
+
+
+
+O QUE ESSA CONSTRUCTOR FUNCTION FAZ ,
+
+
+E QUAIS SERÃO ESSES VALUES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... 
+
+
+
+
+
+
+
+
+
+
+QUER DIZER QUE NOSSAS PRIORIDADES SÃO:
+
+
+
+
+
+
+
+
+1) MINIMIZAR O NÚMERO DE PARAMETERS...
+
+
+
+
+
+
+
+
+
+
+2) DEIXAR A FUNCTION O MAIS READABLE 
+
+E EASY TO UNDERSTAND POSSÍVEL..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE SÃO ÓBVIOS OS ARGUMENTS E SUA ORDEM,
+É ABSOLUTAMENTE 
+
+
+
+FINE 
+
+TER 
+
+
+2 PARAMETERS --> VC NÃO VAI PRECISAR ENCONTRAR 
+
+1 
+
+MANEIRA 
+
+DE REDUZIR 
+
+
+
+O NÚMERO DE PARAMETERS,
+
+EM CASOS COMO ESSES --------> PQ, NO FINAL DAS CONTAS,
+
+VC 
+
+
+
+DEVE TER EM MENTE 
+
+QUE 
+
+
+
+O 
+
+
+'WRITE DE CLEAN CODE'
+
+
+
+TEM TUDO A VER 
+
+
+
+COM O WRITE 
+
+DE 
+READABLE 
+
+
+E MEANINGFUL CODE,
+
+
+
+
+
+E COM 
+
+A 
+
+
+REDUÇÃO DA COGNITIVE LOAD...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> SE NÃO TIVERMOS NENHUM COGNITIVE LOAD 
+COM 1 FUNCTION,
+NÃO 
+EXISTE 
+
+NECESSIDADE 
+
+
+
+
+DE REESCRITA DA MESMA...
+
+
+
+
+
+
+
+
+
+
+
+--> E ESSA É UMA IMPORTANTE DIFERENÇA 
+
+DOS EXEMPLOS 
+
+DE ANTES E ESTE AQUI:
+
+
+
+
+
+
+
+
+
+
+
+
+
+log('Hi there', false);
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AQUI TEMOS 1 LOG FUNCTION,
+
+
+SIM,
+
+
+MAS _ NÃO SABEMOS O QUE DIABOS O SEGUNDO ARGUMENT FAZ...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+function login(email, password) {
+  //Log a user in
+  //...
+}
+
+login('max@test.com', 'testers');
+
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+const point = new Point(10, 13);
+
+
+
+
+log('hi there!', false); /// EXEMPLO DE FUNCTION QUE CHAMA 2 PARAMETERS EXTREMAMENTE MAL ESCRITA (pq não sabemos o que diabos 'false'  fará .. nada intuitivo)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK..
+
+
+
+
+
+
+
+
+
+
+
+NÃO SABEMSO A O QUE SE REFERE 'false',
+
+E TAMBÉM 
+
+
+NÃO SABEMOS A ORDER DO CÓDIGO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CÓDIGO COMPLETO:
+
+
+
+
+
+
+
+
+
+
+const log = (message, isError) => {
+  if (isError) {
+    console.error(message);
+  } else {
+    console.log(message);
+  }
+};
+
+log('hi there!', false); /// EXEMPLO DE FUNCTION QUE CHAMA 2 PARAMETERS EXTREMAMENTE MAL ESCRITA (pq não sabemos o que diabos 'false'  fará .. nada intuitivo)....
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+const point = new Point(10, 13);
+
+const log = (message, isError) => { ///código ruim (somos forçados a entrar nesse method para COMPREENDER O QUE DIABOS 'false' faz, aquele value boolean faz... )
+  if (isError) {
+    console.error(message);
+  } else {
+    console.log(message);
+  }
+};
+
+log('hi there!', false); /// EXEMPLO DE FUNCTION QUE CHAMA 2 PARAMETERS EXTREMAMENTE MAL ESCRITA (pq não sabemos o que diabos 'false'  fará .. nada intuitivo)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM ISSO, PROVAVELMENTE 
+
+SOMOS FORÇADOS 
+A 
+
+ENTRAR 
+NO CÓDIGO DE 
+
+
+'log'
+PARA 
+
+ENTENDER 
+
+O QUE 
+ELE FAZ,
+
+
+PARA ENTENDER QUE 'isError'
+
+É UMA FLAG EXTRA QUE CONTROLA COMO 
+
+
+A 
+MESSAGE ESTÁ SENDO OUTPUTTADA...
+
+
+
+
+
+
+
+
+
+
+E QUEREMOS EVITAR BOOLEAN FLAGS EM GERAL..
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS ESSE É UM EXEMPLO 
+
+
+
+DE UMA TWO ARGUMENT FUNCTION QUE 
+
+
+
+
+deveria 
+
+
+SER ESCRITA DE MANEIRA MELHOR,
+OU REFATORADA..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> uma solução melhor SERIA 
+
+
+__SPLITTAR __ ESSA FUNCTION 
+EM 
+
+2 
+
+FUNCTIONS DIFERENTES,
+
+
+
+EM QEU 
+
+
+
+
+
+1 FUNCTION É DEDICADA A LOGS COMUNS,
+
+E A OUTRA 
+
+É 
+DEDICADA A LOGS DE ERRO..
+
+
+
+
+
+ex:
+
+
+
+
+
+const log = (message) => {
+  /// TODO - O MESMO CÓDIGO DE CIMA, MAS CONSERTADO (mais legível, menos obtuso, e mais fácil de ser chamado)...
+  console.log(message);
+};
+
+const logError = (message) => {
+  /// TODO - O MESMO CÓDIGO DE CIMA, MAS CONSERTADO (mais legível, menos obtuso, e mais fácil de ser chamado)...
+
+  console.error(message);
+};
+
+log('hi there!'); /// TODO - O MESMO CÓDIGO DE CIMA, MAS CONSERTADO (mais legível, menos obtuso, e mais fácil de ser chamado)...
+logError('An error');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ESSE É O CLEAN CODE;
+
+VC 
+
+DEVE QUESTIONAR O CÓDGO QUE VC  TEM,
+
+E AÍ 
+
+REFATORÁ-LO PARA 
+
+
+
+SEMPRE MELHORAR 
+
+
+
+
+SUA LEGIBILIDADE, COMPREENSÃO E RACIOCÍNIO 
+
+
+ACERCA DO CÓDIGO...
