@@ -1,0 +1,1167 @@
+
+
+
+
+
+
+
+
+
+
+--> OK..
+
+
+
+
+
+
+
+
+ATÉ AGORA,
+
+JÁ VIMOS VÁRIAS REGRAS QUE DEVEMOS CONSIDERAR 
+
+
+QUANDO PEGAMOS NOMES PARA NOSSAS VARIABLES, FUNCTIONS E CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS HÁ ALGUNS PITFALLS,
+
+ALGUNS 
+
+ERRORS, QUE 
+
+SÃO FÁCEIS DE COMETER...
+
+
+
+
+
+
+
+
+
+
+O PRIMEIRO DELES É BEM SIMPLES,
+
+
+
+
+
+
+
+
+
+
+'''NÃO INCLUA INFO REDUNDANTE EM NOMES''....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+userWithNameAndAge = User('Max', 31);
+
+
+
+
+
+
+
+
+
+
+--> É BEM ÓBVIO O QUE ESSE USER TERÁ, POR ISSO 
+
+NÃO PRECISAMOS DESSE NOME LONGO...
+
+
+
+
+
+
+
+--> MESMO SEM SABER A CLASS DEFINITION,
+É FÁCIL 
+
+ADIVINHAR QUE 
+
+
+ESSE USER TEM 1 NAME E AGE...
+
+
+
+
+
+
+
+
+
+
+
+
+--> imagine fazer isso para todas as propriedades desse user...
+
+
+bem ruim...
+
+
+
+
+
+
+
+--> SIM, NOMES TÊM O PROPÓSITO 
+
+
+
+DE 
+
+
+
+
+
+NOS __ FAZER ENTENDER O CÓDIGO SEM 
+
+PRECISARMOS 
+
+
+
+MERGULHAR NOS DETALHES DESSA IMPLEMENTATION... --> MAS ISSO NÃO QUER DIZER QUE 
+
+QUEREMOS 
+
+
+DESCREVER TUDO COM 1 VARIABLE NAME ----> ISSO GERALMENTE TRAZ TANTA INFO 
+
+QUE 
+
+
+NOS ATRAPALHA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NA MAIOR PARTE DOS CODE SNIPPETS,
+
+
+JÁ BASTA 
+
+
+SABER 
+
+'QUE ESTAMOS ARMAZEANDO 1 USER',
+
+
+E
+ NÃO 
+
+
+QUE 
+
+'ESSE USER TEM 1 NOME E 1 AGE'.. --> OS IDEs MODERNOS JÁ 
+
+
+NOS DÃO 
+
+
+
+
+AUTOCOMPLETION,
+
+
+
+E NÓS SIMPLESMENTE JÁ ESPERAMOS QUE 
+
+O USER VAI CONTER 
+
+
+ESSAS PROPERTIES (
+
+    é bem provável que ele tenha esse tipo de propriedades...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+---> É POR ISSO QUE APENAS 'USER' JÁ É BOM...
+
+
+
+
+
+
+
+
+
+
+
+-> mas se quisermos ser específicos, 
+
+poderíamos 
+
+
+escrever 
+
+'newUser' ->  TALVEZ PQ 
+
+
+
+
+TEMOS ALGUMA PARTE 
+
+
+
+
+DE NOSSO CÓDIGO EM QUE 
+
+
+__INTERAGIMOS APENAS COM NEWUSERS....
+
+
+
+
+
+
+
+
+
+-> mesma coisa com 'loggedInUser' ->  QUEREMOS QUE QUALQUER 1 
+
+QUE LEIA O CÓDIGO 
+
+
+SAIBA QUE 
+
+
+'ESSE USER JÁ ESTÁ CERTAMENTE LOGGED IN',
+
+
+que não é necessário checar 
+
+se ele está loggado...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... 
+
+
+
+
+
+
+
+ALÉM DISSO,
+
+
+EVITE 
+
+
+
+
+__GÍRIAS,
+
+
+
+ABREVIAÇÕES NADA CLARAS 
+
+E DESINFORMAÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'product.diePlease()'
+
+
+
+
+
+'user.facePalm()'...
+
+
+
+
+
+
+
+
+
+
+-> ISSO NÃO É ÚTIL...
+
+
+
+
+
+
+
+
+
+
+-----> O PROFESSOR NÃO VAI ENTENDER O QUE ESSES METHODS  
+
+
+estão fazendo....
+
+
+
+
+
+
+
+
+
+NÃO USE GÍRIAS.... -> USE 
+
+
+
+NOMES OBJETIVOS,
+
+
+
+como 
+
+'product.remove()'
+
+
+
+ou 
+
+
+'user.sendErrorMessage()'...
+
+
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+
+ABREVIAÇÕES TAMBÉM SÃO RUINS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+message(n)
+
+
+
+
+ymdt = '20210121CET' 
+
+
+
+
+
+
+
+
+A SEGUNDA LINHA É PROVAVELMENTE 
+
+1 SNAPSHOT DE DATE,
+
+MAS É 
+
+DIFÍCIL 
+
+
+
+ENTENDER BEM O QUE É ISSO... ->  NÃO FICA BEM CLARO '' O QUE É O QUE'',
+
+
+PELO MENOS NÃO IMEDIATAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE DEVEMOS USAR NOMES CLAROS,
+
+COMO 
+
+
+
+
+'message(newUser)' ->  ISSO DEIXA BEM CLARO QUE 
+
+__ESTAMOS ENVIANDO UMA MENSAGEM A 1 NOVO USER,
+
+E NÃO à 'n'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> e aquela outra variable,
+
+de 
+
+
+'ymdt',
+
+
+PODE FICAR ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+dateWithTimezone = '20210111CET'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+POR FIM, DISINFORMATION 
+
+DEVE SER EVITADA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE TIPO DE CÓDIGO É BEM COMUM:
+
+
+
+
+
+
+
+
+
+userList = {u1: ..., u2: ...}
+
+
+
+allAccounts = accounts.filter()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> A PRIMEIRA COISA NÃO É UMA LIST, E SIM É UM JAVASCRIPT 
+
+OBJECT... (ou 1 python dictionary)...
+
+
+
+
+--> NÃO É UM ARRAY, PQ N TEM SQUARE BRACKETS...
+
+
+
+
+
+
+
+
+
+
+
+'allAccounts'
+
+SUGERE TODAS AS ACCOUNTS,
+
+
+
+mas 
+
+'accounts.filter()'
+
+
+SUGERE QUE PROVAVELMENTE NÃO TEMOS TODAS AS ACCOUNTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> POR ISSO QUE 
+
+
+NOMES MELHORES SERIAM:
+
+
+
+
+
+
+userMap = {u1: ..., u2: ...}
+
+
+filteredAccounts = accounts.filter();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO... ISSO FAZ SENTIDO....
+
+
+
+
+
+
+
+
+
+É CLARO QUE, DEPENDENDO DO APP QUE ESTAMOS ESCREVENDO,
+
+
+
+PODEMOS SUBSTITUIR 'filteredAccounts' 
+
+
+por 1 nome melhor...
+
+
+
+
+
+
+
+
+
+
+se quisermos 'SÓ AS CONTAS QUE PAGARAM',
+
+poderíamos escrever 
+
+
+'paidAccounts',
+
+
+
+tipo 
+
+
+
+
+paidAccounts = accounts.filter();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... TAMBÉM CERTIFIQUE-SE DE QUE VC 
+
+ESTÁ TRABALHANDO COM NOMES 
+
+BEM DISTINTOS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DIGAMOS QUE VC ESTEJA TRABALHNADO COM 1 CLASS 'Analytics',
+
+
+QUE VC 
+
+USA 
+
+PARA 
+
+CRIAR 1 OBJECT 'analytics'..
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+analytics.getDailyData(day)
+analytics.getDayData()
+analytics.getRawDailyData(day)
+analytics.getParsedDailyData(day)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... TODOS OS METHODS SÃO MT SIMILARES...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O QUE CADA 1 DELES FAZ?
+
+
+
+
+
+
+
+
+
+--> CADA METHOD SOA MT 1 COM O OUTRO... -> É DIFÍCIL DIZER O QUE 
+
+CADA 
+
+
+1 DOS METHODS FAZ,
+
+
+
+E QUAL DOS METHODS DEVEMOS USAR PARA 1 DADA SITUAÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VC É FORÇADO A ESTUDAR O CÓDIGO DE CADA 1 DOS METHODS PARA 
+
+
+SABER 
+
+
+
+_QUAL METHOD VC PRECISA CHAMAR,
+
+OU O QUE 
+
+PODE ESTAR CAUSANDO CERTO BUG...
+
+
+
+
+
+
+
+
+
+
+
+
+--> USE NOMES DISTINTOS COMO:
+
+
+
+
+
+analytics.getDailyReport(day)
+analytics.getDataForToday()
+analytics.getRawDailyData(day)
+analytics.getParsedDailyData(day)
+
+
+
+
+
+
+
+
+
+
+
+
+getDailyReport --> isso pode não retornar a data,
+
+e sim 
+
+1 
+
+
+PDF OU MICROSOFT EXCEL REPORT..
+
+
+
+
+
+
+
+
+
+getDataForToday --> É MAIS CLARO DO QUE 'getDayData',
+
+
+
+PQ QUER DIZER QUE É A DATA 'POR HOJE'....
+
+
+
+
+
+
+
+
+
+
+
+-----> já 'getRawDailyData' FAZ SENTIDO PQ 
+
+NÃO CLASHA COM OS OUTROS NAMES,
+
+
+PQ OS OUTROS NAMES AGORA ESTÃO BEM MAIS DISTINTOS...
+
+
+
+
+
+
+
+
+
+
+
+
+-> COMO OS NOMES FICARAM BEM DISTINTOS, O TRABALHO COM 
+
+ESSE CÓDIGO FICOU BEM MAIS FÁCIL...
+
+
+
+
+
+
+
+
+
+
+
+A ÚLTIMA DICA:
+
+
+
+
+
+
+ '''SEJA __ CONSISTENTE__ 
+
+ QUANDO _ VC ESTIVER NOMEANDO COISAS'''...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ex,
+
+
+ DIGAMOS QUE 
+
+
+ ESTAMOS ESCREVENDO 1 FUNCTION QUE _ RETRIEVA 
+
+
+ ALGUMA DATA... ----> DIGAMOS 1 LIST DE USERS --> 
+
+
+
+
+
+
+
+
+
+
+
+
+ VC PODERIA 
+
+ COLOCAR OU:
+
+
+
+
+
+ 1) getUsers()
+
+
+
+
+
+ 2) fetchUsers()
+
+
+
+ 3) retrieveUsers()
+
+
+
+
+
+
+
+
+
+
+
+CERTO.... OS 3 METHODS DESCREVEM A MESMA COISA...
+
+
+
+
+
+
+
+
+
+
+--> VC PODERIA ESCOLHER QUALQUER 1 DELES...
+
+
+
+
+
+
+
+
+
+
+
+
+--> VC PODE ESCOLHER QUALQUER 1,
+
+
+MAS SE ESCOLHER ALGUMA,
+
+
+
+___ SIGA__ ESSE NAMING PATTERN....
+
+
+
+
+
+
+
+
+
+
+
+
+-> se vc usou 'database.get_users()'
+
+
+em 1 lugar,
+
+
+USE 
+
+'database.get_products()'
+
+
+
+EM OUTRO LUGAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+NUNCA ESCREVA 
+
+'database.fetchUsers()'
+
+e 
+
+
+depois 
+
+'database.getProducts()'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SEJA CONSISTENTE,
+
+E FIQUE COM OS NOMES/VERBS QUE VC ESCOLHEU...
+
+
+
+
+
+
+
+OK... 
+
+
+
+
+
+
+ESSAS SÃO AS CORE RULES, IDEAS, CONCEPTS,
+
+
+
+E PROBLEMS QUE VC DEVE TER EM MENTE E CONSIDERAR,
+
+QUANDO
+ESTIVER NOMEANDO COISAS...
+
+
+
+
+
+
+
+
+
+
+DEVEMOS VER ALGUNS DEMOS E A NOSSA CHALLENGE...
