@@ -1,0 +1,682 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMMENTS?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O QUE PODEMOS DIZER ACERCA DELES?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TIPICAMENTE, DEVEMOS OS EVITAR..
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> HÁ EXCEÇÕES,
+
+
+
+MAS A MAIOR PARTE DELES É RUIM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> RAZÃO 1) ELES EXPRESSAM INFORMAÇÃO REDUNDANTE..
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+// (c) Maximilian Schwarzmüller / Academind GmbH
+// Created in 2020
+
+// ***************
+// GLOBALS
+// ***************
+let sqlDriver: any;
+let mongoDbDriver: any;
+
+// ***************
+// CLASSES
+// ***************
+// Acts as an adapter, connecting models to various database engines (SQL, MongoDB)
+class Database {
+  private dbDriver: any; // the database engine to which we connect
+
+  loadDatabaseDriver(driver: string) {
+    if (driver === 'sql') {
+      // Connect to the SQL Driver if "driver" is set to SQL
+      this.dbDriver = sqlDriver;
+    } else {
+      // Otherwise, connect to MongoDB
+      this.dbDriver = mongoDbDriver;
+    }
+  }
+
+  connect() {
+    this.dbDriver.connect(); // This may fail and throw an error
+  }
+
+  insertData(data: any) {
+    this.dbDriver.insert(data); // updates a user
+  }
+
+  findOne(id: string) {
+    // Todo: Needs to be implemented
+  }
+
+  // findMany(filter: any) {
+  //   this.dbDriver.find(filter);
+  // }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... 
+
+
+
+
+
+
+
+
+
+
+
+--> vários comentários redundantes...
+
+
+
+
+
+
+
+se vamos conectar a uma 'database engine',
+
+
+é melhor trocar 'dbDriver'
+
+por 
+
+'dbEngine'...
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+// (c) Maximilian Schwarzmüller / Academind GmbH
+// Created in 2020
+
+// ***************
+// GLOBALS
+// ***************
+let sqlDriver: any;
+let mongoDbDriver: any;
+
+// ***************
+// CLASSES
+// ***************
+// Acts as an adapter, connecting models to various database engines (SQL, MongoDB)
+class Database {
+  private dbEngine: any; // the database engine to which we connect
+
+  loadDatabaseDriver(driver: string) {
+    if (driver === 'sql') {
+      // Connect to the SQL Driver if "driver" is set to SQL
+      this.dbEngine = sqlDriver;
+    } else {
+      // Otherwise, connect to MongoDB
+      this.dbEngine = mongoDbDriver;
+    }
+  }
+
+  connect() {
+    this.dbEngine.connect(); // This may fail and throw an error
+  }
+
+  insertData(data: any) {
+    this.dbEngine.insert(data); // updates a user
+  }
+
+  findOne(id: string) {
+    // Todo: Needs to be implemented
+  }
+
+  // findMany(filter: any) {
+  //   this.dbEngine.find(filter);
+  // }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ESSE CÓDIGO FUNCIONA MELHOR SEM COMMENTS --> FICA ATÉ MAIS DIFÍCIL DE LER,
+
+
+
+PQ VC NÃO VAI SKIPPAR ESSES COMMENTS,
+
+
+
+SE VC LER ESSE CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+RAZÃO 2)  OUTRO TIPO DE BAD COMMENTS É O TIPO DE COMMENT 'DIVIDER',
+
+
+
+OU CÓDIGOS QUE SIMPLESMENTE MARCAM 1 BLOCO DE CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+// ***************
+// GLOBALS
+// ***************
+let sqlDriver: any;
+let mongoDbDriver: any;
+
+
+
+// ***************
+// CLASSES
+// ***************
+// Acts as an adapter, connecting models to various database engines (SQL, MongoDB)
+class Database {
+  private dbEngine: any; // the database engine to which we connect
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO BASICAMENTE APENAS INFORMA O DEVELOPER QUE ESTAMOS 
+
+
+DEFININDO GLOBALS E CLASSES...
+
+
+
+
+
+
+
+
+
+
+---> ok... isso é bem óbvio...
+
+
+
+
+
+
+
+
+
+---> REDUNDANTE...
+
+
+
+
+
+
+
+--> SE VC ESTIVER SENTINDO A NECESSIDADE 
+
+DE 
+
+COLOCAR 
+
+ESSAS DIVISÓRIAS,
+
+TVZ 
+
+VC 
+
+
+QUEIRA
+ 
+
+
+ __DIVIDIR SEU CÓDIGO AO LONGO DE MÚLTIPLAS FILES,
+
+ EM VEZ DISSO (
+
+    melhor do que colocar tudo em 1 file só...
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ RAZÃO 3) PODEMOS ARRISCAR CRIAR 'MISLEADING COMMENTS'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> EXEMPLO É 'insertData':
+
+
+
+
+
+
+   insertData(data: any) {
+    this.dbEngine.insert(data); // updates a user
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> DIZEMOS QUE ESTAMOS UPDATANDO 1 USER,
+
+  MAS O NOME 
+
+  
+
+  DEIXA IMPLÍCITO QUE 
+
+
+  ESTAMOS __ INSERTANDO 1 USER... E ISSO NÃO É A MESMA COISA QUE 
+
+  UPDATING...
+
+
+
+
+
+
+  --> OK... ISSO SE TORNA 1 NOME QUE DEVEMOS QUESTIONAR --> e aí somos forçados 
+
+
+  a 
+
+  entrar no method de 'insert',
+
+  para ver o que ele realmente faz....
+
+
+
+
+
+
+
+  ---> pq INSERTING não é o mesmo que UPDATING...
+
+
+
+
+
+
+
+
+
+
+
+  --> 1 nome que é GOOD agora se torna 1 nome que devemos questionar...
+
+
+
+
+
+
+
+
+
+  --> Esse é um bom exemplo de como 
+
+
+  1 comment não nos ajuda nem um pouco... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> SE O METHOD DE INSERT REALMENTE FIZESSE O UPDATE DE 
+  1 
+
+  USER,
+
+  DEVERÍAMOS O RENOMEAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> e se __ O METHOD NÃO PODE SER RENOMEADO,
+
+  PORQUE VEIO DE UMA THIRD-PARTY-LIBRARY 
+
+  MAL ESCRITA,
+
+  POR QUALQUER RAZÃO,
+
+
+
+
+
+  DEVEMOS UPDATAR O CÓDIGO, PARA QUE FIQUE ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+    insertData(data: any) {
+    this.dbEngine.insert(data); // update a user, although the method name says "insert"
+  }
+
+
+
+
+
+
+
+
+
+  --> O CÓDIGO AGORA DEIXA CLARO QUE O COMMENT ESTÁ 
+
+  CERTO,
+
+  E NÃO O METHOD... (mas o method ainda deveria ser renomeado)...
+
+
+
+
+
+
+
+
+
+
+
+  RAZÃO 4) COMMENTED-OUT CODE....
+
+
+
+
+
+
+
+
+
+
+
+
+  --> ÀS VEZES DEIXAMOS NOSSO CÓDIGO SUBSTITUTO,
+
+
+
+e isso é bom...
+
+
+
+
+
+
+
+
+
+
+
+--> isso é bom, mas VC NÃO DEVE DEIXAR CÓDIGO PERMANENTEMENTE COMMENTED-OUT...
+
+
+
+
+
+
+
+
+
+
+
+
+--> se vc realmente tiver código desnecessário, remova-o....
+
+
+
+
+
+
+
+
+
+
+
+
+-> já temos 
+
+
+VERSION CONTROL,
+
+
+
+
+COM O GIT..
+
+
+
+
+
+
+
+-> É POR ISSO QUE DEVEMOS SÓ 
+
+
+TIRAR PARA FORA ESSE CÓDIGO....
+
+
+
+
+
+
+
+--> PODEMOS VOLTAR A ESSES STATES ANTERIORES, SE ESSE CÓDIGO SE TORNAR NECESSÁRIO MAIS UMA VEZ.
