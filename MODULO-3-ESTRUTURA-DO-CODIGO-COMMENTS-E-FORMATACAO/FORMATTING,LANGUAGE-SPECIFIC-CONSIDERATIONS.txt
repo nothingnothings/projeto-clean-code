@@ -1,0 +1,361 @@
+
+
+
+ANTES DE ESTUDARMOS HORIZONTAL FORMATTING,
+
+DEVEMOS 
+
+
+
+
+
+
+REVER ESSE CONCEITO DE 'READING FLOW'..
+
+
+
+
+
+
+
+
+
+
+
+TEMOS OUTRO EXEMPLO,
+
+
+
+JAVASCRIPT FILE,
+
+
+EM QUE 
+
+
+TEMOS 
+
+1 FUNCTION DE 'start()',
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+start();
+
+function start() {
+  console.log('Starting...');
+  next();
+}
+
+function next() {
+  console.log('next');
+  last();
+}
+
+function last() {
+  console.log('last');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO... ESSE CÓDIGO VAI FUNCIONAR,
+
+
+
+
+
+MAS A ORDEM DAS COISAS ESTÁ HORRÍVEL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+JAVASCRIPT É UMA LINGUAGEM QUE 
+
+SUPORTA 
+O 
+
+'CALL DE 1 FUNCTION ANTES __ DA FUNCTION SER DEFINIDA' --> pq quando o js 
+é executado,
+
+
+ELE AUTOMATICAMENTE 
+
+'PULLA'
+
+TODAS AS FUNCTIONS PARA 
+
+
+
+
+__ FRENTE__ DO RESTO DO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ENTRETANTO,
+HÁ OUTRAS LANGUAGES,
+
+COMO O PYTHON, EM QUE ISSO NÃO FUNCIOAN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+start()
+
+
+
+def start():
+    print('Start')
+    next()
+
+
+
+# WONT WORK 
+# start()
+
+
+
+def next():
+    print('next')
+    last()
+
+
+
+def last():
+    print('last')
+
+
+
+
+
+
+
+
+
+
+
+
+    EM PYTHON,
+
+
+    ISSO 
+
+    NÃO FUNCIONA,
+
+
+
+PQ NÃO PODEMOS EXECUTAR 1 FUNCTION ANTES DESSA FUNCTION 
+SER 
+
+DEFINIDA...
+
+
+
+
+
+ELA NÃO SERÁ MAGICAMENTE 
+
+
+
+PULLADA PARA O TOPO DO ARQUIVO, COMO COM O JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO QUER DIZER QUE, COM O PYTHON, TEMOS QUE 
+COLOCAR 
+
+TODAS AS FUNCTIONS 
+
+
+NO TOPO DO ARQUIVO...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+#WILL WORK:
+
+
+def start():
+    print('Start')
+    next()
+
+def next():
+    print('next')
+    last()
+
+def last():
+    print('last')
+
+start()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO VAI FUNCIONAR, PQ 
+
+
+
+
+TODAS AS FUNCTIONS VÃO ESTAR JÁ DEFINIDAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> é por isso que devemos checar os styling guides 
+
+
+de cada 
+
+
+programming language...
+
+
+
+
+
+
+
+devemos manter as regras de cada language em mente,
+
+quanto 
+
+
+
+ao 
+
+ordering e execution de functions...
