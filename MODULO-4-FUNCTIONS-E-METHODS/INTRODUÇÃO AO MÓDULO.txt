@@ -1,0 +1,149 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO... ATÉ AGORA,
+
+JÁ APRENDEMOS:
+
+
+
+
+
+
+
+1) COMO NOMEAR COISAS 
+
+
+
+2) COMO NÃO USAR MTOS COMMENTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS AINDA NÃO MEXEMOS MT NO CÓDIGO QUE ESCREVEMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE NESSE MÓDULO DAREMOS 1 OLHADA NAS NOSSAS FUNCTIONS.
+
+
+
+
+
+
+
+
+
+
+
+
+-> PQ É EM FUNCTIONS QUE ESCREVEMOS A MAIOR PARTE DE NOSSO CÓDIGO..
+
+
+
+
+
+
+
+
+
+
+
+
+NESSE SECTION VEREMOS COMO ESCREVER FUNCTIONS LIMPAS...
+
+
+
+
+
+
+
+
+
+
+VEREMOS:
+
+
+
+
+
+
+1) OS PARAMETERS/ARGUMENTS QUE USAMOS EM FUNCTIONS, E COMO SER CLEAN NESSE ASPECTOL..
+
+
+
+
+
+
+
+2) VEREMOS 'FUNCTION LENGTH',
+
+
+
+o function body,
+
+
+
+
+a length de functions,
+
+
+
+níveis  de abstraction,
+
+
+
+E _ COMO _ SPLITTAR 
+
+1 FUNCTION EM MÚLTIPLAS FUNCTIONS,
+
+PARA MELHORAR 
+
+A LEGIBILIDADE...
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS ISSO COM AULAS, EXEMPLOS E 1 CHALLENGE...
