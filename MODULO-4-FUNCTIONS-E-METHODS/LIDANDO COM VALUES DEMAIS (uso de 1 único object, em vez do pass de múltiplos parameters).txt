@@ -1,0 +1,747 @@
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA VEREMOS AS FUNCTIONS QUE SÃO 1 POUCO 
+
+
+MAIS DIFÍCEIS DE ENTENDER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR EXEMPLO, ISTO AQUI:
+
+
+
+
+class User {
+  constructor(name, age, email) {
+    this.name = name;
+    this.age = age;
+    this.email = email;
+  }
+}
+
+const user = new User('Max', 31, 'max@test.com');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> nesse exemplo, temos 1 user class com 1 constructor function,
+
+
+
+
+em que 
+
+
+
+ASSIGNAMOS 
+
+
+'NAME'
+
+'AGE'
+
+E 
+
+'EMAIL'...
+
+
+
+
+
+
+
+
+
+
+--> ISSO PODERIA SER INSTANCIADO ASSIM, SIM...
+
+
+
+
+
+
+É MEIO ÓBVIO QUE É O NAME, AGE E EMAIL ADDRESS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E SE ESCREVEMOS ESSE CÓDIGO,
+
+
+NOSSO IDE 
+
+NOS DÁ UMA AJUDA 
+
+SOBRE A ORDEM 
+
+DE ARGUMENTOS,
+
+e sobre o que devemos escrever..
+
+
+
+
+
+
+
+
+
+
+
+
+MAS NÃO É TOTALMENTE ÓBVIA,
+
+ESSA ORDER...
+
+
+
+
+
+
+
+
+
+
+--> NÃO SERIA INESPERADO
+ 
+
+ TER 
+
+ O 
+
+
+ FIELD DE 'email'
+
+ ANTES 
+
+
+ DO NAME..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MELHOR DO QUE DEPENDER DO IDE SUPPORT 
+PARA LER ESSA FUNCTION,
+
+
+É 
+
+NEM MESMO RECORRER A ISSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+PARA ACTUALLY MELHORAR A READABILITY E USABILITY 
+
+DESSA CONSTRUCTOR FUNCTION,
+
+PODERÍAMOS 
+
+
+
+RECONSTRUIR NOSSO EXEMPLO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+class User2 {
+  //versão 1 pouco melhor da versão de cima
+  constructor(userData) {
+    this.name = userData.name;
+    this.age = userData.age;
+    this.email = userData.email;
+  }
+}
+
+const user2 = new User({ name: 'Max', age: 31, email: 'max@test.com' });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM... 
+
+
+
+
+
+
+
+PQ AGORA 
+
+
+
+NOSSO CONSTRUCTOR EXIGE 
+
+
+APENAS 
+
+
+1 
+
+
+
+ÚNICO 
+
+PARAMETER,
+
+EM VEZ DE 3...
+
+
+
+
+
+
+MAS ESSE ARGUMENT 
+
+É 
+
+
+
+1 SIMPLES DATA CONTAINER,
+
+
+TIPO 1 MAP/OBJECT,
+
+
+EM QUE 
+
+TEMOS 
+
+VÁRIOS 
+FIELDS 
+
+USADOS 
+
+PARA EXTRAIR 
+
+
+
+
+
+OS VALUES PARA 'name', 'age' e 'email'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS A VANTAGEM É QUE 
+
+QUANDO 
+
+
+
+INSTANCIAMOS 
+
+ESSE 
+
+OBJECT ALI EMBAIXO,
+
+
+
+
+
+
+na linha 
+
+
+''
+
+
+const user2 = new User({ name: 'Max', age: 31, email: 'max@test.com' });
+
+
+
+'',
+
+
+
+
+
+A ORDEM 
+
+NÃO IMPORTA NEM UM POUCO...
+
+
+
+
+
+
+--> ISSO PQ _ AGORA _ EXTRAÍMOS OS VALUES 
+
+
+POR IDENTIFIER NAME,
+
+POR KEY... -> OU SEJA,
+
+DEIXAMOS 
+
+
+DE 
+
+
+
+
+
+NOS IMPORTAR COM A ORDER...
+
+
+
+
+
+
+
+
+
+
+
+
+--> E SE __ LEMOS ESSE CÓDIGO,
+
+
+PERCEBEMOS 
+
+
+COM 100% DE CERTEZA 
+
+
+AS COISAS,
+
+
+
+PQ 
+
+SABEMOS QUE 
+
+'Max'
+
+será 
+
+o name,
+
+
+
+
+
+e sabemos que 
+
+
+'max@test.com'
+
+será o email....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É ASSIM, PORTANTO,
+QUE PODEMOS 
+
+SUBSTITUIR 
+
+
+
+MÚLTIPLOS PARAMS POR __ 1 ÚNICO PARAM,
+
+TUDO POR MEIO 
+
+DO 
+
+USO 
+
+DE 
+
+
+1
+ ÚNICO OBJECT/MAP  COMO 
+
+
+
+
+
+ 1 PARAMETER..
+
+
+
+
+
+
+
+
+ ----> É ASSIM QUE TECNICAMENTE 
+
+
+
+ FEEDAMOS MAIS DE 1 VALUE,
+
+ MAS DE 1 MANEIRA MAIS ESTRUTURADA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE ESSA É A MELHOR SOLUÇÃO POSSÍVEL
+
+SE 
+
+TEMOS 
+
+1 
+
+
+
+FUNCTION QUE EXIGE MÚLTIPLAS PIECES DE DATA,
+
+
+
+
+MAS EM QUE 
+
+
+VC N QUER 
+
+TER 
+
+
+UMA LISTA INFINITA DE ARGUMENTOS --> É BEM MELHOR 
+
+
+
+
+
+
+PASSAR 1 OBJECT/map,
+
+e aí 
+pegar esses values a partir dele...
+
+
+
+
+
+
+
+
+
+
+
+TEMOS OUTRO EXEMPLO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function compare(a, b, comparator) {
+
+    if (comparator === 'equal') {
+        return a === b;
+    } else if (comparator === 'not equal') {
+        return a !== b;
+    } else if (comparator === 'greater') {
+        return a > b;
+    } else if (comparator === 'smaller') {
+        return a < b;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO É BEM RUIM DE CHAMAR...
+
+
+
+
+
+
+
+
+
+POR ISSO SERIA BEM MELHOR 
+
+
+ESCREVER ASSIM:
+
+
+
+
+
+function compare(a, b, comparator) {
+
+    if (comparator === 'equal') {
+        return a === b;
+    } else if (comparator === 'not equal') {
+        return a !== b;
+    } else if (comparator === 'greater') {
+        return a > b;
+    } else if (comparator === 'smaller') {
+        return a < b;
+    }
+}
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function compare(comparisonData) {
+  //VERSÃO BOA: 
+
+  const { first, second, comparator } = comparisonData;
+  if (comparisonData === 'equal') {
+    return first === second;
+  } else if (comparator === 'not equal') {
+    return first !== second;
+  } else if (comparator === 'greater') {
+    return first > second;
+  } else if (comparator === 'smaller') {
+    return first < second;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+function compare(comparisonData) {
+  //TODO - VERSÃO BOA DO CÓDIGO DE CIMA (passamos apenas 1 parameter, em vez de 3)...
+
+  const { first, second, comparator } = comparisonData;
+  if (comparisonData === 'equal') {
+    return first === second;
+  } else if (comparator === 'not equal') {
+    return first !== second;
+  } else if (comparator === 'greater') {
+    return first > second;
+  } else if (comparator === 'smaller') {
+    return first < second;
+  }
+}
+
+
+
+
+const isSmaller = compare({ first: 3, second: 5, comparator: 'smaller' });
+const isSmaller2 = compare({ first: 3, second: 5, comparator: 'equal' });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OU SEJA,
+
+É ASSIM QUE PODEMOS EVITAR TER FUNCTIONS COM 3 OU MAIS ARGUMENTS...
+
+
+
+
+
+
+
+
+
+
+
+PQ APESAR DE 3 ARGUMENTS SEREM ACEITÁVEIS EM RAROS CASOS,
+
+
+
+
+__SEMPRE 
+
+
+
+EXISTIRÁ A POSSIBILIDADE DE REFATORAR COM OBJECTS/MAPS,
+
+
+
+
+o que deixará as coisas mais legíveis...
