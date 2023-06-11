@@ -1,0 +1,449 @@
+
+
+
+
+
+
+
+
+
+
+QUANDO O ASSUNTO É NÚMERO DE PARAMETERS,
+
+
+
+EXISTE 1 CENÁRIO ESPECIAL,
+
+EXCEÇÃO... 
+
+
+
+
+
+
+
+
+
+
+
+PODEMOS OBSERVAR ESSE CENÁRIO COM ESTE EXEMPLO:
+
+
+
+
+
+
+function sumUp(...numbers) {
+    let sum = 0;
+
+    for (const number of numbers) {
+        sum += number;
+    }
+
+    return sum;
+}
+
+
+const total = sumUp(10, 19, -3, 22, 5, 100);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+É UMA FUNCTION QUE SIMPLESMENTE SOMA TODOS OS VALUES QUE 
+
+
+PASSAMOS A ELA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E APESAR DESSA FUNCTION ACEITAR 6 ARGUMENTS,
+
+É SUPER FÁCIL DE LER E COMPREENDER...
+
+
+
+
+
+
+
+
+
+
+--> É MT CLARO O QUE ESSA FUNCTION FAZ...
+
+
+
+
+
+
+
+--> E A ORDEM AQUI TBM NÃO IMPORTA...
+
+
+
+
+
+
+
+
+
+
+
+AINDA ASSIM,
+
+
+VIOLAMOS A 
+
+
+REGRA DE TER 
+
+'3 OU MENOS PARAMETERS'...
+
+
+
+
+
+
+
+
+
+
+---> AQUI TEMOS 6 PARAMETERS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE PODERÍAMOS REWRITAR 
+
+ESSA FUNCTION,
+
+PARA QUE 
+
+ELA ACEITASSE 
+
+1 ARRAY COMO ARGUMENT...
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+function sumUp(...numbers) {
+  let sum = 0;
+
+  for (const number of numbers) {
+    sum += number;
+  }
+
+  return sum;
+}
+
+const total = sumUp(10, 19, -3, 22, 5, 100);
+
+const total2 = sumUp([10, 19, -3, 22, 5, 100]); // 1 único argument (array), em vez de 6 arguments...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM ISSO,
+
+
+TECNICAMENTE FICARÍAMOS COM 1 ÚNICO ARGUMENT,
+
+PQ ISSO É UM ARRAY...
+
+
+
+
+
+
+ESSA SERIA UMA SOLUTION PERFEITAMENTE 
+POSSÍVEL, SIM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS NEM PRECISAMOS FAZER ISSO...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+function sumUp(...numbers) {
+  let sum = 0;
+
+  for (const number of numbers) {
+    sum += number;
+  }
+
+  return sum;
+}
+
+const total = sumUp(10, 19, -3, 22, 5, 100);
+
+
+//  VERSÃO ALTERNATIVA DA SOLUÇÃO:
+// const total2 = sumUp([10, 19, -3, 22, 5, 100]); // 1 único argument (array), em vez de 6 arguments...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO PQ __ A MAIOR PARTE 
+
+
+DAS LINGUAGENS DE PROGRAMAÇÃO 
+
+
+POSSUEM 
+
+
+
+FEATURES 
+
+
+QUE TE DEIXAM 
+
+
+
+__ DEFINIR 1 'DYNAMIC NUMBER OF ARGUMENTS',
+
+
+
+E AÍ 
+
+
+
+
+_ TE DEIXAM __ 
+
+
+
+USAR 1 CERTA SINTAXE PARA AGRUPAR TODOS 
+
+ESSES 
+
+
+
+ARGUMENTS EM 1 ARRAY,
+
+DENTRO DA PRÓPRIA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+aqui, em javascript,
+é o operator 
+
+de 
+
+'...numbers' --> ISSO QUER DIZER QUE 
+
+
+
+
+'''NOSSO ARGUMENTO PODE SER QUALQUER NÚMERO DE VALUES,
+
+
+MAS ELES SERÃO TODOS MERGEADOS EM 1 ÚNICO ARRAY'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, É POR ISSO QUE NOSSO CÓDIGO FUNCIONA....
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+function sumUp(...numbers) { //por meio de '...args', nossa function usa, INTERNAMENTE, um ARRAY para esse argumento...
+  let sum = 0;
+
+  for (const number of numbers) {
+    sum += number;
+  }
+
+  return sum;
+}
+
+const total = sumUp(10, 19, -3, 22, 5, 100);
+
+
+//  VERSÃO ALTERNATIVA DA SOLUÇÃO:
+// const total2 = sumUp([10, 19, -3, 22, 5, 100]); // 1 único argument (array), em vez de 6 arguments...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PQ ___ CLEAN CODE 
+
+
+
+É ALL ABOUT 
+
+
+
+
+
+ESCREVER CÓDIGO QUE É UNDERSTANDABLE,
+
+EASY TO READ E MAINTAIN...
+
+
+
+
+
+
+
+
+
+certo....
