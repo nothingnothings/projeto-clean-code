@@ -1,0 +1,957 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... AGORA QUE JÁ VIMOS 1 MONTE DE EXEMPLOS,
+APRENDEMOS 1 MONTE DE REGRAS 
+
+
+
+E VIMOS 
+
+
+1 
+DEMO (transformação em ação)
+
+
+
+
+
+NA ÚLTIMA LIÇÃO,
+
+DEVEMOS APLICAR O QUE APRENDEMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS 1 EXAMPLE CODE... ESCRITO EM PYTHON ...
+
+
+
+
+
+
+
+
+
+DEVEMOS ENTENDER O QUE ESSE CÓDIGO FAZ...
+
+
+
+
+
+
+
+ISSO FEITOO,
+
+
+
+DEVEMOS 
+
+
+
+
+ENCONTRAR TODOS OS LOCAIS EM QUE NÃÕ ESTAMOS 
+
+CONTENTES 
+
+COM ALGUM NAME...
+
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR MENCIONA,
+
+NEM TODOS 
+OS 
+
+NOMES ALI DENTRO SÃO RUINS...
+
+
+
+
+
+
+
+-> MAIS IMPORTANTE DE TUOD,
+
+VC DEVE FOCAR NOS NOMES RUINS... E ENCONTRAR ALTERNATIVAS 
+
+MELHORES ...
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS VEJA O VÍDEO-SOLUÇÃO,
+PARA 
+
+
+
+VER COMO O PROFESSOR RESOLVE TUDO ISSO...
+
+
+
+
+
+
+
+COMECEI ASSIM:
+
+
+
+
+class Point:
+    def __init__(self, coordX, coordY):
+        self.coordX = coordX
+        self.coordY = coordY
+
+
+class Rectangle:
+    def __init__(self, starting_point, broad, high):
+        self.starting_point = starting_point
+        self.broad = broad
+        self.high = high
+
+    def area(self):
+        return self.broad * self.high
+
+    def end_points(self):
+        top_right = self.starting_point.coordX + self.broad
+        bottom_left = self.starting_point.coordY + self.high
+        print('Starting Point (X)): ' + str(self.starting_point.coordX))
+        print('Starting Point (Y)): ' + str(self.starting_point.coordY))
+        print('End Point X-Axis (Top Right): ' + str(top_right))
+        print('End Point Y-Axis (Bottom Left): ' + str(bottom_left))
+
+
+def build_stuff():
+    main_point = Point(50, 100)
+    rect = Rectangle(main_point, 90, 10)
+
+    return rect
+
+
+my_rect = build_stuff()
+
+print(my_rect.area())
+my_rect.end_points()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO ACABOU ASSIM, NA MINHA VERSÃO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Point:
+    def __init__(self, coordinateX, coordinateY):
+        self.coordinateX = coordinateX
+        self.coordinateY = coordinateY
+
+
+class Rectangle:
+    def __init__(self, starting_point, length, height):
+        self.starting_point = starting_point
+        self.length = length
+        self.height = height
+
+    def print_area(self):
+        return self.length * self.height
+
+    def print_points(self):
+        top_right_point = self.starting_point.coordinateX + self.length
+        bottom_left_point = self.starting_point.coordinateY + self.height
+        print('Starting Point (X)): ' + str(self.starting_point.coordinateX))
+        print('Starting Point (Y)): ' + str(self.starting_point.coordinateY))
+        print('End Point X-Axis (Top Right): ' + str(top_right_point))
+        print('End Point Y-Axis (Bottom Left): ' + str(bottom_left_point))
+
+
+def build_rectangle():
+    center_point = Point(50, 100)
+    return Rectangle(center_point, 90, 10)
+
+
+
+
+rectangle = build_rectangle()
+
+print(rectangle.print_area())
+rectangle.print_points()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ESTAMOS TRABALHANDO COM ELEMENTOS GEOMÉTRICOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ALGUNS NOMES SÃO RUINS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> point e rectangle são bons nomes...
+
+
+
+
+
+
+
+
+são boas class names...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> certo...
+
+
+
+
+'coordX' 
+
+
+e 
+
+coordY'...
+
+
+
+
+
+
+
+
+-> É MELHOR 'coordinateX'
+
+
+e 
+
+
+'coordinateY'...
+
+
+
+
+
+
+
+É CLARO QUE ESSAS SÃO COORDENADAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> poderíamos usar apenas 'x' e 'y',
+
+
+em vez de 
+
+'coordinateX'
+
+e 
+
+'coordinateY'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... VAI FICANDOD ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+class Rectangle:
+    def __init__(self, starting_point, length, height):
+        self.starting_point = starting_point
+        self.length = length
+        self.height = height
+
+    def print_area(self):
+        return self.length * self.height
+
+    def print_points(self):
+        top_right_point = self.starting_point.x + self.length
+        bottom_left_point = self.starting_point.y + self.height
+        print('Starting Point (X)): ' + str(self.starting_point.x))
+        print('Starting Point (Y)): ' + str(self.starting_point.y))
+        print('End Point X-Axis (Top Right): ' + str(top_right_point))
+        print('End Point Y-Axis (Bottom Left): ' + str(bottom_left_point))
+
+
+def build_rectangle():
+    center_point = Point(50, 100)
+    return Rectangle(center_point, 90, 10)
+
+
+
+
+rectangle = build_rectangle()
+
+print(rectangle.print_area())
+rectangle.print_points()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... MAS O RECTANGLE...
+
+
+
+
+
+
+
+
+
+
+dentro do constructor,
+
+temos 
+
+
+'broad'
+
+e 
+
+'high'...
+
+
+
+
+
+
+
+
+
+
+
+'starting_point' -> É OK,
+
+PQ 
+
+É 
+
+ONDE O 'STARTING POINT' do rectangle vai começar a ser escrito..
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS 1 TERMO MELHOR SERIA 
+
+'origin' (em vez de 'starting_point')...
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+class Rectangle:
+    def __init__(self, origin, length, height):
+        self.origin = origin
+        self.length = length
+        self.height = height
+
+    def print_area(self):
+        return self.length * self.height
+
+    def print_points(self):
+        top_right_point = self.origin.x + self.length
+        bottom_left_point = self.origin.y + self.height
+        print('Starting Point (X)): ' + str(self.origin.x))
+        print('Starting Point (Y)): ' + str(self.origin.y))
+        print('End Point X-Axis (Top Right): ' + str(top_right_point))
+        print('End Point Y-Axis (Bottom Left): ' + str(bottom_left_point))
+
+
+def build_rectangle():
+    center_point = Point(50, 100)
+    return Rectangle(center_point, 90, 10)
+
+
+
+
+rectangle = build_rectangle()
+
+print(rectangle.print_area())
+rectangle.print_points()
+
+
+
+
+
+
+
+
+
+
+
+
+
+USEI 'length' e 'width',
+
+
+o que está certo...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 'area' -> PARECE UMA PROPERTY...
+
+
+
+
+
+
+-> SE ISSO FOSSE 1 GETTER,
+
+
+
+PODERÍAMOS USAR 'area'...
+
+
+
+
+
+
+
+
+COMO ISSO NÃO É 1 GETTER, DEVEMOS USAR 'get_Area'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COLOQUEI 'print_area',
+
+
+pq é isso que essa function faz..
+
+
+
+
+
+
+
+
+
+
+
+mas e 'end_points'?
+
+
+
+
+
+
+
+
+
+
+
+-> ESSE METHOD PRINTA 1 MONTE DE INFO SOBRE O RECTANGLE...
+
+
+
+
+
+
+
+
+
+-> 'top_right'
+
+
+e 
+
+'bottom_left'...
+
+
+
+
+
+
+
+--> SERIAM ESSES BONS NOMES... 
+
+
+
+
+
+
+
+
+
+
+
+-> poderíamos os utilizar....
+
+
+
+
+
+
+
+
+--> 'coloquei 'top_right_point'
+
+
+
+e 
+
+'bottom_left_point'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> a function 'build_stuff' -> não é um bom nome...
+
+
+
+
+
+
+
+
+
+
+
+É GÍRIA...
+
+
+
+
+
+
+
+1 nome melhor seria 
+'build_rectangle',
+
+
+
+PQ 
+
+É ISSO QUE 
+ESSA FUNCTION FAZ...
+
+
+
+
+
+
+
+'main_point' é um nome RUIM... -> O NOME MELHOR SERIA 
+
+'rectangle_origin'... 
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+class Rectangle:
+    def __init__(self, origin, length, height):
+        self.origin = origin
+        self.length = length
+        self.height = height
+
+    def print_area(self):
+        return self.length * self.height
+
+    def print_points(self):
+        top_right_point = self.origin.x + self.length
+        bottom_left_point = self.origin.y + self.height
+        print('Starting Point (X)): ' + str(self.origin.x))
+        print('Starting Point (Y)): ' + str(self.origin.y))
+        print('End Point X-Axis (Top Right): ' + str(top_right_point))
+        print('End Point Y-Axis (Bottom Left): ' + str(bottom_left_point))
+
+
+def build_rectangle():
+    rectangle_origin = Point(50, 100)
+    return Rectangle(rectangle_origin, 90, 10)
+
+
+
+
+rectangle = build_rectangle()
+
+print(rectangle.print_area())
+rectangle.print_points()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+my_rect -> nome ruim....
+
+
+
+
+
+
+'end_points' --> estamos printando os starting também,
+
+
+por isso é melhor só colocar 'print_points'... (ou 'print_coordinates')....
+
+
+
+
+
+
+
+
+FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+class Rectangle:
+    def __init__(self, origin, length, height):
+        self.origin = origin
+        self.length = length
+        self.height = height
+
+    def get_area(self):
+        return self.length * self.height
+
+    def print_points(self):
+        top_right_point = self.origin.x + self.length
+        bottom_left_point = self.origin.y + self.height
+        print('Starting Point (X)): ' + str(self.origin.x))
+        print('Starting Point (Y)): ' + str(self.origin.y))
+        print('End Point X-Axis (Top Right): ' + str(top_right_point))
+        print('End Point Y-Axis (Bottom Left): ' + str(bottom_left_point))
+
+
+def build_rectangle():
+    rectangle_origin = Point(50, 100)
+    return Rectangle(rectangle_origin, 90, 10)
+
+
+
+
+rectangle = build_rectangle()
+
+print(rectangle.get_area())
+rectangle.print_points()
+
+
+
+
+
+
+
+
+
+
+resolvi este desafio...
