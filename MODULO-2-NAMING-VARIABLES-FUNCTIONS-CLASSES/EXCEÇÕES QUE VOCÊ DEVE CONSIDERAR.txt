@@ -1,0 +1,1131 @@
+
+
+
+
+
+
+
+
+
+
+
+
+OK... É CLARO QUE NENHUMA BOA REGRA VEM SEM NENHUMA EXCEÇÃO..
+
+
+
+
+
+
+
+
+
+TODAS AS REGRAS QUE APRENDEMOS NAS ÚLTIMAS LIÇÕES DEVEM SER APLICADAS,
+
+MAS EXISTEM ALGUMAS EXCEÇÕES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS 1 EXCEÇÃO AQUI:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from datetime import datetime
+
+
+class DateUtil:
+    @staticmethod
+    def get_formatted_today():
+        date_today = datetime.now()
+        formatted_date = date_today.strftime('%Y-%m-%d')
+        return formatted_date
+
+
+
+
+
+
+
+
+
+print(DateUtil.get_formatted_today())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE É UM BUILT-IN MODULE DO PYTHON,
+
+QUE PODEMOS 
+
+USAR 
+SE 
+
+PRECISAMOS 
+
+
+
+TER DATETIME FUNCTONALITY...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> e rodamos 'datetime.now()' 
+
+
+PARA _ CONSEGUIR 
+
+O CURRENT TIMESTAMP 
+
+
+DE NOSSO 
+
+MOMENTO --> ISSO NOS DÁ 1 DATE OBJECT,
+
+QUE 
+
+PODEMOS 
+
+FORMATAR 
+
+
+
+
+EM 1 STRING,
+
+COM ALGUMAS FORMATTING RULES,
+
+POR MEIO 
+
+
+
+DO METHOD DE 
+
+
+'strftime()'..
+
+
+
+
+
+
+
+
+
+
+
+
+-> E ESSES NOMES VIOLAM CLARAMENTE 
+
+
+AS COISAS QUE O PROFESSOR NOS ENSINOU...
+
+
+
+
+
+
+
+
+
+
+
+'.now()' -> É UM METHOD, E NÃO 1 PROPERTY ->  SE PARECE COMO UMA PROPERTY,
+
+MAS __ É UM METHOD.. --> E É UM METHOD 
+
+
+QUE NÃO DESCREVE 1 COMMAND, E QUE 
+
+
+TBM NÃO RETORNA 1 BOOLEAN ----------> É APENAs '.now()',
+
+
+E NÃO 
+
+
+
+'getNow()',
+
+
+
+nem, 
+
+
+
+'getCurrentTimeStamp()'..
+
+
+
+
+
+
+
+
+
+
+
+--> OK... O NOME É REALMENTE '.now()'..
+
+
+
+
+
+
+
+
+-> e como isso _ é uma BUILT-IN LIBRARY,
+
+VC N PODE MUDAR ISSO... -------> VC NÃO PODE MUDAR, FOI DEFINIDO POR OUTRAS PESSOAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> '.strftime()' --> OUTRO NOME BEM ESTRANHO... --> NÃO SABEMOS 
+
+SE ISSO 
+
+É UM COMANDO,
+
+
+PQ É BEM DIFÍCIL DE DIZER O QUE ISSO DEVERIA SER....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'strftime' --> 'STRING FROM TIME'? --> TALVEZ PQ 
+
+ELE 
+RETORNA 1 STRING DE 1 DATE TIME OBJECT...
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS ISSO NÃO É INTUITIVO,
+
+
+E 1 NOME BEM RUIM..
+
+
+
+
+
+
+
+
+
+'stringFromTime()' -->  ISSO TAMBÉM NÃO É 
+
+
+
+BEM 1 COMANDO,
+
+E SIM 
+
+
+
+SE PARECE MAIS COM 1 PROPERTY NAME...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM, MAS NÃO PODEMOS MUDAR ESSAS COISAS...
+
+
+
+
+
+
+
+
+MAS ISSO NÃO QUER DIZER QUE 
+
+VC 
+
+DEVE USAR __ eSSE MESMO NAMING NO SEU CÓDIGO..
+
+
+
+
+
+
+
+
+
+
+
+VC DEVE TENTAR SEGUIR AS REGRAS 
+
+
+PASSADAS NAS ÚLTIMAS LIÇÕES --> A NÃO SER QUE VC TENHA 
+
+1 BOA RAZÃO PARA NÃO O FAZER..
+
+
+
+
+
+
+
+
+
+
+
+
+EX: 'TODO MUNDO NO SEU TIME QUER USAR 1 NAMING CONVENTION DIFERENTE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E É CLARO QUE NAMING CONVENTIONS PODEM MUDAR AO LONGO DE DIFERENTES 
+
+LANGUAGES --> MAS VC NÃO DEVE SEGUIR 
+
+A NAMING CONVENTION 
+
+
+
+
+QUE USARAM em 'strftime'... -------> PRECISAMOS COLOCAR O MOUSE 
+
+EM CIMA 
+
+PARA ENTENDER O QUE ESSE METHOD FAZ..
+
+
+
+
+
+
+
+
+
+
+--> e se exploramos os methods  disponíveis em 'date_today',
+
+
+PERCEBEMOS QUE NENHUM METHOD NOS DIZ NADA:
+
+ 
+
+
+ strftime
+ strptime 
+ time 
+ timestamp 
+ timetuple 
+ timetz 
+ today 
+
+
+
+
+
+
+
+
+
+
+
+
+-> NÃO É FÁCIL ENTENDER 'O QUE DEVEMOS CHAMAR PARA CONSEGUIR 1 CERTO RESULT'..
+
+
+
+
+
+
+
+--> isso prova que 
+
+NAMING IMPORTA,
+
+E QUE 
+BONS NOMES IMPORTAM...
+
+
+
+
+
+
+
+
+
+
+-> e esses não são bons nomes -> NÃO PODEMOS MUDAR NADA DELES,
+
+
+MAS NÃO DEVEMOS COPIAR 
+
+
+
+SUAS CONVENTIONS NO NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FALANDO DE NOSSO CÓDIGO,
+
+
+ESSE SNIPPET 
+
+TEM MAIS DO QUE 
+
+
+
+
+ESSES BUILT-IN LIBRARY METHOD NAMES...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+from datetime import datetime
+
+
+class DateUtil:
+    @staticmethod
+    def get_formatted_today():
+        date_today = datetime.now()
+        formatted_date = date_today.strftime('%Y-%m-%d')
+        return formatted_date
+
+
+
+
+
+
+
+
+
+print(DateUtil.get_formatted_today())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NESSE EXEMPLO, 
+
+
+O PROFESSOR 
+
+
+
+DEFINIU 
+
+
+
+1 NOME DE 'DateUtil'
+
+
+
+
+PARA ESSA CLASS UTILITY QUE 
+
+RODA 
+
+methods como 'get_formatted_today'...
+
+
+
+
+
+
+
+
+
+
+
+
+-> isso é quase 
+
+O PATTERN DE 'DatabaseManager'...
+
+
+
+
+
+
+
+
+e 
+
+'DateUtil'
+
+
+É QUASE O MESMO PATTERN---> MAS AQUI TEMOS 1 EXCEÇÃO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ USAR CLASSES COMO 'DateUtil'
+
+
+
+PODEM FAZER SENTIDO __ SE CONTIVEREM 
+
+
+
+STATIC METHODS,
+
+
+
+EXATAMENTE COMO ESTE TEM:
+
+
+
+
+
+
+class DateUtil:
+    @staticmethod
+    def get_formatted_today():
+        date_today = datetime.now()
+        formatted_date = date_today.strftime('%Y-%m-%d')
+        return formatted_date
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> 1 STATIC METHOD É 1 METHOD QUE PODE SER CHAMADO, de 1 class, SEM INSTANCIAR 
+
+
+
+1 OBJECT A PARTIR DESSA CLASS ANTERIORMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ A CLASS SIMPLESMENTE EXISTE PARA __ AGRUPAR 
+
+FUNCIONALIDADE RELACIONADA EM 1 ÚNICO BLOCO...
+
+
+
+
+
+
+
+
+
+--> E AÍ, ADICIONAR ALGO COMO 'Util', 'Utility',
+'Manager',
+
+
+TUDO ISSO FAZ SENTIDO NO CLASSNAME,
+
+
+PQ ESSES TERMOS SINALIZAM 
+
+QUE 
+NOSSA 
+
+CLASS NÃO SERÁ INSTANCIADA,
+
+
+e
+
+
+SIM SERÁ APENAS 1 GROUPING 
+
+DE HELPER METHODS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ESSA É UMA EXCEÇÃO, PORTANTO...
+
+
+
+
+
+
+
+
+
+
+
+
+OUTRA EXCEÇÃO PODE SER 
+
+VISTA 
+
+
+NESTE SNIPPET AQUI:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Database {
+    private client: any;
+
+
+    get connectedClient() {
+        if (!this.client) {
+            throw new Error('Database not connected!');
+        } 
+
+        return this.client;
+    }
+
+    connect() {
+        //Establishing connection....
+        this.client = {}
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ESSE SNIPPET NOS MOSTRA OUTRA EXCEPTION..
+
+
+
+
+
+
+-> AQUI, TEMOS 1 CLASS DE 'DATABASE',
+
+
+EM QUE 
+
+TEMOS 
+
+
+1 PROPERTY PRIVATE de 'client' ------>   e essa _ 
+
+
+PROPERTY É SETTADA ACTUALLY QUANDO O METHOD 
+
+de 'connect()'
+
+
+
+
+É CHAMADO...
+
+
+
+
+
+
+
+--> OK... ENTRETANTO, COMO ESSA PROPRIEDADE DE 'client'
+
+
+É __ PRIVATE,
+
+ELA NÃO PODE SER ACESSADA DO LADO DE FORA  DA CLASS...
+
+
+
+
+
+--> para isso, em vez disso,
+
+
+temos GETTERS,
+
+como aquele getter de 
+
+
+
+'connectedClient()'...
+
+
+
+
+
+
+
+
+get connectedClient() 
+
+
+
+
+
+
+
+
+
+
+
+
+getters 
+
+e 
+
+setters 
+
+
+
+SÃO CONCEITOS QUE EXISTEM 
+
+EM DIVERSAS PROGRAMMING LANGUAGES,
+
+
+
+
+
+
+
+QUE TE PROVIDENCIAM MAIOR CONTROLE 
+
+
+
+SOBRE __ COMO  DATA_  EM 1  CLASS PODE SER 'LIDA' OU 'SET'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> GETTERS -> NOS PERMITEM CONTROLAR ACESSO A CERTAS PROPRIEDADES
+ 
+
+ EM 1 CLASS...
+
+
+
+
+
+
+
+
+
+
+
+ -> NESSE CASO ESPECÍFICO,
+
+
+
+NÓS CONTROLAMOS SE O CLIENT _ É INICIALIZADO __ 
+
+ANTES __ DE 
+
+O RETORNARMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... embora 
+
+'connectedClient()'
+
+
+
+SEJA ESCRITO COMO 1 METHOD,
+
+
+
+ELE _TEM 1 FUNCTION BODY E BRACKETS,
+
+
+E 
+
+TEM 
+
+1 NOME 
+
+
+COMO 1 PROPERTY...
+
+
+
+
+
+
+
+
+
+
+
+--> o nome é 'connectedClient',
+
+
+
+e não 
+
+
+
+'connectedClient' --------> isso pq 
+
+
+ESSE GETTER 
+
+
+
+
+
+É __ ACTUALLY/SERÁ ACTUALLY
+
+
+ACESSADO 
+
+
+EXATAMENTE COMO 1 PROPERTY,
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+class Database {
+    private client: any;
+
+
+    get connectedClient() {
+        if (!this.client) {
+            throw new Error('Database not connected!');
+        } 
+
+        return this.client;
+    }
+
+    connect() {
+        //Establishing connection....
+        this.client = {}
+    }
+}
+
+
+
+
+const db = new Database();
+db.connectedClient.query(); ////ISTO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESSE GETTER É ACESSADO 'COMO SE FOSSE 1 PROPERTY' --> ESSA É UMA LANGUAGE 
+
+FEATURE OFERECIDA PELO PRÓPRIO TYPESCRIPT/JAVASCRIPT,
+
+
+
+E VÁRIAS OUTRAS PROGRAMMING LANGUAGES POSSUEM CONCEITOS SIMILARES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... SIGNIFICA QUE, PARA 'GETTERS' E 'SETTERS',
+
+
+
+
+
+
+
+
+É _ OK __ USAR__ REGRAS DE NAMING DE __ PROPRIEDADES.. --> ainda que 
+
+
+
+
+ELES SEJAM TECNICAMENTE ESCRITOS COMO METHODS (
+
+
+
+
+    mas como o acessamos COMO 1 PROPERTY,
+
+    DEVEMOS 
+
+    NOMEÁ-LOS COMO TAL...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS ESSA É UMA EXCEÇÃO QUE DEVEMOS TER EM MENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS TEMOS QUE 
+
+
+APLICAR AS REGRAS QUE APRENDEMOS,
+
+NA MAIOR PARTE DOS CASOS...
