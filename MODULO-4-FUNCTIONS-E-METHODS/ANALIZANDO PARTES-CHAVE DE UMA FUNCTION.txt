@@ -1,0 +1,219 @@
+
+
+
+
+
+
+
+
+
+PARA ESCREVERMOS CLEAN CODE EM FUNCTIONS,
+
+
+É IMPORTANTE 
+
+REFLETIRMOS SOBRE O QUE COMPÕE UMA FUNCTION..
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+function add(n1, n2) {
+    return n1 + n2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUANDO DIZEMOS 'FUNCTIONS',
+
+
+também queremos dizer functions,
+
+
+pq 
+
+methods 
+
+
+
+não deixam de ser FUNCTIONS DENTRO DE OBJECTS...
+
+
+
+
+
+
+
+
+além de definir o código para essa function,
+
+
+PODEMOS A CHAMAR,
+ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+function add(n1, n2) {
+    return n1 + n2;
+}
+
+
+
+
+add(5, 7);
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUANDO FALAMOS DE CLEAN CODE,
+
+AS 2 PARTES DEVEM SER CLEAN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O CALL DA FUNCTION DEVE SER CLEAN E EASY... (devemos 
+
+chamar facilmente nossas functions... a ordem dos arguments deve ser clear)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O TRABALHO 
+
+COM A FUNCTION, O WRITE DE CÓDIGO 
+
+NA FUNCTION QUE JÁ 
+
+EXISTE,
+
+
+DEVE SER FÁCIL TAMBÉM (
+
+    quer dizer que 
+
+    o function body também deve ser readable..
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> CERTO... PORTANTO,
+
+IMPORTAM:
+
+
+
+
+
+
+
+
+
+
+
+1) O NÚMERO E ORDEM DOS ARGUMENTOS (é isso que faz a function ser readable e easy)...
+
+
+
+
+
+
+
+
+2) O COMPRIMENTO DO FUNCTION BODY,
+
+A QUANTIDADE DE 
+
+
+CÓDIGO QUE TEMOS DENTRO DE 1 FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+VEREMOS AMBOS OS ASPECTOS,
+
+NESSE MÓDULO..
