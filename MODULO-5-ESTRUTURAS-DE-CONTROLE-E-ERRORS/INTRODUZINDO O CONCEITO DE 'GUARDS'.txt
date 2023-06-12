@@ -1,0 +1,826 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR NOS MOSTRA ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+
+main();
+
+function main() {
+  const transactions = [
+    {
+      id: 't1',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '23.99',
+    },
+    {
+      id: 't2',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'PAYPAL',
+      amount: '100.43',
+    },
+    {
+      id: 't3',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '10.99',
+    },
+    {
+      id: 't4',
+      type: 'PAYMENT',
+      status: 'CLOSED',
+      method: 'PLAN',
+      amount: '15.99',
+    },
+  ];
+
+  processTransactions(transactions);
+}
+
+function processTransactions(transactions) {
+  if (transactions && transactions.length > 0) {
+    for (const transaction of transactions) {
+      if (transaction.type === 'PAYMENT') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardPayment(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalPayment(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanPayment(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!');
+        }
+      } else if (transaction.type === 'REFUND') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardRefund(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalRefund(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanRefund(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!', transaction);
+        }
+      } else {
+        console.log('Invalid transaction type!', transaction);
+      }
+    }
+  } else {
+    console.log('No transactions provided!');
+  }
+}
+
+function processCreditCardPayment(transaction) {
+  console.log(
+    'Processing credit card payment for amount: ' + transaction.amount
+  );
+}
+
+function processCreditCardRefund(transaction) {
+  console.log(
+    'Processing credit card refund for amount: ' + transaction.amount
+  );
+}
+
+function processPayPalPayment(transaction) {
+  console.log('Processing PayPal payment for amount: ' + transaction.amount);
+}
+
+function processPayPalRefund(transaction) {
+  console.log('Processing PayPal refund for amount: ' + transaction.amount);
+}
+
+function processPlanPayment(transaction) {
+  console.log('Processing plan payment for amount: ' + transaction.amount);
+}
+
+function processPlanRefund(transaction) {
+  console.log('Processing plan refund for amount: ' + transaction.amount);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUANDO VC TEM DEEPLY NESTED CODE ASSIM,
+
+
+PODE SER OVERWHELMING...
+
+
+
+
+
+
+
+
+
+POR ONDE DEVEMOS COMEÇAR?
+
+
+
+
+
+
+
+
+
+
+
+BEM, VEREMOS VÁRIAS MANEIRAS DE 'SLIM DOWN'
+
+
+essa estrutura,
+
+
+mas 
+
+
+
+
+
+
+ 1 TWEAK MT EFETIVO 
+
+ É 
+
+
+ USAR 
+
+ AS 
+
+ 'GUARDS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DEVEMOS USAR 'GUARDS' 
+
+
+
+E 
+
+'FAIL FAST'....
+
+
+
+
+
+
+
+
+
+MAS O QUE ISSO SIGNIFICA??
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, VEJA ESTE SIMPLES SNIPPET:
+
+
+
+
+if (email.includes('@')) {
+    // do stuff
+}
+
+
+
+
+
+
+
+
+
+
+NÓS CHECAMOS SE 1 EMAIL USA ESSE SINAL DE '@' ....
+
+
+
+
+
+SE O EMAIL PASSA,
+
+
+
+NOS FAZEMOS 1 MONTE DE TRABALHO DENTRO DO IF STATEMENT..
+
+
+
+
+
+
+
+
+
+E ESSE MONTE DE TRABALHO 
+PODERIA 
+
+SER 
+
+
+
+UM MONTE DE LINHAS 
+
+DE 
+
+
+CODE,
+
+
+
+COMO __ISTO AQUI:
+
+
+
+
+
+    for (const transaction of transactions) {
+      if (transaction.type === 'PAYMENT') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardPayment(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalPayment(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanPayment(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!');
+        }
+      } else if (transaction.type === 'REFUND') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardRefund(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalRefund(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanRefund(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!', transaction);
+        }
+      } else {
+        console.log('Invalid transaction type!', transaction);
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+TODO ESSE CÓDIGO AÍ EXISTE DENTRO 
+
+DE 
+
+1 IF CHECK...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM, SE VC TIVER 1 CASE ASSIM,
+
+
+
+É BEM PROVÁVEL QUE 
+
+
+
+
+VC __ CONSEGUIRÁ 
+
+
+__ 
+
+USAR 1 'GUARD'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OQ É 1 GUARD?
+
+
+
+
+
+
+
+
+
+
+
+--> É SIMPLESMENTE __ INVERTER __ O IF CHECK,
+
+
+
+
+COLOCAR O CASO CONTRÁRIO,
+
+E AÍ 
+
+
+SIMPLESMENTE FAZER ___ o RETURN__ DENTRO 
+
+
+DO IF CHECK....
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+ISTO:
+
+
+
+
+
+
+
+if (email.includes('@')) {
+    // do stuff
+}
+
+
+
+
+
+
+VIRA ISTO:
+
+
+
+
+
+
+if (!email.includes('@')) {
+    return;
+}
+
+//do stuff
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ISSO QUER DIZER QUE 
+AGORA 
+
+VC 
+
+VAI USAR 
+
+
+AQUELE IF STATEMENT DE 'if(!email)'
+
+
+
+como 
+
+
+1 GUARD...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE 
+
+
+_________eLE _ RODA__ ANTES _ 
+
+DO SEU 'MAIN CODE'
+
+RODAR.... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... E SE __ VC __ ENTRA PARA DENTRO DESSE IF CHECK (
+
+    ou seja,
+
+    se alguma condition NÃO É SATISFEITA
+),
+
+
+COMO 
+
+'O EMAIL NÃO INCLUI 
+
+1 @',
+
+
+
+
+
+
+
+
+AÍ 
+
+VC 
+
+VAI 
+
+
+
+ACABAR 
+
+
+'FAIL FAST'...
+
+
+
+
+
+
+
+vc 'fail fast' PQ VC VAI ACABAR FAZENDO 'return'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+E, COMO VC FEZ RETURN,
+
+TODO O CÓDIGO QUE VEM DEPOIS DO RETURN DEIXARÁ DE SER EXECUTADo...
+
+
+
+
+
+
+
+
+
+
+
+É ISSO QUE FAZ ESSA PARTE DE SEU CÓDIGO, SE VC QUISER,
+
+VIRAR 
+
+1 
+
+'GUARD'... -> pq ela vai 'GUARD' 
+
+o resto do seu código...
+
+
+
+
+
+
+
+
+SE ESSA CONDITION NÃO FOR MET,
+
+
+
+JUSTAMENTE PQ 
+
+
+NÓS 'fail fast,
+
+
+
+
+NÓS VAMOS EVITAR O RUN DO RESTO DO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+por que fazemos isso?
+
+
+
+
+
+
+
+
+
+
+
+PQ NÓS __ TIRAMOS __ O CÓDIGO DE DENTRO 
+
+
+
+DO IF STATEMENT,
+
+
+deixamos no lado de fora,
+
+
+
+
+PARA _ FACILITAR A LEITURA DE NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+UMA GUARD _ É TIPICAMENTE MT MAIS FÁCIL DE LER E ENTENDER DO QUE 
+
+
+
+1 CÓDIGO IF STATEMNT COMUM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E VC PODE USAR GUARDS ATÉ MESMO COM NESTED IF STATEMENTS...
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+if (user.active) {
+    if (user.hasPurchases()) {
+        // do stuff
+    }
+}
+
+
+
+
+
+
+
+
+VIRA:
+
+
+
+
+    if (!user.hasPurchases()) {
+        return; ---> FAIL FAST...
+    }
+
+    if (user.active) {
+         // do stuff
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUANDO TEMOS NESTED IF STATEMENTS,
+
+FICAMOS 
+
+
+
+COM '2 IF STATEMENTS CONSECUTIVOS',
+
+
+EM VEZ DE 1 
+
+IF STATEMENT 'DEEPLY NESTED'...
+
+
+
+
+
+
+
+
+
+
+
+E ESSA É UMA TECNICA SUPER EFICIENTE PARA REMOVER 
+
+
+
+NESTING DESNECESSÁRIO...
+
+
+
+
+
+
+
+
+
+
+AGORA DEVEMOS APLICAR 'GUARDS' AO NOSSO EXEMPLO...
+
+
+
