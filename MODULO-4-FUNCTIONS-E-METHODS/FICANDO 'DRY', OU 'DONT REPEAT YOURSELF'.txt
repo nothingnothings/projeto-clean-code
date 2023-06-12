@@ -1,0 +1,321 @@
+
+
+
+
+
+
+
+
+
+
+OK... ALÉM DOS NÍVEIS DE ABSTRACTION 
+
+
+
+
+E OS DIFERENTES TIPOS DE OPERATIONS QUE VC 
+
+PODE FAZER EM 1 FUNCTION,
+
+
+
+
+
+
+
+
+_ HÁ OUTRA RAZÃO PARA VC SPLITTAR 
+
+
+
+SUAS 
+
+FUNCTIONS EM PEDAÇOS MENORES...
+
+
+
+
+
+
+
+
+
+
+
+
+--> E O NOME DISSO É 'REUSABILITY' -> PQ __ REUSABILITY 
+
+
+QUASE SEMPRE IMPORTA, EM PROGRAMAÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NA PROGRAMAÇÃO,
+
+
+
+
+SEMPRE QUE VC ESCREVE QUALQUER CÓDIGO,
+
+HÁ 
+
+1 
+
+REGRA 
+
+
+BEM 
+
+
+IMPORTANTE,
+
+QUE VC DEVE SEMPRE TENTAR SEGUIR.... ---------> ESSA REGRA É
+
+
+'''VOCÊ NÃO DEVE REPEAT YOURSELF'' ..
+
+
+
+
+
+
+
+
+
+
+
+VC NÃO DEVE SE REPETIR,
+
+VC DEVE 
+
+
+
+'WRITE DRY CODE'...
+
+
+
+
+
+
+
+--> ESCREVER CÓDIGO SECO...
+
+
+
+
+
+
+
+
+
+
+
+E 'DRY CODE'
+
+SIGNIFICA 
+
+
+
+
+
+'CÓDIGO EM QUE VC NÃO REPETE COISAS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+NÃO ESCREVA O MESMO CÓDIGO,
+
+OU CÓDIGO 
+
+MT SIMILAR,
+
+
+
+
+
+
+
+EM MAIS DE 1 ÚNICO LUGAR...
+
+
+
+
+
+
+
+
+
+
+-> pq se vc estiver fazendo isso,
+
+VC 
+
+
+ESTÁ 'REPEATING YOURSELF'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS E QUAL O PROBLEMA COM O REPEAT YOURSELF?
+
+
+
+
+
+
+
+
+
+
+-> O PROBLEMA É QUE _ SE VC TIVER _ DE ALTERAR 
+
+ALGUMA COISA NESSE CÓDIGO,
+
+
+COMO LÓGICA 
+OU 
+ALGUM 
+
+ERROR,
+
+
+
+VC 
+
+SERÁ 
+FORÇADO 
+
+
+
+
+
+A APLICAR ESSA CHANGE EM MÚLTIPLOS LUGARES DE SEU CÓDIGO,
+
+
+SE 
+VC 
+
+
+FEZ 
+
+'REPEAT YOURSELF'...
+
+
+
+
+
+
+
+
+
+
+
+
+SE VC N FEZ 'REPEAT YOURSELF',
+
+
+VC 
+
+
+
+SÓ VAI PRECISAR FAZER ESSA MUDANÇA 1 ÚNICA VEZ,
+
+
+O QUE É BEM MELHOR, SEMPRE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM... AQUI HÁ ALGUNS SINAIS DE 1 CÓDIGO QUE NÃO ESTÁ 'DRY'... (
+
+    CÓDIGO EM QUE VC ESTÁ SE REPETINDO..
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) O SINAL MAIS ÓBVIO É  
+
+'''ESTOU FAZENDO MT COPIA E COLA NO MEU CÓDIGO'''....
+
+
+
+
+
+
+
+
+
+
+
+2) OUTRO SINAL QUE VC ESTÁ SE REPETINDO, E QUE PRECISA MUDAR ALGO,
+
+
+
+
+É 
+
+
+
+'''ESTOU TENDO DE APLICAR A MESMA CHANGE 
+
+EM MÚLTIPLOS LUGARES, NA MINHA CODEBASE''...
