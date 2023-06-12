@@ -1,0 +1,1360 @@
+
+
+
+
+
+
+
+
+
+
+
+FUNCTIONS E ABSTRACTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR INTRODUZIU O CONCEITO DE 'LEVELS OF ABSTRACTION'
+
+
+
+na última aula...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSES NÍVEIS NOS PERMITEM IDENTIFICAR SE 
+1 FUNCTION 
+
+
+FAZ 
+
+EXATAMENTE 
+
+
+
+1 
+
+
+
+___ COISA, OU SE FAZ MÚLTIPLAS COISAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ FUNCTIONS 
+
+DEVEM __ SEMPRE __ '''FAZER TRABALHO QUE __ É 
+
+
+1 LEVEL DE ABSTRACTION __ ABAIXO DO NÍVEL DO NOME DELAS (implícito no function name)''...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... É UMA FRASE COMPLEXA, MAS O QUE SIGNIFICA?
+
+
+
+
+
+
+
+
+
+
+
+--> CONSIDERE ESTE EXEMPLO:
+
+
+
+
+
+
+
+
+
+
+function emailIsValid(email) {
+    return email.includes('@');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ELA ACEITA 1 EMAIL COMO PARAMETER -> AÍ VC 
+
+TALVEZ TENHA 
+
+1 
+LOW LEVEL 
+
+CODE 
+DENTRO DELA...
+
+
+
+
+
+
+
+
+
+
+
+-> MAS É CLARO QUE 
+
+ESSA __ OPERATION,
+
+ESSA CALL,
+
+
+É 'UM LEVEL ABAIXO'
+
+
+
+
+___ DO 'LEVEL IMPLÍCITO PELA FUNCTION NAME'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E 'emailIsValid',
+
+SE CHAMÁSSEMOS ASSIM,
+
+
+
+
+É BEM 
+
+'HIGH LEVEL' -----> ENTRETANTO,
+
+COMO 
+
+RESULTADO,
+
+É CLARO QUE 
+
+
+QUEREMOS 
+SABER 
+
+
+S
+E 
+
+
+
+
+1 
+
+EMAIL É VÁLIDOO OU NÃO (
+
+
+    deve retornar true ou false,
+
+    a partir da validade do email...
+)
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE DENTRO 
+
+DESSA FUNCTION 
+
+
+
+
+RODAMOS 
+
+
+1 OPERATION EM 1 'LOWER LEVEL OF ABSTRACTION'...
+
+
+
+
+
+-> no caso,
+
+o código 'email.includes('@')' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTENDER A MORAL DE CHAMAR '.includes(@)'
+
+
+
+nesse parameter,
+
+aqui,
+é bem simples/fácil de compreender,
+
+
+
+isso por conta 
+
+
+
+DO FUNCTION NAME 
+EM QUE 
+
+
+
+
+O COLOCAMOS..
+
+
+
+
+
+
+
+
+
+-> FICA CLARO QUE ESTAMOS FAZENDO ESSE LOW-LEVEL WORK
+PARA 
+
+
+GANHAR 
+
+1 
+
+
+ANSWER 
+
+A ESSA QUESTION..
+
+
+
+
+
+
+
+
+
+-> OK... SIGNIFICA QUE 
+
+LOW-LEVEL CODE NÃO É RUIM,
+
+
+
+É _ NECESSÁRIO.. --> VC PRECISA 
+
+
+
+ESCREVER ESSE TIPO DE CÓDIGO EM ALGUM LUGAR... ( NÃO HÁ COMO EVITAR)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS O SEGREDO É _ eSCREVER _ ESSE CODE 'LOW-LEVEL' 
+
+
+
+
+
+
+
+EM LUGARES EM QUE 
+
+
+A 
+__INTERPRETATION É ADICIONADA POR MEIO 
+
+
+DO _ NOME _ DA FUNCTION _ EM QUE 
+
+AQUELE 
+
+LOW-LEVEL CODE RODA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+veja este exemplo:
+
+
+
+
+
+
+
+
+function saveUser(email) {
+
+    if (email.includes('@') {
+        ...
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE EXEMPLO É UM EXEMPLO DE LOW-LEVEL CODE 
+USADO DE FORMA ERRADA....
+
+
+
+
+
+
+---> ISSO _ PQ __ TER ESSE LOW-LEVEL CODE 
+de 'includes'
+
+
+
+NÃO TEM NADA __ A VER __ COM 
+
+
+
+
+A FEATURE DE 'saveUser',
+
+
+
+
+
+
+
+
+PQ __ ESSA FEATURE DE 'saveUser'
+
+NÃO ADICIONA NENHUM TIPO 
+
+
+DE INTERPRETATION
+
+
+
+
+
+
+___ A ESSE LOW-LEVEL CODE... ---> NÓS, COMO DESENVOLVEDORES,
+
+TEMOS QUE 
+
+ADIVINHAR,
+
+NESSE CASO,
+
+
+QUE ESSE CÓDIGO DE '.includes()'
+
+está sendo USADO 
+
+PARA VALIDAR 1 INPUT... -----> 
+
+
+
+
+
+
+
+
+PQ FAZ SENTIDO, SIM,
+
+QUE 
+
+TERÍAMOS 
+
+1 
+
+
+
+FASE DE 'VALIDATION'
+
+ANTES DE SALVARMOS 1 USER... -> MAS O ACTUAL 
+
+
+LOW-LEVEL 
+
+
+CODE 
+
+
+
+
+__ FICA MAIS DIFÍCIL DE SER COMPREENDIDO 
+
+
+
+
+
+
+SE ___ ELE __ ESTIVER, COMO AGORA,
+
+LONGE 
+
+DO 
+'NÍVEL DE ABSTRACTION PROVIDENCIADO PELO FUNCTION NAME'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM ESSA FUNCTION DE 'saveUser',
+
+
+
+DEVERIAM SER ORQUESTRADAS 
+
+APENAS 
+
+AS STEPS NECESSÁRIAS PARA SALVAR ESSE USER...
+
+
+
+
+
+
+
+
+
+--> SIGNIFICA QUE FICAMOS COM UM 'GAP'
+
+
+ENTRE O LEVEL DE ABSTRACTION PROVIDENCIADO 
+
+PELO FUNCTION NAME 
+
+
+E
+ O 
+
+ LEVEL DE ABSTRACTION 
+
+
+ DA ACTUAL OPERATION QUE REALIZAMOS NESSA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO PODE PARECER SUPER OVERWHELMING E CONFUSING,
+
+
+
+mas é 
+
+
+ALGO QUE VEM COM EXPERIÊNCIA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS LEVELS DE ABSTRACTION TAMBÉM 
+
+IMPORTAM 
+
+
+
+POR CONTA __ 
+
+
+
+DE OUTRO CONCEITO... -----> E VOLTAREMOS 
+
+
+A
+ ESSE EXEMPLO MAIS TARDE...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> QUAL É O CONCEITO?
+
+
+
+
+
+
+
+
+
+
+
+
+ O CONCEITO É 
+
+
+
+
+ ''VC  NÃO DEVE TENTAR MISTURAR MÚLTIPLOS 
+
+ LEVELS DE ABSTRACTION EM 1 MESMA FUNCTION'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> VEJA ESTE EXEMPLO:
+
+
+
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+ if (!email.includes('@')) {
+    console.log('Invalid email')
+ } else {
+    const user = new User(email)
+    user.save()
+ }
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+NESSE CÓDIGO, ESTAMOS MISTURANDO MÚLTIPLOS LEVELS DE ABSTRACTION..
+
+
+
+
+
+
+
+
+-> ou seja,
+
+temos 
+
+1 PARTE EM QUE TEMOS 'LOW-LEVEL CODE' (o includes),
+
+
+e outra 
+
+em que 
+
+
+TEMOS 
+
+
+
+1 _ CÓDIGO HIGH-LEVEL (a parte de 'save user')...
+
+
+
+
+
+
+
+
+
+
+
+-> OK.. SE LERMOS ESSE SNIPPET,
+
+TEMOS QUE 
+ADICIONAR 
+
+BASTANTE 
+INTERPRETATION 
+A ELE,
+
+
+
+PARA __ COMPREENDER __ 
+
+
+
+COMPLETAMENTE O QUE 
+
+ESTÁ ACONTECENDO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE ESSE MESMO CÓDIGO ESTIVESSE ESCRITO ASSIM:
+
+
+
+
+
+
+
+if (!isEmail(email)) {
+    showError('Invalid email!')
+} else {
+    saveNewUser(email)
+}
+
+
+
+
+
+
+
+
+
+
+--> SE O CÓDIGO ESTIVESSE ASSIM,
+
+TODAS AS OPERATIONS ESTARIAM 
+
+
+'''NO MESMO NÍVEL DE ABSTRACTION'',
+
+
+
+
+E __ ISSO _ DEIXARIA AS COISAS BEM MAIS FÁCEIS DE ENTENDER...
+
+
+
+
+
+
+
+
+
+-> PARA COMPREENDER O QUE NOSSA FUNCTION FARIA, NESSE CASO,
+
+
+
+BASTARIA
+ 
+
+ LER 
+
+
+
+
+OS NOMES DESSAS FUNCTIONS (showError, saveNewUser, isEmail),
+
+
+para 
+
+
+
+COMPREENDER _ __ COMPLETAMENTE O QUE ESSE CÓDIGO FAZ..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE NÍVEIS DE ABSTRACTION 
+
+
+
+
+IMPORTAM...
+
+
+
+
+
+
+
+
+
+
+
+
+-> E É POR ISSO QUE __ MISTURAR DIFERENTES NÍVEIS DE ABSTRACTION,
+
+OU 
+
+
+PQ 
+
+
+TER 
+1 GAP 
+
+
+MT GRANDE 
+
+ENTRE 
+
+
+A 'FUNCTION NAME'
+
+
+E 
+
+A OPERATION ACTUALLY REALIZADA 
+
+
+
+
+PODE LEVAR A PROBLEMAS, E LEVAR A CÓDIGO RUIM..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok...
+
+
+
+
+
+
+
+
+
+
+SE RETORNARMOS AO 
+
+CÓDIGO DE 'renderContent',
+
+
+VEREMOS QUE 
+
+
+ESSA FUNCTION SOFRIA DE DIVERSOS PROBLEMAS:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function renderContent(renderInformation) {
+  const element = renderInformation.element;
+  if (element === 'script' || element === 'SCRIPT') {
+    throw new Error('Invalid element.');
+  }
+
+  let partialOpeningTag = '<' + element;
+
+  const attributes = renderInformation.attributes;
+
+  for (const attribute of attributes) {
+    partialOpeningTag =
+      partialOpeningTag + ' ' + attribute.name + '="' + attribute.value + '"';
+  }
+
+  const openingTag = partialOpeningTag + '>';
+
+  const closingTag = '</' + element + '>';
+  const content = renderInformation.content;
+
+  const template = openingTag + content + closingTag;
+
+  const rootElement = renderInformation.root;
+
+  rootElement.innerHTML = template;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AQUI PODEMOS VER O _ GAP _ ENTRE O NÍVEL DE 
+
+
+ABSTRACTION 
+
+ 
+ ENTRE 
+
+
+
+
+ A FUNCTION NAME ('renderContent')
+
+
+
+
+ E 
+
+
+
+
+ OS LEVELS DE ABSTRACTION 
+
+
+ DAS ACTUAL OPERATIONS QUE ESTAMOS FAZENDO DENTRO DA FUNCTION,
+
+
+
+
+ QUE É BEM GRANDE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ NESSE CASO,
+
+ TÍNHAMOS 1 MONTE DE 'low level operations',
+
+
+
+ COMO 
+
+
+ 'COMPARANDO O TYPE DO ELEMENT',
+
+
+
+ OU 
+
+ ENTÃO 
+
+
+ 'CONCATENANDO 
+
+ AS NOSSAS OPENING TAGS'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ JÁ NO EXEMPLO 'GOOD CODE',
+
+
+ TÍNHAMOS ISTO:
+
+
+
+
+ function renderContent(renderInformation) {
+  const element = renderInformation.element;
+  const rootElement = renderInformation.root;
+
+  validateElementType(element);
+
+  const content = createRenderableContent(renderInformation);
+
+  renderOnRoot(content, rootElement);
+}
+
+
+
+
+
+
+
+
+NESSE CASO,
+
+
+
+
+
+
+
+NÃO TÍNHAMOS ISSO...
+
+
+
+
+
+
+
+
+
+
+--> FICAMOS COM OPERATIONS QUE SÃO SEMPRE '1 LEVEL 
+
+ABAIXO DO LEVEL DE ABSTRACTION 
+
+
+DA FUNCTION DE renderContent'...
+
+
+
+
+
+
+
+
+
+--> 'validateElementType' 
+
+
+
+'createRenderableContent'
+
+
+'renderOnRoot' 
+
+
+
+
+
+
+
+
+
+
+
+--> FAZ SENTIDO QUE ESSAS SÃO AS STEPS QUE PRECISAMOS SEGUIR 
+
+PARA RENDERIZAR 
+
+ALGO NA TELA...
+
+
+
+
+
+
+
+
+
+
+
+
+-> O ACTUAL WORK,
+
+QUE PRECISA SER FEITO,
+
+
+
+
+AS LOWER-LEVEL OPERATIONS,
+
+
+ELAS SÃO 
+
+OUTSOURCEADAS 
+
+EM OUTRAS 
+
+FUNCTIONS... e, nas functions em que 
+
+as outsourceamos,
+
+
+
+
+FAZ SENTIDO 
+
+
+
+
+AS COMPARISONS ESTAREM PRESENTES, COMO ISTO:
+
+
+
+function validateElementType(element) {
+  if (element === 'script' || element === 'SCRIPT') {
+    throw new Error('Invalid element.');
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+-----> NESSA FUNCTION, ISSO FAZ SENTIDO,
+
+
+
+FAZ SENTIDO TER COMPARISONS COMO ESSAS,
+
+
+PQ 
+
+NESSE 'LOWER-LEVEL CODE'
+
+
+
+as coisas ficarão ok...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... NÍVEIS DE ABSTRACTION IMPORTAM...
+
+
+
+
+
+
+
+
+
+
+
+--. É CLARO QUE ESSE É UM CONCEITO 
+
+
+
+
+
+DIFÍCIL DE COMPREENDER E APLICAR... VEM COM ANOS DE EXPERIÊNCIA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+MESMO DEPOIS DE ANOS DE EXPERIÊNCIA,
+
+
+VC 
+
+AINDA ESCREVERÁ 
+FUNCTIONS 
+SUJAS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO SEMPRE,
+
+
+NÃO É UMA HARD RULE.... SE VC TIVER 1 FUNCTION CURTA,
+
+
+COM MÚLTIPLOS LEVELS DE ABSTRACTION,
+
+ELA AINDA PODE SER FINE,
+
+DEPENDNEDO DO CASO...
+
+
+
+
+MAS VC SEMPRE DEVE 
+
+CONSIDERAR O SPLIT DE SUAS FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+
+VEREMOS ISSO EM UMA DAS PRÓXIMAS AULAS...
