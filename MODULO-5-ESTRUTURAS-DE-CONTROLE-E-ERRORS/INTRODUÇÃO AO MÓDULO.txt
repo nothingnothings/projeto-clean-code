@@ -1,0 +1,409 @@
+
+
+
+
+
+
+
+AGORA QUE SABEMOS COMO DEVEMOS NOMEAR COISAS,
+
+COMO FORMATAR NOSSO CÓDIGO 
+
+
+
+
+E COMO 
+
+
+
+ESCREVER CLEAN FUNCTIONS,
+
+
+
+
+
+
+
+
+
+
+DEVEMOS AGORA ___ 
+
+
+ENTENDER 
+
+
+
+
+E ESTUDAR 
+
+
+
+
+__CONTROL STRUCTURES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+NO CASO,
+
+LOOPS E IF STATEMENTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO PQ __ CONTROL STRUCTURES 
+
+
+
+POSSUEM 1 PAPEL CENTRAL,
+
+QUANDO 
+
+O 
+
+ASSUNTO É O WRITE DE 
+
+CLEAN CODE....
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+ VC QUER EVITAR ESCREVER CÓDIGO ASSIM:
+
+
+
+
+
+
+ 
+function processTransactions(transactions) {
+    if (transactions && transactions.length > 0) {
+        for (const transaction of transactions) {
+            if (transaction.type === 'PAYMENT') {
+                if(transaction.status === 'OPEN') {
+                    if(transaction.method === 'CREDIT_CARD') {
+                        processCreditCardPayment(transaction);
+                    } else if (transaction.method === 'PAYPAL') {
+                        processPayPalPayment(transaction);
+                    } else if (transaction.method === 'PLAN') {
+                        processPlanPayment(transaction);
+                    }
+                } else {
+                    console.log('Invalid transaction type!');
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VC QUER EVITAR CÓDIGO ASSIM...
+
+
+
+
+
+
+
+
+
+
+ESSE TIPO DE CÓDIGO É CHAMADO DE 'ARROW CODE',
+
+PQ 
+
+SE 
+
+PARECE COM 1 FLECHA...
+
+
+
+
+
+
+
+
+
+
+
+-> TEMOS, EM OUTRAS PALAVRAS,
+
+DEEPLY NESTED CONTROL STRUCTURES...
+
+
+
+
+
+
+
+
+--> BASICAMENTE TEMOS 
+
+IF STATEMENTS QUE CONTÊM FOR LOOPS,
+
+
+
+QUE __ POR SUA VEZ CONTÊM AINDA MAIS 
+
+IF STATEMENTS,
+
+
+
+COM AINDA MAIS 
+
+
+IF STATEMENTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É SUPER DIFÍCIL DE LER,
+
+
+SUPER DIFÍCIL DE MANTER,
+
+
+ERROR-PRONE,
+
+
+
+
+E NADA CLEAN...
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS APLICAR DIVERSAS 
+TECNICAS PARA 
+
+TRANSFORMAR ISSO EM 
+
+
+CLEAN CODE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS `COMO EVITAR DEEPLY NESTED CONTROL STRUCTURES`..
+
+
+
+
+
+
+
+
+-> VEREMOS COMO __ PODEMOS UTILIZAR ERRORS 
+
+NO NOSSO APP,
+
+EM VEZ DE USAR 
+
+
+IF STATEMENTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS TUDO ISSO COM EXEMPLOS CONCRETOS,
+
+
+COM DEMOS,
+
+
+
+
+E OPORTUNIDADES DE PRATICAR...
+
+
+
+
+
+
+
+
+
+
+
+
+o professor tem 1 warning sobre essa section...
+
+
+
+
+
+
+
+
+
+--> será 1 section bem PRÁTICA...
+
+
+
+
+
+
+
+
+
+--> VEREMOS MENOS SLIDES,
+
+E FOCAREMOS MAIS 
+
+NO REFACTORING DO CÓDIGO....
+
+
+
+
+
+
+
+
+
+
+--> O CÓDIGO-EXEMPLO VAI SER REFATORADO 1 MONTE...
+
+
+
+
+
+
+
+--> e o refactoring também vai ser refatorado...
+
+
+
+
+
+
+
+-> é assim que escrevemos clean code....
+
+
+
+
+
+
+
+
+--> ok... vai ser intenso...
+
+
+
+
+
+--> se vc não é fã de refactoring,
+
+
+
+se deu mal... 
+
+
+
+
+
+
+
+
+--> essa section será super importante... e é assim que 
+
+escrevemos clean code...
+
+
+
+
+
+
+
+
+
+--> essa section é menos sobre novos conceitos,
+
+e mais sobre aplicar o que já aprendemos...
