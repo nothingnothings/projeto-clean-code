@@ -1,0 +1,442 @@
+
+
+
+
+
+
+
+
+
+
+NA ÚLTIMA LIÇÃO,
+
+O PROFESSOR FALOU SOBRE 'LEVELS DE ABSTRACTION'
+
+NAS NOSSAS FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE ASSUNTO PODE SER INTIMIDADOR...
+
+
+
+
+
+
+
+
+
+
+
+
+-> NEM SEMPRE VOCÊ CONSEGUIRÁ 
+
+DETERMINAR SE 'HÁ MÚLTIPLOS LEVELS DE ABSTRACTION EM 1 FUNCTION' OU NÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS ISSO VEM COM EXPERIÊNCIA...
+
+
+
+
+
+
+
+
+
+--> MAS SEMPRE É BOM 
+
+PRIMEIRAMENTE 
+
+COMEÇAR 
+
+A PENSAR NO SPLIT DE SEU CÓDIGO..
+
+
+
+
+
+
+
+
+
+
+
+
+--> VC QUER DEIXAR SEU CÓDIGO O MAIS LEGÍVEL POSSÍVEL..
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR NOS DÁ 2 RULES OF THUMB,
+QUE NOS AJUDAM 
+
+
+A 
+
+SPLITTAR NOSSO CÓDIGO OU NÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+VC VAI QUERER SPLITTAR 1 FUNCTION/breaking up uma function em múltiplas functions 
+
+
+
+___ SE _ VC_ _ CONSEGUE _EXTRAIR __ MÚLTIPLAS LINHAS 
+
+DE CÓDIGO 
+
+
+
+
+
+__ QUE _ 'WORK ON THE SAME FUNCTIONALITY'...
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+DIGAMOS QUE TEMOS 1 FUNCTION QUE CHAMA 
+
+'user.setAge(31)'
+
+
+'user.setName('Max')...
+
+
+
+
+
+
+
+
+
+
+
+VC PODERIA CONSIDERAR 
+MERGEAR ISSO EM 1 UMA ÚNICA FUNCTION,
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+user.update({age: 31, name: 'Max'})
+
+
+
+
+
+
+
+
+
+vc fará  isso para que 
+
+
+na sua function ORIGINAL VC SÓ TENHA QUE CHAMAR 1 
+
+
+
+
+FUNCTION, COM 1 PARAMETER,
+
+
+PARA 
+
+
+FAZER O ACTUAL WORK DE 
+SETTAR 1 NAME E AGE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+SEMPRE QUE 
+VC 
+TIVER 
+
+A CHANCE 
+
+DE MOVER 
+
+1 BLOCO DE CODE PARA OUTRA FUNCTION,
+
+VC PODE CONSIDERAR FAZÊ-LO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+REGRA 2:  VC SEMPRE VAI QUERER EXTRAIR CODE 
+
+
+QUE __ 
+
+
+EXIGE __  MAIOR INTERPRETATION DO QUE 
+O SURROUNDING CODE ------> E ISSO, É CLARO,
+
+
+ESTÁ 
+
+DIRETAMENTE 
+
+RELACIONADO COM 
+
+
+O CONCEITO DE 'LEVELS OF ABSTRACTION'...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+if(!email.includes('@') {
+
+saveNewUser(email)
+
+} )
+
+
+
+
+
+
+
+
+
+
+
+AQUI, PORTANTO,
+
+
+
+É FÁCIL DE PERCEBER QUE 
+
+ESSE 'email.includes()',
+
+
+
+ESSE CHECK,
+
+REQUER 
+
+MAIS 
+INTERPRETAÇÃO 
+
+
+DE NOSSA PARTE DO QUE 
+
+'saveNewUser()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PQ 'saveNewUser()'
+
+
+
+DEIXA BEM CLARO O QUE ESSA FUNCTION VAI FAZER...
+
+
+
+
+
+
+
+JÁ COM 'email.includes()',
+
+
+
+TALVEZ SEJA NECESSÁRIO 
+
+'ADICIONAR 
+EXTRA MEANING',
+
+
+
+MEANING DE QUE 
+
+A VALIDATION 
+
+ESTÁ SENDO FEITA,
+AQUI...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUER DIZER QUE A VERSÃO 'BOA' DESSE CÓDIGO SERIA ESTA:
+
+
+
+
+
+
+
+
+if (!isValid(email)) {
+    saveNewUser(email)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PQ AGORA PODEMOS FACILMENTE LER ESSE CÓDIGO,
+E A INTERPRETATION ESTARÁ 'BAKED' NOS NOMES...
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO... BASTA USARMOS ESSAS REGRAS PARA DECIDIRMOS SE QUEREMOS SPLITTAR OU NÃOO...
+
+
+
