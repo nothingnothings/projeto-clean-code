@@ -1,0 +1,733 @@
+
+
+
+
+
+
+
+
+
+-> USE COMMON SENSE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM TODO O SPLIT DE CÓDIGO QUE FIZEMOS,
+
+
+
+E COM TODAS AS RAZÕES QUE 
+TEMOS 
+PARA 
+
+
+
+
+
+_SPLITTAR FUNCTIONS E REDUZIR TAMANHO DE FUNCTIONS,
+
+
+
+
+
+HÁ MAIS 1 DETALHE...
+
+
+
+
+
+
+
+
+
+
+NUNCA DEVEMOS DEIXAR DE 'USE COMMON SENSE'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SEMPRE DEVEMOS QUESTIONAR SE AGORA A 
+
+
+LEGIBILIDADE E MAINTAINABILITY 
+
+
+REALMENTE ESTÁ MAIOR...
+
+
+
+
+
+
+
+
+
+--> VC _ DEVE SPLITTAR SUAS FUNCTIONS REASONABLY...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--. APRENDEMOS ESSES DIVERSOS CONCEITOS NOVOS,
+
+COMO NÍVEIS DE ABSTRACTION,
+
+RULES OF THUMB,
+
+
+
+
+MAS __ SEGUIR TODAS ESSAS REGRAS 
+
+
+CEGAMENTE 
+
+
+
+
+
+
+TRARÁ 
+
+O 
+
+
+PERIGO DE VC 
+
+FICAR 
+
+
+'TOO GRANULAR'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E SE VC FOR GRANULAR DEMAIS,
+
+SEU CÓDIGO 
+
+
+NÃO VAI 
+
+
+FICAR MAIS LEGÍVEL, VAI FICAR PIOR..
+
+
+
+
+
+
+
+
+
+-> NÃO SPLITTE SEU CÓDIGO 
+
+
+
+SE VC 
+
+ESTIVER, POR EXEMPLO,
+APENAS 
+
+RENOMEANDO 
+
+
+A OPERATION QUE VC 
+
+
+EXTRAIU 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÃO SPLITTE 
+
+SE ''ENCONTRAR O CÓDIGO QUE VC EXTRAIU'
+
+
+
+vai demorar 
+
+
+
+MAIS TEMPO 
+
+
+
+
+
+DO QUE SE VC TIVESSE DEIXADO ESSA FUNCTION NO LUGAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 1 BOM SINAL DE QUE 'NÃO É BOM  SPLITTAR'
+
+
+
+
+
+___ É __ ''''NÃO CONSIGO ENCONTRAR 
+
+1 NOME PARA A NOVA EXTRACTED FUNCTION'..
+
+
+
+
+
+
+
+
+
+--> SE VC _ ESTIVER PONDERANDO QUE 
+
+
+
+'''QUALQUER NOME QUE EU COLOCAR __ VAI CLASHAR _ COM 
+A FUNCTION DE QUE 
+
+EU EXTRAÍ 
+
+ESSE CÓDIGO AÍ'',
+
+
+
+
+
+
+
+
+
+ISSO SIGNIFICA QUE 
+
+O SPLIT 
+
+
+DE SEU CÓDIGO TERÁ SIDO UMA MÁ IDEIA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, O PROFESSOR TEM OUTRO EXEMPLO...
+
+
+
+
+
+
+
+TEMOS ESSA FUNCTION:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function saveUser(email, password) {
+    const user = {
+        email: email,
+        password: password
+    }
+
+    database.insert(user);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NESSA FUNCTION, TEMOS MIXED LEVELS DE ABSTRACTION...
+
+
+
+
+
+
+
+
+
+PQ __ O CREATE DESSE OBJECT DE 'user'
+
+
+EXISTE 
+
+
+
+EM 
+
+1 NÍVEL DIFERENTE 
+
+DE ABSTRACTION DO QUE O CALL DE 'database.insert()'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA SOLUCIONAR ISSO,
+PODERÍAMOS 
+
+CRIAR 
+
+1 NOVA FUNCTION, DE NOME 'buildUser',
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+function saveUser(email, password) {
+
+   const user = buildUser(email, password);
+
+    database.insert(user);
+}
+
+
+
+
+
+function buildUser(email, password) {
+
+        return {
+            email: email,
+            password: password
+        }
+}   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.. COM ISSO, O SAVE DE 1 USER AGORA É UMA COMBINAÇÃO 
+
+
+
+
+DE 
+
+''CREATE A USER''
+
+
+E 
+
+'INSERT A USER'',
+
+
+
+
+
+
+2 COISAS QUE EXISTEM EM 1 MESMO NÍVEL DE ABSTRACTION...
+
+
+
+
+
+
+
+
+
+
+
+--> É UM SPLIT QUE PODERÍAMOS FAZER... --> NÃO É HORRÍVEL,
+
+
+MAS NÃO AJUDA MT COM READABILITY.. NÃO MELHORA O CÓDIGO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> NO CASO,
+
+
+
+ELE NÃO MELHORA O CÓDIGO PQ:
+
+
+
+
+1) SÓ RENOMEAMOS A OPERATION (
+
+
+    pq antes 
+
+    tínhamos 'const user = {
+        ...
+    }'
+
+
+
+
+
+
+
+
+    E AGORA TEMOS 
+
+    'const user = buildUser()'
+) --------> OU SEJA,
+
+
+TEMOS A MESMA OPERATION DE ANTES,
+
+
+
+
+__ SÓ QUE _ RENOMEADA... ------> E ESSA OPERATION JÁ ERA ÓBVIA ANTERIORMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) ALÉM DISSO,
+
+FOI MAIS DIFÍCIL 
+
+
+
+PENSAR EM 1 NOME PARA ESSA FUNCTION....
+
+
+
+
+
+
+--> ESCOLHEMOS 'buildUser',
+
+
+E ISSO É QUASE A MESMA COISA QUE 
+
+'createUser'.. --> MAS NÃO PODÍAMOS USAR 'createUser'
+
+PQ 
+
+ESSA FUNCTION JÁ EXISTE (é a function que chama 'buildUser")...
+
+
+
+
+
+
+
+--> CREATE USER E BUILD USER SÃO SINÔNIMOS --> E É DIFÍCIL DE 
+
+PENSAR EM ALGO DIFERENTE,
+
+
+
+__ PQ _ ESTAMOS REALMENTE APENAS 'RENOMEANDO A OPERATION'..
+
+
+
+
+
+
+
+
+
+
+
+
+ok... quer dizer que esse split é possível, sim,
+
+mas NÃO VAI MELHORAR A READABILITY..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... COM EXPERIÊNCIA,
+
+
+
+TEREMOS MAIS 
+
+
+
+IDEIAS SOBRE 'QUANDO SPLIT'
+
+E QUANDO NÃO SPLIT..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... MAS SE QUISÉSSEMOS SPLITTAR 
+
+ESSE CÓDIGO 
+
+E NÃO TER MIXED 
+
+LEVELS 
+
+DE ABSTRACTION EM 'saveUser',
+
+
+
+
+
+
+
+
+
+
+VC PODERIA 
+
+
+
+
+
+__ INVENTAR 1 SOLUÇÃO MELHOR,
+
+
+1 SOLUÇÃO COM 1 CLASS DE 'user',
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class User {
+    constructor(email, password) {
+
+        this.email = email;
+        this.password = password;
+    }
+
+
+    save() {
+        database.insert(this);
+    }
+}
+
+
+function saveUser(email, password) {
+
+    const user = new User(email, password);
+
+    user.save();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ISSO ESTARIA NO MESMO NÍVEL DE EXTRACTION,
+
+
+
+
+e seria 1 nível abaixo da function de 'saveUser',
+
+
+
+e agora teríamos ACTUALLY MELHORADO O CÓDIGO... PQ REESTRUTURAMOS 
+
+
+A LÓGICA,
+
+E MUDAMOS 
+
+
+O LUGAR EM QUE 
+
+
+
+
+É CHAMADA A FUNCTION QUE SALVA 
+
+
+
+O USER (colocamos dentro do object, naquela class)...
+
+
+
+
+
+
+
+
+
+
+
