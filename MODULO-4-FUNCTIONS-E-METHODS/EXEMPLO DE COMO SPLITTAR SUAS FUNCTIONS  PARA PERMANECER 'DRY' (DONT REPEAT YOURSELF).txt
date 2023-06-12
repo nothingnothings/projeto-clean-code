@@ -1,0 +1,393 @@
+
+
+
+
+
+
+
+
+
+
+
+OK.... 
+
+
+O PROFESSOR NOS TRAZ OUTRO EXEMPLO,
+
+
+
+
+em que realmente estamos 'repeating ourselves' (DRY... não estamos fazendo isso)...
+
+
+
+
+
+
+
+
+
+
+
+O EXEMPLO É ESTE:
+
+
+
+
+
+
+
+
+
+
+
+
+//EXEMPLO DE 'BAD CODE' - REPEATING OURSELVES...
+function createUser(email, password) {
+  if (!inputIsValid(email, password)) {
+    showErrorMessage('Invalid input!');
+  }
+
+  saveUser(email, password);
+}
+
+function createSupportChannel(email) {
+  if (!email || !email.includes(`@`)) {
+    console.log('Invalid email - could not create channel');
+  }
+  //   ...
+}
+
+function inputIsValid(email, password) {
+  return email && email.includes(`@`) && password && password.trim() !== ``;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> o professor removeu o código anterior,
+
+
+
+para ficarmos com essa second-best solution...
+
+
+
+
+
+
+
+
+
+-> MAS DESSA VEZ FOCAREMOS 
+
+
+NESSA FUNCTION DE 'createSupportChannel',
+
+
+
+QUE 
+
+
+
+
+É __ DUMMY,
+
+NÃO FAZ NADA,
+
+
+
+
+
+
+MAS FAZ 1 COISA IMPORTANTE --------> ELA PEGA O EMAIL ADDRESS (
+    que usaríamos para contatar clientes, etc...
+)
+
+
+E ENTÃO _ TENTA VALIDAR ESSE EMAIL, ANTES DE FAZER QUALQUER COISA 
+
+COM ELE...
+
+
+
+
+
+
+
+
+MAS O PROBLEMA, NO CASO,
+É QUE 
+
+JÁ FIZEMOS ISSO ANTES.... JÁ FIZEMOS O 'VALIDATE' 
+
+DO USER ANTERIORMENTE,
+
+QUANDO 
+
+
+
+
+RODAMOS 'inputIsValid',
+
+
+
+
+PARA VALIDÁ-LO ANTES DE O SALVAR NA DATABASE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE, AQUI, 
+ESTAMOS 'REPEATING OURSELVES'...
+
+
+
+
+
+
+
+
+
+-> precisamos FAZER OUTSOURCE DESSa parte de 'validation de email'
+
+PARA 
+
+1 
+
+FUNCTION SEPARADA,
+
+QUE AÍ SERÁ CHAMADA TANTO EM  'createUser'
+
+
+
+como em 
+
+'createSupportChannel',
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//EXEMPLO DE 'GOOD CODE' - NÃO ESTAMOS MAIS 'REPEATING OURSELVES'....
+function createUser(email, password) {
+  if (!inputIsValid(email, password)) {
+    showErrorMessage('Invalid input!');
+  }
+
+  saveUser(email, password);
+}
+
+function createSupportChannel(email) {
+  if (!emailIsValid(email)) {
+    showErrorMessage('Invalid email - could not create channel');
+  }
+  //   ...
+}
+
+function inputIsValid(email, password) {
+  return emailIsValid(email) && password && password.trim() !== ``;
+}
+
+function emailIsValid(email) {
+  return email && email.includes(`@`);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... com isso, chamamos 
+
+
+'showErrorMessage'
+
+duas vezes,
+
+
+
+e depois chamamos 
+
+
+'emailIsValid'
+
+
+2x,
+
+para 
+
+validar 2 vezes...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+certo.... isso é bem tranquilo.
+
+
+
+
+
+
+
+
+
+
+
+
+CRIAMOS ESSA FUNCTION EXTRA PARA DEIXAR NOSSO CÓDIGO MAIS REUTILIZÁVEL 
+
+
+E PARA 'STAY DRY'...
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AGORA NÃO ESTAMOS NOS REPETINDO MAIS...
+
+
+
+
+
+
+
+
+
+MAS AGORA POSSO FAZER A MESMA COISA COM 'password',
+
+PARA 
+
+
+QUE 
+
+
+NÃO FIQUEMOS COM 'MIXED LEVELS OF ABSTRACTION'
+
+dentro 
+
+de 
+
+'inputIsNotValid'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+//EXEMPLO DE 'GOOD CODE' - NÃO ESTAMOS MAIS 'REPEATING OURSELVES'....
+function createUser(email, password) {
+  if (!inputIsValid(email, password)) {
+    showErrorMessage('Invalid input!');
+  }
+
+  saveUser(email, password);
+}
+
+function createSupportChannel(email) {
+  if (!emailIsValid(email)) {
+    showErrorMessage('Invalid email - could not create channel');
+  }
+  //   ...
+}
+
+function inputIsValid(email, password) {
+  return emailIsValid(email) && passwordIsValid(password);
+}
+
+function emailIsValid(email) {
+  return email && email.includes(`@`);
+}
+
+function passwordIsValid(password) {
+  return password && password.trim() !== ``;
+}
+
+
+
+
+
+
+
+
+
+
+certo.... isso funcionou...
+
+
+
+
+
+agora temos os mesmos níveis de abstraction, nessa function....
