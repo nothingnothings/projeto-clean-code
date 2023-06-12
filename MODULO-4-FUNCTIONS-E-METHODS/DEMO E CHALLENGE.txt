@@ -1,0 +1,2307 @@
+
+
+
+
+
+
+
+
+
+CERTO.... ATÉ AGORA, O PROFESSOR MOSTROU UM MONTE DE TEORIA,
+
+E FALOU SOBRE DIVERSOS NÍVEIS DE ABSTRAÇÃO..
+
+
+
+
+
+
+
+
+TAMBÉM MOSTROU ALGUNS EXEMPLOS NOS SLIDES...
+
+
+
+
+
+
+
+
+
+MAS AGORA PRECISAMOS DE 1 DEMO, PARA APLICAR TUDO ISSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+TEMOS ESTE CÓDIGO AQUI:
+
+
+
+
+
+
+
+
+
+function createUser(email, password) {
+    if(!email || !email.includes('@') || !password || password.trim() === '' ) {
+        console.log('Invalid input!');
+        return;
+    }
+
+
+    const user = {
+    email: email,
+    password: password
+}
+
+database.insert(user);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> CERTO... 
+
+
+
+
+
+
+
+ISSO ACEITA 'EMAIL' E 'PASSWORD'...
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE PODERÍAMOS REFORMATAR ESSE 'createUser'
+PARA 
+
+QUE 
+
+ELE 
+
+ACEITE APENAS 1 PARAMETER (2 campos, em 1 map)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS É NO FUNCTION BODY QUE QUEREMOS FOCAR, AQUI...
+
+
+
+
+
+
+É UMA FUNCTION BEM SIMPLES,
+
+
+
+BEM CURTA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> E LER E A COMPREENDER 
+
+NÃO DEVE TOMAR MT TEMPO...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O TEMPO DE LEITURA PODE SER BEM MAIS RÁPIDO...
+
+
+
+
+
+
+
+
+
+
+ESTAMOS FAZENDO DIFERENTES COISAS,
+E TEMOS 
+
+
+DIFERENTES NÍVEIS DE ABSTRAÇÃO...
+
+
+
+
+
+
+
+
+
+--> TEMOS LOW-LEVEL CODE NA VALIDATION,
+
+
+dentro do if...
+
+
+
+
+
+
+
+--> SIM, ISSO É HIGH-LEVEL...
+
+
+
+
+
+
+
+
+
+
+--> TEMOS O LOW-LEVEL 'output code' (aquele console.log)...
+
+
+
+
+
+
+
+
+
+MAS TEMOS TAMBÉM 1 
+
+
+
+ CALL 'HIGH-LEVEL',
+
+
+aquele
+
+de 
+
+'database.insert()'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÓS NÃO ESCREVEMOS A QUERY SQL AQUI PARA ISSO (
+
+
+    pq isso seria low-level
+),
+
+
+
+
+
+
+
+o que quer dizer que FICAMOS COM MIXED LEVELS DE ABSTRACTION, AQUI..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ALÉM DE ESTAREM PRESENTES MÚLTIPLOS NÍVEIS DE ABSTRACTION,
+
+
+TAMBÉM 
+
+
+
+TEMOS 1 DIFERENÇA MT GRANDE 
+
+
+
+
+
+ENTRE __ O NOME DA FUNCTION ('createUser')
+
+
+
+
+E O ACTUAL 
+
+WORK QUE 
+
+ESTAMOS FAZENDO DENTRO DESSA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+--> esse código de validation 'low-level',
+
+em que checamos por '@' no email,
+
+
+
+e aquele 
+
+
+CONSOLE.LOG STATEMENT,
+
+
+
+TUDO ISSO É LOW-LEVEL,
+
+
+E TUDO 
+
+
+
+
+ISSO É 
+
+'TOO FAR AWAY'
+
+
+
+da 
+
+ideia 
+
+de 
+'
+create an user'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> SE LEMOS ESSE CÓDIGO,
+
+TEMOS QUE 
+
+
+
+PENSAR SOBRE O CÓDIGO,
+
+
+
+
+PARA 
+
+INVENTAR 1 'INTERPRETATION' -> pq 
+
+NÃO 
+É ÓBVIO,
+
+
+PELO NOME DA FUNCTION,
+
+que 
+
+
+
+checar por 
+
+
+um '@'
+
+
+SIGNIFICA QUE 
+
+ESTAMOS 
+
+VALIDANDO 
+
+
+ESSE USER.. (somos forçados a pensar sobre isso, por 1 segundo)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+A MESMA COISA PARA O STATEMENT DE 'console.log()',
+
+NÃO É ÓBVIO QUE ESTAMOS 
+
+MOSTRANDO 1 MENSAGEM DE ERRO,
+
+
+
+
+
+
+ISSO SÓ FICA CLARO SE 
+
+OBSERVAMOS O SURROUNDING CODE TAMBÉM.. -----> É POR ISSO QUE A DISTâNCIA É MT GRANDE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AMBAS REGRAS DEVERIAM SE APLICAR, AQUI:
+
+
+
+
+
+
+
+1) TEMOS MÚLTIPLAS VALIDATION STEPS, QUE PODERÍAMOS EXTRAIR:
+
+
+
+
+
+a) !email 
+
+
+b) !email.includes('@') 
+
+
+
+c) !password 
+
+
+d) password.trim()  === '';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> TEMOS VÁRIAS VALIDATION STEPS, QUE PODERÍAMOS EXTRAIR...
+
+
+
+
+
+
+
+
+
+
+
+JÁ A SEGUNDA REGRA,
+
+
+
+
+'CODE THAT WORKS ON THE SAME FUNCTIONALITY',
+
+
+
+
+
+temos 
+aquelas 
+
+linhas de 
+
+
+
+
+''
+
+
+
+    const user = {
+    email: email,
+    password: password
+}
+
+database.insert(user);
+
+
+
+
+
+
+
+'',
+
+
+
+
+QUE 
+
+CRIAM ESSE USER 
+
+E O 
+
+SALVAM NA DATABASE... (coisas relacionadas)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ALÉM DISSO,
+
+
+TEMOS __ CODE QUE REQUER __ MAIS INTERPRETATION 
+
+DO QUE 
+
+O SURROUNDING CODE (
+
+
+
+    pq 
+
+
+
+    O TRECHO 
+
+    ''
+
+
+        if(!email || !email.includes('@') || !password || password.trim() === '' ) {
+        console.log('Invalid input!');
+        return;
+    }
+
+
+
+''
+
+
+REQUER MAIS INTERPRETATION DO QUE O CÓDIGO DE BAIXO,
+
+
+PQ _ NÓS TEMOS QUE PENSAR 1 POUCO QUE ISSO SE TRATA 
+
+DE 
+
+VALIDATION DESSE USER...
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+database.insert(user) 
+
+
+
+
+
+REQUER BEM MENOS 
+
+
+
+
+'THINKING'
+
+do que 
+
+
+
+
+A PARTE 
+
+
+
+
+
+
+de 
+
+
+
+''
+    if(!email || !email.includes('@') || !password || password.trim() === '' ) {
+        console.log('Invalid input!');
+        return;
+    }
+
+''
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... .ISSO SIGNIFICA QUE DEVEMOS SPLITTAR 
+
+E REFATORAR ESSA FUNCTION, PARA DEIXÁ-LA MAIS LIMPA...
+
+
+
+
+
+
+
+
+DEVEMOS TENTAR DEIXAR ESSA FUNCTION MAIS CLEAn...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+A VERSÃO __bOA DO CÓDIGO _ FICARIA ASSIM, 
+
+MAIS OU MENOS:
+
+
+
+
+
+
+
+
+
+
+
+function createUser(user) {
+  const { email, password } = user;
+
+  if (!email || !isEmail(email) || !password || !passwordIsNotEmpty(password)) {
+    console.log('Invalid input!');
+    return;
+  }
+
+  database.insert(user);
+}
+
+const isEmail = (email) => {
+  return email.includes('@');
+};
+
+const passwordIsNotEmpty = (trimmedPassword) => {
+  return trimmedPassword !== '';
+};
+
+createUser({ email: 'exemplo@exemplo.com', password: 'password' });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+o ideal seria também 
+
+CRIAR 1 FUNCTION PARA O 'OUTPUT DA ERROR MESSAGE',
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+function createUser(user) {
+  const { email, password } = user;
+
+  if (!email || !isEmail(email) || !password || !passwordIsNotEmpty(password)) {
+    outputErrorMessage('Invalid input!');
+    return;
+  }
+
+  database.insert(user);
+}
+
+const isEmail = (email) => {
+  return email.includes('@');
+};
+
+const passwordIsNotEmpty = (trimmedPassword) => {
+  return trimmedPassword !== '';
+};
+
+const outputErrorMessage = (message) => {
+  console.log(message);
+};
+
+const user = createUser({ email: 'exemplo@exemplo.com', password: 'password' });
+
+console.log(user);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO...
+
+
+
+
+
+
+
+
+
+
+ficou assim...
+
+
+
+
+
+
+
+fiquei com múltiplas functions, em vez de 1 única function...
+
+
+
+
+
+
+
+
+
+
+
+--> isso deixou nossa function/functions bem mais readable...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS O PROFESSOR REMOVEU TODO O IF CHECK DE DENTRO DO 'createUser',
+
+pq 
+isso 
+é um outsourcing ainda maior..
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function createUser(user) {
+  validateUser(user);
+
+  database.insert(user);
+}
+
+const validateUser = (user) => {
+  const { email, password } = user;
+
+  if (!email || !isEmail(email) || !password || !passwordIsNotEmpty(password)) {
+    outputErrorMessage('Invalid input!');
+    return;
+  }
+};
+
+const isEmail = (email) => {
+  return email.includes('@');
+};
+
+const passwordIsNotEmpty = (trimmedPassword) => {
+  return trimmedPassword !== '';
+};
+
+const outputErrorMessage = (message) => {
+  console.log(message);
+};
+
+const user = createUser({ email: 'exemplo@exemplo.com', password: 'password' });
+
+console.log(user);
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mas o professor escreveu de forma diferente, tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function createUser(user) {
+  if (inputIsNotValid(user)) {
+    outputErrorMessage('Invalid input!');
+    return;
+  }
+
+  database.insert(user);
+}
+
+const inputIsNotValid = (user) => {
+  const { email, password } = user;
+
+  return (
+    !email || !isEmail(email) || !password || !passwordIsNotEmpty(password)
+  );
+};
+
+const isEmail = (email) => {
+  return email.includes('@');
+};
+
+const passwordIsNotEmpty = (trimmedPassword) => {
+  return trimmedPassword !== '';
+};
+
+const outputErrorMessage = (message) => {
+  console.log(message);
+};
+
+const user = createUser({ email: 'exemplo@exemplo.com', password: 'password' });
+
+console.log(user);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ok, quer dizer que agora usamos 
+
+
+
+
+''''
+
+
+
+const inputIsNotValid = (user) => {
+  const { email, password } = user;
+
+  return (
+    !email || !isEmail(email) || !password || !passwordIsNotEmpty(password)
+  );
+};
+
+
+'''
+
+
+
+
+
+
+
+para fazer essa validation...
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function createUser(user) { //high-level
+  if (inputIsNotValid(user)) {
+    outputErrorMessage('Invalid input!');
+    return;
+  }
+
+  database.insert(user);
+}
+
+const inputIsNotValid = (user) => { //high-level
+  const { email, password } = user;
+
+  return (
+    !email || !isEmail(email) || !password || !passwordIsNotEmpty(password)
+  );
+};
+
+const isEmail = (email) => {
+  return email.includes('@'); //low-level
+};
+
+const passwordIsNotEmpty = (trimmedPassword) => {
+  return trimmedPassword !== ''; //low-level
+};
+
+const outputErrorMessage = (message) => {
+  console.log(message); //low-level
+};
+
+const user = createUser({ email: 'exemplo@exemplo.com', password: 'password' });
+
+console.log(user);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... QUER DIZER QUE CONSEGUIMOS EXTRAIR O SIGNIFICADO/LÓGICA 
+
+DISCREPANTE 
+
+
+E 
+
+
+CONSEGUIMOS COLOCAR EM 1 FUNCTION SEPARAD....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> quer dizer que o level de abstraction 
+
+
+
+
+
+
+de ''!email || !isEmail(email) || !password || !passwordIsNotEmpty(password) ''
+
+
+
+
+está TODO ELE EM 1 MESMO NÍVEL DE ABSTRACTION...
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+function createUser(user) { //high-level
+  if (inputIsNotValid(user)) {
+    outputErrorMessage('Invalid input!');
+    return;
+  }
+
+  database.insert(user);
+}
+
+const inputIsNotValid = (user) => { //high-level
+  const { email, password } = user;
+
+  return (
+    !email || !isEmail(email) || !password || !passwordIsNotEmpty(password) //tudo no mesmo level de abstraction (low)...
+  );
+};
+
+const isEmail = (email) => {
+  return email.includes('@'); //low-level
+};
+
+const passwordIsNotEmpty = (trimmedPassword) => {
+  return trimmedPassword !== ''; //low-level
+};
+
+const outputErrorMessage = (message) => {
+  console.log(message); //low-level
+};
+
+const user = createUser({ email: 'exemplo@exemplo.com', password: 'password' });
+
+console.log(user);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ E ESSE 
+
+
+ '
+
+
+
+   return (
+    !email || !isEmail(email) || !password || !passwordIsNotEmpty(password) //tudo no mesmo level de abstraction (low)...
+  );
+
+
+  '
+
+
+
+
+
+
+
+
+  está todo ele __ 1 NÍVEL ABAIXO DA FUNCTION NAME...
+
+
+
+
+
+
+
+
+
+  a function name de 'inputIsNotValid'
+
+
+
+  ADICIONA INTERPRETATION A ESSE LOW-LEVEL CODE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -> ok... agora a INPUT VALIDATION ESTÁ _ + OU - NO MESMO NÍVEL 
+
+
+
+  DO CÓDIGO DE 
+
+
+
+  'database.insert()',
+
+
+
+    no caso...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -> SE ESTUDARMOS 'inputIsNotValid',
+
+
+
+
+    PODEMOS ARGUMENTAR QUE ESTAMOS FAZENDO 
+
+    4 OPERATIONS..
+
+
+
+
+
+
+
+
+checamos:
+
+
+
+
+
+1) se o email é truthy 
+
+
+2) se o email inclui 1 '@'
+
+
+
+
+3) se o password é truthy 
+
+
+
+
+4) se o password não é vazio...
+
+
+
+
+
+
+
+
+
+
+
+
+MAS OS 4 ESTÃO EXISTINDO NO MESMO NÍVEL DE ABSTRACTION..
+
+
+
+POR ISSO PODEMOS OS DEIXAR ASSIM, TECNICAMENTE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS DENTRO DE 'createUser'
+
+AINDA TEMOS MÚLTIPLOS NÍVEIS DE ABSTRACTION... ISSO SE DEIXARMOS O 
+
+'console.log()'
+
+lá dentro...
+
+
+
+
+
+
+
+
+
+
+
+-> pq o 'console.log()'
+é LOW-LEVEL...
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE PODEMOS OUTSOURCEAR 
+ESSA FUNCTION,
+
+
+
+
+com 
+
+'showErrorMessage',
+ou algo assim,
+
+tipo assim:
+
+
+
+
+
+
+const outputErrorMessage = (message) => {
+  console.log(message); //low-level
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+UMA VANTAGEM É QUE __ PODERÍAMOS USAR __ 
+
+
+ESSE OUTPUT DE ERROR EM MÚLTIPLOS LUGARES DE NOSSO CÓDIGO ---> e, se decidissemos 
+
+que 
+
+
+console.log 
+
+NÃO É O MECANISMO COM QUE QUEREMOS CONTINUAR,
+
+
+
+
+
+PODERÍAMOS/PODEMOS FACILMENTE USAR OUTRO 
+
+
+MECANISMO DE LOGGING,
+
+E AÍ 
+
+PRECISARÍAMOS APENAS 
+
+
+ALTERAR
+
+
+
+
+SUA LÓGICA EM 1 ÚNICO LUGAR, 
+
+EM VEZ DE MÚLTIPLOS LUGARES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSAS SÃO APENAS ALGUMAS DAS RAZÕES 
+
+PELAS QUAIS 
+CRIAR 
+
+1 
+FUNCTION SEPARADA PARA 'LOGGING'
+PODE FAZER SENTIDO...
+
+
+
+
+
+
+
+
+
+
+é por isso que nosso código fica assim:
+
+
+function createUser(email, password) {
+  // Validação de dados - demoramos mais tempo para perceber que possui alguma relação com 'createUser' -- necessidade de refatoração.
+  if (!email || !email.includes('@') || !password || password.trim() === '') {
+    //? bem LOW-LEVEL
+    console.log('Invalid input!');
+    return;
+  }
+
+  const user = {
+    email: email,
+    password: password,
+  };
+
+  // Salvar usuário no banco de dados - demoramos MENOS tempo para perceber que possui alguma relação com 'createUser' -- sem necessidade de refatoração, pode permanecer nesta função.
+  database.insert(user); //? bem HIGH-LEVEL (não precisa saber como o banco de dados funciona)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO..
+
+
+
+
+
+
+
+
+mas e quanto ao código de 
+
+
+
+
+''''
+
+
+const user = {
+    email: email,
+    password: password,
+  };
+
+  // Salvar usuário no banco de dados - demoramos MENOS tempo para perceber que possui alguma relação com 'createUser' -- sem necessidade de refatoração, pode permanecer nesta função.
+  database.insert(user); //? bem HIGH-LEVEL (não precisa saber como o banco de dados funciona)
+
+
+
+'''
+
+
+
+
+
+
+
+ESSE CÓDIGO
+
+ESTÁ DEFINITVAMENTE 
+
+
+
+
+EM 1 LEVEL  
+
+
+
+
+ACIMA DE NOSSOS VALIDATION CHECKS OU O CONSOLE.LOG,
+
+
+
+
+MAS 
+
+
+
+
+
+PODERÍAMOS ARGUMENTAR,
+TAMBÉM,
+
+
+QUE 
+NÃO 
+
+ESTÁ NO MESMO LEVEL DO CÓDIGO DE 
+
+
+'inputIsNotValid'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PARA ISSO, PODEMOS CRIAR 1 NOVA FUNCTION, 'saveUser()',
+
+e em que 
+
+
+
+ENTÃO COLOCAMOS ESSE CÓDIGO DENTRO DELE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OU SEJA,
+PODERIA FICAR ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+function createUser(user) {
+  //high-level
+  if (inputIsNotValid(user)) {
+    outputErrorMessage('Invalid input!');
+    return;
+  }
+
+  saveUser(user);
+}
+
+const inputIsNotValid = (user) => {
+  //high-level
+  const { email, password } = user;
+
+  return (
+    !email || !isEmail(email) || !password || !passwordIsNotEmpty(password) //tudo no mesmo level de abstraction (low)...
+  );
+};
+
+const isEmail = (email) => {
+  return email.includes('@'); //low-level
+};
+
+const passwordIsNotEmpty = (trimmedPassword) => {
+  return trimmedPassword !== ''; //low-level
+};
+
+const outputErrorMessage = (message) => {
+  console.log(message); //low-level
+};
+
+const saveUser = (user) => {
+  database.insert(user);
+};
+
+const user = createUser({ email: 'exemplo@exemplo.com', password: 'password' });
+
+console.log(user);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EM GERAL,
+
+QUANDO O ASSUNTO É O WRITE DE CLEAN CODE,
+
+
+TUDO 
+
+DEPENDE 
+
+
+1 
+POUCO DE 
+
+PERSONAL PREFERENCE...
+
+
+
+
+
+
+
+
+
+MAS NOSSO CÓDIGO ESTÁ BEM MAIS LEGÍVEL DO QUE ANTES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS NOSSA FUNCTION PODERIA SER SPLITTADA 
+
+
+
+
+
+
+
+
+AINDA MAIS...
+
+
+
+
+
+
+
+
+
+
+PQ __ TODAS AS LINHAS __ DENTRO DE 'createUser'
+
+NÃO 
+
+ESTÃO 
+
+
+
+NO MESMO 
+
+NÍVEL DE ABSTRACTION ,
+
+
+
+
+e não 
+
+estão 
+
+
+NO NÍVEL 
+
+
+DE ABSTRACTION 
+
+
+
+LOGO ABAIXO DE 'createUser'...
+
+
+
+
+
+
+
+
+
+
+
+
+'CHECAR A INPUT VALIDITY'
+
+E 
+
+'MOSTRAR 1 MENSAGEM DE ERRO',
+
+
+
+ESSAS NÃO SÃO COISAS QUE 
+
+ESTÃO NECESSARIAMENTE 
+
+
+NO MESMO NÍVEL DE ABSTRACTION DE 'saveUser'...
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE CRIAMOS UMA NOVA FUNCTION, COMO EU HAVIA FEITO,
+
+DE NOME 
+
+
+'validateUser'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+function createUser(user) {
+  //high-level
+  //   if (inputIsNotValid(user)) {
+  //     outputErrorMessage('Invalid input!');
+  //     return;
+  //   }
+
+  //high-level
+  validateUser(user);
+
+  saveUser(user);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO... COM ISSO,
+
+TUDO FICOU NO MESMO NÍVEL DE ABSTRACTION...
+
+
+
+
+
+
+
+
+
+
+MAS PRECISAMOS MUDAR UM POUCO O CÓDIGO, PQ O RETURN EM 'validateUser'
+
+
+NÃO VAI 
+PARAR 
+
+A EXECUÇÃO TOTALMENTE..
+
+
+
+
+
+
+
+-> PARA FAZER O NEGÓCIO REALMENTE PARAR A EXECUÇÃO,
+
+
+podemos 
+
+
+FAZER O THROW DE 1 ERROR...
+
+
+
+FAREMOS O THROW DE 1 ERROR 
+
+
+
+dentro do 'showErrorMessage' --> PQ O ERROR VAI 'BUBBLE UP'...
+
+
+
+
+
+
+--> VAI BUBBLE UP E ATÉ MESMO ULTRAPASSAR A FUNCTION DE 'createUser'...
+
+
+
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function createUser(user) {
+  //high-level
+  //   if (inputIsNotValid(user)) {
+  //     outputErrorMessage('Invalid input!');
+  //     return;
+  //   }
+
+  //high-level
+  validateUser(user);
+
+  saveUser(user);
+}
+
+// const inputIsNotValid = (user) => {
+//   //high-level
+//   const { email, password } = user;
+
+//   return (!email || !isEmail(email) || !password || !passwordIsNotEmpty(password) //tudo no mesmo level de abstraction (low)...
+//   );
+// };
+
+//high-level (mas ainda abaixo de 'createUser()')
+const validateUser = (user) => {
+  const { email, password } = user;
+
+  if (!email || !isEmail(email) || !password || !passwordIsNotEmpty(password)) {
+    outputErrorMessage('Invalid input!');
+    return;
+  }
+};
+
+const isEmail = (email) => {
+  return email.includes('@'); //low-level
+};
+
+const passwordIsNotEmpty = (trimmedPassword) => {
+  return trimmedPassword !== ''; //low-level
+};
+
+const outputErrorMessage = (message) => {
+  const newError = new Error(message);
+  throw newError; //low-level - vai 'bubble up' e vai CRASHAR O APP...
+};
+
+const saveUser = (user) => {
+  database.insert(user);
+};
+
+const user = createUser({ email: 'exemplo@exemplo.com', password: 'password' });
+
+console.log(user);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.. ESSA É UMA CODE STRUCTURE QUE FAZ SENTIDO,
+
+
+A QUE MAIS FAZ SENTIDO, AQUI....
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA COMPLETAR,
+
+NOSSO CÓDIGO PODERIA FICAR ASSIM:
+
+
+
+
+
+
+function handleCreateUserRequest(request) {
+    try {
+        createUser('test@test.com', 'testers');
+    } catch(error) {
+        showErrorMessage(error.message);
+    }
+}
+
+
+
+
+function createUser(user) {
+  //high-level
+  validateUser(user);
+
+  saveUser(user);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESSA TALVEZ SEJA A MANEIRA MAIS CLEAN DE RODAR TUDO ISSO...
+
+
+
+
+
+
+PQ SE OLHAMOS A FUNCTION ORIGINAL DE 'createUser',
+
+
+
+VEREMOS QUE 
+
+
+DENTRO DELA TEREMOS SÓ 
+
+
+AS OPERATIONS DE 
+
+'validateUser'
+
+e 
+
+'saveUser',
+
+
+
+
+
+2 OPERAÇÕES 
+
+QUE 
+
+REALMENTE EXISTEM 
+
+
+LOGO ABAIXO DO NÍVEL DE ABSTRACTION DE 'createUser'...
+
+
+
+
+
+
+
+É POR ISSO QUE ESSA É A VERSÃO 'CLEAN' DESSA FUNCTION..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICAMOS COM ISTO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function handleCreateUserRequest(request) {
+  const { email, password } = request;
+  try {
+    // createUser('test@test.com', 'testers');
+    createUser(email, password);
+  } catch (error) {
+    outputErrorMessage(error.message);
+  }
+}
+
+function createUser(user) {
+  //high-level
+  //   if (inputIsNotValid(user)) {
+  //     outputErrorMessage('Invalid input!');
+  //     return;
+  //   }
+
+  //high-level
+  validateUser(user);
+
+  saveUser(user);
+}
+
+// const inputIsNotValid = (user) => {
+//   //high-level
+//   const { email, password } = user;
+
+//   return (!email || !isEmail(email) || !password || !passwordIsNotEmpty(password) //tudo no mesmo level de abstraction (low)...
+//   );
+// };
+
+//high-level (mas ainda abaixo de 'createUser()')
+const validateUser = (user) => {
+  const { email, password } = user;
+
+  if (!email || !isEmail(email) || !password || !passwordIsNotEmpty(password)) {
+    throw new Error('Invalid input!');
+  }
+};
+
+const isEmail = (email) => {
+  return email.includes('@'); //low-level
+};
+
+const passwordIsNotEmpty = (trimmedPassword) => {
+  return trimmedPassword !== ''; //low-level
+};
+
+const outputErrorMessage = (message) => {
+  const newError = new Error(message);
+  throw newError; //low-level - vai 'bubble up' e vai CRASHAR O APP...
+};
+
+const saveUser = (user) => {
+  database.insert(user);
+};
+
+const user = handleCreateUserRequest({
+  email: 'exemplo@exemplo.com',
+  password: 'password',
+});
+
+console.log(user);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok, quer dizer que validamos o input, e aí o criamos...
+
+
+
+
+
+
+--> É CLARO QUE TIVEMOS DE FAZER 1 MONTE DE REFACTORINGS..
+
+
+E CRIAMOS 1 MONTE DE FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+MAS É ISSO 
+
+
+
+
+
+QUE CLEAN CODE É ALL ABOUT, NO FINAL DAS CONTAS...
