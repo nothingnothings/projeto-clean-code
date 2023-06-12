@@ -1,0 +1,1952 @@
+
+
+
+
+
+
+
+
+OK... JÁ APRENDEMOS UM MONTE SOBRE 
+
+
+
+
+COMO MANTER NOSSAS LISTAS DE FUNCTION PARAMETERS 
+
+
+
+PEQUENAS E CONCISAS,
+
+
+
+
+E 
+
+TAMBÉM 
+
+
+
+A MANTER NOSSOS FUNCTION BODIES 
+
+SHORT AND CONCISE...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS HÁ OUTRO ASPECTO DO WRITE DE CLEAN FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESSE ASPECTO É 
+
+''DEVEMOS TENTAR DEIXAR NOSSAS FUNCTIONS PURE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok, mas o que é uma pure function?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O QUE É ISSO?
+
+
+
+
+
+
+
+
+
+
+UMA PURE FUNCTION É SIMPLESMENTE UMA FUNCTION 
+
+
+
+
+EM QUE,
+PARA 
+
+OS MESMOS 
+INPUTS,
+
+
+GERA O MESMO OUTPUT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> isso significa que 
+
+
+
+'''O MESMO INPUT PARAMETER VALUE 
+
+SEMPRE VAI RETORNAR O MESMO OUTPUT''..
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+function generateId(userName) {
+  // exemplo de PURE FUNCTION - sempre retorna o MESMO VALUE PARA O MESMO PARAMETER QUE FOI PASSADO...
+  const id = 'id_' + userName;
+  return id;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK...
+
+
+
+
+
+
+
+PARA O MESMO USER VALUE, COMO 'MAX',
+
+SEMPRE VAMOS GANHAR O MESMO RETURN VALUE -----> ESSA É UMA FUNCTION QUE 
+
+É 
+
+100% PREVISÍVEL,
+
+E POR ISSO É PURE..
+
+
+
+
+ 
+
+
+
+
+
+
+-> MAS AGORA TEMOS A MESMA FUNCTION, MAS DEFINIDA DE FORMA 'IMPURE'...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+function generateId(userName) {
+  // exemplo de IMPURE FUNCTION - sempre retorna o MESMO VALUE PARA O MESMO PARAMETER QUE FOI PASSADO...
+  const id = 'id_' + userName + Math.random().toString();
+  return id;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO NUNCA VAI RETORNAR O MESMO 
+
+
+OUTPUT VALUE PARA O MESMO INPUT VALUE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> QUER DIZER QUE ESSA FUNCTION NÃO É PURE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS IMPURE FUNCTIONS NÃO SÃO NECESSARIAMENTE RUINS,
+
+NO SEU CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO PQ àS VEZES SERÁ NECESSÁRIO TER 1 RANDOM ID 
+
+
+A SER RETORNADO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+function generateId(userName) {
+  // exemplo de IMPURE FUNCTION - nunca retorna o MESMO VALUE PARA O MESMO PARAMETER QUE FOI PASSADO... (por causa da aleatoriedade de 'Math.random()')
+  const id = 'id_' + userName + Math.random().toString();
+  return id;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS O FATO É QUE 
+
+
+IMPURE __ FUNCTIONS __ SÃO DEFINITIVAMENTE __ MENOS PREVISÍVEIS 
+
+DO QUE 
+
+
+
+PURE FUNCTIONS -------> QUER DIZER QUE 
+
+SÓ VAMOS USAR 
+IMPURE 
+FUNCTIONS 
+
+SE 
+
+REALMENTE 
+
+__PRECISAMOS DESSE BEHAVIOR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ISSO É ESPECIALMENTE VERDADEIRO 
+
+__  SE _ NÃO CONSIDERAMOS APENAS A GENERATION DE 
+1 
+
+VALUE RANDOMICO COMO PARTE 
+DE 
+
+SUA 
+ 
+ FUNCTION,
+
+
+
+
+
+
+
+SE CONSIDERARMOS O OUTRO LADO DE 'IMPURE FUNCTIONS',
+
+QUE 
+
+
+
+
+
+É O DOS 'SIDE EFFECTS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO PQ __PURE FUNCTIONS __ NÃO 
+
+
+DEVEM TER SIDE EFFECTS (
+
+
+
+    ELAS NÃO __dEVERIAM TER.... --> DE NOVO,
+
+    ISSO NÃO SIGNIFICA QUE 
+
+
+    É TOTALMENTE PROIBIDO 
+    TER 
+
+    SIDE EFFECTS EM PURE FUNCTIONS,
+
+
+
+    MAS 1 FUNCTION TOTALMENTE PURA SEMPRE 
+    TERÁ _0 SIDE EFFECTS...
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+É POR ISSO QUE TALVEZ SEJA BOM __ MINIMIZAR 
+
+O NÚMERO DE FUNCTIONS COM 
+
+SIDE EFFECTS NO SEU CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... --> ISSO ESPECIALMENTE SE VC 
+ESTÁ 
+
+
+SEGUINDO 1 APPROACH 'FUNCTIONAL',
+
+
+
+
+FUNCTIONAL PROGRAMMING APPROACH...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FUNCTIONAL PROGRAMMING APPROACH --> SE VC ESTIVER SEGUINDO ESSE PARADIGMA,
+
+
+VC 
+
+VAI 
+
+EXPECT QUE 
+
+A GRANDE MAIORIA 
+
+
+DAS FUNCTIONS QUE VC COMPÕE E COMBINA 
+
+
+__ SERÁ 
+
+
+
+SIDE-EFFECT PURE 
+
+
+
+E __ FREE... --------> NESSES PROJECTS,
+
+
+
+VC TERÁ 
+
+APENAS 
+
+ALGUNS POUCOS LUGARES NO SEU CÓDIGO QUE 
+
+TERÃO 
+
+SIDE EFFECTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS É CLARO QUE PODERÍAMOS SEGUIR UM OBJECT ORIENTED APPROACH,
+
+
+OU 
+
+
+1 
+MIXED APPROACH,
+
+IMPERATIVE 
+APPROACH, ETC...
+
+
+
+
+
+
+
+
+
+--> MAS MESMO COM ESSES OUTROS APPROACHES,
+
+
+OS SIDE EFFECTS 
+SÃO 
+
+ALGO QUE 
+
+VC 
+
+DEVE 
+TER EM MENTE,
+
+
+QUANDO SEU 
+
+OBJETIVO É ESCREVER CLEAN CODE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS ANTES DISSO,
+
+DEVEMOS 
+
+ESCLARECER BEM 'O QUE É UM SIDE EFFECT'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM, VEJA ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+function createUser(email, password) {
+    const user = new User(email, password);
+
+    return user;
+}
+
+
+
+
+
+ 
+
+
+--> ELA CRIA 1 USER OBJECT, 
+
+POR MEIO DO USO DO CONSTRUCTOR...
+
+
+
+
+
+AÍ ELE RETORNA O USER...
+
+
+
+
+
+
+
+
+
+
+
+--> SE FOSSE APENAS ISSO,
+
+ESSA FUNCTION SERIA UMA _ PURE FUNCTION...
+
+
+
+
+
+
+
+
+
+PURE FUNCTION PQ SEMPRE VAI NOS DAR O MESMO TIPO DE USER OBJECT,
+
+
+SEMPRE QUE RODARMOS ESSA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ENTRETANTO,
+
+AGORA DIGAMOS QUE 
+TEMOS ESTA LINHA DE CÓDIGO 
+NO MEIO DA FUNCITON:
+
+
+
+
+
+
+
+function createUser(email, password) {
+    const user = new User(email, password);
+    startSession(user);
+    return user;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-. 'startSession(user)'
+
+
+
+
+ESSA FUNCTION __ TEM GRANDE 
+
+
+
+CHANCES 
+
+DE __ ALTERAR O 'OVERALL STATE'
+
+
+
+DE NOSSO PROGRAMA... -> E É ISSO QUE CHAMAMOS DE SIDE EFFECT -->  É UMA 
+
+OPERATION QUE 
+
+
+FAZ MAIS DO QUE 
+
+
+'ACT ON FUNCTION INPUTS AND CHANGE THE FUNCTION OUTPUT',
+
+
+
+
+
+PQ __ TAMBÉM __ MUDA __o  
+
+'OVERALL SYSTEM OR PROGRAM STATE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> EM OUTRAS PALAVRAS,
+
+'startSession'
+
+
+poderia __ mudar ALGUMA VARIÁVEL _ 
+QUE 
+
+EXISTE DO LADO __ DE FORA 
+
+
+
+DA FUNCTION DE
+
+'createUser'...
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+// function createUser(email, password) { //without side effects
+//   const user = new User(email, password);
+//
+//   return user;
+// }
+
+function createUser(email, password) { //with side effects (changes some variable OUTSIDE OF THIS FUNCTION, that changes the overall STATE OF THE APP)...
+  const user = new User(email, password);
+  startSession(user);
+  return user;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+e, quando vc 
+tem 
+
+ 
+
+
+ 1 side effect desses,
+
+ é claro que 
+
+
+
+
+
+SUA FUNCTION DEIXA DE SER CONSIDERADA COMO 'PURE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MESMO SE SUA FUNCTION SEMPRE RETORNAR O MESMO VALUE PARA O MESMO INPUT,
+
+
+SE ELA __ FIZER__ ALGO __ EXTRA,
+
+além desse return,
+
+
+algo que _ AFETE 
+
+
+ALGUMA VARIÁVEL NO LADO DE FORA DE SUA FUNCTION,
+
+
+
+
+
+
+AÍ ESSA FUNCTION DEIXA DE SER CONSIDERADA PURE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PURE FUNCTIONS:
+
+
+
+
+1) MESMO OUTPUT PARA O MESMO INPUT 
+
+
+
+
+
+2) NÃO PRODUZEM QUAISQUER SIDE EFFECTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS QUAL É O PROBLEMA COM ESSES 'SIDE EFFECTS'?
+
+
+
+
+
+
+
+
+
+
+novamente,
+
+
+nem sempre seremos capazes de os evitar...
+
+
+
+
+
+
+
+
+
+
+
+
+--> DE FATO,
+
+DEPENDENDO DO TIPO DE PROGRAMA QUE VC ESTÁ ESCREVENDO,
+
+
+
+VC VAI PRECISAR DE 1 MONTE DE SIDE EFFECTS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ HÁ VÁRIOS POTENTIAL SIDE EFFECTS:
+
+
+
+
+
+
+
+1) STARTING SESSIONS 
+
+
+
+
+2) SENDING HTTP REQUESTS 
+
+
+
+
+3) LOGGING SOMETHING TO THE CONSOLE 
+
+
+
+
+4) SHOWING SOME MESSAGE TO THE USER,
+
+
+
+
+
+
+
+
+
+
+todas essas coisas SÃO SIDE EFFECTS,
+
+
+
+PQ 
+SÃO 
+
+MUDANÇAS 
+
+NO STATE 
+DE SEU 
+
+SISTEMA,
+
+
+
+
+
+MUDANÇA NO STATE DE SEU PROGRAMA..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SE VC ESTÁ MOSTRANDO 1 MESSAGE AO SEU USER,
+
+
+É CLARO QUE SEU APP ESTÁ EM 1 STATE DIFERENTE DAQUELE 
+
+
+EM QUE SE ENCONTRAVA ANTERIORMENTE,
+
+
+ANTES DE MOSTRAR A MESSAGE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK.... ESSAS CHANGES ESTÃO POR TODA PARTE, PORTANTO... SIDE EFFECTS 
+
+ESTÃO POR TODA PARTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SIDE EFFECTS SÓ SE TORNAM 1 PROBLEMA 
+SE 
+FOREM __ 
+
+'INESPERADOS'...
+
+
+
+
+
+
+
+
+
+--> PRECISAMOS DOS SIDE EFFECTS,
+
+
+
+
+MAS SE __ ELES __ aCONTECEM DE FORMA INESPERADA,
+
+PASSAM A SER 1 PROBLEMA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+POR EXEMPLO, NESSA FUNCTION DE 
+
+'startSession'
+
+
+VOCê PODERIA __ ESPERAR 1 SIDE EFFECT....
+
+
+
+
+
+
+
+TALVEZ O 'createUser'
+
+SEJA O STORE DE 1 DOCUMENT EM 1 DATABASE.. E ISSO É REALMENTE 
+
+1 SIDE EFFECT..
+
+
+
+
+
+
+
+
+
+
+
+
+
+já 'startSession' ---> É UM OUTRO SIDE EFFECT ESPERADO.. --> OU SEJA,
+
+
+NÃO É UM SIDE EFFECT RUIM... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS CONSIDERE ESTE EXEMPLO:
+
+
+
+
+
+
+
+
+
+
+function generateId(userName) {
+    const id = 'id_' + userName;
+    lastAssignedId = id;
+    return id;
+}
+
+
+
+
+
+
+
+-> É AQUELA FUNCTION DE 'generateIdd'...
+
+
+
+
+mas agora ELA NÃO ESTÁ APENAS _ GERANDO E RETORNANDO 1 ID...
+
+
+
+
+
+
+agora ela está AFETANDO 1 VARIABLE QUE FOI DEFINIDA NO LADO 
+
+DE FORA 
+
+
+DA FUNCTION...
+
+
+(código do whatsweb, essencialmente)...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let lastAssignedId; //afetado porr 'generateId'...
+
+function createUser(email, password) {
+  //with side effects (changes some variable OUTSIDE OF THIS FUNCTION, that changes the overall STATE OF THE APP)...
+  const user = new User(email, password);
+  startSession(user);
+  return user;
+}
+
+//functions com side effects --> código do whatsapp web...
+
+function generateId(userName) {
+  const id = 'id_' + userName;
+  lastAssignedId = id; //exemplo de SIDE EFFECT __ INESPERADO (e ruim) -- isso pq _ ACABAMOS AFETANDO 1 COISA __ eXTERNA A ESSA FUNCTION...
+  return id;
+}
+
+generateId('arthur');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM ISSO,
+
+
+TEMOS 
+
+1 
+
+
+EXEMPLO DE SIDE EFFECT INESPERADO...
+
+
+
+
+
+
+
+
+-> QUANDO CHAMAMOS 1 FUNCTION DE nome 'generateId',
+
+
+não 
+
+
+esperamos 
+
+
+
+que isso vai fazer EXATAMENTE ESSA OPERAÇÃO,
+
+QUE VAI 
+ALTERAR 
+
+O VALUE DESSA VARIABLE... ( o global system state)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ESSA É A ESTRATÉGIA PARA EVITAR 
+
+
+UNEXPECTED SIDE EFFECTS...
+
+
+
+
+
+
+
+
+
+
+-> SIDE EFFECTS NAÕ SÃO NECESSARIAMENTE RUINS,
+
+
+MAS __ SEU NAMING IMPORTA.. -> 
+
+
+
+
+
+
+
+
+OS SIDE EFFECTS SE TORNAM RUINS _ SE 
+
+
+
+
+
+SÃO __UNEXPECTED...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE _ o  NOME _ DE UMA FUNCTION _ 
+
+
+
+DEVE __ OBRIGATORIAMENTE  SINALIZAR/IMPLICAR QUE 
+
+
+
+1 
+
+SIDE EFFECT VAI ACONTECER...
+
+
+
+
+
+
+
+
+
+
+--> SE VC NÃO APONTAR, COM O NOME DE SUA FUNCTION,
+
+QUE 
+
+
+1 
+SIDE EFFECT VAI ACONTECER,
+
+
+
+SEU SIDE EFFECT VAI SER CONSIDERADO RUIM,
+
+E 
+
+
+DIRTY CODE,
+
+PQ 
+
+
+
+__ CLEAN __ CODE NÃO FAZ COISAS OBSCURAS E INESPERADAS,
+
+
+E É 
+FÁCIL  
+
+
+
+DE LER E ENTENDER ------>  E _ SE __ ALGO ACONTECEU 
+
+
+QUE VC NÃO ESPERAVA,
+
+
+VC CLARAMENTE NÃO ENTENDEU O CÓDIGO,
+
+O QUE 
+
+QUER DIZER QUE 
+
+O CÓDIGO NÃO ESTAVA CLEAN...
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+saveUser(...)
+
+
+
+
+isValid(...)
+
+
+
+showMessage(...)
+
+
+
+createUser(...)
+
+
+
+
+
+
+
+
+
+
+
+EM QUAL DESSAS FUNCTIONS VC ESPERARIA 1 SIDE EFFECT?
+
+
+
+
+
+
+
+
+
+eu diria, 'saveUser'
+
+e 
+
+'createUser'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'saveUser()' --> ESPERAMOS QUE 
+
+
+
+EXISTA 1 SIDE EFFECT ->  O USER PROVAVELMENTE SERÁ SALVO EM 1 DATABASE...
+
+
+
+
+
+
+
+E O SAVE DE DATA EM 1 DATABASE DEFINITIVAMENTE É UM SIDE EFFECT,
+
+PQ 
+MANIPULA 
+
+
+O __ EXISTING OVERALL SYSTEM E PROGRAM STATE (
+
+    escrevemos 1 nova entry em 1 database,
+
+    writtamos em files,
+
+esse é um 
+CRYSTAL CLEAR SIDE EFFECT... -> e esse side effect é realmente 
+esperado,
+
+para 1 function de nome 'saveUser()'....
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+isValid() --> não esperamos nenhum side effect 
+
+por parte 
+
+
+dessa function --> essa function deve 
+
+retornar 
+
+
+1 resposta para a pergunta se alguma coisa está válida...
+
+
+
+
+
+
+
+
+
+
+-> SERIA MT RUIM SE ELA AFETASSE O STATE DE NOSSO APP...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+showMessage() ---> POR DEFINIÇÃO,
+
+ISSO TERÁ 
+
+1 SIDE EFFECT....
+
+
+
+
+
+
+SE VC _ MOSTRAR 1 MESSAGE A 1 USER,
+
+1 
+
+OVERLAY EM 1 WEBSITE,
+
+ALGO ASSIM,
+
+
+
+DEFINITVAMENTE 
+
+
+ESTAREMOS 
+
+
+MUDANDO 
+
+O 
+
+STATE 
+
+DO PROGRAMA..
+
+
+
+
+
+
+
+--> OK... POR CONTA DO NOME DE 'showMessage',
+
+
+
+ESPERAMOS 
+
+
+1 SIDE EFFECT..
+
+
+
+
+
+
+
+
+
+
+
+
+
+'createUser()'-->  poderíamos, OU NAÕ,
+
+ESPERAR 
+
+1 
+SIDE EFFECT...
+
+
+
+
+
+
+
+
+
+--> 'createUser'
+
+PODERIA 
+SÓ FAZER ISSO,
+
+CRIAR 
+
+
+
+1 NOVO USER...
+
+
+
+
+
+
+
+
+
+MAS 'CREATE'
+É UMA PALAVRA BEM WIDE,
+
+VC 
+
+PODE ENFIAR 1 
+
+MONTE DE INTERPRETAÇÃO NELA..
+
+
+
+
+
+
+
+
+
+por 'create',
+
+poderíamos querer 
+
+
+
+dizer 
+
+
+
+que 
+
+
+'O SAVE DO USER NA DATABASE É APENAS PARTE DO CREATION PROCESS'...
+
+
+
+
+
+
+
+ok... isso significa que 
+
+TUDO DEPENDE DO CONTEXTO 
+
+
+DO APP EM QUE 
+
+
+
+
+VC _ USA __ ESSA FUNCTION DE 'createUser'..
+
+
+
+
+
+
+
+
+
+
+
+
+-> 1 SIDE EFFECT NÃO É NECESSARIAMENTE 
+
+
+ESPERADO, NO CASO DE 'createUser',
+
+
+
+MAS 
+NÃO 
+É 
+
+TOTALMENTE INESPERADO....
+
+
+
+
+
+
+
+
+
+
+
+
+nas últimas lições,
+tivemos 
+
+1 
+
+
+function chamada de 'createUser',
+
+
+QUE TINHA VÁRIOS SIDE EFFECTS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PORTANTO, RESUMINDO,
+
+A IDEIA É 
+
+SIMPLES:
+
+
+
+
+
+
+
+'''É  OK TER IMPURE FUNCTIONS, E É OK TER SIDE EFFECTS....'''
+
+
+
+
+
+mas sempre que 1 function é impure,
+
+TIPICAMENTE PQ 
+
+TEM 1 SIDE EFFECT,
+
+
+
+
+
+__ ESSE SIDE EFFECT __ PELO MENOS_ DEVE SER 'EXPECTED'...
+
+
+
+
+
+
+
+
+
+
+
+
+SUAS FUNCTIONS NAÕ DEVEM 
+
+TER 
+
+QUAISQUER 
+
+
+'UNEXPECTED SIDE EFFECTS',
+
+
+pq isso é mt ruim...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E SE VC TIVER 1 SIDE EFFECT, OU SE PRECISAR DE 1 SIDE EFFECT,
+
+VC ___ PRECISA__ ESCOLHER _  FUNCTION NAME __ 
+
+QUE DEIXE ISSO BEM IMPLÍCITO...
+
+
+
+
+
+
+
+
+
+
+--> OU, ENTÃO,
+
+VC 
+
+DEVE 
+
+MOVER SEU SIDE EFFECT 
+
+EM 
+
+
+OUTRA FUNCTION/OUTRO LUGAR,
+
+
+
+EM 
+
+
+ALGUM LUGAR EM QUE 
+
+É 
+
+REALMENTE 'EXPECTED'...
+
+
+
+
+
+
+
+-> É ISSO QUE DEIXA SUAS FUNCTIONS E SEU CODE CLEAN...
+
+
+
+
+
+
+
+
+
+-> PQ SEU CÓDIGO NÃO É CLEAN SE ELE FAZ COISAS INESPERADAS...
