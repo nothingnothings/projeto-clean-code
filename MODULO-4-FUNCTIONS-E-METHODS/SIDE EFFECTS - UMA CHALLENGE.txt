@@ -1,0 +1,860 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... O PROFESSOR NOS MOSTRA 1 CHALLENGE:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function connectDatabase() {
+  const didConnect = database.connect();
+  if (didConnect) {
+    return true;
+  } else {
+    console.log('Could not connect to database!');
+    return false;
+  }
+}
+
+function determineSupportAgent(ticket) {
+  if (ticket.requestType === 'unknown') {
+    return findStandardAgent();
+  }
+  return findAgentByRequestType(ticket.requestType);
+}
+
+function isValid(email, password) {
+  if (!email.includes('@') || password.length < 7) {
+    console.log('Invalid input!');
+    return false;
+  }
+  return true;
+}
+
+
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+APRENDEMOS SOBRE SIDE EFFECTS E PURE FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+
+DEVEMOS VER ALGUNS EXAMPLES,
+
+
+
+
+
+PARA 
+
+QUE 
+
+
+
+
+
+SAIBAMOS COMO 
+
+
+1 
+
+SIDE EFFECT SE PARECE ,
+
+
+
+E SOBRE COMO PODEMOS OS 'MITIGAR'..
+
+
+
+
+
+
+
+
+
+
+
+
+-> esse arquivo js 
+
+tem 
+
+
+3 functions..
+
+
+
+
+
+
+
+
+
+-> TEM CODE SNIPPETS...
+
+
+
+
+
+
+
+
+
+
+
+-- O PROFESSOR QUER QUE ESTUDEMOS 
+
+ESSES DIFERENTES EXEMPLOS...
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR QUER 
+QUE 
+
+IDENTIFIQUEMOS 
+TODOS 
+
+OS SIDE EFFECTS QUE 
+
+
+PUDERMOS ENCONTRAR...
+ 
+
+
+
+
+
+
+
+
+
+ --> ISSO FEITO,
+
+ DEVEMOS PENSAR SE CADA 
+ SIDE EFFECT É ESPERADO OU NÃO...
+
+
+
+
+
+
+
+
+ SE ALGUM SIDE EFFECT FOR INESPERADO,
+
+
+
+
+
+ DEVEMOS __ PENSAR __ EM COMO PODEMOS O EVITAR,
+
+
+
+ FAZER 'WORKAROUND',
+
+
+ OU 
+
+ DEIXÁ-LO EXPECTED... 
+
+
+
+
+
+
+
+
+ CERTO... VOU TENTAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ TENTEI ESCREVER ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ function connectDatabase() {
+  const didConnect = database.connect(); //side effect --> vamos nos conectar a 1 database, EXTERNA...
+  if (didConnect) {
+    return true;
+  } else {
+    outputMessage('Could not connect to database!');
+    return false;
+  }
+}
+
+function determineSupportAgent(ticket) {
+  if (ticket.requestType === 'unknown') {
+    return findStandardAgent(); ///poderia ser 1 side effect..
+  }
+  return findAgentByRequestType(ticket.requestType);
+}
+
+function isValid(email, password) {
+  if (!email.includes('@') || password.length < 7) {
+    //não é um side effect necessariamente ruim, mas talvez seja bom fazer um outsourcing...
+    outputMessage('Invalid input!'); //SIDE EFFECT (nosso app não tinha esse output antes, agora tem...)
+    return false;
+  }
+  return true;
+}
+
+function outputMessage(message) {
+  console.log(message);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ok.. 
+
+
+
+
+
+
+quando chamamos 'connectDatabase' --> VAMOS ESPERAR o 
+
+CONNECT DE NOSSO PROGRAMA A UMA DATABASE...
+
+
+
+
+
+
+
+
+
+-> ESSE É O SIDE EFFECT...
+
+
+
+
+
+
+
+
+
+-> NA VERDADE, TEMOS 2 SIDE EFFECTS EM 'connectDatabase'...
+
+
+
+
+
+
+
+
+
+
+1) O _ CÓDIGO QUE REALMENTE ESTABELECE UMA CONNECTION COM A DATABASE,
+ 
+ 'database.connect()"
+
+
+
+
+
+
+
+--> ISSO VAI MUDAR ALGO EM NOSSO SISTEMA... -> É DEFINITIVAMENTE 1 SIDE EFFECT..
+
+
+
+
+
+-> MAS É UM SIDE EFFECT ESPERADO,
+
+POR ISSO NÃO HÁ PROBLEMA...
+
+
+
+
+
+
+
+
+
+
+
+MAS TEMOS 1 SEGUNDO 
+
+SIDE EFFECT, AQUI..
+
+
+
+
+
+
+
+
+
+
+
+2) O SEGUNDO SIDE EFFECT É O CONSOLE.LOG...
+
+
+
+
+
+
+
+
+
+--> ISSO TAMBÉM É UM SIDE EFFECT... -> PQ 
+
+O 
+
+
+SHOW DE 1 MESSAGE A 1 USER 
+
+É, DE FATO,
+
+1 
+
+MUDANÇA NO SYSTEM STAET...
+
+
+
+
+
+
+
+
+
+
+
+-> E VC PODERIA DISCUTIR SE 
+
+ESSE CONSOLE.LOG É OK OU NÃO...
+
+
+
+
+
+
+
+
+
+
+-> bem... temos 
+
+ 'database.connect()',
+
+
+ QUE DEIXA BEM IMPLÍCITO 
+ QUE 
+
+
+
+ 1 SIDE EFFECT DE 'CONNECT TO A DATABASE'
+
+
+ VAI ACONTECER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> MAS 'console.log()'
+
+
+
+ NÃO É NECESSARIAMENTE 'EXPECTED'
+
+ QUANDO 
+
+
+ RODAMOS 
+ 'connectDatabase'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> MAS VC PODERIA ARGUMENTAR QUE 
+
+
+ 'connectDatabase'
+
+
+ TAMBÉM DEVE/DEVERIA 
+ 'TAKE CARE'
+
+
+
+ DO ERROR HANDLING DA CONEXÃO,
+
+ SE A CONEXÃO FALHAR.. ------> PODERIA ARGUMENTAR QUE 
+
+
+
+
+ ''NÓS FAZEMOS MAIS DO QUE O CONNECT NA DATABASE,
+
+
+ PQ __ TAMBÉM _ MOSTRAMOS 1 ERROR MESSAGE EM CASOS DE FAIL'''..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ISSO PQ 
+ O CONNECT A UMA DATABASE É 
+ TANTO 
+
+ O 
+ 'SUCCESS CASE'
+
+
+
+
+ COMO O 'FAILURE CASE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ESSE É UM ARGUMENTO QUE VC PODERIA USAR... -> E, POR ISSO,
+
+
+ O SEGUNDO ARGUMENT NÃO SERIA ESPERADO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ MAS VC AINDA PODERIA ARGUMETNAR QUE 
+
+ 'A ÚNICA COISA QUE É  REALMENTE ESPERADA 
+
+
+ É _ A CONEXÃO à DATABASE',
+
+
+ E NADA MAIS DO QUE ISSO..
+
+
+
+
+
+
+
+
+
+
+
+
+ NESSE CASO,
+
+
+ SOLUCIONARÍAMOS O PROBLEMA 
+
+
+
+
+
+
+
+
+
+ POR MEIO DO CREATE DE UMA FUNCTION,
+
+
+
+
+
+ tipo 
+
+
+
+
+
+
+
+
+
+
+
+
+ 'function initApp() {
+
+ }' ..
+
+
+
+
+
+
+
+
+ DENTRO DESSA FUNCTION,
+
+ VC 
+
+
+
+ COLOCARIA ASSIM:
+
+
+
+ 
+ function initApp() {
+
+    const success = connectDatabase();
+ } ..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-. COLOCAMOS ESSE VALUE DE SUCCESS...
+
+
+
+
+
+
+
+
+
+-> SE O CONNECT NÃO FOR 1 SUCCESS,
+
+
+
+
+VAMOS QUERER FAZER OUTPUT DE 1 CONSOLE.LOG,TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function initApp() {
+  const success = connectDatabase(); //side effect --> vamos nos conectar a 1 database, EXTERNA...
+  if (!success) {
+    console.log('Could not connect to database!');
+  }
+}
+
+function connectDatabase() {
+  const didConnect = initApp(); //side effect --> vamos nos conectar a 1 database, EXTERNA...
+  if (didConnect) {
+    return true;
+  } else {
+    console.log('Could not connect to database!');
+    return false;
+  }
+}
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... em 'connectDatabase',
+
+PODERÍAMS 
+
+
+
+
+RETORNAR APENAS didConnect',
+
+
+tipo assim:
+
+
+function initApp() {
+  const success = connectDatabase(); //side effect --> vamos nos conectar a 1 database, EXTERNA...
+  if (!success) {
+    console.log('Could not connect to database!');
+  }
+}
+
+function connectDatabase() {
+  const didConnect = initApp(); //side effect --> vamos nos conectar a 1 database, EXTERNA...
+  if (didConnect) {
+    return true;
+  } else {
+    console.log('Could not connect to database!');
+    return false;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+function initApp() {
+  const success = connectDatabase(); //side effect --> vamos nos conectar a 1 database, EXTERNA...
+  if (!success) {
+    console.log('Could not connect to database!');
+  }
+}
+
+function connectDatabase() {
+  const didConnect = initApp(); //side effect --> vamos nos conectar a 1 database, EXTERNA...
+  if (didConnect) {
+    return true;
+  } else {
+    console.log('Could not connect to database!');
+    return false;
+  }
+}
+function determineSupportAgent(ticket) {
+  if (ticket.requestType === 'unknown') {
+    return findStandardAgent(); ///poderia trazer 1 side effect.. (mas provavelmente não é)
+  }
+  return findAgentByRequestType(ticket.requestType);
+}
+
+function isValid(email, password) {
+  if (!email.includes('@') || password.length < 7) {
+    //não é um side effect necessariamente ruim, mas talvez seja bom fazer um outsourcing...
+    // outputMessage('Invalid input!'); //SIDE EFFECT (nosso app não tinha esse output antes, agora tem...)
+    return false;
+  }
+  return true;
+}
+
+function outputMessage(message) {
+  console.log(message);
+}
+
+function createUser(email, password) {
+  if (!isValid(email, password)) {
+    outputMessage('Could not connect to database!');
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> A FUNCTON DE 'isValid' AGORA ESTÁ LIMPA (pq tirei o código de 'console.log()'..):
+
+
+
+function isValid(email, password) {
+  if (!email.includes('@') || password.length < 7) {
+    //não é um side effect necessariamente ruim, mas talvez seja bom fazer um outsourcing...
+    // outputMessage('Invalid input!'); //SIDE EFFECT (nosso app não tinha esse output antes, agora tem...)
+    return false;
+  }
+  return true;
+}
