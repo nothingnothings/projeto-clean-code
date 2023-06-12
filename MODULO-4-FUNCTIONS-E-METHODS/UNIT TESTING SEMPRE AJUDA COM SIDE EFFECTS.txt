@@ -1,0 +1,1041 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... 
+
+PARA CONCLUÍRMOS ESTE MÓDULO, VEREMOS OUTRO ASPECTO SUPER IMPORNATE....
+
+
+
+
+
+
+
+
+
+
+
+É TESTING/UNIT TESTIG.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DEVEMOS RODAR TESTS NO NOSSO CÓDIGO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok.. este curso não é sobre-testing ou test-driven development....
+
+
+
+
+
+
+
+MAS O UNIT TESTING VAI TE AJUDAR A ESCREVER TANTO ERROR-FREE CODE,
+
+
+COMO TAMBÉM CLEAN CODE..
+
+
+
+
+
+
+
+
+
+
+
+
+-> PQ __ HÁ 1 SIMPLES PERGUNTA QUE VC TEM QUE FAZER,
+QUANDO 
+
+
+
+TENTAR TESTAR...
+
+
+
+
+
+
+
+
+
+
+
+'''VC PODE TESTAR FACILMENTE UMA FUNCTION???'''
+
+
+
+
+
+
+
+
+
+
+
+
+SE VC NÃO TIVER NENHUM PROBLEMA COM ESSA FUNCTION, NENHUM:
+
+
+
+
+
+
+
+1) PROBLEMA COM SIDE EFFECT (
+
+QUE VC _ TIPICAMENTE NÃO VAI QUERER DURANTE TESTING... COISAS COMO 'WRITE TO A DATABASE'...
+
+
+
+)
+
+
+
+
+
+2) QUANTIDADE ABSURDA DE FUNCTIONS SENDO CHAMADAS
+
+
+DENTRO DE 1 MESMA FUNCTION (
+
+isso é difícil de testar, além de ser código ruim...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS SE SEU CÓDIGO É DIFÍCIL DE TESTAR,
+PQ 
+
+1 
+FUNCTION FAZ 1 MONTE DE COISAS...
+
+
+
+
+
+
+
+OU PQ 
+
+VC TEM 1 MONTE DE SIDE EFFECTS SENDO PRODUZIDOS POR SUA FUNCTION,
+
+
+
+
+
+
+
+
+NESSES CASOS TALVEZ SEJA MELHOR __ SPLITTAR SUA FUNCTION,
+
+
+
+EM MÚLTIPLAS FUNCTIONS,
+
+QUE 
+SERÃO 
+
+
+TESTADAS MAIS FACILMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUER DIZER QUE 'ESCREVER FUNCTIONS PARA TESTS',
+
+E 
+
+
+UNIT TESTING 
+
+TE AJUDA 
+
+A 
+
+ESCREVER CÓDIGO MAIS CLEAN,
+
+
+E A 
+
+
+ESCREVER FUNCTIONS 
+
+
+MAIS SLIM E _ MAIS FOCUSED.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ __ SMALL FUNCTIONS, 
+QUE SÓ FAZEM 1 ÚNICA COISA,
+
+SEM NENHUM SIDE EFFECT INESPERADO,
+
+
+SÃO BEM MAIS FÁCEIS
+ DE 
+
+ TESTAR 
+
+ DO QUE 
+
+
+ FUNCTIONS GRANDES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> agora vamos ver isso com outra FUNCTION,
+
+
+
+
+
+
+
+
+a 'addProduct'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO RUIM É ESTE:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function addProduct(name, price) {
+  if (!name || name.trim() === '' || !price || price < 0) {
+    console.log('Invalid input - product was not created.');
+    return;
+  }
+  const product = {
+    id: name + '_' + Math.random().toString(),
+    name: name,
+    price: price,
+  };
+  database.insert('products', product);
+  return product;
+}
+
+describe(function () {
+  it('should create a product for valid names and prices', function () {
+    const createdProduct = addProduct('Carpet', 19);
+    expect(createdProduct).not.toBeUndefined();
+  });
+
+  it('should generate a product id that contains the product name', function () {
+    const createdProduct = addProduct('Book', 19);
+    expect(createdProduct.id).stringContaining('Book');
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... TEMOS 1 FUNCTION 'MONOLITO',
+
+QUE FAZ TUDO...
+
+
+
+
+
+
+
+ELA DEVE SER SPLITTADA EM FUNCTIONS MENORES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESSA FUNCTION:
+
+
+
+
+
+
+
+1) VALIDA 1 INPUT 
+
+
+
+2) MOSTRA 1 ERROR MESSGE 
+
+
+
+
+
+
+3) E AÍ CRIA E ARMAZENA 1 PRODUCT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+É MT PARECIDA COM O EXMEPLO DE 'CREATE USER'
+
+
+que vimos anteriormente..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> IMEDIATAMENTE PERCEBEMOS QUE 
+
+TEMOS 
+
+MÚLTIPLOS NÍVEIS DE ABSTRACTION, AQUI...
+
+
+
+
+
+--> PERCEBEMOS QUE 
+
+O NÍVEL DE ABSTRACTION DA FUNCTION NAME 
+
+E 
+
+DE ALGUMAS 
+
+
+STEPS 
+
+DENTRO 
+
+DE NOSSA FUNCTION __ É MT GRANDE...
+
+
+
+
+ENCONTRARÍAMOS PROBLEMAS QUANDO 
+
+
+
+
+TENTÁSSEMOS ESCREVER __ TESTS_ PARA _ESSA FUNCTION..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM UMA FUNCTION SPLITTADA ADEQUADAMENTE,
+
+NOSSO CÓDIGO FICA BEM MAIS LEGÍVEL... VEJA:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Product {
+  constructor(name, price) {
+    this.name = name;
+    this.price = price;
+    this.id = name + '_' + Math.random().toString();
+  }
+}
+
+function addProduct(name, price) {
+  // problem solved - function outsourceada, side effects inesperados REMOVIDOS.
+  // 1) validate product
+  validateProduct(name, price);
+  // 2) create product
+  const product = new Product(name, price);
+  // 3) save/insert product  (EXPECTED side effect)
+  database.insert('products', product);
+  // 4) returns product
+  return product;
+}
+
+function validateProduct(name, price) {
+  //has EXPECTED side effect(error message output - alters user state)
+  if (!name || name.trim() === '' || !price || price < 0) {
+    console.log('Invalid input - product was not created.');
+    return;
+  }
+}
+
+describe('class Product', () => {
+  it('should create a product with a name and a price', () => {
+    //ARRANGE
+    const productName = 'Carpet';
+    const productPrice = 19;
+
+    //ACT
+    const product = new Product(productName, productPrice);
+
+    //ASSERT
+    expect(product.name).toBe('Carpet');
+    expect(product.price).toBe(19);
+  });
+
+  it('should create a product with a random id', () => {
+    //ARRANGE
+    const productName1 = 'Carpet';
+    const productPrice1 = 19;
+    const productName2 = 'Ball';
+    const productPrice2 = 5;
+
+    //ACT
+    const product1 = new Product(productName1, productPrice1);
+    const product2 = new Product(productName2, productPrice2);
+
+    //ASSERT
+    expect(product1.id).not.toBe(product2.id);
+  });
+});
+
+describe('addProduct', function () {
+  it('should create a product for valid names and prices', function () {
+    //ARRANGE
+    const productName = 'Carpet';
+    const productPrice = 19;
+
+    //ACT
+    const createdProduct = addProduct(productName, productPrice);
+
+    //ASSERT
+    expect(createdProduct).not.toBeUndefined();
+  });
+
+  it('should generate a product id that contains the product name', function () {
+    //ARRANGE
+    const productName = 'Book';
+    const productPrice = 20;
+
+    //ACT
+    const createdProduct = addProduct(productName, productPrice);
+
+    //ASSERT
+    expect(createdProduct.id).stringContaining(productName);
+  });
+});
+
+describe('validateProduct', () => {
+  it('should throw an error for invalid names', () => {
+    //ARRANGE
+    const productName = '';
+    const productPrice = 2;
+    //ACT
+    const resultFn = () => {
+      validateProduct(productName, productPrice);
+    };
+    //ASSERT
+    expect(resultFn).toThrowError();
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+certo...
+
+
+
+
+
+
+
+
+
+
+QUANDO ESCREVEMOS ESSES TESTS,
+
+
+PODEMOS 
+
+
+
+
+PERCEBER QUE 
+HÁ ALGO DE ERRADO COM A FUNCTION DE 
+
+'addProduct'...
+
+
+
+
+
+
+
+
+
+
+
+O PRIMEIRO SIDE EFFECT INDESEJADO,
+
+COM A FUNCTION DE 
+
+
+'addProduct',
+
+
+
+
+É __ O WRITE__ DO PRODUCT LÁ NA DATABASE,
+
+
+com 
+
+'database.insert('products', product)'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OUTRA:
+
+
+
+
+
+
+
+SE ESTAMOS INTERESSADOS APENAS 
+
+
+
+
+NO CHECK 'SE O ID ESTÁ SENDO GERADO CORRETAMENTE',
+
+
+
+somos FORÇADOS 
+
+A EXECUTAR 
+
+A FUNCTION INTEIRA 
+
+
+
+de 
+
+'addProduct',
+
+
+INCLUSIVE 
+
+
+
+COM AQUELE SIDE EFFECT INDESEJADO,
+
+PARA SABER SE 
+
+O ID 
+
+ESTÁ SENDO GERADO OU NÃO...
+
+
+
+
+
+
+
+
+
+
+
+--> MESMA COISA PARA A VALIDATION...
+
+
+
+
+
+
+
+
+
+-> TODAS ESSAS COISAS RODARIAM NESSA FUNCTION ,
+
+
+
+
+
+PARA PODERMOS AS TESTAR...
+
+
+
+
+
+
+
+
+
+-> POR ISSO QUE 
+
+
+
+É MELHOR 
+
+SPLITTAR ESSA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A VERSÃO DO PROFESSOR FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function addProduct(name, price) {
+  validateProductData(name, price);
+
+  const savedProduct = saveProduct(name, price);
+  return savedProduct;
+}
+
+function validateProductData(name, price) {
+  if (!inputIsValid(name, price)) {
+    throw new Error('Invalid input - product was not created.');
+  }
+}
+
+function inputIsValid(name, price) {
+  return !isEmpty(name) && hasMinValue(price, 0);
+}
+
+function isEmpty(value) {
+  return !value || value.trim() === '';
+}
+
+function showErrorMessage(message) {
+  console.log(message);
+}
+
+function saveProduct(name, price) {
+  const product = {
+    id: generateRandomId(name),
+    name: name,
+    price: price,
+  };
+  database.insert('products', product);
+  return product;
+}
+
+function generateRandomId(baseValue) {
+  return baseValue + '_' + Math.random().toString();
+}
+
+describe(function () {
+  it('return true if an empty name is passed as a value', function () {
+    const validationResult = isEmpty('');
+    expect(validationResult).toEqual(true);
+  });
+
+  it('return false if a non-empty name is passed as a value', function () {
+    const validationResult = isEmpty('Test');
+    expect(validationResult).toEqual(false);
+  });
+});
+
+function hasMinValue(value, minValue) {
+  return value > minValue;
+}
+
+describe(function () {
+  it('return true if a value above the minValue is provided', function () {
+    const validationResult = hasMinValue(10, 8);
+    expect(validationResult).toEqual(true);
+  });
+
+  it('return false if a value below the minValue is provided', function () {
+    const validationResult = hasMinValue(5, 8);
+    expect(validationResult).toEqual(false);
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMO VOCÊ PODE VER,
+
+
+A FUNCTION FOI SPLITTADA BEM MAIS...
+
+
+
+
+
+
+
+
+
+
+
+
+-> A VANTAGEM É QUE AGORA PODEMOS TESTAR TESTS EM CADA 
+
+PEQUENA UNIT... -> podemos 
+
+TESTAR 
+
+PARTES DE NOSSA VALIDATION,
+
+OU A VALIDATION INTEIRA,
+
+
+
+ISSO SEm 
+
+
+rodar 
+
+
+
+
+
+A FUNCTION INTEIRA DE 'addProduct'..
+
+
+
+
+
+
+
+
+
+E É POR ISSO QUE O UNIT TESTING TE AJUDA 
+
+A 
+
+
+MELHORAR SEU BASE-CODE..
+
+
+
+
+
+
+
+
+QUANDO TESTAMOS TUDO,
+
+JÁ VAMOS VER AUTOMATICAMENTE 'O QUE PODE SER EXTRAÍDO',
+
+E O QUE 
+
+NÃO PODE...
+
+
+
+
+
+
+
+
+
+
+
+
+VC QUER ESCREVER A MAIOR QUANTIDADE DE TESTS 
+
+POSSÍVEL,
+
+
+
+DESDE QUE ELES FAZEM SENTIDO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+o professor diz que poderíamos escrever 1 integration test para o 
+
+
+'addProduct',
+
+MAS 
+
+
+
+
+QUE AGORA TEMOS 1 MONTE DE UNIT TESTS PARA 
+
+ESSES PEQUENOS PEDAÇOS DE CÓDIGO..
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE O TESTING 
+
+IMPORTA, 
+NÃO SÓ PARA 
+
+
+RESOLVER BUGS,
+
+MAS PARA ESCREVER CLEAN CODE..
