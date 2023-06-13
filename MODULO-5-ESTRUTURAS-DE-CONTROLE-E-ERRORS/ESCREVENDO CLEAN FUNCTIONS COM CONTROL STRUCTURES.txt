@@ -1,0 +1,499 @@
+
+
+
+
+
+
+
+
+
+
+
+OK.... COM ISSO,
+
+O PROCESS TRANSACTION JÁ FICOU BEM READABLE E SLIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  if (transactionsAreEmpty(transactions)) {
+    outputError('No transactions provided!');
+    return;
+  } else {
+    for (const transaction of transactions) {
+      processTransaction(transaction);
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO...
+
+
+
+
+
+
+
+
+
+
+MAS O 
+
+'processTransaction()'
+
+EM SI NÃO ESTÁ SLIM...
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO ESTÁ ASSIM, TEORICAMENTE:
+
+
+
+
+
+
+
+
+if (transaction.type === 'PAYMENT') {
+    if (transaction.method === 'CREDIT_CARD') {
+        processCreditCardPayment(transaction);
+    } else if(transaction.method === 'PAYPAL') {
+        processPayPalPayment (transaction);
+    } else if (transaction.method === 'PLAN') {
+        processPlanPayment(transaction)
+    }
+} else if (...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... É BASTANTE CÓDIGO... MAS COMO PODEMOS SIMPLIFICAR TUDO ISSO?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM, PODEMOS FAZER UM MONTE DE COISAS..
+
+
+
+
+
+
+
+
+
+
+MAS 1 PRIMEIRO PASSO PODE SER TENTAR EXTRAIR 
+
+MAIS FUNCTIONS..
+
+
+
+
+
+
+
+
+
+
+
+EU JÁ EXTRAÍ BASTANTE, TINHA FICADO ASSIM:
+
+
+
+
+
+
+
+
+function processTransaction(transaction) {
+  if (transaction.status !== 'OPEN') {
+    // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+    // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    outputError('Invalid transaction type!', transaction);
+    return;
+  }
+  switch (transaction.type) {
+    case 'PAYMENT':
+      processPayment(transaction);
+      break;
+    case 'REFUND':
+      processRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction type!', transaction);
+  }
+}
+
+function processPayment(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardPayment(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalPayment(transaction);
+      break;
+    case 'PLAN':
+      processPlanPayment(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
+
+function processRefund(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardRefund(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalRefund(transaction);
+      break;
+    case 'PLAN':
+      processPlanRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR ACHA QUE 1 TIPO DE 
+
+
+FUNCTION QUE PODEMOS EXTRAIR 
+
+
+
+
+É 
+
+
+
+
+
+O TIPO DE FUNCTION QUE 'DEALS ONLY WITH PAYMENTS'
+
+
+
+
+E OUTRA QUE 'DEALS ONLY WITH REFUNDS'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> é por isso que o professor 
+
+
+
+criou 1 function de 
+
+nome 
+
+
+'processPayment()',
+
+
+
+e outra de 
+'processRefund()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+certo... o professor fez + ou - o que eu fiz,
+
+
+
+mas sem 1 switch case...
+
+
+
+
+
+
+
+
+
+--> O CÓDIGO DELE FICA MAIS OU MENOS A MESMA COISA:
+
+
+
+
+function processTransaction(transaction) {
+  if (transaction.status !== 'OPEN') {
+    outputError('Invalid transaction type!', transaction);
+    return;
+  }
+  switch (transaction.type) {
+    case 'PAYMENT':
+      processPayment(transaction);
+      break;
+    case 'REFUND':
+      processRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction type!', transaction);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... até agora, fiz tudo certo...
+
+
+
+
+MAS O PROFESSOR DIZ QUE PODEMOS 
+
+EXTRAIR MAIS COISAS...
+
+
+
+
+
+
+O PROFESSOR NOS APONTA QUE 
+
+OS CHECKS 
+
+
+
+
+
+
+
+
+
+de 
+
+
+
+
+'transactions.status !== 'OPEN' 
+
+
+
+
+
+ESTÃO EM 1 NÍVEL 
+
+
+DIFERENTE 
+
+
+
+DO RESTO DAS FUNCTION CALLS DE NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+-> mas isso poderia ser splitting too much...
+
+
+
+
+certo...
+
+
+já ficou bem mais clean...
+
+
+
+
+
+
+
+
+
+MAS AINDA NÃO ACABAMOS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O PROFESSOR DIZ QUE AINDA TEMOS AS FUNCTIONS 
+
+
+DE 
+
+'processRefund'
+
+e 
+
+
+'processPayment' ----> PQ ESSAS FUNCTION POSSUEM CODE DUPLICATION, E 
+
+
+CÓDIGO QUE NÃO É EXATAMENTE CLEAN...
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+function processPayment(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardPayment(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalPayment(transaction);
+      break;
+    case 'PLAN':
+      processPlanPayment(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
+
+function processRefund(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardRefund(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalRefund(transaction);
+      break;
+    case 'PLAN':
+      processPlanRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
