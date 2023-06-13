@@ -1,0 +1,673 @@
+
+
+
+
+
+
+
+
+
+
+ATÉ AGORA, JÁ REFATORAMOS 1 MONTE..
+
+
+
+
+
+
+
+
+
+
+
+-> MAS É ASSIM QUE ESCREVEMOS CLEAN CODE,
+
+
+
+
+
+TEMOS QUE REFATORAR 1 MONTE,
+
+É 1 STEP-BY-STEP PROCESS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> É ISSO QUE NÓS FAREMOS,
+
+QUANDO LIMPARMOS NOSSO CÓDIGO..
+
+
+
+
+
+
+
+
+
+--> OK....
+
+
+
+
+
+
+
+
+FALANDO SOBRE 'MOVING THINGS AROUND',
+
+
+
+
+
+
+
+
+
+AGORA USAMOS ERRORS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> USAR ERRORS É NICE...- ----> 
+
+
+
+
+
+MAS TER 
+
+CÓDIGO 
+
+
+
+
+
+
+QUE __ CRIA ___ ERRORS __ DO LADO __ dE CÓDIGO QUE, POR EXEMPLO,
+
+
+
+DISPATCHA DIFERENTES PROCESS FUNCTIONS,
+
+PARA DIFERENTES 
+
+
+
+TRANSACTION METHODS... --------> ISSO, NOVAMENTE,
+
+
+É 
+
+
+
+MISTURAR DIFERNTES NÍVEIS DE ABSTRACTION...
+
+
+
+
+
+
+
+
+
+
+
+É POR ISSO QUE DEVEMOS CONSIDERAR SPLITTAR 
+
+NOSSAS FUNCTIONS...
+
+
+
+
+----> podemos criar 1 nova function,
+
+
+
+
+de nome 
+
+
+'validateTransactions',
+
+
+EM QUE 
+
+VAMOS VALIDAR 
+
+
+TODAS 
+
+
+AS TRANSACTIONS, TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  // 1) validamos as transactions
+  validateTransactions(transactions);
+
+  for (const transaction of transactions) {
+    try {
+      // 2) processamos as transactions
+      processTransaction(transaction);
+    } catch (error) {
+      outputError(error.message, transaction);
+      continue;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+e assim:
+
+
+
+
+
+function validateTransactions(transactions) {
+  if (transactionsAreEmpty(transactions)) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT/throw NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    // outputError('No transactions provided!');
+    const error = new Error('No transactions provided!');
+    throw error;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK...
+
+
+
+
+
+
+
+
+COMO ESSE ERROR VAI 'BUBBLE UP',
+
+
+
+
+
+ELE VAI 'BUBBLE THROUGH'
+
+
+o 
+
+'processTransactions',
+
+
+até chegar no handle 
+
+
+do try-catch mais exterior...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> se vc quer usar 1 helper function para criar 
+
+
+errors,
+
+o professor recomenda 
+
+
+usar 1 ERROR CLASS para isso..
+
+
+
+
+
+
+
+
+
+
+
+
+bem, fiz mais 1 outsourcing:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  // 1) validamos as transactions
+  validateTransactions(transactions);
+
+  for (const transaction of transactions) {
+    try {
+      // 2) processamos as transactions
+      processTransaction(transaction);
+    } catch (error) {
+      outputError(error.message, transaction);
+      continue;
+    }
+
+    // if (transaction.type === 'PAYMENT') {
+    //   if (transaction.method === 'CREDIT_CARD') {
+    //     processCreditCardPayment(transaction);
+    //   } else if (transaction.method === 'PAYPAL') {
+    //     processPayPalPayment(transaction);
+    //   } else if (transaction.method === 'PLAN') {
+    //     processPlanPayment(transaction);
+    //   }
+    // } else if (transaction.type === 'REFUND') {
+    //   if (transaction.method === 'CREDIT_CARD') {
+    //     processCreditCardRefund(transaction);
+    //   } else if (transaction.method === 'PAYPAL') {
+    //     processPayPalRefund(transaction);
+    //   } else if (transaction.method === 'PLAN') {
+    //     processPlanRefund(transaction);
+    //   }
+    // } else {
+    //   outputError('Invalid transaction type!', transaction);
+    // }
+  }
+}
+
+function processTransaction(transaction) {
+  //1º) validamos a transaction
+  validateTransaction();
+
+  //2º) processamos a transaction
+  switch (transaction.type) {
+    case 'PAYMENT':
+      processPayment(transaction);
+      break;
+    case 'REFUND':
+      processRefund(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+function validateTransactions(transactions) {
+  if (transactionsAreEmpty(transactions)) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT/throw NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    // outputError('No transactions provided!');
+    const error = new Error('No transactions provided!');
+    throw error;
+  }
+}
+
+function validateTransaction(transaction) {
+  if (transaction.status !== 'OPEN') {
+    // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+    // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    // outputError('Invalid transaction type!', transaction);
+    const error = new Error('Invalid transaction type!');
+    throw error;
+  }
+
+  if (transaction.type !== 'PAYMENT' && transaction.type !== 'REFUND') {
+    const error = new Error('Invalid transaction type!');
+    throw error;
+  }
+
+  if (
+    transaction.method !== 'CREDIT_CARD' &&
+    transaction.method !== 'PAYPAL' &&
+    transaction.method !== 'PLAN'
+  ) {
+    const error = new Error('Invalid transaction method!');
+    throw error;
+  }
+}
+
+function transactionsAreEmpty(transactions) {
+  return !transactions || transactions.length === 0;
+}
+
+function outputError(message, transaction) {
+  if (transaction) {
+    console.log(message, transaction);
+  } else {
+    console.log(message);
+  }
+}
+
+function processPayment(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardPayment(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalPayment(transaction);
+      break;
+    case 'PLAN':
+      processPlanPayment(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+function processRefund(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardRefund(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalRefund(transaction);
+      break;
+    case 'PLAN':
+      processPlanRefund(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+main();
+
+function main() {
+  const transactions = [
+    {
+      id: 't1',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '23.99',
+    },
+    {
+      id: 't2',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'PAYPAL',
+      amount: '100.43',
+    },
+    {
+      id: 't3',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '10.99',
+    },
+    {
+      id: 't4',
+      type: 'PAYMENT',
+      status: 'CLOSED',
+      method: 'PLAN',
+      amount: '15.99',
+    },
+    {
+      id: 't5',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'vasvas',
+      amount: '10.99',
+    },
+  ];
+
+  //error handling deve ser colocado AQUI, e não dentro de 'procesTransactions'..
+
+  try {
+    processTransactions(transactions);
+  } catch (error) {
+    console.log('proper error handling');
+    outputError(error.message);
+  }
+}
+
+// function processTransactions(transactions) { // sem GUARD
+//   if (transactions && transactions.length > 0) {
+//     for (const transaction of transactions) {
+//       if (transaction.type === 'PAYMENT') {
+//         if (transaction.status === 'OPEN') {
+//           if (transaction.method === 'CREDIT_CARD') {
+//             processCreditCardPayment(transaction);
+//           } else if (transaction.method === 'PAYPAL') {
+//             processPayPalPayment(transaction);
+//           } else if (transaction.method === 'PLAN') {
+//             processPlanPayment(transaction);
+//           }
+//         } else {
+//           console.log('Invalid transaction type!');
+//         }
+//       } else if (transaction.type === 'REFUND') {
+//         if (transaction.status === 'OPEN') {
+//           if (transaction.method === 'CREDIT_CARD') {
+//             processCreditCardRefund(transaction);
+//           } else if (transaction.method === 'PAYPAL') {
+//             processPayPalRefund(transaction);
+//           } else if (transaction.method === 'PLAN') {
+//             processPlanRefund(transaction);
+//           }
+//         } else {
+//           console.log('Invalid transaction type!', transaction);
+//         }
+//       } else {
+//         console.log('Invalid transaction type!', transaction);
+//       }
+//     }
+//   } else {
+//     console.log('No transactions provided!');
+//   }
+// }
+
+function processTransactions(transactions) {
+  // 1) validamos as transactions
+  validateTransactions(transactions);
+
+  for (const transaction of transactions) {
+    try {
+      // 2) processamos as transactions
+      processTransaction(transaction);
+    } catch (error) {
+      outputError(error.message, transaction);
+      continue;
+    }
+
+    // if (transaction.type === 'PAYMENT') {
+    //   if (transaction.method === 'CREDIT_CARD') {
+    //     processCreditCardPayment(transaction);
+    //   } else if (transaction.method === 'PAYPAL') {
+    //     processPayPalPayment(transaction);
+    //   } else if (transaction.method === 'PLAN') {
+    //     processPlanPayment(transaction);
+    //   }
+    // } else if (transaction.type === 'REFUND') {
+    //   if (transaction.method === 'CREDIT_CARD') {
+    //     processCreditCardRefund(transaction);
+    //   } else if (transaction.method === 'PAYPAL') {
+    //     processPayPalRefund(transaction);
+    //   } else if (transaction.method === 'PLAN') {
+    //     processPlanRefund(transaction);
+    //   }
+    // } else {
+    //   outputError('Invalid transaction type!', transaction);
+    // }
+  }
+}
+
+function processTransaction(transaction) {
+  //1º) validamos a transaction
+  validateTransaction(transaction);
+
+  //2º) processamos a transaction
+  switch (transaction.type) {
+    case 'PAYMENT':
+      processPayment(transaction);
+      break;
+    case 'REFUND':
+      processRefund(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+function validateTransactions(transactions) {
+  if (transactionsAreEmpty(transactions)) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT/throw NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    // outputError('No transactions provided!');
+    const error = new Error('No transactions provided!');
+    throw error;
+  }
+}
+
+function validateTransaction(transaction) {
+  if (transaction.status !== 'OPEN') {
+    // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+    // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    // outputError('Invalid transaction type!', transaction);
+    const error = new Error('Invalid transaction type!');
+    throw error;
+  }
+
+  if (transaction.type !== 'PAYMENT' && transaction.type !== 'REFUND') {
+    const error = new Error('Invalid transaction type!');
+    throw error;
+  }
+
+  if (
+    transaction.method !== 'CREDIT_CARD' &&
+    transaction.method !== 'PAYPAL' &&
+    transaction.method !== 'PLAN'
+  ) {
+    const error = new Error('Invalid transaction method!');
+    throw error;
+  }
+}
+
+
+
+
+
+
+-----------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+certo... agora temos mais extractions... isso ajuda com readability,
+
+se fôssemos ler esse código inteiro, de cima a baixo...

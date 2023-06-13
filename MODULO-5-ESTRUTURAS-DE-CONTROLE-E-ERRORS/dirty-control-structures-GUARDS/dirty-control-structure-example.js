@@ -86,63 +86,67 @@ function main() {
 // }
 
 function processTransactions(transactions) {
+  // 1) validamos as transactions
+  validateTransactions(transactions);
+
+  for (const transaction of transactions) {
+    try {
+      // 2) processamos as transactions
+      processTransaction(transaction);
+    } catch (error) {
+      outputError(error.message, transaction);
+      continue;
+    }
+
+    // if (transaction.type === 'PAYMENT') {
+    //   if (transaction.method === 'CREDIT_CARD') {
+    //     processCreditCardPayment(transaction);
+    //   } else if (transaction.method === 'PAYPAL') {
+    //     processPayPalPayment(transaction);
+    //   } else if (transaction.method === 'PLAN') {
+    //     processPlanPayment(transaction);
+    //   }
+    // } else if (transaction.type === 'REFUND') {
+    //   if (transaction.method === 'CREDIT_CARD') {
+    //     processCreditCardRefund(transaction);
+    //   } else if (transaction.method === 'PAYPAL') {
+    //     processPayPalRefund(transaction);
+    //   } else if (transaction.method === 'PLAN') {
+    //     processPlanRefund(transaction);
+    //   }
+    // } else {
+    //   outputError('Invalid transaction type!', transaction);
+    // }
+  }
+}
+
+function processTransaction(transaction) {
+  //1º) validamos a transaction
+  validateTransaction(transaction);
+
+  //2º) processamos a transaction
+  switch (transaction.type) {
+    case 'PAYMENT':
+      processPayment(transaction);
+      break;
+    case 'REFUND':
+      processRefund(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+function validateTransactions(transactions) {
   if (transactionsAreEmpty(transactions)) {
     // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT/throw NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
     // outputError('No transactions provided!');
     const error = new Error('No transactions provided!');
     throw error;
-  } else {
-    for (const transaction of transactions) {
-      // if (transaction.status !== 'OPEN') {
-      // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
-      // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
-      //   outputError('Invalid transaction type!', transaction);
-      //   continue;
-      // }
-
-      try {
-        processTransaction(transaction);
-      } catch (error) {
-        outputError(error.message, transaction);
-        continue;
-      }
-
-      // if (transaction.type === 'PAYMENT') {
-      //   if (transaction.method === 'CREDIT_CARD') {
-      //     processCreditCardPayment(transaction);
-      //   } else if (transaction.method === 'PAYPAL') {
-      //     processPayPalPayment(transaction);
-      //   } else if (transaction.method === 'PLAN') {
-      //     processPlanPayment(transaction);
-      //   }
-      // } else if (transaction.type === 'REFUND') {
-      //   if (transaction.method === 'CREDIT_CARD') {
-      //     processCreditCardRefund(transaction);
-      //   } else if (transaction.method === 'PAYPAL') {
-      //     processPayPalRefund(transaction);
-      //   } else if (transaction.method === 'PLAN') {
-      //     processPlanRefund(transaction);
-      //   }
-      // } else {
-      //   outputError('Invalid transaction type!', transaction);
-      // }
-    }
   }
 }
 
-function transactionsAreEmpty(transactions) {
-  return !transactions || transactions.length === 0;
-}
-
-function outputError(message, transaction) {
-  if (transaction) {
-    console.log(message, transaction);
-  } else {
-    console.log(message);
-  }
-}
-
-function processTransaction(transaction) {
+function validateTransaction(transaction) {
   if (transaction.status !== 'OPEN') {
     // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
     // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
@@ -164,16 +168,17 @@ function processTransaction(transaction) {
     const error = new Error('Invalid transaction method!');
     throw error;
   }
+}
 
-  switch (transaction.type) {
-    case 'PAYMENT':
-      processPayment(transaction);
-      break;
-    case 'REFUND':
-      processRefund(transaction);
-      break;
-    default:
-      return;
+function transactionsAreEmpty(transactions) {
+  return !transactions || transactions.length === 0;
+}
+
+function outputError(message, transaction) {
+  if (transaction) {
+    console.log(message, transaction);
+  } else {
+    console.log(message);
   }
 }
 
