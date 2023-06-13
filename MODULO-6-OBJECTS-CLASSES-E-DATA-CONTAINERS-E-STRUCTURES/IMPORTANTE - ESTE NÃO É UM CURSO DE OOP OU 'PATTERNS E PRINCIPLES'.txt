@@ -1,0 +1,201 @@
+
+
+
+
+
+
+
+
+
+
+ANTES DE ESTUDARMOS OS DIFERENTES ASPECTOS DESSA SECTION,
+
+
+
+
+
+
+O PROFESSOR APONTA:
+
+
+
+'''ESSA COURSE SECTION NÃO VAI NOS ENSINAR OOP'..
+
+
+
+
+
+
+
+
+
+
+não é o foco dessa section,
+
+e nem desse curso...
+
+
+
+
+
+
+
+
+
+
+
+
+-> o  curso vai te dar algumas ideias 
+
+sobre como vc 
+
+deve 
+
+escrever clean code...
+
+
+
+
+
+
+
+
+-> VAMOS EXPLORAR DIVERSOS CONCEITOS,
+
+QUE 
+
+ADVÊM 
+
+DO MUNDO DO 'OOP',
+
+
+
+
+E QUE SÃO APLICADOS A CLASSES.... ENTRETANTO,
+
+ISSO 
+
+
+IMPORTARÁ 
+
+
+
+A VOCÊ SE VC TRABALHAR COM CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> mas não veremos todas as práticas e patterns do OOP...
+
+
+
+
+
+
+
+
+
+
+
+MAS VEREMOS ALGUNS DOS CORE PRINCIPLES 
+
+
+
+DESSE TIPO DE ARQUITETURA...
+
+
+
+
+
+
+MAS NÃO VEREMOS TODOS..
+
+
+
+
+
+
+
+
+---> CERTO..
+
+
+
+
+
+
+NÃO DEVEMOS NOS ESQUECER QUE 
+
+'CLEAN CODE'
+
+É SIMPLESMENTE CODE QUE 
+
+
+
+É ESCRITO DE FORMA 'READABLE'
+
+E COMPREENSÍVEL POR HUMANS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PATTERNS E PRINCIPLES --> TE AJUDAM A ESCREVER CODE QUE 
+
+É MAINTAINABLE E EXTENSIBLE..
+
+
+
+
+
+
+
+
+
+MAS VC AINDA PODE SEGUIR 
+
+TODOS ESSES PATTERNS E PRINCIPLES 
+
+
+E 
+ACABAR 
+
+
+COM 
+
+
+
+CÓDIGO QUE NÃO É CLEAN..
+
+
+
+
+
+
+
+
+
+--> AQUI ESTAMOS FOCANDO EM CODE QUE É READABLE E FÁCIL DE COMPREENDER...
