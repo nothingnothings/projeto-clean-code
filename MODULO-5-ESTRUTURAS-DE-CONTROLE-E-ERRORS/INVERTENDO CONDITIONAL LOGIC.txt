@@ -1,0 +1,511 @@
+
+
+TEMOS 1 PROBLEMA 
+
+COM ESTAS FUNCTIONS:
+
+
+
+
+
+
+
+function processPayment(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardPayment(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalPayment(transaction);
+      break;
+    case 'PLAN':
+      processPlanPayment(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
+
+function processRefund(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardRefund(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalRefund(transaction);
+      break;
+    case 'PLAN':
+      processPlanRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+O PROBLEMA É QUE TEMOS 1 POUCO DE CODE DUPLICATION NESSAS FUNCTIONS,
+
+O MESMO 
+
+TIPO 
+
+
+
+DE CHECKS NELAS..
+
+
+
+
+
+
+
+
+
+-> E ISSO É RUIM,
+
+PQ 
+QUER DIZER QUE ESTAMOS 'REPEATING OURSELVES' (keep ourselves DRY, DONT REPEAT YOURSELF)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO... MAS O PROBLEMA, AQUI, É QUE PARA ESSES DIFERENTES CHECKS 
+
+
+FAZEMOS DIFERENTES COISAS 
+
+
+
+(payments e refunds são coisas bem diferentes)...
+
+
+
+
+
+
+
+
+
+OK... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+NÃO EXISTE 1 MANEIRA ELEGANTE DE RESOLVER ISSO...
+
+
+
+
+
+
+
+
+
+
+
+MAS EXISTE 1 MANEIRA DE DEIXAR ESSE CÓDIGO MAIS 'LEAN',
+
+
+
+E _ DE _ o DEIXAR MAIS READABLE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PARA ISSO, PODERÍAMOS 'INVERSE'
+
+
+A NOSSA CHECKING LOGIC...
+
+
+
+
+
+
+
+
+
+
+
+-> PQ, ATUALMENTE, O CÓDIGO ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+function(transaction) {
+
+
+
+
+    if(!isOpen(transaction)) {
+        showErrorMessage('Invalid transaction type!');
+        return;
+    }
+
+
+    if(isPayment(transaction)) {
+        processPayment(transaction);
+    } else if (isRefund(transaction)) {
+        processRefund(transaction);
+    } else {
+        showErrorMessage('Invalid Transaction type!, transaction);
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+PQ, ATUALMENTE,
+
+ESTAMOS PRIMEIRAMENTE ''CHECANDO SE TEMOS 
+1 PAYMENT OU REFUND',
+
+
+
+E AÍ 
+
+
+
+PROCESSAMOS ESSE PAYMENT ou refund,
+
+
+
+
+o que quer dizer que ficmaos com estes checks:
+
+
+
+
+
+
+
+function processPayment(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardPayment(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalPayment(transaction);
+      break;
+    case 'PLAN':
+      processPlanPayment(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
+
+function processRefund(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardRefund(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalRefund(transaction);
+      break;
+    case 'PLAN':
+      processPlanRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS É CLARO QUE PODERÍAMOS, TEORICAMENTE,
+
+
+PRIMEIRAMENTE 
+
+
+__CHECAR_ QUAL É O 'PAYMENT METHOD',
+
+
+E AÍ
+
+
+
+
+
+
+SOMENTE _ CHECAR SE É 1 PAYMENT OU 
+
+REFUND 
+
+NA SEGUNDA ETAPA..
+
+
+
+
+
+
+
+
+
+
+para isso, o professor adiciona 1 function 
+
+
+
+
+
+que checa 
+
+
+se é 
+
+
+'credit card',
+
+'paypal'
+
+
+
+ou 'plan'..
+
+
+
+
+
+
+
+
+
+
+
+
+teremos duplication, não há como resolver isso (nesse caso específico)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  // COM 2 GUARDS:
+  if (transactionsAreEmpty(transactions)) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    outputError('No transactions provided!');
+    return;
+  } else {
+    for (const transaction of transactions) {
+      // if (transaction.status !== 'OPEN') {
+      // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+      // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+      //   outputError('Invalid transaction type!', transaction);
+      //   continue;
+      // }
+
+      processTransaction(transaction);
+
+      // if (transaction.type === 'PAYMENT') {
+      //   if (transaction.method === 'CREDIT_CARD') {
+      //     processCreditCardPayment(transaction);
+      //   } else if (transaction.method === 'PAYPAL') {
+      //     processPayPalPayment(transaction);
+      //   } else if (transaction.method === 'PLAN') {
+      //     processPlanPayment(transaction);
+      //   }
+      // } else if (transaction.type === 'REFUND') {
+      //   if (transaction.method === 'CREDIT_CARD') {
+      //     processCreditCardRefund(transaction);
+      //   } else if (transaction.method === 'PAYPAL') {
+      //     processPayPalRefund(transaction);
+      //   } else if (transaction.method === 'PLAN') {
+      //     processPlanRefund(transaction);
+      //   }
+      // } else {
+      //   outputError('Invalid transaction type!', transaction);
+      // }
+    }
+  }
+}
+
+function transactionsAreEmpty(transactions) {
+  return !transactions || transactions.length === 0;
+}
+
+function outputError(message, transaction) {
+  if (transaction) {
+    console.log(message, transaction);
+  } else {
+    console.log(message);
+  }
+}
+
+function processTransaction(transaction) {
+  if (transaction.status !== 'OPEN') {
+    // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+    // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    outputError('Invalid transaction type!', transaction);
+    return;
+  }
+  switch (transaction.type) {
+    case 'PAYMENT':
+      processPayment(transaction);
+      break;
+    case 'REFUND':
+      processRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction type!', transaction);
+  }
+}
+
+function processPayment(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardPayment(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalPayment(transaction);
+      break;
+    case 'PLAN':
+      processPlanPayment(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
+
+function processRefund(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardRefund(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalRefund(transaction);
+      break;
+    case 'PLAN':
+      processPlanRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
+
+
+
+
+function processCreditCardPayment(transaction) {
+  console.log(
+    'Processing credit card payment for amount: ' + transaction.amount
+  );
+}
+
+function processCreditCardRefund(transaction) {
+  console.log(
+    'Processing credit card refund for amount: ' + transaction.amount
+  );
+}
+
+function processPayPalPayment(transaction) {
+  console.log('Processing PayPal payment for amount: ' + transaction.amount);
+}
+
+function processPayPalRefund(transaction) {
+  console.log('Processing PayPal refund for amount: ' + transaction.amount);
+}
+
+function processPlanPayment(transaction) {
+  console.log('Processing plan payment for amount: ' + transaction.amount);
+}
+
+function processPlanRefund(transaction) {
+  console.log('Processing plan refund for amount: ' + transaction.amount);
+}
