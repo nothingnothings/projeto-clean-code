@@ -1,0 +1,1438 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AGORA QUE SABEMOS A DIFERENÇA ENTRE REAL OBJECTS E DATA CONTAINERS,
+
+
+DEVEMOS  DAR 1 OLHADA NO CONCEITO DE 'POLYMORPHISM'..
+
+
+
+
+
+
+
+
+
+VIMOS ISSO NO ÚLTIMO MÓDULO,
+
+
+
+
+
+
+que tinha este código:
+
+
+
+
+
+
+
+
+
+
+function buildUserByType(name, type) {
+  let greetFn;
+
+  if (type === 'friendly') {
+    greetFn = function () {
+      console.log(`Hi! My name is ${name}!`);
+    };
+  } else if (type === 'unfriendly') {
+    greetFn = function () {
+      console.log(`Hm? What do you want?`);
+    };
+  }
+
+  return {
+    name: name,
+    greet: greetFn,
+  };
+}
+
+const friendlyUser = buildUserByType('John', 'friendly');
+
+friendlyUser.greet(); // Hi! My name is John!
+
+const unfriendlyUser = buildUserByType('John', 'unfriendly');
+
+unfriendlyUser.greet(); // Hm? What do you want?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FACTORY FUNCTIONS QUE CRIAVAM POLYMORPHIC OBJECTS,
+
+
+
+QUE SEGURAVAM DIFERENTES FUNCTIONS PARA HANDLAR PAYMENTS E REFUNDS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- OK... 
+
+
+
+
+
+
+
+
+
+
+
+POLYMORPH --> É SIMPLESMENTE 1 OBJECT OU METHOD QUE TEM 
+
+
+SEMPRE A MESMA ESTRUTURA E NOME,
+
+
+
+
+
+MAS QUE ENTÃO FAZ COISAS DIFERENTES A PARTIR 
+
+
+
+DA MANEIRA PELA QUAL FOI CRIADO 
+
+
+
+E A MANEIRA PELA QUAL É UTILIZADO..
+
+
+
+
+
+
+
+
+
+
+-> E É UM CONCEITO PODEROSO PQ NOS AJUDA A EVITAR DUPLICAÇÃO DE CÓDIGO....
+
+
+
+
+
+
+
+
+
+
+
+--> E PODEMOS IMPLEMENTAR 'POLYMORPHISM' também 
+
+
+
+
+
+QUANDO TRABALHAMOS COM CLASSES... --> EM VEZ DE 
+
+
+CRIAR 
+
+
+
+OBJECTS E DICTIONARIES 'NA HORA',
+
+como fizemos no passado..
+
+
+
+
+
+
+
+
+
+
+-> OK...
+ 
+
+
+ O PROFESSOR 
+
+
+ NOS MOSTRA 1 EXEMPLO DE POLYMORPHISm:
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+class Delivery {
+    private purchase: Purchase;
+
+    constructor(purchase: Purchase) {
+        this.purchase = purchase;
+    }   
+
+
+
+    deliverProduct() {
+        if (this.purchase.deliveryType === 'express') {
+            Logistics.issueExpressDelivery(this.purchase.product);
+        } else if (this.purchase.deliveryType === 'insured') {
+            Logistics.issueInsuredDelivery(this.purchase.product);
+        } else {
+            Logistics.issueStandardDelivery(this.purchase.product);
+        }
+    }
+
+
+    trackProduct() {
+        if (this.purchase.deliveryType === 'express') {
+            Logistics.trackExpressDelivery(this.purchase.product);
+        } else if (this.purchase.deliveryType === 'insured') {
+            Logistics.trackInsuredDelivery(this.purchase.product);
+        } else {
+            Logistics.trackStandardDelivery(this.purchase.product);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... DENTRO DISSO,
+
+
+TEMOS ALGO PARECIDO COM A ÚLTIMA SECTION..
+
+
+
+
+
+
+
+
+
+-> COM BASE NO DIFERENTE TYPE QUE É INICIALIZADO, NESSE NEGÓCIO,
+
+
+
+TEMOS DIFERENTES METHODS SENDO DEFINIDOS,
+
+
+
+METHODS QUE 
+
+
+
+_ RODAM COISAS DIFERENTES...
+
+
+
+
+
+
+
+
+
+
+PQ QUANDO USAMOS CLASSES,
+
+
+
+PODEMOS 
+
+
+
+
+IMPLEMENTAR POLIMORFISMO 
+
+
+DE 
+
+1 MANEIRA BEM ELEGANTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+A SOLUÇÃO, AQUI,
+
+
+NÃO É USAR 1 ÚNICA CLASS,
+
+E SIM 
+USAR 
+
+
+MÚLTIPLAS 
+
+CLASSES ESPECIALIZADAS,
+
+
+
+
+
+
+
+
+__ PARA OS DIFERENTES TIPOS DE DELIVERY QUE TEMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO É O 'extends',
+
+com o 'super()'...
+
+
+
+
+
+QUER DIZER QUE TEREMOS 
+
+1 
+
+CLASS 'BASE', 
+
+DE DELIVERY,
+
+
+
+QUE 
+
+VAI 
+TER 
+
+
+
+
+TODA A SHARED LOGIC E PROPERTIES,
+
+
+
+
+
+QUE TODAS AS CLASSES ESPECIALIZADAS UTILIZARÃO...
+
+
+
+
+
+
+
+
+
+
+MAS AÍ 
+
+
+
+
+
+AS CLASSES ESPECIALIZADAS 
+
+
+
+QUE TERÃO 
+
+
+
+
+__ AS IMPLEMENTATIONS ESPECÍFICAS DE 'deliverProduct'
+
+
+
+e 
+
+'trackProduct'...
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE SE QUEREMOS 
+
+
+
+
+FAZER 
+
+ESSAS CLASSES TODAS SEREM 'POLYMORPHIC',
+
+
+
+
+PRECISAREMOS CRIAR 
+
+NOVAS CLASSES,
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ExpressDelivery {
+
+}
+
+class InsuredDelivery {
+
+}
+
+class StandardDelivery {
+
+}
+
+
+
+
+
+
+
+
+
+FAZEMOS TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Delivery {
+    private purchase: Purchase;
+
+    constructor(purchase: Purchase) {
+        this.purchase = purchase;
+    }   
+
+
+
+    deliverProduct() {
+        if (this.purchase.deliveryType === 'express') {
+            Logistics.issueExpressDelivery(this.purchase.product);
+        } else if (this.purchase.deliveryType === 'insured') {
+            Logistics.issueInsuredDelivery(this.purchase.product);
+        } else {
+            Logistics.issueStandardDelivery(this.purchase.product);
+        }
+    }
+
+
+    trackProduct() {
+        if (this.purchase.deliveryType === 'express') {
+            Logistics.trackExpressDelivery(this.purchase.product);
+        } else if (this.purchase.deliveryType === 'insured') {
+            Logistics.trackInsuredDelivery(this.purchase.product);
+        } else {
+            Logistics.trackStandardDelivery(this.purchase.product);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+class ExpressDelivery extends Delivery {
+
+}
+
+class InsuredDelivery extends Delivery {
+
+}
+
+class StandardDelivery extends Delivery {
+    
+}
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+O TYPE DE DELIVERY VAI IMPORTAR BASTANTE,
+
+
+por isso 
+
+
+
+
+
+TEMOS VERSIONS ESPECIALIZADAS DESSAS CLASSES,
+
+
+PARA DIFERENTES TIPOS DE DELIVERY...
+
+
+
+
+
+
+
+
+
+
+-> na class de 'ExpressDelivery',
+
+
+
+TERÍAMOS 
+
+
+
+1 METHOD DE 'deliverProduct',
+
+SIM,
+
+
+
+MAS 
+
+ELE NÃO TERIA NENHUM IF CHECK,
+E SIM 
+
+APENAS O CÓDIGO QUE PRECISA SER EXECUTADO 
+
+
+
+específico...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+class Delivery {
+    private purchase: Purchase;
+
+    constructor(purchase: Purchase) {
+        this.purchase = purchase;
+    }
+
+    deliverProduct() {
+        if (this.purchase.deliveryType === 'express') {
+            Logistics.issueExpressDelivery(this.purchase.product);
+        } else if (this.purchase.deliveryType === 'insured') {
+            Logistics.issueInsuredDelivery(this.purchase.product);
+        } else {
+            Logistics.issueStandardDelivery(this.purchase.product);
+        }
+    }
+
+    trackProduct() {
+        if (this.purchase.deliveryType === 'express') {
+            Logistics.trackExpressDelivery(this.purchase.product);
+        } else if (this.purchase.deliveryType === 'insured') {
+            Logistics.trackInsuredDelivery(this.purchase.product);
+        } else {
+            Logistics.trackStandardDelivery(this.purchase.product);
+        }
+    }
+}
+
+
+class ExpressDelivery extends Delivery {
+
+    
+  deliverProduct() {
+    Logistics.issueExpressDelivery(this.purchase.product);
+  }
+}
+
+class InsuredDelivery extends Delivery {
+  deliverProduct() {
+    Logistics.issueInsuredDelivery(this.purchase.product);
+  }
+}
+
+class StandardDelivery extends Delivery {
+  deliverProduct() {
+    Logistics.issueStandardDelivery(this.purchase.product);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PARA SER POSSÍVEL 
+
+
+ACESSAR ESSA PROPRIEDADE DE 'purchase'
+
+
+em cada 
+
+1 dessas classes específicas,
+
+
+
+PRECISAMOS ESCREVER 'extends',
+
+PARA EXTENDER A CLASS  DE 'DELIVERY',
+
+a base class..
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, FICAMOS COM ACESSO A TODAS AS PROPERTIES 
+
+DESSA CLASS BASE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E AQUI ESTAMOS USANDO INHERITANCE...
+
+
+
+
+
+
+
+
+
+--> MAIS TARDE TAMBÉM USAREMOS 1 INTERFACE...
+
+
+
+
+
+
+
+
+
+
+--> OK.. JÁ TIVE XP COM ISSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... MAS COMO A PROPERTY 
+
+DE 
+
+'purchase'
+
+
+É 
+
+
+
+
+
+_PRIVATE,
+
+
+
+
+ELA TECNICAMENTE NAÕ PODERIA SER ACESSADA 
+
+
+
+
+NAS 
+
+
+CLASSES EXTENDIDAS...
+
+
+
+
+
+
+
+
+
+--> SE VC TIVER 1 LANGUAGE QUE SAIBA A DISTINÇÃO ENTRE 'PRIVATE, PUBLIC' E __ PROTECTED,
+
+
+
+
+VC PRECISA DEFINIR ISSO COMO 'PROTECTED' (
+
+    pq protected SIGNIFCA QUE 
+
+
+    A PROPERTY 
+
+
+    NÃO PODE SER ACESSADA DO LADO __ dE FORA__ 
+
+    DESSA CLASS,
+
+
+    MAS __ QUE __ PODE 
+    SER 
+
+    ACESSADA 
+
+
+    PELAS __ 'CHILD CLASSES' QUE A EXTENDEM...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... MAS É CLARO QUE AGORA PODEMOS REMOVER ESSES METHODS DA BASE CLASS,
+
+PQ 
+
+NOSSAS CLASSES ESPECIAIS 
+
+JÁ POSSUEM ESSE NEGÓCIO:
+
+
+
+
+
+
+
+
+
+
+class Delivery {
+    protected purchase: Purchase;  //protected: só pode ser acessado por classes que herdam de Delivery (não podemos acessar essa property do lado de FORA, em outras palavras)
+
+    constructor(purchase: Purchase) {
+        this.purchase = purchase;
+    }
+}
+
+
+class ExpressDelivery extends Delivery {
+  deliverProduct() {
+    Logistics.trackExpressDelivery(this.purchase.product);
+  }
+
+  trackProduct() {
+    Logistics.trackInsuredDelivery(this.purchase.product);
+  }
+}
+
+class InsuredDelivery extends Delivery {
+  deliverProduct() {
+    Logistics.issueInsuredDelivery(this.purchase.product);
+  }
+
+  trackProduct() {
+    Logistics.trackInsuredDelivery(this.purchase.product);
+  }
+}
+
+class StandardDelivery extends Delivery {
+  deliverProduct() {
+    Logistics.issueStandardDelivery(this.purchase.product);
+  }
+  
+  trackProduct() {
+    Logistics.trackStandardDelivery(this.purchase.product);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO... MAS AÍ VC PODE PERGUNTAR:
+
+'OK,
+
+MAS E O IF STATEMENT,
+
+
+
+PRECISAMOS DECIDIR EM ALGUM LUGAR QUAL TIPO DE CLASS VAMOS USAR...'...
+
+
+
+
+
+
+
+
+
+
+
+
+BEM, ISSO É ALGO QUE VC PODE FAZER 
+
+
+
+NO 
+
+LUGAR EM QUE VC PLANEJA USAR ESSAS CLASSES,
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+'new ExpressDelivery()'...
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Delivery {
+    protected purchase: Purchase;  //protected: só pode ser acessado por classes que herdam de Delivery (não podemos acessar essa property do lado de FORA, em outras palavras)
+
+    constructor(purchase: Purchase) {
+        this.purchase = purchase;
+    }
+}
+
+
+class ExpressDelivery extends Delivery {
+  deliverProduct() {
+    Logistics.trackExpressDelivery(this.purchase.product);
+  }
+
+  trackProduct() {
+    Logistics.trackInsuredDelivery(this.purchase.product);
+  }
+}
+
+class InsuredDelivery extends Delivery {
+  deliverProduct() {
+    Logistics.issueInsuredDelivery(this.purchase.product);
+  }
+
+  trackProduct() {
+    Logistics.trackInsuredDelivery(this.purchase.product);
+  }
+}
+
+class StandardDelivery extends Delivery {
+  deliverProduct() {
+    Logistics.issueStandardDelivery(this.purchase.product);
+  }
+  
+  trackProduct() {
+    Logistics.trackStandardDelivery(this.purchase.product);
+  }
+}
+
+
+
+const newExpressDelivery = new ExpressDelivery(purchase);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+precisamos de nossa class específica, essencialmente...
+
+
+
+
+
+
+
+
+
+
+
+
+mas isso é bem fácil de fazer, como visto agora...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+poderíamos escrever assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let delivery: Delivery;
+
+
+if (this.purchase.deliveryType = 'express') {
+    delivery = new ExpressDelivery({});
+} else if (this.purchase.deliveryType === 'insured') {
+    delivery = new InsuredDelivery({});
+} else {
+    delivery = new StandardDelivery({});
+}
+
+
+delivery.deliverProduct({});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Delivery {
+    protected purchase: Purchase;  //protected: só pode ser acessado por classes que herdam de Delivery (não podemos acessar essa property do lado de FORA, em outras palavras)
+
+    constructor(purchase: Purchase) {
+        this.purchase = purchase;
+    }
+}
+
+
+class ExpressDelivery extends Delivery {
+  deliverProduct() {
+    Logistics.trackExpressDelivery(this.purchase.product);
+  }
+
+  trackProduct() {
+    Logistics.trackInsuredDelivery(this.purchase.product);
+  }
+}
+
+class InsuredDelivery extends Delivery {
+  deliverProduct() {
+    Logistics.issueInsuredDelivery(this.purchase.product);
+  }
+
+  trackProduct() {
+    Logistics.trackInsuredDelivery(this.purchase.product);
+  }
+}
+
+class StandardDelivery extends Delivery {
+  deliverProduct() {
+    Logistics.issueStandardDelivery(this.purchase.product);
+  }
+  
+  trackProduct() {
+    Logistics.trackStandardDelivery(this.purchase.product);
+  }
+}
+
+let delivery: Delivery;
+
+
+if (this.purchase.deliveryType = 'express') {
+    delivery = new ExpressDelivery({});
+} else if (this.purchase.deliveryType === 'insured') {
+    delivery = new InsuredDelivery({});
+} else {
+    delivery = new StandardDelivery({});
+}
+
+
+delivery.deliverProduct({});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O IDE DO PROFESSOR RECLAMA,
+MAS AÍ 
+
+
+ELE ADICIONA 
+
+
+
+1 INTERFACE DE 'Delivery'
+
+PARA RESOLVER ESSE PROBLEMA:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface Delivery {
+  deliverProduct();
+  trackProduct();
+}
+
+class DeliveryImplementation extends Delivery {
+  protected purchase: Purchase; //protected: só pode ser acessado por classes que herdam de Delivery (não podemos acessar essa property do lado de FORA, em outras palavras)
+
+  constructor(purchase: Purchase) {
+    this.purchase = purchase;
+  }
+}
+
+class ExpressDelivery extends DeliveryImplementation implements Delivery {
+  deliverProduct() {
+    Logistics.trackExpressDelivery(this.purchase.product);
+  }
+
+  trackProduct() {
+    Logistics.trackInsuredDelivery(this.purchase.product);
+  }
+}
+
+class InsuredDelivery extends DeliveryImplementation implements Delivery {
+  deliverProduct() {
+    Logistics.issueInsuredDelivery(this.purchase.product);
+  }
+
+  trackProduct() {
+    Logistics.trackInsuredDelivery(this.purchase.product);
+  }
+}
+
+class StandardDelivery extends DeliveryImplementation implements Delivery {
+  deliverProduct() {
+    Logistics.issueStandardDelivery(this.purchase.product);
+  }
+
+  trackProduct() {
+    Logistics.trackStandardDelivery(this.purchase.product);
+  }
+}
+
+let delivery: Delivery;
+
+if ((this.purchase.deliveryType = 'express')) {
+  delivery = new ExpressDelivery({});
+} else if (this.purchase.deliveryType === 'insured') {
+  delivery = new InsuredDelivery({});
+} else {
+  delivery = new StandardDelivery({});
+}
+
+delivery.deliverProduct({});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+certo.....
+
+
+
+
+
+
+
+
+
+
+AGORA NOSSAS CLASSES TERÃO OBRIGATORIAMENTE ESSE METHOD...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE VC PODERIA TER 
+
+
+MÚLTIPLOS LUGARES DE SEU APP, EM QUE 
+
+ESSES OBJECTS PODERIAM SER NECESSÁRIOS...
+
+
+
+
+
+
+
+
+
+
+
+aí vc criaria uma constructor function,
+
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+function createDelivery(purchase) {
+
+let delivery; 
+
+if ((purchase.deliveryType = 'express')) {
+  delivery = new ExpressDelivery({});
+} else if (purchase.deliveryType === 'insured') {
+  delivery = new InsuredDelivery({});
+} else {
+  delivery = new StandardDelivery({});
+}
+
+return delivery;
+}
+
+
+
+
+
+
+
+
+
+let delivery: Delivery = createDelivery({})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO.... PORTANTO,
+
+É ASSIM QUE PODEMOS USAR POLYMORPHISM E CRIAR POLYMORPHIC OBJECTS,
+
+QUANDO USAMOS CLASSES...
+
+
+
+
+
+
+
+
+É BASICAMENTE A MESMA IDEIA DA ÚLTIMA COURSE SECTION (
+    em que 
+    criamos 1 dictionary 
+
+    com 
+
+
+    a factory function
+),
+
+mas agora com classes...
