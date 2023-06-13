@@ -1,3 +1,470 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... AGORA TEMOS ESSE CÓDIGO DE ERROR THROW E ERROR HANDLE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR TEM 
+
+
+1 ÚLTIMA REGRA SOBRE ERROR HANDLING..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ERROR HANDLING É TIPICAMENTE CONSIDERADO 
+
+
+
+'''ONE THING'''',
+
+
+
+
+
+APENAS 1 COISA... QUANDO O ASSUNTO É 'FUNCTIONS SHOULD DO ONE THING'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MAS COMO ISSO SE APLICA, NO NOSSO CÓDIGO?
+
+
+
+
+
+
+
+
+
+
+
+BEM, NO NOSSO CÓDIGO,
+
+TEMOS TODA AQUELA DUMMY DATA:
+
+
+
+
+
+
+
+function main() {
+  const transactions = [
+    {
+      id: 't1',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '23.99',
+    },
+    {
+      id: 't2',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'PAYPAL',
+      amount: '100.43',
+    },
+    {
+      id: 't3',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '10.99',
+    },
+    {
+      id: 't4',
+      type: 'PAYMENT',
+      status: 'CLOSED',
+      method: 'PLAN',
+      amount: '15.99',
+    },
+    {
+      id: 't5',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'vasvas',
+      amount: '10.99',
+    },
+  ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  CERTO... MAS LOGO DEPOIS DISSO,
+
+
+  TEMOS O TRY CATCH BLOCK:
+
+
+
+
+
+
+
+    try {
+    processTransactions(transactions);
+  } catch (error) {
+    console.log('proper error handling');
+    outputError(error.message);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+certo...
+
+
+
+
+
+
+TEMOS APENAS 1 COISA, PORTANTO...
+
+
+
+
+
+
+
+
+
+
+
+TEMOS APENAS 1 TRY CATCH BLOCK,
+
+DENTRO DESSA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É CLARO QUE FAZEMOS VÁRIAS COISAS DENTRO 
+
+DO TRY E CATCH CASES..
+
+
+
+
+
+
+
+
+
+
+
+
+MAS ESSA É TODA A IDEIA POR TRÁS DE 'TRY-CATCH'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A IDEIA POR TRÁS DO __ TRY-CATCH 
+
+
+
+É JUSTAMENTE __ FAZER TUDO ___ DENTRO DELE,
+
+
+E NADA DO LADO DE FORA DELE...
+
+
+
+
+
+(o que não acontecia com o código da fidelizou.me)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... MAS LÁ EM 'processTransactions',
+
+
+
+
+
+
+
+AS COISAS ESTÃO DIFERENTES...
+
+
+
+
+
+
+
+
+
+
+--> LÁ TEMOS ISTO:
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  validateTransactions(transactions);
+
+  for (const transaction of transactions) {
+    try {
+      processTransaction(transaction);
+    } catch (error) {
+      outputError(error.message, transaction);
+      continue;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+ESTAMOS:
+
+
+1) validando
+
+
+2) looping 
+
+
+3) e, só então, trying and catching...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> a solução para isso, diz o professor,
+
+
+seria 
+
+
+
+
+pegar o 'try-catch' block de dentro do for loop 
+
+
+
+
+E COLOCÁ-LO EM OUTRO LUGAR...
+
+
+
+
+
+
+
+
+
+O LUGAR SERÁ A FUNCTION 'processTransaction'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+function processTransaction(transaction) {
+  try {
+    // TODO - TENTE SEMPRE COLOCAR APENAS 1 TRY-CATCH BLOCK POR FUNCTION (e mais nada, não faça operações no lado de fora)...
+    //1º) validamos a transaction
+    validateTransaction(transaction);
+    //2º) processamos a transaction
+    processTransactionByMethod(transaction);
+  } catch (error) {
+    //3º) outputtamos eventuais errors
+    outputError(error.message, transaction);
+  }
+}
+
+function processTransactionByMethod(transaction) {
+  switch (transaction.type) {
+    case 'PAYMENT':
+      processPayment(transaction);
+      break;
+    case 'REFUND':
+      processRefund(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 main();
 
 function main() {
@@ -250,3 +717,91 @@ function processPlanPayment(transaction) {
 function processPlanRefund(transaction) {
   console.log('Processing plan refund for amount: ' + transaction.amount);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ACABAMOS COM O ERROR HANDLING...
+
+
+
+
+
+
+
+
+
+
+-> MAS AGORA O PROFESSOR QUER ACABAR
+
+
+COM A DUPLICATION VISTA NESSAS FUNCTIONS:
+
+
+
+
+
+
+
+
+
+
+
+
+
+function processPayment(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardPayment(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalPayment(transaction);
+      break;
+    case 'PLAN':
+      processPlanPayment(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+function processRefund(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardRefund(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalRefund(transaction);
+      break;
+    case 'PLAN':
+      processPlanRefund(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+
+
+
+
+
+
+
