@@ -32,7 +32,13 @@ function main() {
     },
   ];
 
-  processTransactions(transactions);
+  //error handling deve ser colocado AQUI, e não dentro de 'procesTransactions'..
+
+  try {
+    processTransactions(transactions);
+  } catch (error) {
+    outputError(error.message);
+  }
 }
 
 // function processTransactions(transactions) { // sem GUARD
@@ -72,11 +78,12 @@ function main() {
 // }
 
 function processTransactions(transactions) {
-  // COM 2 GUARDS:
   if (transactionsAreEmpty(transactions)) {
     // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
-    outputError('No transactions provided!');
-    return;
+    // outputError('No transactions provided!');
+    const error = new Error('No transactions provided!');
+    error.code = 1;
+    throw error;
   } else {
     for (const transaction of transactions) {
       // if (transaction.status !== 'OPEN') {

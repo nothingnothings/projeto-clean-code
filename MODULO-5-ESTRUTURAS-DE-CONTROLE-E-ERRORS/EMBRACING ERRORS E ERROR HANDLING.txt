@@ -1,0 +1,518 @@
+
+
+
+
+
+
+
+
+
+
+
+ok... antes de explorarmos como 
+
+
+
+'COMPOSITION E POLYMORPHISM'
+
+
+
+
+
+PODE NOS AJUDAR COM O PROBLEMA DE CÓDIGO DUPLICADO,
+
+VISTO NAS ÚLTIMAS AULAS,
+
+
+
+
+
+
+
+
+
+
+
+
+DEVEMOS VER COMO O USO DE ERRORS PODE NOS AJUDAR COM NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+1 ERRO FREQUENTE É 'NÃO UTILIZAR ERRORS E THROW DE ERRORS'
+
+
+O BASTANTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E ATIRAR ERRORS NOS LUGARES CORRETOS PODE __ 
+
+
+SUBSTITUIR IF STATEMENTS INÚTEIS,
+
+E LEVAR 
+
+
+
+A FUNCTIONS MAIS FOCUSED...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> UMA SIMPLES REGRA:
+
+
+
+
+'''' SE ALGUMA COISA É UM ERROR,
+
+
+SE ALGUMA COISA TEM 1 CARÁTER DE ERRO,
+
+
+FAÇA ISSO SER 1 ERRO'' -> e NÃO FAÇA 
+
+1 IF STATEMENT..
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+if (!isEmail) {
+    return {
+        code: 422, message: 'invalid input.'
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO NÃO É BOM.... --> PQ SERÍAMOS FORÇADOS A TER OUTRAS PARTES 
+
+
+DE NOSSO  APP QUE CONSIGAM HANDLAR ESSE ERROR...
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+ESTAMOS CONSTRUCTING 1 ERROR SEM USAR OS 
+
+BUILT-IN ERROR MECHANISMS 
+
+
+QUE 
+
+EXISTEM EM TODAS AS LINGUAGENS MODERNAS...
+
+
+
+
+
+
+
+
+
+
+
+
+PARA CORRIGIR ISSO, PODERÍAMOS ESCREVER ASSIM:
+
+
+
+
+
+
+
+
+
+if (!isEmail) {
+    const error = new Error('Invalid input');
+    error.code = 422;
+    throw error;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+isso é javascript, mas mecanismos similares existem em 
+
+todas programming languages....
+
+
+
+
+
+
+
+
+
+
+usamos 'built-in' error objects para fazer throw de errors...
+
+
+
+
+
+
+errors que também podemos handlar....
+
+
+
+
+
+
+
+
+
+
+
+
+no nosso exemplo, temos alguns locais em que 
+
+estamos fazendo 'error-like stuff'
+
+sem 
+
+usar 
+
+
+
+os 
+
+constructors de erro....
+
+
+
+
+
+
+
+1 EXEMPLO DISSO É ESTE METHOD:
+
+
+
+function processTransactions(transactions) {
+  if (transactionsAreEmpty(transactions)) {
+    outputError('No transactions provided!');
+    return;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> ISSO AÍ, DE 1 PERSPECTIVA DE CLEAN CODE,
+
+
+  O PRINT DE 
+
+  1 ERROR MESSAGE NÃO DEVERIA SER PARTE 
+
+
+
+  DO CONTEXTO DE 'processTransactions'...
+
+
+
+
+
+
+
+
+
+
+
+  -- o handle do case de 'they are not valid'
+
+
+
+
+  É __ MT COISA PARA ESSA FUNCTION DE 'processTransactions'...
+
+
+
+
+
+
+
+
+
+
+
+  --> É EXATAMENTE POR ISSO QUE 
+
+
+
+  A COISA CORRETA  A SE FAZER É 
+
+
+  TRANSPORTAR ESSE 'outputError'
+
+
+  LÁ 
+
+
+  PARA O CONTEXTO DE 'main()',
+
+  em quee 
+
+
+
+  o processTransactions é executado...
+
+
+
+
+
+
+
+
+
+
+
+  tipo assim:
+
+
+
+
+
+
+
+  function main() {
+  const transactions = [
+    {
+      id: 't1',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '23.99',
+    },
+    {
+      id: 't2',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'PAYPAL',
+      amount: '100.43',
+    },
+    {
+      id: 't3',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '10.99',
+    },
+    {
+      id: 't4',
+      type: 'PAYMENT',
+      status: 'CLOSED',
+      method: 'PLAN',
+      amount: '15.99',
+    },
+  ];
+
+  //error handling deve ser colocado AQUI, e não dentro de 'procesTransactions'..
+
+  try {
+    processTransactions(transactions);
+  } catch (error) {
+    outputError(error.message);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E ASSIM:
+
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  if (transactionsAreEmpty(transactions)) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    // outputError('No transactions provided!');
+    const error = new Error('No transactions provided!');
+    error.code = 1;
+    throw error;
+  } else {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    assim usamos 
+
+
+    o built-in error support...
+
+
+
+
+
+
+
+------>  fazemos throw de nosso error, e isso é capturado lá no 'try catch'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> no python, o try-catch é try-except...
+
+
+
+
+
+
+
+
+
+
+
+
+agora temos 1 maneira proper de 
+
+
+
+handlar isso... a error message é triggada na function correta..
+
+
+
+
+
+
+
+e o erro é gerado como 1 erro de verdade, em vez de algum dummy object...
+
+
+
+
+
+
+
+
+essa é a maneira clean e proper de fazer isso...
+
+
+
+
+USAR ERROS NOS LUGARES EM QUE TEMOS ERRORS...
