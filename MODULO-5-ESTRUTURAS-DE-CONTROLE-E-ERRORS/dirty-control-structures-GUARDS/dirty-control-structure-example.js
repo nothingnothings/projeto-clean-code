@@ -125,25 +125,68 @@ function processTransaction(transaction) {
     // TODO - TENTE SEMPRE COLOCAR APENAS 1 TRY-CATCH BLOCK POR FUNCTION (e mais nada, não faça operações no lado de fora)...
     //1º) validamos a transaction
     validateTransaction(transaction);
-    //2º) processamos a transaction
-    processTransactionByMethod(transaction);
+    //2º) realizamos e terminamos a transaction
+    finishTransaction(transaction);
   } catch (error) {
     //3º) outputtamos eventuais errors
     outputError(error.message, transaction);
   }
 }
 
-function processTransactionByMethod(transaction) {
-  switch (transaction.type) {
-    case 'PAYMENT':
-      processPayment(transaction);
+function finishTransaction(transaction) {
+  const paymentProcessor = getTransactionProcessor(transaction.type);
+
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      paymentProcessor.processCreditCard(transaction);
       break;
-    case 'REFUND':
-      processRefund(transaction);
+    case 'PAYPAL':
+      paymentProcessor.processPayPal(transaction);
+      break;
+    case 'PLAN':
+      paymentProcessor.processPlan(transaction);
       break;
     default:
       return;
   }
+}
+
+function getTransactionProcessor(type) {
+  let processCreditCard;
+  let processPayPal;
+  let processPlan;
+
+  if (type === 'PAYMENT') {
+    processCreditCard = function (transaction) {
+      processCreditCardPayment(transaction);
+    };
+
+    processPayPal = function (transaction) {
+      processPayPalPayment(transaction);
+    };
+    processPlan = function (transaction) {
+      processPlanPayment(transaction);
+    };
+  }
+
+  if (type === 'REFUND') {
+    processCreditCard = function (transaction) {
+      processCreditCardRefund(transaction);
+    };
+
+    processPayPal = function (transaction) {
+      processPayPalRefund(transaction);
+    };
+    processPlan = function (transaction) {
+      processPlanRefund(transaction);
+    };
+  }
+
+  return {
+    processCreditCard: processCreditCard,
+    processPayPal: processPayPal,
+    processPlan: processPlan,
+  };
 }
 
 function validateTransactions(transactions) {
@@ -191,37 +234,23 @@ function outputError(message, transaction) {
   }
 }
 
-function processPayment(transaction) {
-  switch (transaction.method) {
-    case 'CREDIT_CARD':
-      processCreditCardPayment(transaction);
-      break;
-    case 'PAYPAL':
-      processPayPalPayment(transaction);
-      break;
-    case 'PLAN':
-      processPlanPayment(transaction);
-      break;
-    default:
-      return;
-  }
-}
+// function processRefund(transaction) {
+//   const refundProcessor = getTransactionProcessor(transaction.type);
 
-function processRefund(transaction) {
-  switch (transaction.method) {
-    case 'CREDIT_CARD':
-      processCreditCardRefund(transaction);
-      break;
-    case 'PAYPAL':
-      processPayPalRefund(transaction);
-      break;
-    case 'PLAN':
-      processPlanRefund(transaction);
-      break;
-    default:
-      return;
-  }
-}
+//   switch (transaction.method) {
+//     case 'CREDIT_CARD':
+//       processCreditCardRefund(transaction);
+//       break;
+//     case 'PAYPAL':
+//       processPayPalRefund(transaction);
+//       break;
+//     case 'PLAN':
+//       processPlanRefund(transaction);
+//       break;
+//     default:
+//       return;
+//   }
+// }
 
 function processCreditCardPayment(transaction) {
   console.log(

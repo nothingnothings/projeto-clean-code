@@ -1,0 +1,1075 @@
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AGORA VOLTEMOS AO PROBLEMA DE TER CÓDIGO DUPLICADO, COMO ESTE:
+
+
+
+function processPayment(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardPayment(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalPayment(transaction);
+      break;
+    case 'PLAN':
+      processPlanPayment(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+function processRefund(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardRefund(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalRefund(transaction);
+      break;
+    case 'PLAN':
+      processPlanRefund(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+
+
+
+
+
+
+
+-> temos código duplicado...
+
+
+
+
+
+
+
+
+temos TODOS ESSES EXTRA CHECKS 
+
+
+
+
+PARA 'SE 1 TRANSACTION É 1 PAYMENT OU 
+
+REFUND'...
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS RESOLVER ISSO 
+
+
+COM __ FACTORY__ FUNCTIONS _ 
+
+E
+ COM 
+
+ POLYMORPHISM...
+
+
+
+
+
+
+
+
+
+
+
+
+MAS PARA RESOLVER ESSA QUESTÃO, PRIMEIRMAENTE PRECISAMOS ENTENDER 
+ESSES CONCEITOS....
+
+
+
+
+
+
+
+
+
+
+
+
+FACTORY FUNCTION -->  É SIMPLESMENTE 1 FUNCTION QUE 
+
+
+É USADA __ PARA PRODUZIR ALGO,
+
+
+
+
+
+PARA PRODUZIR COISAS COMO OBJECTS,
+
+
+MAPS,
+
+
+ARRAYS,
+
+
+QUALQUER COISA DO GÊNERO..
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+function buildUser(name, age) { // constrói 1 user... por isso é uma factory function.
+  return {
+    name,
+    age,
+    sayHi: function () {
+      console.log(`Hi! My name is ${name} and I am ${age} years old!`);
+    },
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+JÁ 'POLYMORPHISM'
+
+
+
+É UM CONCEITO QUE O PROFESSOR MOSTRARÁ 
+
+
+NO PRÓXIMO 
+
+
+
+MÓDULO, SOBRE CLASSES E OBJECTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+POLYMORPHISM ->  SIGNIFICA QUE 
+
+PODEMOS 
+
+TER 
+
+1 OBJECT/FUNCTION QUE 
+
+PODEMOS 
+
+
+
+
+
+
+
+SEMPRE USAR DA MESMA FORMA,
+
+
+
+
+SEMPRE USAR O MESMO METHOD PARA A INVOCAR,
+
+
+
+MAS COM PARAMETERS DIFERENTES 
+
+RESULTANDO 
+
+EM OBJECTS/PRODUTOS DIFERENETS...
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function buildUserByType(name, type) {
+  let greetFn;
+
+  if (type === 'friendly') {
+    greetFn = function () {
+      console.log(`Hi! My name is ${name}!`);
+    };
+  } else if (type === 'unfriendly') {
+    greetFn = function () {
+      console.log(`Hm? What do you want?`);
+    };
+  }
+
+  return {
+    name: name,
+    greet: greetFn,
+  };
+}
+
+const friendlyUser = buildUserByType('John', 'friendly');
+
+friendlyUser.greet(); // Hi! My name is John!
+
+const unfriendlyUser = buildUserByType('John', 'unfriendly');
+
+unfriendlyUser.greet(); // Hm? What do you want?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok... 
+
+
+
+
+
+
+
+
+
+
+mas o que esse method faz, em detalhe,
+
+
+
+depende dos parameters que 
+
+passamos a ele..
+
+
+
+
+
+
+
+
+
+
+
+
+-> e podemos 
+
+COMBINAR ISSO PARA _ ESCREVER 1 FACTORY FUNCTION QUE 
+
+VAI PRODUZIR 
+
+DIFERENTES FUNCTIONS/OBJECTS QUE 
+
+PODEMOS CHAMAR 
+
+DA MESMA MANEIRA,
+
+
+mas que 
+
+
+VÃO 
+
+HANDLAR 
+
+COISAS DIFERENTES,
+
+
+
+'PAYPAL PAYMENTS',
+
+
+'CREDITCARD PAYMENTS'...
+
+
+
+
+
+
+
+
+
+
+-> OK...E É ISSO QUE USAREMOS AGORA,
+
+UMA FACTORY FUNCTION QUE VAI SEMPRE 
+
+CRIAR OBJECTS COM 1 MESMA ESTRUTURA,
+
+
+
+
+
+MAS COM CÓDIGOS DIFERENTES NOS SEUS METHODS,
+
+
+QUE SERÃO EXECUTADOS 
+
+
+PARA DIFERENTES PROPÓSITOS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR ADICIONA UMA NOVA FUNCTION, DE NOME 
+
+
+
+
+
+'getTransactionProcessor'...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+function getTransactionProcessor() {
+
+}
+
+
+
+
+
+
+
+
+ E ESSA FUNCTION SERÁ UMA 
+
+
+ FACTORY FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+ELA __ VAI RETORNAR 1 OBJECT , 
+
+
+POLYMORPHIC OBJECT 
+
+COM VÁRIAS FUNCTIONS, FUNCTIONS COM OS MESMOS NOMES,
+ 
+
+
+ MAS QUE FAZEM COISAS COMPLETAMENTE DIFERENTES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ escrevemos, talvez, tipo assim:
+
+
+
+
+
+
+
+
+
+ function getTransactionProcessor(type, transaction) {
+
+    let processCreditCard;
+    let processPayPal;
+    let processPlan;
+    
+    if (type === 'PAYMENT') {
+      processCreditCard = function(transaction) {
+        processCreditCardPayment(transaction)
+      }
+
+      processPayPal = function(transaction) {
+        processPayPalPayment(transaction)
+      }
+      processPlan = function(transaction) {
+        processPlanPayment(transaction)
+      }
+    }
+
+    if(type === 'REFUND') {
+      processCreditCard = function(transaction) {
+        processCreditCardRefund(transaction)
+      }
+
+      processPayPal = function(transaction) {
+        processPayPalRefund(transaction)
+      }
+      processPlan = function(transaction) {
+        processPlanRefund(transaction)
+      }
+
+    }
+
+
+    return {
+      processCreditCard: processCreditCard,
+      processPayPal: processPayPal,
+      processPlan: processPlan
+    }
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ BEM... FINALMENTE TERMINEI ESSA REFATORAÇÃO....
+
+
+
+
+
+
+
+
+
+
+ FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ main();
+
+function main() {
+  const transactions = [
+    {
+      id: 't1',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '23.99',
+    },
+    {
+      id: 't2',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'PAYPAL',
+      amount: '100.43',
+    },
+    {
+      id: 't3',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '10.99',
+    },
+    {
+      id: 't4',
+      type: 'PAYMENT',
+      status: 'CLOSED',
+      method: 'PLAN',
+      amount: '15.99',
+    },
+    {
+      id: 't5',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'vasvas',
+      amount: '10.99',
+    },
+  ];
+
+  try {
+    processTransactions(transactions);
+  } catch (error) {
+    console.log('proper error handling');
+    outputError(error.message);
+  }
+}
+
+function processTransactions(transactions) {
+  validateTransactions(transactions);
+
+  for (const transaction of transactions) {
+    try {
+      processTransaction(transaction);
+    } catch (error) {
+      outputError(error.message, transaction);
+      continue;
+    }
+  }
+}
+
+function processTransaction(transaction) {
+  try {
+    validateTransaction(transaction);
+
+    finishTransaction(transaction);
+  } catch (error) {
+    outputError(error.message, transaction);
+  }
+}
+
+function finishTransaction(transaction) {
+  const paymentProcessor = getTransactionProcessor(transaction.type);
+
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      paymentProcessor.processCreditCard(transaction);
+      break;
+    case 'PAYPAL':
+      paymentProcessor.processPayPal(transaction);
+      break;
+    case 'PLAN':
+      paymentProcessor.processPlan(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+function getTransactionProcessor(type) {
+  let processCreditCard;
+  let processPayPal;
+  let processPlan;
+
+  if (type === 'PAYMENT') {
+    processCreditCard = function (transaction) {
+      processCreditCardPayment(transaction);
+    };
+
+    processPayPal = function (transaction) {
+      processPayPalPayment(transaction);
+    };
+    processPlan = function (transaction) {
+      processPlanPayment(transaction);
+    };
+  }
+
+  if (type === 'REFUND') {
+    processCreditCard = function (transaction) {
+      processCreditCardRefund(transaction);
+    };
+
+    processPayPal = function (transaction) {
+      processPayPalRefund(transaction);
+    };
+    processPlan = function (transaction) {
+      processPlanRefund(transaction);
+    };
+  }
+
+  return {
+    processCreditCard: processCreditCard,
+    processPayPal: processPayPal,
+    processPlan: processPlan,
+  };
+}
+
+function validateTransactions(transactions) {
+  if (transactionsAreEmpty(transactions)) {
+    const error = new Error('No transactions provided!');
+    throw error;
+  }
+}
+
+function validateTransaction(transaction) {
+  if (transaction.status !== 'OPEN') {
+    const error = new Error('Invalid transaction type!');
+    throw error;
+  }
+
+  if (transaction.type !== 'PAYMENT' && transaction.type !== 'REFUND') {
+    const error = new Error('Invalid transaction type!');
+    throw error;
+  }
+
+  if (
+    transaction.method !== 'CREDIT_CARD' &&
+    transaction.method !== 'PAYPAL' &&
+    transaction.method !== 'PLAN'
+  ) {
+    const error = new Error('Invalid transaction method!');
+    throw error;
+  }
+}
+
+function transactionsAreEmpty(transactions) {
+  return !transactions || transactions.length === 0;
+}
+
+function outputError(message, transaction) {
+  if (transaction) {
+    console.log(message, transaction);
+  } else {
+    console.log(message);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> quer dizer que agora sempre ficaremos com um object....
+
+
+
+
+
+criado dentro dessa function:
+
+
+
+
+
+
+
+
+
+
+function finishTransaction(transaction) {
+  const paymentProcessor = getTransactionProcessor(transaction.type);
+
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      paymentProcessor.processCreditCard(transaction);
+      break;
+    case 'PAYPAL':
+      paymentProcessor.processPayPal(transaction);
+      break;
+    case 'PLAN':
+      paymentProcessor.processPlan(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+
+
+
+
+
+--> as functions que usamos MUDAM DINAMICAMENTE, A PARTIR DO TYPE 
+
+DE CADA TRANSACTION..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+no 'getTransactionProcessor',
+
+
+ele começa assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getTransactionProcessor(type) {
+
+  let processors = {
+    payment: null,
+    refund: null
+  }
+
+
+
+  return processors;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ELE DEFINE 2 KEYS, DENTRO DESSE OBJECT:
+
+
+
+
+
+
+
+
+
+function getTransactionProcessor(type) {
+
+  let processors = {
+    payment: null,
+    refund: null
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+A IDEIA É QUE VAMOS __ POPULAR __ 
+
+
+
+ESSAS PROPERTIES 
+
+
+
+COMO VALUES,
+
+
+se o if check for satisfeito:
+
+
+
+
+
+
+
+
+
+
+
+
+function getTransactionProcessor(type) {
+
+  let processors = {
+    payment: null,
+    refund: null
+  }
+
+
+  if (usesTransactionMethod(transaction, 'CREDIT_CARD')) {
+    processors.payment = processCreditCardPayment;
+    processors.refund = processCreditCardRefund;
+  } else if (usesTransactionMethod(transaction, 'PAYPAL')) {
+    processors.payment = processPayPalPayment;
+    processors.refund = processPayPalRefund;
+  } else if (usesTransactionMethod(transaction, 'PLAN')) {
+    processors.payment = processPlanPayment;
+    processors.refund = processPlanRefund;
+  }
+
+
+  return processors;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MINHA VERSÃO:
+
+
+
+
+function getTransactionProcessor(type) {
+  let processCreditCard;
+  let processPayPal;
+  let processPlan;
+
+  if (type === 'PAYMENT') {
+    processCreditCard = function (transaction) {
+      processCreditCardPayment(transaction);
+    };
+
+    processPayPal = function (transaction) {
+      processPayPalPayment(transaction);
+    };
+    processPlan = function (transaction) {
+      processPlanPayment(transaction);
+    };
+  }
+
+  if (type === 'REFUND') {
+    processCreditCard = function (transaction) {
+      processCreditCardRefund(transaction);
+    };
+
+    processPayPal = function (transaction) {
+      processPayPalRefund(transaction);
+    };
+    processPlan = function (transaction) {
+      processPlanRefund(transaction);
+    };
+  }
+
+  return {
+    processCreditCard: processCreditCard,
+    processPayPal: processPayPal,
+    processPlan: processPlan,
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... nossas functions ficaram mais clean...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AGORA ESTAMOS USANDO  1 'MAP DE FUNCTIONS',
+
+que retornamos...
+
+
+
+
+
+
+
+
+--> quer dizer que 
+
+
+o 'getTransactionProcessor'
