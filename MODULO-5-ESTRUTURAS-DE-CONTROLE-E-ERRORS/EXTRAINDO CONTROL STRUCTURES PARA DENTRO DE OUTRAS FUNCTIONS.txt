@@ -1,0 +1,638 @@
+
+
+
+
+
+
+
+
+
+
+
+
+OK... DENTRO DO METHOD DE 'processTransactions',
+
+
+
+TEMOS:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  // COM 2 GUARDS:
+  if (transactionsAreEmpty(transactions)) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    outputError('No transactions provided!');
+    return;
+  } else {
+    for (const transaction of transactions) {
+      if (transaction.status !== 'OPEN') {
+        // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+        // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+        outputError('Invalid transaction type!', transaction);
+        continue;
+      }
+
+      if (transaction.type === 'PAYMENT') {
+        if (transaction.method === 'CREDIT_CARD') {
+          processCreditCardPayment(transaction);
+        } else if (transaction.method === 'PAYPAL') {
+          processPayPalPayment(transaction);
+        } else if (transaction.method === 'PLAN') {
+          processPlanPayment(transaction);
+        }
+      } else if (transaction.type === 'REFUND') {
+        if (transaction.method === 'CREDIT_CARD') {
+          processCreditCardRefund(transaction);
+        } else if (transaction.method === 'PAYPAL') {
+          processPayPalRefund(transaction);
+        } else if (transaction.method === 'PLAN') {
+          processPlanRefund(transaction);
+        }
+      } else {
+        outputError('Invalid transaction type!', transaction);
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TEMOS NOSSAS GUARDS 
+
+
+
+E AQUELE FOR OF LOOP 
+
+
+
+
+
+
+
+
+
+
+
+
+VAMOS MANTER O FOR LOOP PQ AINDA VAMOS 'GO THROUGH'
+
+TODAS AS TRANSACTIONS, PARA AS PROCESSAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... MAS AS COISAS QUE FAEZMOS __ DENTRO __ DO FOR LOOP 
+
+PODERIAM, SIM,
+
+SER OUTSOURCEADAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AQUELE GUARD DE 
+
+
+
+''
+
+      if (transaction.status !== 'OPEN') {
+        // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+        // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+        outputError('Invalid transaction type!', transaction);
+        continue;
+      }
+
+
+''
+
+
+
+DEVE FICAR,
+
+
+
+PQ 
+
+AINDA CHAMAMOS AQUELE 'continue',
+e isso funciona...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM... MAS O PROBLEMA É O CÓDIGO 
+
+DE 
+
+'transaction.method'... --> USAMOS ISSO PARA 
+
+
+
+
+
+PROCESSAR OS DIFERENTES METHODS, E É HORRÍVEL...
+
+
+
+
+
+
+UM MONTE DE IF E ELSE IF STATEMNETS...
+
+
+
+
+
+
+
+
+
+
+COMO PODEMOS RESOLVER ISSO?
+
+
+
+provavelmente com um switch-case 
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE CÓDIGO PODERIA SER 'CUT'
+
+
+E OUTSOURCEADO PARA 1 FUNCTION SEPARADA...
+
+
+
+
+
+
+
+
+
+ISSO JÁ VAI DEIXAR NOSSO CÓDIGO BEM MAIS SLIM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+O PROFESSOR CRIA UMA FUNCTION DE NOME 
+
+'processTransaction()',
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  // COM 2 GUARDS:
+  if (transactionsAreEmpty(transactions)) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    outputError('No transactions provided!');
+    return;
+  } else {
+    for (const transaction of transactions) {
+      if (transaction.status !== 'OPEN') {
+        // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+        // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+        outputError('Invalid transaction type!', transaction);
+        continue;
+      }
+
+      processTransaction(transaction);
+
+      // if (transaction.type === 'PAYMENT') {
+      //   if (transaction.method === 'CREDIT_CARD') {
+      //     processCreditCardPayment(transaction);
+      //   } else if (transaction.method === 'PAYPAL') {
+      //     processPayPalPayment(transaction);
+      //   } else if (transaction.method === 'PLAN') {
+      //     processPlanPayment(transaction);
+      //   }
+      // } else if (transaction.type === 'REFUND') {
+      //   if (transaction.method === 'CREDIT_CARD') {
+      //     processCreditCardRefund(transaction);
+      //   } else if (transaction.method === 'PAYPAL') {
+      //     processPayPalRefund(transaction);
+      //   } else if (transaction.method === 'PLAN') {
+      //     processPlanRefund(transaction);
+      //   }
+      // } else {
+      //   outputError('Invalid transaction type!', transaction);
+      // }
+    }
+  }
+}
+
+function transactionsAreEmpty(transactions) {
+  return !transactions || transactions.length === 0;
+}
+
+function outputError(message, transaction) {
+  if (transaction) {
+    console.log(message, transaction);
+  } else {
+    console.log(message);
+  }
+}
+
+function processTransaction(transaction) {
+  switch (transaction.type) {
+    case 'PAYMENT':
+      processPayment(transaction);
+      break;
+    case 'REFUND':
+      processRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction type!', transaction);
+  }
+}
+
+function processPayment(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardPayment(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalPayment(transaction);
+      break;
+    case 'PLAN':
+      processPlanPayment(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
+
+function processRefund(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardRefund(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalRefund(transaction);
+      break;
+    case 'PLAN':
+      processPlanRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
+
+
+
+
+
+
+
+
+--------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM ISSO, SUBDIVIDO
+
+
+
+O negócio em 
+
+
+
+
+
+
+processTransaction -->  processRefund
+                    --> processPayment
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AGORA O PROCESS TRANSACTIONS VAI FICAR __MT __ MAIS CLEAN__...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+function processTransactions(transactions) {
+
+  if (transactionsAreEmpty(transactions)) {
+    outputError('No transactions provided!');
+    return;
+  } else {
+
+    for (const transaction of transactions) {
+      if (transaction.status !== 'OPEN') {
+        outputError('Invalid transaction type!', transaction);
+        continue;
+      }
+
+      processTransaction(transaction);
+
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR TAMBÉM REFATORA MAIS UM POUCo (move o guard para dentro 
+
+
+DO 'processTransaction()', tipo assim):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  // COM 2 GUARDS:
+  if (transactionsAreEmpty(transactions)) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    outputError('No transactions provided!');
+    return;
+  } else {
+    for (const transaction of transactions) {
+      // if (transaction.status !== 'OPEN') {
+      // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+      // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+      //   outputError('Invalid transaction type!', transaction);
+      //   continue;
+      // }
+
+      processTransaction(transaction);
+
+      // if (transaction.type === 'PAYMENT') {
+      //   if (transaction.method === 'CREDIT_CARD') {
+      //     processCreditCardPayment(transaction);
+      //   } else if (transaction.method === 'PAYPAL') {
+      //     processPayPalPayment(transaction);
+      //   } else if (transaction.method === 'PLAN') {
+      //     processPlanPayment(transaction);
+      //   }
+      // } else if (transaction.type === 'REFUND') {
+      //   if (transaction.method === 'CREDIT_CARD') {
+      //     processCreditCardRefund(transaction);
+      //   } else if (transaction.method === 'PAYPAL') {
+      //     processPayPalRefund(transaction);
+      //   } else if (transaction.method === 'PLAN') {
+      //     processPlanRefund(transaction);
+      //   }
+      // } else {
+      //   outputError('Invalid transaction type!', transaction);
+      // }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function processTransaction(transaction) {
+  if (transaction.status !== 'OPEN') {
+    // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+    // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    outputError('Invalid transaction type!', transaction);
+    return;
+  }
+  switch (transaction.type) {
+    case 'PAYMENT':
+      processPayment(transaction);
+      break;
+    case 'REFUND':
+      processRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction type!', transaction);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... nosso código ficou bem mais clean...
+
+
+
+
+
+
+O CÓDIGO DE LOOP DEVE FICAR DENTRO DE 'processTransactions',
+
+
+
+
+
+
+
+E TODO O TRABALHO PARA CADA INDIVIDUAL TRANSACTION 
+
+
+
+
+
+
+
+
+VAI FICAR DENTRO 
+
+
+
+DO 'processTransaction()' (singular)...
+
+
+
+
+
+
+
+
+
+
+
+-->   E A GUARD TAMBÉM VAI FICAR DENTRO DE 'processTransaction()'..
+
+
+

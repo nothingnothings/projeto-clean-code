@@ -79,32 +79,34 @@ function processTransactions(transactions) {
     return;
   } else {
     for (const transaction of transactions) {
-      if (transaction.status !== 'OPEN') {
-        // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
-        // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
-        outputError('Invalid transaction type!', transaction);
-        continue;
-      }
+      // if (transaction.status !== 'OPEN') {
+      // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+      // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+      //   outputError('Invalid transaction type!', transaction);
+      //   continue;
+      // }
 
-      if (transaction.type === 'PAYMENT') {
-        if (transaction.method === 'CREDIT_CARD') {
-          processCreditCardPayment(transaction);
-        } else if (transaction.method === 'PAYPAL') {
-          processPayPalPayment(transaction);
-        } else if (transaction.method === 'PLAN') {
-          processPlanPayment(transaction);
-        }
-      } else if (transaction.type === 'REFUND') {
-        if (transaction.method === 'CREDIT_CARD') {
-          processCreditCardRefund(transaction);
-        } else if (transaction.method === 'PAYPAL') {
-          processPayPalRefund(transaction);
-        } else if (transaction.method === 'PLAN') {
-          processPlanRefund(transaction);
-        }
-      } else {
-        outputError('Invalid transaction type!', transaction);
-      }
+      processTransaction(transaction);
+
+      // if (transaction.type === 'PAYMENT') {
+      //   if (transaction.method === 'CREDIT_CARD') {
+      //     processCreditCardPayment(transaction);
+      //   } else if (transaction.method === 'PAYPAL') {
+      //     processPayPalPayment(transaction);
+      //   } else if (transaction.method === 'PLAN') {
+      //     processPlanPayment(transaction);
+      //   }
+      // } else if (transaction.type === 'REFUND') {
+      //   if (transaction.method === 'CREDIT_CARD') {
+      //     processCreditCardRefund(transaction);
+      //   } else if (transaction.method === 'PAYPAL') {
+      //     processPayPalRefund(transaction);
+      //   } else if (transaction.method === 'PLAN') {
+      //     processPlanRefund(transaction);
+      //   }
+      // } else {
+      //   outputError('Invalid transaction type!', transaction);
+      // }
     }
   }
 }
@@ -118,6 +120,57 @@ function outputError(message, transaction) {
     console.log(message, transaction);
   } else {
     console.log(message);
+  }
+}
+
+function processTransaction(transaction) {
+  if (transaction.status !== 'OPEN') {
+    // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+    // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    outputError('Invalid transaction type!', transaction);
+    return;
+  }
+  switch (transaction.type) {
+    case 'PAYMENT':
+      processPayment(transaction);
+      break;
+    case 'REFUND':
+      processRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction type!', transaction);
+  }
+}
+
+function processPayment(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardPayment(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalPayment(transaction);
+      break;
+    case 'PLAN':
+      processPlanPayment(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
+
+function processRefund(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardRefund(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalRefund(transaction);
+      break;
+    case 'PLAN':
+      processPlanRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
   }
 }
 
