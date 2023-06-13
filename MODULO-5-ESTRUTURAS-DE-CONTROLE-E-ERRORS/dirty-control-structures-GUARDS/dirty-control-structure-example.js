@@ -73,15 +73,16 @@ function main() {
 
 function processTransactions(transactions) {
   // COM 2 GUARDS:
-  if (!transactions || transactions.length === 0) {
+  if (transactionsAreEmpty(transactions)) {
     // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
-    console.log('No transactions provided!');
+    outputError('No transactions provided!');
     return;
   } else {
     for (const transaction of transactions) {
-      if (transaction.status !== 'OPEN') { // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+      if (transaction.status !== 'OPEN') {
+        // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
         // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
-        console.log('Invalid transaction type!', transaction);
+        outputError('Invalid transaction type!', transaction);
         continue;
       }
 
@@ -102,9 +103,21 @@ function processTransactions(transactions) {
           processPlanRefund(transaction);
         }
       } else {
-        console.log('Invalid transaction type!', transaction);
+        outputError('Invalid transaction type!', transaction);
       }
     }
+  }
+}
+
+function transactionsAreEmpty(transactions) {
+  return !transactions || transactions.length === 0;
+}
+
+function outputError(message, transaction) {
+  if (transaction) {
+    console.log(message, transaction);
+  } else {
+    console.log(message);
   }
 }
 
