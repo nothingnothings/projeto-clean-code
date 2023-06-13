@@ -1,0 +1,157 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok.... QUASE ACABAMOS COM ESTE MÓDULO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> HÁ ALGUNS MINOR IMPROVEMENTS A SEREM FEITOS..
+
+
+
+
+
+
+
+
+
+POR EXEMPLO,
+
+
+
+
+A FUNCTION DE 'outputError':
+
+
+function outputError(message, transaction) {
+  if (transaction) {
+    console.log(message, transaction);
+  } else {
+    console.log(message);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, ISSO àS VEZES ESTÁ SENDO CHAMADO 
+
+
+
+
+COM 'message',
+
+
+E OUTRAS VEZES ESTÁ 
+
+SENDO CHAMADO __ SEM 
+
+AQUELE 
+
+SEGUNDO PARAMETER...
+
+
+
+
+
+
+
+
+
+--> para resolver isso,
+
+podemos 
+
+
+DEFINIR 1 DEFAULT VALUE PARA O SEGUNDO PARAMETER,
+TIPO ASSIM:
+
+
+
+
+function outputError(message, transaction = {}) {
+    console.log(message, transaction);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+function outputError(message, transaction = {}) {
+  console.log(message, transaction);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... agora sempre teremos 1 value a ser console.loggado,
+ainda uqe 
+
+isso 
+
+
+às vezes seja 1 empty map (
+
+    PQ SE LIVRAR DE IF CHECKS PODE AJUDAR MT COM READABILITY...
+)

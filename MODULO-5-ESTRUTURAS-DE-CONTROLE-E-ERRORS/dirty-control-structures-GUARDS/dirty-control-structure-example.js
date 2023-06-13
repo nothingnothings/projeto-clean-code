@@ -1,3 +1,7 @@
+constCREDIT_CARD= CREDIT_CARD;
+const PAYPAL = PAYPAL;
+const PLAN = PLAN;
+
 main();
 
 function main() {
@@ -6,28 +10,28 @@ function main() {
       id: 't1',
       type: 'PAYMENT',
       status: 'OPEN',
-      method: 'CREDIT_CARD',
+      method: CREDIT_CARD,
       amount: '23.99',
     },
     {
       id: 't2',
       type: 'PAYMENT',
       status: 'OPEN',
-      method: 'PAYPAL',
+      method: PAYPAL,
       amount: '100.43',
     },
     {
       id: 't3',
       type: 'REFUND',
       status: 'OPEN',
-      method: 'CREDIT_CARD',
+      method: CREDIT_CARD,
       amount: '10.99',
     },
     {
       id: 't4',
       type: 'PAYMENT',
       status: 'CLOSED',
-      method: 'PLAN',
+      method: PLAN,
       amount: '15.99',
     },
     {
@@ -54,11 +58,11 @@ function main() {
 //     for (const transaction of transactions) {
 //       if (transaction.type === 'PAYMENT') {
 //         if (transaction.status === 'OPEN') {
-//           if (transaction.method === 'CREDIT_CARD') {
+//           if (transaction.method === CREDIT_CARD) {
 //             processCreditCardPayment(transaction);
-//           } else if (transaction.method === 'PAYPAL') {
+//           } else if (transaction.method === PAYPAL) {
 //             processPayPalPayment(transaction);
-//           } else if (transaction.method === 'PLAN') {
+//           } else if (transaction.method === PLAN) {
 //             processPlanPayment(transaction);
 //           }
 //         } else {
@@ -66,11 +70,11 @@ function main() {
 //         }
 //       } else if (transaction.type === 'REFUND') {
 //         if (transaction.status === 'OPEN') {
-//           if (transaction.method === 'CREDIT_CARD') {
+//           if (transaction.method === CREDIT_CARD) {
 //             processCreditCardRefund(transaction);
-//           } else if (transaction.method === 'PAYPAL') {
+//           } else if (transaction.method === PAYPAL) {
 //             processPayPalRefund(transaction);
-//           } else if (transaction.method === 'PLAN') {
+//           } else if (transaction.method === PLAN) {
 //             processPlanRefund(transaction);
 //           }
 //         } else {
@@ -99,19 +103,19 @@ function processTransactions(transactions) {
     }
 
     // if (transaction.type === 'PAYMENT') {
-    //   if (transaction.method === 'CREDIT_CARD') {
+    //   if (transaction.method === CREDIT_CARD) {
     //     processCreditCardPayment(transaction);
-    //   } else if (transaction.method === 'PAYPAL') {
+    //   } else if (transaction.method === PAYPAL) {
     //     processPayPalPayment(transaction);
-    //   } else if (transaction.method === 'PLAN') {
+    //   } else if (transaction.method === PLAN) {
     //     processPlanPayment(transaction);
     //   }
     // } else if (transaction.type === 'REFUND') {
-    //   if (transaction.method === 'CREDIT_CARD') {
+    //   if (transaction.method === CREDIT_CARD) {
     //     processCreditCardRefund(transaction);
-    //   } else if (transaction.method === 'PAYPAL') {
+    //   } else if (transaction.method === PAYPAL) {
     //     processPayPalRefund(transaction);
-    //   } else if (transaction.method === 'PLAN') {
+    //   } else if (transaction.method === PLAN) {
     //     processPlanRefund(transaction);
     //   }
     // } else {
@@ -137,13 +141,13 @@ function finishTransaction(transaction) {
   const paymentProcessor = getTransactionProcessor(transaction.type);
 
   switch (transaction.method) {
-    case 'CREDIT_CARD':
+    case CREDIT_CARD:
       paymentProcessor.processCreditCard(transaction);
       break;
-    case 'PAYPAL':
+    case PAYPAL:
       paymentProcessor.processPayPal(transaction);
       break;
-    case 'PLAN':
+    case PLAN:
       paymentProcessor.processPlan(transaction);
       break;
     default:
@@ -213,9 +217,9 @@ function validateTransaction(transaction) {
   }
 
   if (
-    transaction.method !== 'CREDIT_CARD' &&
-    transaction.method !== 'PAYPAL' &&
-    transaction.method !== 'PLAN'
+    transaction.method !== CREDIT_CARD &&
+    transaction.method !== PAYPAL &&
+    transaction.method !== PLAN
   ) {
     const error = new Error('Invalid transaction method!');
     throw error;
@@ -226,25 +230,21 @@ function transactionsAreEmpty(transactions) {
   return !transactions || transactions.length === 0;
 }
 
-function outputError(message, transaction) {
-  if (transaction) {
-    console.log(message, transaction);
-  } else {
-    console.log(message);
-  }
+function outputError(message, transaction = {}) {
+  console.log(message, transaction);
 }
 
 // function processRefund(transaction) {
 //   const refundProcessor = getTransactionProcessor(transaction.type);
 
 //   switch (transaction.method) {
-//     case 'CREDIT_CARD':
+//     case CREDIT_CARD:
 //       processCreditCardRefund(transaction);
 //       break;
-//     case 'PAYPAL':
+//     case PAYPAL:
 //       processPayPalRefund(transaction);
 //       break;
-//     case 'PLAN':
+//     case PLAN:
 //       processPlanRefund(transaction);
 //       break;
 //     default:
