@@ -1,0 +1,671 @@
+
+
+
+
+
+
+
+
+
+
+no nosso demo app,
+
+
+
+
+FICAMOS COM ESTE CÓDIGO DE HANDLE DE ERRORS:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  function main() {
+  const transactions = [
+    {
+      id: 't1',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '23.99',
+    },
+    {
+      id: 't2',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'PAYPAL',
+      amount: '100.43',
+    },
+    {
+      id: 't3',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '10.99',
+    },
+    {
+      id: 't4',
+      type: 'PAYMENT',
+      status: 'CLOSED',
+      method: 'PLAN',
+      amount: '15.99',
+    },
+  ];
+
+  //error handling deve ser colocado AQUI, e não dentro de 'procesTransactions'..
+
+  try {
+    processTransactions(transactions);
+  } catch (error) {
+    outputError(error.message);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E ASSIM:
+
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  if (transactionsAreEmpty(transactions)) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    // outputError('No transactions provided!');
+    const error = new Error('No transactions provided!');
+    error.code = 1;
+    throw error;
+  } else {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK...
+
+
+
+
+
+
+
+
+
+
+MAS TEMOS MAIS 3 LUGARES, NO NOSSO CÓDIGO, EM QUE FAZEMOS O HANDLE DE 
+
+
+ERRORS..
+
+
+
+
+
+
+
+SÃO ELES:
+
+
+
+
+
+
+
+
+function processTransaction(transaction) {
+  if (transaction.status !== 'OPEN') {
+    // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+    // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    outputError('Invalid transaction type!', transaction);
+    return;
+  }
+  switch (transaction.type) {
+    case 'PAYMENT':
+      processPayment(transaction);
+      break;
+    case 'REFUND':
+      processRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction type!', transaction);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+E ESTE:
+
+
+
+
+
+
+
+
+
+function processPayment(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardPayment(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalPayment(transaction);
+      break;
+    case 'PLAN':
+      processPlanPayment(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
+
+function processRefund(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardRefund(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalRefund(transaction);
+      break;
+    case 'PLAN':
+      processPlanRefund(transaction);
+      break;
+    default:
+      outputError('Invalid transaction method!', transaction);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+certo...
+
+
+
+
+
+
+
+
+tenho que colocar o código de handle de errors, de modo que ele faça 
+
+'bubble up' 
+
+
+e chegue ao block de try catch...
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+function main() {
+  const transactions = [
+    {
+      id: 't1',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '23.99',
+    },
+    {
+      id: 't2',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'PAYPAL',
+      amount: '100.43',
+    },
+    {
+      id: 't3',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '10.99',
+    },
+    {
+      id: 't4',
+      type: 'PAYMENT',
+      status: 'CLOSED',
+      method: 'PLAN',
+      amount: '15.99',
+    },
+    {
+      id: 't5',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'vasvas',
+      amount: '10.99',
+    },
+  ];
+
+  //error handling deve ser colocado AQUI, e não dentro de 'procesTransactions'..
+
+  try {
+    processTransactions(transactions);
+  } catch (error) {
+    console.log('proper error handling');
+    outputError(error.message);
+  }
+}
+
+
+
+
+function processTransaction(transaction) {
+  if (transaction.status !== 'OPEN') {
+    // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+    // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    // outputError('Invalid transaction type!', transaction);
+    const error = new Error('Invalid transaction type!');
+    throw error;
+  }
+
+  if (transaction.type !== 'PAYMENT' && transaction.type !== 'REFUND') {
+    const error = new Error('Invalid transaction type!');
+    throw error;
+  }
+
+  if (
+    transaction.method !== 'CREDIT_CARD' &&
+    transaction.method !== 'PAYPAL' &&
+    transaction.method !== 'PLAN'
+  ) {
+    const error = new Error('Invalid transaction method!');
+    throw error;
+  }
+
+  switch (transaction.type) {
+    case 'PAYMENT':
+      processPayment(transaction);
+      break;
+    case 'REFUND':
+      processRefund(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+function processPayment(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardPayment(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalPayment(transaction);
+      break;
+    case 'PLAN':
+      processPlanPayment(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+function processRefund(transaction) {
+  switch (transaction.method) {
+    case 'CREDIT_CARD':
+      processCreditCardRefund(transaction);
+      break;
+    case 'PAYPAL':
+      processPayPalRefund(transaction);
+      break;
+    case 'PLAN':
+      processPlanRefund(transaction);
+      break;
+    default:
+      return;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+esses errors atirados vão 'bubble up',
+
+e vão 
+
+alcançar 
+
+
+
+
+aquele error handler... 
+
+
+
+
+
+
+
+
+
+MAS ISSO É ERRADO..
+
+
+
+
+
+
+
+
+--> É ERRADO PQ _ ESSES ERRORS SERÃO ATIRADOS 
+
+
+
+'FOR EACH INDIVIDUAL TRANSACTION'...
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE _ ESSES ERRORS NÃO DEVEM PARAR O PROCESSAMENTO 
+
+
+DE TODAS AS TRANSACTIONS,
+E SIM 
+APENAS 
+
+A TRANSACTION INDIVIDUAL QUE 'ERRORED OUT'..
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE MEU CÓDIGO PRECISA SER REFORMATADO,
+PRECISO COLOCAR OUTRO 
+
+
+
+CATCH BLOCK, EM ALGUM LUGAR, PARA HANDLAR ISSO...
+
+
+
+
+
+
+
+
+TALVEZ ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+main();
+
+function main() {
+  const transactions = [
+    {
+      id: 't1',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '23.99',
+    },
+    {
+      id: 't2',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'PAYPAL',
+      amount: '100.43',
+    },
+    {
+      id: 't3',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '10.99',
+    },
+    {
+      id: 't4',
+      type: 'PAYMENT',
+      status: 'CLOSED',
+      method: 'PLAN',
+      amount: '15.99',
+    },
+    {
+      id: 't5',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'vasvas',
+      amount: '10.99',
+    },
+  ];
+
+  try {
+    processTransactions(transactions);
+  } catch (error) {
+    console.log('proper error handling');
+    outputError(error.message);
+  }
+}
+
+function processTransactions(transactions) {
+  if (transactionsAreEmpty(transactions)) {
+    const error = new Error('No transactions provided!');
+    throw error;
+  } else {
+    for (const transaction of transactions) {
+      try {
+        processTransaction(transaction);
+      } catch (error) {
+        outputError(error.message, transaction);
+        continue;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+iSSO DEU CERTO, PQ AGORA MEU OUTPUT FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+Processing credit card payment for amount: 23.99
+Processing PayPal payment for amount: 100.43
+Processing credit card refund for amount: 10.99
+Invalid transaction type! {
+  id: 't4',
+  type: 'PAYMENT',
+  status: 'CLOSED',
+  method: 'PLAN',
+  amount: '15.99'
+}
+Invalid transaction method! {
+  id: 't5',
+  type: 'REFUND',
+  status: 'OPEN',
+  method: 'vasvas',
+  amount: '10.99'
+}
+
+
+
+
+
+
+
+
+
+
+
+sinal que 
+
+
+o uso desse try-catch block 
+
+funcionou,
+
+
+
+
+
+
+
+pq agora a execução não é mais interrompida (
+
+    as transactions seguem sendo executadas, até o final,
+
+    mesmo em casos de error... --> só a transaction que 
+    'errored out'
+
+    vai parar de ser executada.... e é isso que desejamos...
+)
+
+
+
+
+
+
+
+
+usar throw de errors em vez de 
+
+if statements é 
+
+realmente bem melhor...

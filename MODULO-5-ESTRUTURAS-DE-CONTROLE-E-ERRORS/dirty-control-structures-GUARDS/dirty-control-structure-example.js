@@ -30,6 +30,13 @@ function main() {
       method: 'PLAN',
       amount: '15.99',
     },
+    {
+      id: 't5',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'vasvas',
+      amount: '10.99',
+    },
   ];
 
   //error handling deve ser colocado AQUI, e não dentro de 'procesTransactions'..
@@ -37,6 +44,7 @@ function main() {
   try {
     processTransactions(transactions);
   } catch (error) {
+    console.log('proper error handling');
     outputError(error.message);
   }
 }
@@ -79,10 +87,9 @@ function main() {
 
 function processTransactions(transactions) {
   if (transactionsAreEmpty(transactions)) {
-    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT/throw NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
     // outputError('No transactions provided!');
     const error = new Error('No transactions provided!');
-    error.code = 1;
     throw error;
   } else {
     for (const transaction of transactions) {
@@ -93,7 +100,12 @@ function processTransactions(transactions) {
       //   continue;
       // }
 
-      processTransaction(transaction);
+      try {
+        processTransaction(transaction);
+      } catch (error) {
+        outputError(error.message, transaction);
+        continue;
+      }
 
       // if (transaction.type === 'PAYMENT') {
       //   if (transaction.method === 'CREDIT_CARD') {
@@ -134,9 +146,25 @@ function processTransaction(transaction) {
   if (transaction.status !== 'OPEN') {
     // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
     // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
-    outputError('Invalid transaction type!', transaction);
-    return;
+    // outputError('Invalid transaction type!', transaction);
+    const error = new Error('Invalid transaction type!');
+    throw error;
   }
+
+  if (transaction.type !== 'PAYMENT' && transaction.type !== 'REFUND') {
+    const error = new Error('Invalid transaction type!');
+    throw error;
+  }
+
+  if (
+    transaction.method !== 'CREDIT_CARD' &&
+    transaction.method !== 'PAYPAL' &&
+    transaction.method !== 'PLAN'
+  ) {
+    const error = new Error('Invalid transaction method!');
+    throw error;
+  }
+
   switch (transaction.type) {
     case 'PAYMENT':
       processPayment(transaction);
@@ -145,7 +173,7 @@ function processTransaction(transaction) {
       processRefund(transaction);
       break;
     default:
-      outputError('Invalid transaction type!', transaction);
+      return;
   }
 }
 
@@ -161,7 +189,7 @@ function processPayment(transaction) {
       processPlanPayment(transaction);
       break;
     default:
-      outputError('Invalid transaction method!', transaction);
+      return;
   }
 }
 
@@ -177,7 +205,7 @@ function processRefund(transaction) {
       processPlanRefund(transaction);
       break;
     default:
-      outputError('Invalid transaction method!', transaction);
+      return;
   }
 }
 
