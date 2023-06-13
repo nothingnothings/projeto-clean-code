@@ -29,3 +29,12 @@ class UserCredentials {
     public email: string;
     public password: string;
 }
+
+
+
+
+
+
+
+const database = new Database('mongodb://localhost:27017', 'mongodb');
+database.connect();

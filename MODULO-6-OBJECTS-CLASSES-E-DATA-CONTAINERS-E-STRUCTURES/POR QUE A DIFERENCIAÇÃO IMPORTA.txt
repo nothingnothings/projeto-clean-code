@@ -1,0 +1,875 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... VC DEVE SE IMPORTAR COM A DIFERENCIAÇÃO ENTRE 
+
+'DATA STRUCTURES/VESSELS/CONTAINERS'
+
+
+
+
+E
+
+
+
+
+'REAL OBJECTS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ SE VC MISTURAR ESSES 2 CONCEITOS,
+
+
+VC PODE ACABAR 
+
+
+COM 
+
+CÓDIGO RUIM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DA CLASS DE 'DATABASE',
+
+TEMOS TODA A LÓGICA PARA CONNECT E DISCONNECT:
+
+
+
+//real object  (tem methods, tem nossa business logic no seu interior)
+class Database {
+    private uri: string;
+    private provider: any;
+    private connection: any;
+
+
+
+    constructor(uri: string, provider: any) {
+
+        this.uri = uri;
+        this.provider = provider;
+    }
+
+    connect() {
+        try {
+            this.connection = this.provider.establishConnection(this.uri);
+        }
+    }
+
+
+    disconnect() { 
+        this.connection.close();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+------> VC PODERIA USAR ESSA CLASS PQ 
+
+VC 
+
+ESTÁ USANDO 
+
+
+
+1 APPROCH OOP... OU, ENTÃO, 1 PROCEDURAL APPROACH...
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS O QUE INTERESSA É QUE 
+
+
+
+
+VC __ AINDA _ TEM ALGUMAS CLASSES _ PARA _ SEGURAR TODA SUA LÓGICA...
+
+
+
+
+
+
+
+
+
+
+MAS NAÕ IMPORTA O QUE VC FAZ,
+
+VC FICA COM ESSA CLASS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.. PODEMOS USAR NOSSO OBJECT ASSIM:
+
+
+
+
+
+
+const database = new Database('mongodb://localhost:27017', 'mongodb');
+database.connect();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> vc pode instanciar essa class,
+
+passar sua connection url,
+
+
+
+
+coisas bem típicas,
+
+e aí 
+
+chama 
+
+'.connect()'
+
+
+e 
+
+'.disconnect()'...
+
+
+
+
+
+
+
+
+E ISSO SERIA CÓDIGO BEM CLEAN...
+
+
+
+
+
+
+
+
+VC ESTARIA USANDO ESSE OBJECT DE 1 MANEIRA BEM CLEAN...
+
+
+
+
+
+
+
+
+
+
+
+
+-> E, MESMO CHAMANDO ISSO EM OUTRO LUGAR,
+
+
+DENTRO DO METHOD DE OUTRO OBJECT,
+
+
+
+ISSO AINDA SERIA 
+
+MT FÁCIL DE LER E COMPREENDER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ADICIONALMENTE,
+
+SE A LÓGICA 
+
+DE 
+
+
+CONNECT E DISCONNECT MUDASSE/MUDAR,
+
+
+
+VC 
+
+
+
+NÃO VAI PRECISAR FAZER QUALQUER MUDANÇA NESSA PARTE DE BAIXO (
+    de 
+
+    '
+const database = new Database('mongodb://localhost:27017', 'mongodb');
+databaser.connect();
+'
+),
+
+
+
+
+
+
+
+
+E SIM 
+
+
+APENAS FARIA ESSAS CHANGES INTERNAMENTE,
+
+NA SUA CLASS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... MAS SE VC MISTURAR 
+
+
+A IDEIA DE 1 'REAL OBJECT'
+
+
+COM 
+
+
+
+
+
+A IDEIA DE 1 DATA STRUCTURE,
+
+
+
+
+
+
+
+
+
+VC PODERIA TER:
+
+
+
+
+
+
+
+
+
+
+
+1) A PROPRIEDADE de 'connection' COMO PÚBLICA...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+//real object  (tem methods, tem nossa business logic no seu interior)
+class Database {
+    private uri: string;
+    private provider: any;
+    public connection: any;
+
+
+
+    constructor(uri: string, provider: any) {
+
+        this.uri = uri;
+        this.provider = provider;
+    }
+
+    connect() {
+        try {
+            this.connection = this.provider.establishConnection(this.uri);
+        }
+    }
+
+
+    disconnect() { 
+        this.connection.close();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE VC FIZESSE ISSO/FIZER ISSO,
+
+
+
+
+ISSO 
+
+VAI FAZER COM QUE 
+
+
+
+__ ESSA URL SEJA DISPONÍVEL NO LADO DE FORA 
+
+DA CLASS TAMBÉM..
+
+
+
+
+
+
+
+
+
+
+
+--> COMO CONSEQUÊNCIA DISSO,
+
+
+VC 
+
+
+PODERIA, EM OUTRO LUGAR DO CÓDIGO,
+
+
+
+
+TENTAR 
+
+FECHAR NOSSA 
+
+
+DATABASE CONNECTION COM 
+
+O METHOD DE 
+
+
+
+'database.connection.close()' --------->  O PROBLEMA É:
+
+
+
+
+
+'''A CLASS SABE COMO LIDAR COM ESSA CONNECTION,
+
+PQ ESSE É O TRABALHO DELA'''...
+
+
+
+
+
+
+
+
+
+
+
+-> E SE A LÓGICA DO NADA MUDASSE,
+
+
+
+
+SE ALGO MUDASSE ASSIM:
+
+
+
+
+
+
+    disconnect() { 
+        this.connection.close();
+    }
+
+
+
+
+
+
+    PARA ISTO:
+
+
+
+
+
+        disconnect() { 
+        this.connection.disconnect();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+OU ISTO:
+
+
+
+
+
+        disconnect() { 
+        this.connection.change('disconnect')
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> A DIFERENÇA É QUE 
+
+
+__ SE QUISERMOS ALTERAR 
+
+
+
+
+A LÓGICA DESSE METHOD,
+
+PODEMOS 
+
+
+ALTERÁ-LA DIRETAMENTE NO METHOD DA CLASS,
+
+
+
+
+SEM MUDAR 
+
+
+
+
+NOSSO CÓDIGO EM QUALQUER OUTRO LUGAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mas se _TEMOS DE ENTRAR NA NOSSA CLASS TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+database.connection.close(),
+
+
+
+
+
+
+PARA AÍ CHAMARMOS 
+
+
+ESSA FUNCTION MANUALMENTE (pq ela está como pública, a propriedade de 'connection'),
+
+
+
+
+
+
+CHAMARMOS ESSA FUNCTION 
+
+
+POR CONTA PRÓPRIA,
+
+
+
+
+
+
+
+
+
+
+__ AÍ _SEREMOS FORÇADOS 
+
+
+
+A MUDAR 
+
+ESSA LÓGICA 
+
+
+EM TODOS OS LUGARES 
+
+
+
+DO NOSSO CÓDIGO EM QUE 
+
+
+
+
+
+
+
+
+USAMOS 'database.disconnect()',
+
+para trocar 
+
+
+para 
+
+
+'database.connection.close()'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MESMO ASSIM, MESMO SE NÃO TROCARMOS NADA,
+
+
+
+
+
+
+AINDA FICA 
+
+
+MAIS DIFÍCIL DE LER, ESSE CALL (
+
+
+pq temos que considerar 
+
+
+'database' (object) + 'connection' (property) + .close() (method dentro dessa property)..
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... É POR ISSO QUE ESSE CÓDIGO NÃO É BOM...
+
+
+
+
+e é por isso que essa diferenciação IMPORTA...
+
+
+
+
+
+
+
+
+
+
+--> HÁ VEZES EM QUE VC PRECISA __ APENAS DE 1 DATA CONTAINER..
+
+
+
+
+
+
+
+COMO, POR EXEMPLO,
+
+
+QUANDO 
+PASSAMOS 
+
+
+O DATA CONTAINER COMO PARAMETER A OUTRO METHOD...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ENTRETANTO,
+SEMPRE EXISTIRÃO CASOS COMO ESTE,
+
+EM QUE
+
+PRECISAMOS DE UM 'REAL OBJECT',
+
+
+1 
+
+OBJECT 
+QUE 
+
+
+_ESCONDE _ SUA LÓGICA... -> EM QUE 
+VC 
+
+NÃO VAI 
+
+'DIVE'
+
+DENTRO DO OBJECT,
+
+PARA 
+
+
+
+
+
+'MESS WITH IT'...
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE É BOM USAR ALGUM DOS 2 CONCEITOS,
+
+
+
+MAS VC NUNCA DEVE 
+
+
+MISTURAR OS 2,
+
+NUNCA DEVE 
+
+MISTURAR 
+
+
+
+
+
+
+
+
+
+
+E 'EXPOR APENAS ALGUNS INTERNALS, com public',
+
+
+AO MUNDO EXTERNO.... (
+
+
+
+
+
+
+
+    ou seja,
+
+
+    OU FAÇA 1 COISA, OU FAÇA A OUTRA... 
+
+
+
+
+
+
+    OU EXPONHA 
+
+
+
+    TODAS AS PROPRIEDADES, COMO 1 DATA CONTAINER, DE FORMA PÚBLICA,
+
+
+    OU 
+
+
+    __ESCONDA AS PROPRIEDADES,
+
+    COM 'private',
+
+    PARA QUE 
+
+    A LÓGICA INTERNA 
+
+
+    DE SEU 
+
+    OBJECT NÃO 
+    SEJA 
+
+    MANIPULADA DE FORMA INDEVIDA.. E PARA QUE VC NÃO TENHA QUE MUDAR 
+
+    CALLS DE METHODS/PROPERTIES EM MÚLTIPLOS LUGARES DE SEU CÓDIGO...
+
+)
+
+
+
+
