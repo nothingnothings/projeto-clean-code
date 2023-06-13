@@ -1,0 +1,719 @@
+
+
+
+
+
+
+
+
+
+
+
+OK.. VEREMOS O PRIMEIRO CONCEITO IMPORTANTE DESTA SECTION:
+
+
+
+
+
+
+
+
+
+
+
+É A DIFERENÇA ENTRE OBJECTS DE VERDADE (real objects)
+
+
+
+E 
+
+
+
+DATA STRUCTURES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+REAL OBJECTS VS DATA STRUCTURES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSES NOMES NÃO EXISTEM DE VERDADE,
+
+
+MAS AINDA EXISTE UMA DIFERENCIAÇÃO ENTRE OS 2,
+
+QUANDO TRABALHAMOS COMELES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS QUAL É A DIFERENÇA ENTRE OS 2?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) OBJECT ----> 1 OBJECT DE VERDADE ___ SEMPRE ESCONDE 
+
+SEUS 'INTERNALS', SUAS PROPERTIES.... ELE FAZ ISSO POR MEIO DE 
+COISAS COMO 'PRIVATE'...
+
+
+
+
+
+
+--> O QUE OS OBJECTS DE VERDADE FAZEM É EXPOR 'APIs',
+
+
+PUBLIC API,
+
+
+1 punhado de METHODS,
+
+QUE TE DEIXAM FAZER 
+
+VÁRIAS COISAS COM ESSE OBJECT... ------> E, POR ESSES METHODS,
+
+
+
+O PROFESSOR NÃO QUER DIZER APENAS 'GETTERS' E 'SETTERS'
+
+PARA 
+
+
+ESSAS 
+PROPERTIES __HIDDEN__ DENTRO DELE,
+
+
+
+
+E SIM 
+
+
+
+
+
+
+QUER DIZER 
+
+
+
+___ ABSTRACTIONS DE VERDADE,
+
+
+OU SEJA,
+
+
+_ METHODS QUE FAZEM COISAS MAIS COMPLEXAS DO QUE 
+
+
+
+'''SETTING A PROPERTY''' 
+
+
+
+OU 
+'''ACTING AS A PROXY'''..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) DATA STRUCTURES/DATA CONTAINERS -----> CONTRARIAMENTE AOS OBJECTS,
+
+SÃO SIMPLE OBJECTS 
+
+
+EM QUE AS __ PROPERTIES__ E INTERNALS 
+
+
+FICAM SEMPRE 
+DISPONÍVEIS PUBLICAMENTE,
+
+
+
+E EM QUE 
+
+__ NÓS NÃO TEMOS QUASE ___ NENHUM PUBLIC API __, 
+
+ALÉM 
+
+
+
+DESSAS PROPERTIES (
+
+    ou seja,
+
+    QUASE NENHUM METHOD, QUASE NENHUMA PUBLIC API....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PORTANTO,
+
+
+
+'REAL OBJECTS'
+
+
+
+
+
+IMPORTAM  __ 1 MONTE__ SE VC _ ESTÁ SEGUINDO 1 APPROACH 
+
+
+'OBJECT ORIENTED'...
+
+
+
+
+
+
+E, ATÉ MESMO SE VC NÃO ESTÁ SEGUINDO ESSE APPROACH,
+
+
+
+
+ALGUNS REAL OBJECTS 
+
+AINDA PODEM 
+
+
+SER __ MT ÚTEIS _ 
+
+
+PARA 'ENCAPSULATING'
+
+
+E
+ AGRUPAR _ LÓGICA EM 1 ÚNICO BLOCO...
+
+
+
+
+
+
+
+ ou seja:
+
+
+
+
+
+
+
+
+
+
+
+ 1) REAL OBJECTS --> ELES CONTÉM TODA SUA LÓGICA E BUSINESS LOGIC (se vc estiver seguindo o OOP)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) DATA STRUCTURES ->  JÁ OS DATA CONTAINERS SÃO APENAS ISSO;
+
+SÃO 
+
+OBJECTS 
+
+USADOS 
+
+PARA _ ARMAZENAR 
+
+
+__ E TRANSPORTAR DATA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) REAL OBJECTS -> COM ELES,
+PREFERIMOS 
+
+
+'ABSTRACTIONS'
+
+EM 
+
+VEZ 
+
+DE 
+'CONCRETIONS' -------->  ISSO QUER DIZER QUE 
+
+
+__PREFERIMOS __ 
+
+
+
+EXPOR METHODS __ QUE _ DEFINEM _ 1 CERTA TASK QUE 
+
+DEVE 
+
+SER FEITA... E AÍ NÃO NOS IMPORTAMOS 
+
+
+
+COM A MANEIRA PELA QUAL 
+
+
+A TASK É EXECUTADA PELO OBJECT...
+
+
+
+
+
+
+
+
+
+2) DATA CONTAINER --> NÃO TEMOS METHODS,
+
+E SIM 
+
+
+TEMOS APENAS A DATA ARMAZENADA DENTRO 
+
+DESSE OBJECT... 
+
+
+AÍ PODEMOS __ UTILIZAR __ A DATA, ARMAZENADA NO SEU INTERIOR,
+
+
+
+NOS LUGARES EM QUE TEMOS ACESSO A ESSE CONTAINER...
+
+
+
+
+
+
+
+
+
+
+
+
+RESUMINDO:
+
+
+
+
+
+NÃO  PODEMOS 
+
+'MANDAR' 
+
+NO CONTAINER,
+
+NÃO PODEMOS 
+
+
+
+
+ORDENAR ELE A FAZER ALGO (como com objects reais),
+
+
+
+
+
+SÓ PODEMOS 
+
+UTILIZAR 
+
+
+
+A DATA NO SEU INTERIOR DA MANEIRA QUE QUISERMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR NOS MOSTRA 1 EXEMPLO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TEMOS 1 CLASS DE DATABASE, QUE PODE SER USADA 
+
+PARA 
+
+CRIAR OBJECTS..
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Database {
+    private uri: string;
+    private provider: any;
+    private connection: any;
+
+
+
+    constructor(uri: string, provider: any) {
+
+        this.uri = uri;
+        this.provider = provider;
+    }
+
+    connect() {
+        try {
+            this.connection = this.provider.establishConnection(this.uri);
+        }
+    }
+
+
+    disconnect() { 
+        this.connection.close();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+connect e 'disconnect'
+
+
+SÃO 2 METHODS BEM HIGH LEVEL,
+
+QUE INTERNAMENTE 
+
+FAZEM TUDO PARA 'OPEN' E 'CLOSE' 
+
+1 CONNECTION...
+
+
+
+
+
+
+
+
+
+
+E NÃO SABEMOS O QUE 
+
+__ EXATAMENTE A CLASS VAI FAZER, INTERNAMENTE,
+
+SE 
+CHAMAMOS ESSES METHODS --> É  ISSO QUE 
+
+
+SIGNIFICA 
+
+
+''ABSTRACTION''' --> NÓS 'JUST CONNECT'
+
+A UMA DATABASE,
+
+
+
+
+1 CONCEITO ABSTRATO,
+
+
+E A MANEIRA 
+PELA QUAL
+ISSO 
+
+FUNCIONA 
+
+
+
+NÃO É MOSTRADA A NÓS,
+
+
+
+E 'IS NOT OUR BUSINESS',
+
+
+SE 
+
+ESTAMOS 
+
+
+
+USANDO 
+
+1 
+
+REAL OBJECT DE DATABASE ASSIM...
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO...
+
+
+
+
+
+
+
+
+AÍ TEMOS O OUTRO CASO,
+
+QUE É ESTE:
+
+
+
+
+
+
+
+
+// data container/vessel/structure  --> não tem methods, não tem business logic no seu interior (só serve para armazenar e transportar data)..
+class UserCredentials {
+    public email: string;
+    public password: string;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+com essa DATA STRUCTURE,
+
+TODA A DATA 
+
+
+É 
+
+EXPOSTA PUBLICAMENTE,
+
+NÃO TEMOS METHODS,
+
+
+
+
+E __ PODEMOS USAR OBJECTS BASEADOS NESSA CLASS PARA 'PASS CREDENTIALS AROUND',
+
+
+
+
+como, por exemplo,
+
+usar 
+
+isso 
+
+
+como parameter de 1 function...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ESSAS SÃO AS DIFERENÇAS ENTRE DATA CONTAINERS E OBJECTS...
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS USAR CLASSES PARA DEFINIR AMBOS,
+
+MAS A MANEIRA PELA QUAL OS UTILIZAMOS DIFERE...
+
+
+
+
+
+
+
+
+
+
+
+
+OK... MAS PQ ISSO IMPORTA, PQ DEVERÍAMOS NOS IMPORTAR COM ESSA DIFERENCIAÇÃO?
