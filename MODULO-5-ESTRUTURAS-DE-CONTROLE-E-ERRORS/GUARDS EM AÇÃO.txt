@@ -1,0 +1,1311 @@
+
+
+
+
+
+
+
+
+
+
+
+OK.... TEMOS O CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+main();
+
+function main() {
+  const transactions = [
+    {
+      id: 't1',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '23.99',
+    },
+    {
+      id: 't2',
+      type: 'PAYMENT',
+      status: 'OPEN',
+      method: 'PAYPAL',
+      amount: '100.43',
+    },
+    {
+      id: 't3',
+      type: 'REFUND',
+      status: 'OPEN',
+      method: 'CREDIT_CARD',
+      amount: '10.99',
+    },
+    {
+      id: 't4',
+      type: 'PAYMENT',
+      status: 'CLOSED',
+      method: 'PLAN',
+      amount: '15.99',
+    },
+  ];
+
+  processTransactions(transactions);
+}
+
+function processTransactions(transactions) {
+  if (transactions && transactions.length > 0) {
+    for (const transaction of transactions) {
+      if (transaction.type === 'PAYMENT') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardPayment(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalPayment(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanPayment(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!');
+        }
+      } else if (transaction.type === 'REFUND') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardRefund(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalRefund(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanRefund(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!', transaction);
+        }
+      } else {
+        console.log('Invalid transaction type!', transaction);
+      }
+    }
+  } else {
+    console.log('No transactions provided!');
+  }
+}
+
+function processCreditCardPayment(transaction) {
+  console.log(
+    'Processing credit card payment for amount: ' + transaction.amount
+  );
+}
+
+function processCreditCardRefund(transaction) {
+  console.log(
+    'Processing credit card refund for amount: ' + transaction.amount
+  );
+}
+
+function processPayPalPayment(transaction) {
+  console.log('Processing PayPal payment for amount: ' + transaction.amount);
+}
+
+function processPayPalRefund(transaction) {
+  console.log('Processing PayPal refund for amount: ' + transaction.amount);
+}
+
+function processPlanPayment(transaction) {
+  console.log('Processing plan payment for amount: ' + transaction.amount);
+}
+
+function processPlanRefund(transaction) {
+  console.log('Processing plan refund for amount: ' + transaction.amount);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DEVEMOS REESTRUTURAR ESSE CÓDIGO, TENTAR 
+
+USAR 1 GUARD NELE... 
+
+
+
+usar 1 guard para 'FAIL  FAST'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> bem... tento escrever assim:
+
+
+function processTransactions(transactions) {
+  // COM GUARD
+  if (!transactions || transactions.length === 0) {
+    return;
+  }
+
+  for (const transaction of transactions) {
+    if (transaction.type !== 'PAYMENT') {
+      return;
+    }
+    if (transaction.status !== 'OPEN') {
+      return;
+    }
+    if (transaction.method !== 'CREDIT_CARD') {
+      return;
+    }
+    processCreditCardPayment(transaction);
+    if (transaction.method !== 'PAYPAL') {
+      return;
+    }
+    processPayPalPayment(transaction);
+    if (transaction.method !== 'PLAN') {
+      return;
+    }
+    processPlanPayment(transaction);
+    console.log('Invalid transaction type!');
+
+    if (transaction.type !== 'REFUND') {
+      return;
+    }
+    if (transaction.status !== 'OPEN') {
+      return;
+    }
+    if (transaction.method !== 'CREDIT_CARD') {
+      return;
+    }
+    processCreditCardRefund(transaction);
+    if (transaction.method !== 'PAYPAL') {
+      return;
+    }
+    processPayPalRefund(transaction);
+    if (transaction.method !== 'PLAN') {
+      return;
+    }
+    processPlanRefund(transaction);
+
+    console.log('Invalid transaction type!', transaction);
+  }
+  console.log('No transactions provided!');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mas isso não está certo...
+
+
+
+
+
+
+
+
+
+
+ok... vejamos...
+
+
+
+
+
+
+
+
+podemos facilmente adicionar uma guard 
+
+
+
+
+
+
+POR MEIO DO CONVERT DO PRIMEIRO IF CHECK...
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+function processTransactions(transactions) {
+  if (!transactions || transactions.length === 0) {
+    return;
+  }
+      for (const transaction of transactions) {
+      if (transaction.type === 'PAYMENT') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardPayment(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalPayment(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanPayment(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!');
+        }
+      } else if (transaction.type === 'REFUND') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardRefund(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalRefund(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanRefund(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!', transaction);
+        }
+      } else {
+        console.log('Invalid transaction type!', transaction);
+      }
+    }
+
+  } else {
+    console.log('No transactions provided!');
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... ATÉ AÍ, ACERTEI...
+
+
+
+
+
+se isso for CORRETO,
+
+VAMOS QUERER TER 1 'RETURN'...
+
+
+
+
+
+
+
+certo....
+
+
+
+
+
+function processTransactions(transactions) {
+  if (!transactions || transactions.length === 0) {
+    return;
+  }
+      for (const transaction of transactions) {
+      if (transaction.type === 'PAYMENT') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardPayment(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalPayment(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanPayment(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!');
+        }
+      } else if (transaction.type === 'REFUND') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardRefund(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalRefund(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanRefund(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!', transaction);
+        }
+      } else {
+        console.log('Invalid transaction type!', transaction);
+      }
+    }
+
+  } else {
+    console.log('No transactions provided!');
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.. MAS O QUE FAZEMOS COM O ELSE BLOCK?
+
+
+
+
+
+
+
+
+
+
+
+-> COLOCAMOS SEU CONTEÚDO DENTRO DESSE IF CHECK COM O RETURN, TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  if (!transactions || transactions.length === 0) {
+        console.log('No transactions provided!');
+        return;
+  }
+      for (const transaction of transactions) {
+      if (transaction.type === 'PAYMENT') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardPayment(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalPayment(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanPayment(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!');
+        }
+      } else if (transaction.type === 'REFUND') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardRefund(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalRefund(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanRefund(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!', transaction);
+        }
+      } else {
+        console.log('Invalid transaction type!', transaction);
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO... MAS AINDA PRECISAMOS FAZER O 'RETURN'
+
+PARA EVITAR QUE O RESTO 
+
+DO CÓDIGO 
+
+
+FOSSE RUN...
+
+
+
+
+
+
+
+
+
+-> mas SE TÍNHAMOS EXTRA WORK,
+
+QUE PRECISAMOS FAZER 
+
+
+NO ELSE CASE,
+
+
+
+PODEMOS FAZER ELE ANTES DO RETURN (bem naquele lugar em que eu escrevi)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ISSO JÁ REMOVEU 1 DOS IF CHECKS,
+
+
+NESSE CHUNK DE CÓDIGO IMENSO...
+
+
+
+
+
+
+
+
+
+
+
+
+MAS HÁ 1 SEGUNDO GUARD QUE PODEMOS 
+
+ACTUALLY EXTRAIR,
+
+
+
+QUE FUNCIONA DE FORMA 1 POUCO DIFERENTE, E QUE É ACTUALLY 1 POUCO 
+
+MAIS DIFÍCIL DE SPOTTAR....
+
+
+
+
+
+
+
+
+
+
+BEM, O CÓDIGO ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  if (!transactions || transactions.length === 0) {
+        console.log('No transactions provided!');
+        return;
+  }
+      for (const transaction of transactions) {
+      if (transaction.type === 'PAYMENT') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardPayment(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalPayment(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanPayment(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!');
+        }
+      } else if (transaction.type === 'REFUND') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardRefund(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalRefund(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanRefund(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!', transaction);
+        }
+      } else {
+        console.log('Invalid transaction type!', transaction);
+      }
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+acho que é o de 
+
+
+
+ ''' if (transaction.status === 'OPEN') { '' ,
+
+
+
+
+
+
+
+
+ que existe em DOIS LUGARES...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> mas que outro guard é esse, nesse exemplo?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bem, 1 BOM INDICADOR PARA 1 GUARD,
+
+OU 1 GUARD 
+
+SENDO USADO,
+
+
+
+
+
+
+
+É _ SE VC _ TIVER__ 1 'IF STATEMNET'
+
+
+
+
+COM 1 MONTE DE CÓDIGO NO SEU __ INTERIOR,
+
+AO MESMO __ TEMPO 
+
+
+QUE 
+
+VC 
+
+
+TEM 
+
+1 
+
+'ELSE' STATEMENT COM 1 ERROR MESSAGE...
+
+
+
+
+
+
+--> tipo aqui, com 'transaction.type === 'OPEN',
+
+em que 
+
+o 
+
+
+else statement TEM 1 CONSOLE.LOG DE ERROR MESSAGE..
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  if (!transactions || transactions.length === 0) {
+        console.log('No transactions provided!');
+        return;
+  }
+      for (const transaction of transactions) {
+      if (transaction.type === 'PAYMENT') {
+        if (transaction.status !== 'OPEN') { ///eis o código em questão.
+            console.log('Invalid transaction type!');
+            return;
+        } else {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardPayment(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalPayment(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanPayment(transaction);
+          }
+
+        }
+      } else if (transaction.type === 'REFUND') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardRefund(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalRefund(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanRefund(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!', transaction);
+        }
+      } else {
+        console.log('Invalid transaction type!', transaction);
+      }
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM ISSO, REMOVEMOS MAIS 1 NÍVEL DE NESTING, DE NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  // COM 2 GUARDS:
+  if (!transactions || transactions.length === 0) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    console.log('No transactions provided!');
+    return;
+  } else {
+    for (const transaction of transactions) {
+      if (transaction.type === 'PAYMENT') {
+        if (transaction.status !== 'OPEN') {
+          // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+          console.log('Invalid transaction type!');
+          return;
+        } else {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardPayment(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalPayment(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanPayment(transaction);
+          }
+        }
+      } else if (transaction.type === 'REFUND') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardRefund(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalRefund(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanRefund(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!', transaction);
+        }
+      } else {
+        console.log('Invalid transaction type!', transaction);
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... com isso, ficamos com 2 diferentes guards, 
+
+que reduziram 2 níveis de nesting,
+
+nessa function...
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS FIZ 1 PEQUENO ERRO, NESSE BLOCK DO IF...
+
+
+
+
+
+
+
+
+
+-> pq, dentro de LOOPS,
+
+NÃO DEVEMOS USAR 'return',
+
+E SIM DEVEMOS USAR 'continue',
+
+PARA CONTINUARMOS A EXECUÇÃO DESSE LOOP, IGNORANDO A ITERAÇÃO ATUAL...
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  // COM 2 GUARDS:
+  if (!transactions || transactions.length === 0) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    console.log('No transactions provided!');
+    return;
+  } else {
+    for (const transaction of transactions) {
+      if (transaction.type === 'PAYMENT') {
+        if (transaction.status !== 'OPEN') {
+          // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+          console.log('Invalid transaction type!');
+          continue; //diferente de 'return'
+        } else {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardPayment(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalPayment(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanPayment(transaction);
+          }
+        }
+      } else if (transaction.type === 'REFUND') {
+        if (transaction.status === 'OPEN') {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardRefund(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalRefund(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanRefund(transaction);
+          }
+        } else {
+          console.log('Invalid transaction type!', transaction);
+        }
+      } else {
+        console.log('Invalid transaction type!', transaction);
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+ok... EU SÓ QUERO 'CONTINUE' COM A PRÓXIMA ITERAÇÃO DO LOOP,
+
+COM A PRÓXIMA TRANSACTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.. MAIS 1 NÍVEL DE NESTING FOI REMOVIDO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... E É CLARO QUE PODEMOS TER ESSA MESMA LÓGICA PARA O CASE DE REFUND,
+
+
+POR ISSO FAZEMOS TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  // COM 2 GUARDS:
+  if (!transactions || transactions.length === 0) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    console.log('No transactions provided!');
+    return;
+  } else {
+    for (const transaction of transactions) {
+      if (transaction.type === 'PAYMENT') {
+        if (transaction.status !== 'OPEN') {
+          // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+          console.log('Invalid transaction type!');
+          continue; //diferente de 'return'
+        } else {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardPayment(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalPayment(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanPayment(transaction);
+          }
+        }
+      } else if (transaction.type === 'REFUND') {
+        if (transaction.status !== 'OPEN') {
+          // TODO - 3º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+          console.log('Invalid transaction type!', transaction);
+          continue;
+        } else {
+          if (transaction.method === 'CREDIT_CARD') {
+            processCreditCardRefund(transaction);
+          } else if (transaction.method === 'PAYPAL') {
+            processPayPalRefund(transaction);
+          } else if (transaction.method === 'PLAN') {
+            processPlanRefund(transaction);
+          }
+        }
+      } else {
+        console.log('Invalid transaction type!', transaction);
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... TEMOS AINDA MENOS NESTING...
+
+
+
+
+
+
+
+MAS AGORA 
+
+QUE TEMOS A MESMA LÓGICA DE 'transaction !== 'OPEN' ,
+
+
+
+NO 
+
+
+REFUND E NO PAYMENT,
+
+
+
+
+
+
+
+
+
+
+
+TEMOS O MESMO CÓDIGO NOS 2 BRANCHES,
+
+
+PODEMOS __ PEGAR__ ESSE GUARD 
+
+
+E A REMOVER 
+
+DESSES 
+
+NESTED BRANCHES,
+
+
+PARA O COLOCAR NO INÍCIO DO FOR LOOP (
+
+  pq é comum aos 2,
+
+  aos 2 tipos de coisas ,
+
+  'payment' e 'refund'...
+)
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  // COM 2 GUARDS:
+  if (!transactions || transactions.length === 0) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    console.log('No transactions provided!');
+    return;
+  } else {
+    for (const transaction of transactions) {
+      if (transaction.status !== 'OPEN') { // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+        // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+        console.log('Invalid transaction type!', transaction);
+        continue;
+      }
+
+      if (transaction.type === 'PAYMENT') {
+        if (transaction.method === 'CREDIT_CARD') {
+          processCreditCardPayment(transaction);
+        } else if (transaction.method === 'PAYPAL') {
+          processPayPalPayment(transaction);
+        } else if (transaction.method === 'PLAN') {
+          processPlanPayment(transaction);
+        }
+      } else if (transaction.type === 'REFUND') {
+        if (transaction.method === 'CREDIT_CARD') {
+          processCreditCardRefund(transaction);
+        } else if (transaction.method === 'PAYPAL') {
+          processPayPalRefund(transaction);
+        } else if (transaction.method === 'PLAN') {
+          processPlanRefund(transaction);
+        }
+      } else {
+        console.log('Invalid transaction type!', transaction);
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok..
+
+
+agora checamos pelo status 
+
+
+JÁ NO INÍCIO 
+
+DA ITERATION..
+
+
+
+
+
+
+
+
+E CONTINUAMOS COM 
+A 'PRÓXIMA TRANSACTION NA FILA',
+
+
+
+
+SE _ É DETECTADO QUE O STATUS DE NOSSO NEGÓCIO NÃO ESTÁ COMO 'OPEN'...
+
+
+
+
+
+
+
+
+--> E AÍ A TRANSACTION CONTINUA SENDO PROCESSADA, COM O RESTO DO CÓDIGO,
+SE ESTIVER COMO 'OPEN'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+function processTransactions(transactions) {
+  // COM 2 GUARDS:
+  if (!transactions || transactions.length === 0) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    console.log('No transactions provided!');
+    return;
+  } else {
+    for (const transaction of transactions) {
+      if (transaction.status !== 'OPEN') { // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+        // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+        console.log('Invalid transaction type!', transaction);
+        continue;
+      }
+
+      if (transaction.type === 'PAYMENT') {
+        if (transaction.method === 'CREDIT_CARD') {
+          processCreditCardPayment(transaction);
+        } else if (transaction.method === 'PAYPAL') {
+          processPayPalPayment(transaction);
+        } else if (transaction.method === 'PLAN') {
+          processPlanPayment(transaction);
+        }
+      } else if (transaction.type === 'REFUND') {
+        if (transaction.method === 'CREDIT_CARD') {
+          processCreditCardRefund(transaction);
+        } else if (transaction.method === 'PAYPAL') {
+          processPayPalRefund(transaction);
+        } else if (transaction.method === 'PLAN') {
+          processPlanRefund(transaction);
+        }
+      } else {
+        console.log('Invalid transaction type!', transaction);
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+por enquanto era isso,
+
+
+
+
+sobre GUARDS..
+
+
+
+DEIXAMOS NOSSO CÓDIGO 1 POUCO MAIS READABLE...

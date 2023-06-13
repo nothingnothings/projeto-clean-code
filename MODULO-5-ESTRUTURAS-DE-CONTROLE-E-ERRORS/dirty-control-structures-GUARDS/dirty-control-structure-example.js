@@ -35,39 +35,76 @@ function main() {
   processTransactions(transactions);
 }
 
+// function processTransactions(transactions) { // sem GUARD
+//   if (transactions && transactions.length > 0) {
+//     for (const transaction of transactions) {
+//       if (transaction.type === 'PAYMENT') {
+//         if (transaction.status === 'OPEN') {
+//           if (transaction.method === 'CREDIT_CARD') {
+//             processCreditCardPayment(transaction);
+//           } else if (transaction.method === 'PAYPAL') {
+//             processPayPalPayment(transaction);
+//           } else if (transaction.method === 'PLAN') {
+//             processPlanPayment(transaction);
+//           }
+//         } else {
+//           console.log('Invalid transaction type!');
+//         }
+//       } else if (transaction.type === 'REFUND') {
+//         if (transaction.status === 'OPEN') {
+//           if (transaction.method === 'CREDIT_CARD') {
+//             processCreditCardRefund(transaction);
+//           } else if (transaction.method === 'PAYPAL') {
+//             processPayPalRefund(transaction);
+//           } else if (transaction.method === 'PLAN') {
+//             processPlanRefund(transaction);
+//           }
+//         } else {
+//           console.log('Invalid transaction type!', transaction);
+//         }
+//       } else {
+//         console.log('Invalid transaction type!', transaction);
+//       }
+//     }
+//   } else {
+//     console.log('No transactions provided!');
+//   }
+// }
+
 function processTransactions(transactions) {
-  if (transactions && transactions.length > 0) {
+  // COM 2 GUARDS:
+  if (!transactions || transactions.length === 0) {
+    // TODO - 1º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 RETURN STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+    console.log('No transactions provided!');
+    return;
+  } else {
     for (const transaction of transactions) {
+      if (transaction.status !== 'OPEN') { // 'open' era repetido nos 2 cases, de PAYMENT E DE REFUND
+        // TODO - 2º GUARD (INVERTER O IF STATEMENT, as condições, e aí COLOCAR 1 ___CONTINUE___ (pq estamos em 1 loop, dentro desse if statement) STATEMENT NESSE BLOCK... AO MESMO TEMPO QUE COLOCAMOS TODA A LÓGICA QUE ESTAVA NESSE IF BLOCK __ DIRETAMENTE NO ELSE STATEMENT)...
+        console.log('Invalid transaction type!', transaction);
+        continue;
+      }
+
       if (transaction.type === 'PAYMENT') {
-        if (transaction.status === 'OPEN') {
-          if (transaction.method === 'CREDIT_CARD') {
-            processCreditCardPayment(transaction);
-          } else if (transaction.method === 'PAYPAL') {
-            processPayPalPayment(transaction);
-          } else if (transaction.method === 'PLAN') {
-            processPlanPayment(transaction);
-          }
-        } else {
-          console.log('Invalid transaction type!');
+        if (transaction.method === 'CREDIT_CARD') {
+          processCreditCardPayment(transaction);
+        } else if (transaction.method === 'PAYPAL') {
+          processPayPalPayment(transaction);
+        } else if (transaction.method === 'PLAN') {
+          processPlanPayment(transaction);
         }
       } else if (transaction.type === 'REFUND') {
-        if (transaction.status === 'OPEN') {
-          if (transaction.method === 'CREDIT_CARD') {
-            processCreditCardRefund(transaction);
-          } else if (transaction.method === 'PAYPAL') {
-            processPayPalRefund(transaction);
-          } else if (transaction.method === 'PLAN') {
-            processPlanRefund(transaction);
-          }
-        } else {
-          console.log('Invalid transaction type!', transaction);
+        if (transaction.method === 'CREDIT_CARD') {
+          processCreditCardRefund(transaction);
+        } else if (transaction.method === 'PAYPAL') {
+          processPayPalRefund(transaction);
+        } else if (transaction.method === 'PLAN') {
+          processPlanRefund(transaction);
         }
       } else {
         console.log('Invalid transaction type!', transaction);
       }
     }
-  } else {
-    console.log('No transactions provided!');
   }
 }
 
