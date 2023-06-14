@@ -1,0 +1,673 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok.... vamos continuar com esses principles...
+
+
+
+
+
+
+
+mas os 2 mais IMPORTANTES,
+
+
+'single responsiblity'
+
+
+
+e 
+
+
+'open-closed'
+
+
+já foram cobertos....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+INTERFACE SEGREGATION PRINCIPLE ... ->
+
+
+
+
+
+
+
+
+
+
+
+ESSE PRINCIPLE DIZ QUE 
+
+
+
+''''MTAS CLIENT-SPECIFIC INTERFACES __ SÃO MELHORES __ 
+
+DO QUE __ APENAS 1 GENERAL PURPOSE INTERFACE'''...
+
+
+
+
+
+
+
+
+
+
+--> MAS O QUE ISSO SIGNIFICA?
+
+
+
+
+
+
+
+
+
+
+
+
+-> BEM, O PROFESSOR TEM OUTRO EXEMPLO..
+
+
+
+
+
+
+
+ESTE AQUI:
+
+
+
+
+
+
+
+interface Database {
+  connect(uri: string);
+  storeData(data: any);
+}
+
+class SQLDatabase implements Database {
+  connect(uri: string) {}
+
+  storeData(data: any) {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+TEMOS ESSA CLASS DE 'SQLDatabase',
+
+que implementa 
+
+
+
+essa database...
+
+
+
+
+
+
+
+
+
+
+
+-_> INTERFACES SÃO COMUNS 
+
+
+
+EM OBJECT-ORIENTED PROGRAMMING...
+
+
+
+
+
+
+
+
+INTERFACES SÃO CONTRACTS QUE FORÇAM CLASSES A IMPLEMENTAR 
+
+
+
+CERTOS BEHAVIORS..
+
+
+
+
+
+
+
+
+--> A SQLDatabase
+
+IMPLEMENTA ESSA INTERFACE,
+
+
+
+O QUE QUER DIZER QUE É OBRIGADA A TER ESSES METHODS...
+
+
+
+
+
+
+
+
+
+
+
+
+-> TUDO ESTÁ CERTO, AQUI, MAS DIGAMOS QUE TEMOS 
+
+OUTRAS 
+
+
+
+CLASSES.... A CLASS DE 'InMemoryDatabase'..
+
+
+
+e ela também implementa essa interface....
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+interface Database {
+  connect(uri: string);
+  storeData(data: any);
+}
+
+class SQLDatabase implements Database {
+  connect(uri: string) {}
+
+  storeData(data: any) {}
+}
+
+
+class InMemoryDatabase implements Database {
+    connect(uri: string) {}
+
+
+
+    storeData(data: any) {}
+}
+
+
+
+
+
+
+
+
+
+
+
+ok... nessa segunda class 
+
+
+também temos essa interface 
+
+reforçada...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK....
+
+
+SEMPRE QUEREMOS SER CAPAZES DE STORE DATA,
+
+EM DATABASES...
+
+
+
+
+
+
+
+
+
+--> MAS 'connect()'
+
+
+NÃO FAZ MT SENTIDO EM 'InMemoryDatabase',
+
+
+
+PQ 
+
+
+
+ESSA in memory DATABASE NÃO PRECISA _ SE 
+
+CONECTAR a lugar algum...
+
+
+
+
+
+
+
+
+
+
+
+
+-> QUER DIZER QUE 
+
+
+__ESTAMOS COM 1 INTERFACE ERRADA VINCULADA 
+
+
+
+
+NESSA CLASS..
+
+
+
+
+
+
+
+
+
+
+
+
+-> E É CLARO QUE ESSE PRINCIPLE TEM RELAÇAÕ COM O PRINCIPLE DE LISKOV (
+
+    que TRATAVA DE ERROS DE MODELAGEM,
+
+    EM QUE USÁVAMOS A 'WRONG BASE CLASS'..
+)
+
+
+
+
+
+
+
+
+
+
+
+-> MAS AQUI, CONTRARIAMENTE AO PRINCIPLE OF LISKOV,
+
+NÃO ESTAMOS USANDO 1 BASE-CLASS ERRADA EM 1 CLASS ESPECÍFICA (subclass),
+
+
+
+
+E SIM ESTAMOS USANDO __ UMA __ INTERFACE __ ERRADA...
+
+
+
+
+
+
+
+
+
+
+-> ESTAMOS COM 1 INTERFACE ERRADA,
+
+
+
+QUE _ eSTÁ SENDO USADA EM 1 CLASS 
+
+QUE NÃO VAI QUERER USAR ISSO..
+
+
+
+
+
+
+
+
+
+
+
+-> O PROBLEMA É QUE NOSSA INTERFACE 
+
+DE 
+
+'Database'
+
+
+É MT GENÉRICA,
+
+
+ELA 
+
+
+TENTA COBRIR
+ 
+
+
+
+ MTOS  USE-CASES DIFERENTES... (
+
+
+    ELA TENTA ABRANGIR 
+
+    OS 
+    CASES 
+
+
+DE 
+
+'STORE DATA'
+
+
+E 
+'CONNECT DATA'...
+ )
+
+
+
+
+
+
+
+
+
+
+
+ --> DEVEMOS EVITAR __ 'GENERAL PURPOSE INTERFACES',
+
+
+ QUANDO SEGUIMOS ESSE PRINCIPLE --> EM VEZ DISSO,
+
+
+ DEVEMOS 
+
+
+ TER VÁRIAS 
+
+
+ CLIENT-SPECIFIC INTERFACES, MENORES...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ok.. por exemplo, aqui podemos ter 
+
+
+ 1 interface 
+
+ de 'Database',
+
+
+
+
+sim,
+
+MAS PODEMOS TER OUTRA DATABASE TBM,
+
+
+
+
+DE NOME 
+
+
+'RemoteDatabase'...
+
+
+
+
+
+
+
+
+
+o method de 'connect()"
+
+FICARIA APENAS __ DENTRO DE 'RemoteDatabase',
+
+
+
+
+
+E NÃO EM 'DATABASE' GERAL.
+
+
+
+
+
+
+
+--> aí implementamos, lá nas classes,
+
+
+APENAS AS INTERFACES PERTINENTES (a 'InMemoryDatabase', por exemplo, não vai implementar 'RemoteDatabase')..
+
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+interface Database {
+  storeData(data: any);
+}
+
+interface RemoteDatabase {
+  connect(uri: string);
+}
+
+class SQLDatabase implements Database, RemoteDatabase {
+  connect(uri: string) {}
+
+  storeData(data: any) {}
+}
+
+class InMemoryDatabase implements Database {
+  //'Database' interface é muito grande... e não precisamos de todos os métodos... então, vamos criar uma interface mais específica... (pq o principle of 'interface segregation' é isso, é criar mais interfaces, mais específicas, do que ter apenas 1 GERAL, GENÉRICA)
+  //   connect(uri: string) {} /// method DESNECESSÁRIO NESSA CLASS... mas ainda está reforçado na interface/contrato -_> surge 1 problema...
+
+  storeData(data: any) {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+interface Database {
+  storeData(data: any);
+}
+
+interface RemoteDatabase { // interface mais específica (dividimos a 'interface genérica' em 1 interface base e outra mais específica)...
+  connect(uri: string);
+}
+
+class SQLDatabase implements Database, RemoteDatabase {
+  connect(uri: string) {}
+
+  storeData(data: any) {}
+}
+
+class InMemoryDatabase implements Database {
+  //'Database' interface é muito grande... e não precisamos de todos os métodos... então, vamos criar uma interface mais específica... (pq o principle of 'interface segregation' é isso, é criar mais interfaces, mais específicas, do que ter apenas 1 GERAL, GENÉRICA)
+  //   connect(uri: string) {} /// method DESNECESSÁRIO NESSA CLASS... mas ainda está reforçado na interface/contrato -_> surge 1 problema...
+
+  storeData(data: any) {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... COM ISSO, 
+
+
+
+NÃO PRECISAMOS MAIS USAR 'connect'
+
+
+
+DENTRO DA CLASS DE 'InMemoryDatabase'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É CLARO QUE ESSE PRINCIPLE É 
+IMPORTANTE 
+
+
+
+QUANDO 
+
+O ASSUNTO É O WRITE 
+
+DE 
+
+MAINTAINABLE E EXTENSIBLE CODE..
+
+
+
+
+
+
+
+
+
+
+
+-> MAS QUANDO O ASSUNTO É 'WRITE DE CLEAN CODE',
+
+
+essa regra não é tão importante...
