@@ -1,0 +1,938 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ALÉM DO 'SINGLE RESPONSIBILITY PRINCIPLE'
+
+
+E o 
+
+'
+OPEN-CLOSED PRINCIPLE',
+
+
+
+
+
+
+
+
+
+
+
+
+QUE SÃO REALMENTE OS 2 PRINCIPLES MAIS IMPORTANTES PARA NÓS,
+
+QUANDO O ASSUNTO É 'WRITE CLEAN CODE',
+
+
+
+
+
+
+
+
+
+NÓS TAMBÉM TEMOS 3 OUTROS PRINCIPLES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SOLID..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O L É O 'LISKOV SUBSTITUTION PRINCIPLE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PQ _ APESAR DE ESSES 3 ÚLTIMOS PRINCIPLES/LETRAS NÃO SEREM TÃO IMPORTANTES 
+QUANTO 
+
+O 
+
+'SINGLE RESPONSIBILITY PRINCIPLE'
+
+E 
+
+O 
+
+'OPEN-CLOSED PRINCIPLE',
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR AINDA QUER 
+
+
+NOS MOSTRÁ-LOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS O QUE É ESSE PRINCIPLE?
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ESSE PRINCIPLE DIZ QUE 
+
+
+
+
+
+
+
+
+
+
+'''''OBJECTS DEVEM SER _ SUBSTITUTÍVEIS 
+
+PELAS _ INSTANCES _ DAS SUAS SUBCLASSES ___ _ SEM 
+
+AFETAR__ O SEU BEHAVIOR'''....
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK....
+
+
+
+
+
+
+
+
+MAS ESSA É UMA FRASE MT ABSTRATA... O QUE SIGNIFICA ISSO?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> BEM, NOVAMENTE TEMOS 1 EXEMPLO:
+
+
+
+
+
+
+
+
+
+
+
+
+class Bird {
+  fly() {
+    console.log('Flying...');
+  }
+}
+
+class Eagle extends Bird {
+  fly() {
+    console.log('Diving...');
+  }
+}
+
+const bird = new Bird();
+bird.fly();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... temos 1 class de 'bird',
+
+QUE TEM ESSE METHOD DE 
+
+'fly'...
+
+
+
+
+
+
+
+--> JÁ A CLASS DE 'eagle'
+
+
+TEM 1 METHOD DE 'dive()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO PQ OS EAGLES PODEM DIVE, MAS NEM TODOS BIRDS PODEM DIVAR...
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK... ALI EMBAIXO,
+INSTANCIAMOS 
+
+
+O 
+
+
+BIRD,
+
+E AÍ CHAMAMOS 'FLY'...
+
+
+
+
+
+
+
+
+
+
+
+
+O PRINCIPLE 'LISKOV'
+
+
+NOS DIZ QUE __ PODEMOS __ 
+SUBSTITUIR 
+
+
+
+
+
+A INSTANCIAÇÃO DE 'bird',
+
+ali embaixo,
+
+POR 
+
+
+1 INSTANCIAÇÃO 
+
+
+DA SUBCLASS,
+de 'eagle'...
+
+
+
+
+
+
+
+
+
+
+-> OK...
+
+
+
+
+
+
+
+
+
+
+QEUR DIZER QUE PODERÍAMOS ESCREVER ASSIM:
+
+
+
+
+
+
+
+
+
+class Bird {
+  fly() {
+    console.log('Flying...');
+  }
+}
+
+class Eagle extends Bird {
+  fly() {
+    console.log('Diving...');
+  }
+}
+
+const eagle = new Eagle();
+eagle.fly();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E O PRINCIPLE NOS DIZ QUE 
+
+
+
+__ DEVERÍAMOS TER O MESMO BEHAVIOR DE ANTES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+É CLARO QUE EM 1 PROGRAMA DE VERDADE 
+
+A 
+
+CLASS 
+DE 
+
+'EAGLE'
+
+
+PODE 
+
+
+
+FAZER MAIS COISAS DO QUE 
+
+
+APENAS 'FLY'...
+
+
+
+
+
+
+
+
+
+
+
+A MORAL DESSE PRINCPLE É QUE 
+
+
+
+AMBOS OS BIRDS DEVERÃO SER CAPAZES DE 'fly'... -> FLY DEVE FAZER AS 
+
+
+2 MESMAS COISAS,
+
+EM AMBAS CLASSES (A BASE CLASS E A SUBCLASS)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EM 1 APP DE VERDADE,
+
+PODERÍAMOS TER 2 DATABASES...  
+
+
+
+
+E, NESSE APP,
+
+
+
+DEVEMOS TER 1 METHOD DE CONNECT,
+
+E ESSE 
+
+METHOD DE CONNECT DEVE 
+
+TER SEMPRE O MESMO 
+
+
+
+
+
+BEHAVIOR DE CONNECT A 1 DATABASE,
+
+
+
+
+n importa se for 1 database sql ou mongodb...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... MAS TUDO AQUI ESTÁ OK, NÃO?
+
+
+
+
+
+
+
+
+
+
+
+
+
+bem, mas e se 
+
+
+
+
+
+
+ADICIONAMOS 1 CLASS DE 'PENGUIN',
+
+QUE 
+TAMBÉM 
+
+EXTENDE 'Bird'?
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO PQ 
+
+PENGUINS AINDA SÃO BIRDS,
+
+
+
+
+MAS PENGUINS NÃO PODEM VOAR,
+
+POR ISSO NÃO TERÃO O METHOD DE 'fly()'...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+class Bird {
+  fly() {
+    console.log('Flying...');
+  }
+}
+
+class Eagle extends Bird {
+  dive() {
+    console.log('Diving...');
+  }
+}
+
+class Penguin extends Bird {
+  //Problem: Penguins can't fly -- liskov principle doesnt work
+}
+
+const eagle = new Eagle();
+eagle.fly();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> isso quer dizer que os PENGUIN ESTÃO FAZENDO 
+extend 
+
+
+da CLASS ERRADA (bird)... isso pq eles naõ podem voar...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK.. ISSO TAMBÉM PODE ACONTECER 
+
+
+
+
+NO EXEMPLO DAS DATABASES,
+
+
+
+
+ISSO PQ PODEMOS TENTAR NOS CONECTARMOS A 1 DATABASE 
+
+QUE NÃO PRECISA FAZER CONNECT (como uma in-memory database) --> COM ISSO, PODEMOS 
+
+TER O PROBLEMA DE 
+
+ACABAR MODELANDO NOSSA DATA E ENTITIES DE MANEIRA ERRADA..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E É ISSO QUE O PRINCIPLE LISKOV QUER:
+
+
+
+ELE QUER QUE VC NÃO ACABE MODELANDO SUA DATA 
+
+DE MANEIRA ERRADA...
+
+
+
+
+
+
+
+
+
+
+EX: AQUI PEGAMOS 'Bird'
+COMO 1 BASE CLASS PARA TODOS NOSSO SPECIALIZED BIRDS... MAS, PARA O PENGUIN,
+
+ESSA FOI A ESCOLHA ERRADA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... MAS COMO PODERÍAMOS ESCREVER PROPER CODE,
+
+AQUI?
+
+
+
+
+
+
+
+
+
+
+
+bem, poderíamos adicionar 1 outra class,
+
+
+'FlyingBird',
+
+
+
+
+
+
+e outra 'Bird'...
+
+
+
+
+
+
+
+
+
+
+--> apenas 
+
+a 'FlyingBird'
+
+
+TERÁ 
+
+
+'fly()'
+
+como base method...
+
+
+
+
+
+
+
+--> a outra não terá nada...
+
+
+
+
+
+
+
+
+
+
+
+
+--> com isso,
+
+
+
+VAMOS CONSEGUIR DIFERENCIAR AS 2 COISAS,
+
+E NÃO EXISTIRÁ PROBLEMA...
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+class Bird {
+  //does nothing
+}
+
+class FlyingBird {
+  fly() {}
+}
+
+class Eagle extends FlyingBird {
+  dive() {
+    console.log('Diving...');
+  }
+}
+
+class Penguin extends Bird {
+  //Problem: Penguins can't fly -- liskov principle doesnt work
+}
+
+const eagle = new Eagle(); // isso está certo.... e não  temos pq substituir 'eagle' por 'penguin', pq são coisas diferentes... penguins não voam, e eagles voam...
+eagle.fly();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... É ISSO QUE O LISKOV 
+
+SUBS PRINCIPLE QUER:
+
+
+
+
+
+
+
+
+ELE QUER 
+
+
+QUE 
+
+SEJA 
+
+POSSÍVEL 
+
+SUBSTITUIR 
+
+
+
+
+AS CLASSES BASE PELAS SUB-CLASSES DESSA CLASS,
+
+
+TUDO 
+
+SEM 
+
+
+ALTERAR O BEHAVIOR NO LUGAR EM QUE 
+
+
+
+É USADO ESSE OBJECT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, ESSE PRINCIPLE É 
+
+ÚTIL QUANDO 
+
+QUEREMOS MODELAR NOSSAS DATA ENTITIES CORRETAMENTE..
+
+
+
+
+
+
+-> MAS A READABILITY NÃO MUDA... NOSSO CÓDIGO CONTINUA READABLE E UNDERSTANDABLE..
+
+
+
+
+
