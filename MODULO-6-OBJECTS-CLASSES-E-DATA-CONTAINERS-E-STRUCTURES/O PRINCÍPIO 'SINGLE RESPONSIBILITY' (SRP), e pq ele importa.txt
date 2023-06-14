@@ -1,0 +1,778 @@
+
+
+
+
+
+
+
+O PRINCÍPÍO 
+
+
+'SINGLE-RESPONSIBILITY'
+
+
+QUER DIZER QUE 
+
+CLASSES 
+
+
+
+
+DEVEM TER APENAS 1 ÚNICA RESPONSIBILITY...
+
+
+
+
+
+
+
+
+
+
+
+E ISSO É ALGO QUE JÁ OUVIMOS..
+
+
+
+
+
+
+
+
+E 1 CLASS NÃO DEVE MUDAR __ POR MAIS DE 1 RAZÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> O PROFESSOR JÁ FALOU QUE 'CLASSES DEVEM SER PEQUENAS',
+
+E QUE 
+
+DEVEM TER APENAS 1 RESPONSABILIDADE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ENTRETANTO, AQUI O PROFESSOR DESTACA QUE 
+
+
+
+
+
+ESSE PRINCÍPIO DA RESPONSABILIDADE ÚNICA 
+
+
+ESTÁ 
+
+RELACIONADO 
+
+
+
+
+
+
+
+
+COM O FATO DE QUE, NO FINAL,
+
+
+
+
+ESSE PRINCÍPIO FOCA 
+
+
+NAS 'CHANGES FEITAS EM 1 CLASS'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO, ESSENCIALMENTE, QUER DIZER QUE 
+
+
+
+__ SE 1 CLASS TIVER MÚLTIPLAS RESPONSIBILITIES,
+
+
+
+EXISTIRIAM 
+
+
+MÚLTIPLAS RAZÕES 
+
+PARA 'CODE EDITS'
+
+
+
+SEREM FEITAS NESSA CLASS ---------> ISSO JUSTAMENTE PQ 
+
+
+
+ELA 
+
+ESTARÁ COM MTAS RESPONSIBILITIES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1 ÚNICA RESPONSIBILITY EM 1 CLASS -------> ISSO QUER DIZER QUE 
+
+
+
+__ CODE CHANGES __ TERÃO MENOS EFEITOS SOBRE A CLASS.... -> ISSO 
+
+
+TAMBÉM IMPLICARÁ 
+
+QUE 
+
+A 
+CLASS 
+
+ESTARÁ 'FOCUSED' E 'SMALL' (
+    pq nem todas as partes de seu código 
+    dependerão/influirão nessa class...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAIS CEDO NO CURSO,
+
+O PROFESSOR 
+
+MOSTROU 
+
+
+
+1 CLASS GIGANTE,
+
+COM 
+
+1 MONTE DE METHODS 
+
+
+E MTAS RESPONSIBILITES:
+
+
+
+
+
+class OnlineShop {
+  private orders: any;
+  private offeredProducts: any;
+  private customers: any;
+
+  public addProduct(title: string, price: number) {} //offeredProducts (property afetada)
+
+  public updateProduct(productId: string, title: string, price: number) {} //offeredProducts (property afetada)
+
+  public removeProduct(productId: string) {} //offeredProducts (property afetada)
+
+  public getAvailableProducts() {} //offeredProducts (property afetada)
+
+  public restockProduct(productId: string, quantity: number) {} //offeredProducts (property afetada)
+
+  public createCustomer(email: string, password: string) {} //customers (property afetada)
+
+  public loginCustomer(email: string, password: string) {} //customers (property afetada)
+
+  public makePurchase(customerId: string, prodcutId: string) {} //customers (property afetada), orders, offeredProducts
+
+  public addOrder(customerId: string, prodcutId: string) {} //customers 
+
+  public refund(orderId) {} //customers, orders
+
+  public updateCustomerProfile(customerId: string, name: string) {} // customers
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESSA CLASS ESTÁ COM MTAS RESPONSIBILITIES,
+
+E FAZ MTAS COISAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK.. MAS O 'SINGLE RESPONSIBILITY PRINCIPLE'
+
+
+
+NÃO 
+
+
+
+
+FALA 
+
+SOBRE 
+
+
+'''AH, A CLASS ESTÁ FAZENDO TRABALHO TANTO 
+
+EM 1 PRODUCT COMO EM 1 CUSTOMER''' --> em vez disso,
+
+
+
+
+
+'single responsibility',
+
+no contexto
+
+
+desse 
+
+principle,
+
+
+
+DIZ __ RESPEITO __ 
+
+
+
+
+ACTUALLY ___ 
+
+
+
+
+A 'DIFERENTES BUSINESS AREAS'
+
+
+
+A QUE 
+ESSE CÓDIGO 
+
+
+PODE ESTAR RELACIONADO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> 1 EXEMPLO MELHOR É ISTO:
+
+
+
+
+
+
+
+class ReportDocument { //esta class é super pequena, mas viola o 'SINGLE RESPONSIBILITY PRINCIPLE'...
+  generateReport(data: any) {}
+
+  createPdf(report: any) {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> ESSA CLASS É SUPER PEQUENA,
+
+
+
+MAS AINDA VIOLA ESSE PRINCIPLE....
+
+
+
+
+
+
+
+
+
+
+
+
+ELA VIOLA ESSE PRINCIPLE JUSTAMENTE PQ 
+
+
+
+O 
+
+'GENERATE DE 1 REPORT',
+
+
+
+QUE 
+
+GERA A DATA 
+
+QUE SERÁ INSERIDA NO REPORT,
+
+
+
+
+
+
+ESSA TASK _ É UMA FEATURE TOTALMENTE DIFERENTE, 
+
+NA NOSSA 
+
+BUSINESS ORGANIZATION,
+
+
+
+
+DO QUE O _ CREATE DE 1 PDF...
+
+
+
+
+
+
+
+
+
+
+
+
+-> PQ O CREATE DE 1 PDF ENVOLVE COISAS COMO:
+
+
+
+1) LAYOUT 
+
+
+
+2) HOW MANY PAGES 
+
+
+
+
+3) PRESENTATIONAL LOGIC....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> JÁ O 'generateReport' É BEM MAIS TÉCNICO,
+
+
+
+É __ SOBRE __ O PULL DE DATA __ 
+
+
+E 
+
+
+O CONNECT DA DATA CORRETA..
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... FICA BEM CLARO QUE ESSAS SÃO 2 RESPONSIBILITES BEM DIFERENTES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO PQ O GENERATE, CONNECT  E ANALYZE DE DATA É 1 
+
+
+
+RESPONSIBILITY 
+
+BEM DIFERENTE 
+
+DE 
+
+
+'PRESENT DATA'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMO EXEMPLO DISSO,
+
+ESTÁ CLASS DE USER NÃO VIOLARIA ESSE PRINCIPLE:
+
+
+
+
+
+
+
+
+
+class User {
+    login(email: string, password: string) {}
+
+        signup(email: string, password: string) {}
+
+            assignRole(role: any) {}
+}
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+class User { //? esta class NÃO VIOLA O 'SINGLE RESPONSIBILITY PRINCIPLE'... (tudo está relacionado com o status de auth do user)...
+  login(email: string, password: string) {}
+
+  signup(email: string, password: string) {}
+
+  assignRole(role: any) {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TUDO ISSO ESTÁ RELACIONADO COM USER AUTHENTICATION,
+
+
+E TUDO ISSO TEM RELAÇAÕ COM 
+
+
+
+
+1 ÚNICA RESPONSIBILITY...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> VC TVZ NEM SEMPRE SERÁ CAPAZ 
+
+
+
+_ DE DESENHAR UMA 'CLEAR BORDER'
+
+ENTRE RESPONSIBILITIES...
+
+
+
+
+
+
+
+
+
+
+
+-> MAS VC DEVE GERALMENTE ESTAR AWARE 
+
+DA IDEIA DE TER APENAS 1 'CORE RESPONSIBILITY PER CLASS'...
+
+
+
+
+
+
+
+
+
+
+
+e 1 responsibility não quer dizer 'apenas 1 method',
+
+conforme o professor nos explicou antes...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR QUER CLARIFICAR QUE 
+
+
+__ NÃO PRECISAMOS DIVIDIR 1 USER ENTRE CLASSES 
+
+DE 
+
+'authUser' 
+
+e 
+
+
+outra 'unAuthUser'...
+
+
+
+
+
+
+
+
+
+
+
+
+-> VC DEFINITIVAMENTE DEVE DEIXAR SUAS CLASSES SHORT E FOCUSED,
+
+
+
+MAS 
+
+VC 
+
+N DEVE FICAR COM CLASSES SUPER SMALL....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O SRP, COMO MENCIONADO,
+
+DEIXA AS CLASSES SMALL.. --> RESTRINGIR AS CLASSES A APENAS 
+1 
+CORE RESPONSIBILITY AUTOMATICAMENTE LEVA A CLASSES MENORES..
+
+
+
+
+
+
+
+-> E CADA CLASS É 
+
+
+1 'GROUP DE TASKS',
+
+RELACIONADO A 1 'BUSINESS AREA'...
+
+
+
+
+
+
+
+
+-> SMALLER CLASSES TENDEM A SER MAIS FÁCEIS DE LER...
+
+
+
+--> PQ NÃO TEMOS LONGAS CLASSES,
+
+
+em que temos que scrollar 1 monte...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> AGORA TEMOS O 'OPEN-CLOSED PRINCIPLE'...
+
+
+
+
+
