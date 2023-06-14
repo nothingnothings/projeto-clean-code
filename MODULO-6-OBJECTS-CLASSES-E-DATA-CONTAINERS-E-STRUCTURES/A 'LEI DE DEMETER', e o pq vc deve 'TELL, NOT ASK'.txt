@@ -1,0 +1,2096 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> certo... mas quando trabalhamos com CLASSES E OBJECTS,
+
+HÁ 1 PUNHADO DE 
+
+
+
+
+REGRAS E PRINCIPLES IMPORTANTES...
+
+
+
+
+
+
+
+
+
+
+
+
+E TODOS ESSES PRINCIPLES E LAWS EXISTEM 
+
+
+
+PARA __ TE AJUDAR __a ESCREVER CÓDIGO MAIS 
+
+
+
+MAINTAINABLE ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESSA É A CORE IDEA...
+
+
+
+
+
+
+
+
+--> MAS, CONFORME O PROFESSOR JÁ MENCIONOU, EXISTE 1 
+
+
+RELAÇÃO ENTRE 
+
+
+
+
+
+''''MAINTAINABLE AND EXTENSIBLE CODE''' e 'CLEAN CODE' ( código que foca em legibilidade)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+HÁ 
+
+UMA RELAÇÃO, SIM,
+
+
+
+
+MAS HÁ __ CERTOS _PATTERNS  E PRINCIPLES QUE 
+
+SÃO MAIS IMPORTANTES 
+
+PARA 
+
+O CLEAN CODE,
+
+
+E QUE 
+
+POSSUEM MAIS IMPACTO 
+
+SOBRE 
+
+
+A 
+
+LEGIBILIDADE DO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> E HÁ OUTROS PRINCIPLES 
+QUE VÃO NO SENTIDO CONTRÁRIO,
+
+
+TRAZEM MENOS IMPACTO NA LEGIBILIDADE,
+
+MAS 
+
+
+TE AJUDAM __ COM O BUILD DE APPS LARGA-ESCALA,
+
+MAINTAINABLE,
+
+EM QUE 
+
+
+1 
+
+MONTE DE DEVELOPERS CONSEGUEM
+
+
+MANTER 1
+ 
+
+ PROJETO 
+
+
+
+RODANDO POR 1 LONGO TEMPO,
+
+E EM QUE 
+
+É 
+FÁCIL 
+
+
+ADICIONAR NOVAS FUNCIONALIDADES E TALS (
+    loosely related to clean code..
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> CERTO... MAS AQUI O PROFESSOR VAI FOCAR 
+
+NOS PRINCIPLES 
+
+E LAWS QUE 
+
+VÃO 
+
+TER 
+
+EFEITO 
+
+
+
+
+NA LIMPEZA DO SEU CÓDIGO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMEÇAMOS COM A 'LEI DE DEMETER'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A LEI DE DEMETER TEM A VEZ COM CÓDIGOS COMO ESTE:
+
+
+
+
+
+
+
+
+
+
+this.customer.lastPurchase.date;
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO...
+
+
+
+
+
+
+AQUI, NESSE CÓDIGO,
+
+QUE PODERIA 
+
+ESTAR NO METHOD DE ALGUMA CLASS,
+
+
+
+_ESTAMOS:
+
+
+
+
+
+
+
+1) acessando a propriedade 'CUSTOMER' de 1 class...
+
+
+
+
+
+
+
+
+2) nessa propriedade,
+
+estamos acesando a propriedade 'lastPurchase'...
+
+
+
+
+
+
+3) E, NESSA PROPRIEDADE DE 'lastPurchase',
+
+
+
+que parece ser outro object,
+
+
+
+
+ESTAMOS ACESSANDO A PROPRIEDADE 
+
+
+DE 
+
+'date'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> certo... e devemos ___ eVITAR__ CÓDIGO ASSIM... (???? putz)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CÓDIGO ASSIM DEVE SER EVITADO...
+
+
+
+
+
+
+
+
+FAZER 'DRILL __ SUPER PROFUNDAMENTE EM OUTROS OBJECTS'
+
+
+
+
+é algo 
+
+
+
+que é 
+
+DESENCORAJADO 
+
+
+
+PELA LEI DE DEMETER...
+
+
+
+
+
+
+(
+
+    A ÚNICA EXCEÇÃO É 
+
+
+
+    '''''SE NÓS ESTAMOS LIDANDO COM DATA CONTAINERS/STRUCTURES'''...
+)
+
+
+
+
+
+
+
+
+
+
+
+MAS PQ ISSO É DESENCORAJADO?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> A LEI DE DEMETER É ALL ABOUT 
+
+
+
+
+
+
+
+''''O PRINCÍPIO DO MENOR CONHECIMENTO'''...
+
+
+
+
+
+
+
+
+SIGNIFICA QUE 
+
+
+
+
+'''''SUA CLASS NÃO DEVE 
+
+CONFIAR/DEPENDER 
+
+
+TANTO ASSIM DE _ INTERNALS __ DE 'STRANGERS''' ,
+
+
+
+DE __ OUTROS OBJECTS COM OS QUAIS VC ESTÁ INTERAGINDO NO SEU CÓDIGO''''...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ou seja, 'confie apenas em seus amigos/conhecidos'...
+
+
+
+
+
+
+----> nesse exemplo,
+
+
+
+'CUSTOMER' SERIA 1 CLASS PROPERTY... E O INTERACT COM ELA É FINE....
+
+
+
+
+
+'lastPurchase' -> O ACCESS NELA É FINE...
+
+
+
+
+
+
+
+
+
+'lastPurchase' -> MAS AS PROPRIEDADES DE 'lastPurchase'
+
+
+SÃO 
+
++ OU - 'STRANGERS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO PQ 
+
+
+
+'lastPurchase'
+
+
+É ACESSADA INDIRETAMENTE 
+
+
+
+POR MEIO DE 'customer',
+
+
+
+
+E,
+ 
+ POR ISSO,
+
+
+
+ NÃO DEVEMOS 
+
+
+ 'DRILL' 
+
+ MT DENTRO DELA..
+
+
+
+
+
+
+
+
+
+
+
+PQ NÃO DEVEMOS 'DRILL' DENTRO DELA?
+
+
+
+
+
+
+
+
+
+
+
+-> É PQ SEMPRE QUE 
+
+A ESTRUTURA INTERNA 
+
+DE 
+
+'lastPurchase'
+
+
+FOR ALTERADA,
+
+
+
+
+
+__ TODO O CÓDIGO EM QUE 
+
+TÍNHAMOS 
+
+
+
+
+
+
+
+ESTA LINHA DE CÓDIGO:
+
+
+
+this.customer.lastPurchase.date;
+
+
+
+
+
+
+
+
+
+TERÁ DE MUDAR TAMBÉM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> FICAMOS COM 1 'EFEITO EM CASCATA'
+
+
+resultante da mudança 
+
+
+
+do object que continha essa property, no caso..
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, NOSSO CÓDIGO FICA __ MAIS DIFÍCIL DE 
+
+
+EXTEND E MAINTAIN...
+
+
+
+
+
+
+
+
+
+
+
+
+--> FICA MAIS DIFÍCIL DE EXTEND E MAINTAIN 
+
+
+PQ __ SINGLE  _ _CHANGES (em objects, por exemplo...
+ object passa de 'object' para undefined... todas as
+  partes que dependiam desse object, com 'object.property', vão QUEBRAR)
+
+
+
+
+PODERÃO RESULTAR EM __ MUITAS CHANGES,
+
+EM VÁRIOS LUGARES DE SEU APP...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E ESSA LAW ESTÁ ESTRITAMENTE 
+
+
+RELACIONADA COM 
+
+A IDEIA DE CLEAN CODE...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ UMA DAS IDEIAS CENTRAIS DO CLEAN CODE É 
+
+
+''DO NOT REPEAT YOURSELF'' (dry, stay dry)...
+
+
+
+
+
+
+
+
+
+--> E, SE TIVERMOS STATEMENTS COMO 'this.customer.lastPurchase.date;',
+
+
+FICA MAIS FÁCIL DE NOS REPETIRMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E STATEMENTS COMO ESSES, ALÉM DISSO,
+
+
+SÃO 
+
+MAIS DIFÍCEIS DE LER....
+
+
+
+
+
+
+
+--> SHORT, SIMPLE STATMENETS -> SÃO MAIS FÁCEIS DE COMPREENDER 
+
+DO QUE 
+
+STATEMENTS LONGOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> OK... A LAW OF DEMETER DECLARA:
+
+
+
+
+
+
+
+'''''''''''''''
+
+
+CODE IN A METHOD MAY ONLY ACCESS DIRECT INTERNALS (propriedades e methods) OF:
+
+
+* THE OBJECT IT BELONGS TO 
+
+* OBJECTS THAT ARE STORED IN PROPERTIES OF THAT OBJECT 
+
+* OBJECTS WHICH ARE ____rECEIVED AS METHOD PARAMETERS 
+
+* OBJECTS WHICH ARE CREATED IN THE METHOD...
+
+
+
+''''''''''''''''
+
+
+
+
+
+
+ OBJECTS THAT ARE STORED IN PROPERTIES OF THAT OBJECT  --> ISSO QUER DIZER QUE 
+
+ ACESSAR 
+
+ 'CUSTOMER'
+
+
+ é fine,
+
+
+ PQ 
+
+
+ CUSTOMER 
+
+ AINDA É 
+
+ UMA 
+
+
+PROPERTY 
+
+
+
+DA CLASS A QUE NOSSO METHOD PERTENCE.... (como percebemos pela 'this' keyword)...
+
+
+
+
+
+
+
+
+
+
+-->  OBJECTS WHICH ARE ____rECEIVED AS METHOD PARAMETERS (se isso é recebido como parameter)..
+
+
+
+
+
+
+
+
+
+
+-> POR FIM,
+
+
+
+SOMOS CAPAZES DE INTERAGIR COM OBJECTS CRIADOS DENTRO DO METHOD:
+
+
+OBJECTS WHICH ARE CREATED IN THE METHOD...
+
+
+
+
+
+(
+    OU SEJA,
+
+
+    SE INSTANCIÁSSEMOS 1 OBJECT A PARTIR DE 1 API,
+
+    SERÍAMOS CAPAZES DE INTERAGIR COM ESSE OBJECT,
+    
+
+    DENTRO DE NOSSO METHOD...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK.. ESSA É A IDEIA POR TRÁS DA LEI DE DEMETER...
+
+
+
+
+
+
+
+
+-->  OK... AGORA VEREMOS A LEI DE DEMETER,
+
+
+EM 
+
+1 EXEMPLO DE VERDADE, 1 CLASS:
+
+
+
+
+
+
+
+
+
+
+
+
+class DeliveryJob {
+  customer: any;
+  warehouse: any;
+
+  constructor(customer, warehouse) {
+    this.customer = customer;
+    this.warehouse = warehouse;
+  }
+
+  deliverLastPurchase() {
+    const date = this.customer.lastPurchase.date;
+    this.warehouse.deliverPurchasesByDate(this.customer, date);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+certo... 
+
+
+
+
+
+
+
+
+
+COM ISSO,
+
+O PROFESSOR ESTÁ 
+
+ACESSANDO
+
+
+
+
+
+
+
+A PROPRIEDADE 
+
+
+'date' em 'lastPurchase'' em 'customer' (que é 1 propriedade de nossa class)..
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class DeliveryJob {
+  customer: any;
+  warehouse: any;
+
+  constructor(customer, warehouse) {
+    this.customer = customer;
+    this.warehouse = warehouse;
+  }
+
+  deliverLastPurchase() {
+    // BAD: violates the Law of Demeter ('.date' is a property of the lastPurchase object) --> NÓS PODEMOS ACESSAR APENAS O OBJECT DEFINIDO COMO PROPRIEDADE, NA NOSSA CLASS, DIRETAMENTE (não podemos acessar a propriedade DENTRO DO OBJECT, DENTRO DO OBJECT... e sim apenas a 'PROPRIEDADE DENTRO DO OBJECT'...)
+    // ''this.customer.lastPurchase' seria fine, mas 'this.customer.lastPurchase.date' não é
+    const date = this.customer.lastPurchase.date;
+    this.warehouse.deliverPurchasesByDate(this.customer, date);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ 'date'
+
+NÃO É 
+
+DIRETAMENTE 
+
+
+PARTE 
+
+DE 'customer',
+
+
+E SIM 
+
+
+
+
+É __ PARTE __dE OUTRA DATA QUE FAZ PARTE DESSA PROPRIEDADE (a propriedade 'lastPurchase')..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> EM OUTRAS PALAVRAS,
+
+FICARÍAMOS _ COM ACESSO INDIRETO 
+
+A 
+
+ESSA PROPRIEDADE, ALGO QUE NÃO É PERMITIDO PELA LEI DE DEMETER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM... NESSE EXEMPLO, ESTAMOS USANDO ESSA DATA/property
+
+
+para chamar o method de 'this.warehouse.deliverLastPurchasesByDate'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS COMO PODERÍAMOS RESOLVER ESSE PROBLEMA,
+
+
+FAZER 
+
+
+ESSA CLASS FICAR DE ACORDO COM A LEI DE DEMETER?
+
+
+
+
+
+
+
+
+
+
+1 MANEIRA SIMPLES SERIA _ REMOVER O NESTING DE 'date'
+
+dentro 
+
+de 
+
+'lastPurchase'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU, COMO O PROFESSOR NOS MOSTRA,
+
+
+
+
+
+
+pegar a date por meio 
+
+
+
+de 
+
+
+1 method como 
+
+
+'this.customer.getLastPurchaseDate();'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E PODEMOS USAR ESSE METHOD DE 
+
+
+OUTRO 
+
+OBJECT,
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class DeliveryJob {
+  customer: any;
+  warehouse: any;
+
+  constructor(customer, warehouse) {
+    this.customer = customer;
+    this.warehouse = warehouse;
+  }
+
+  deliverLastPurchase() {
+    const date = this.customer.getLastPurchaseDate();
+    this.warehouse.deliverPurchasesByDate(this.customer, date);
+  }
+}
+
+class Customer {
+  lastPurchase: any;
+
+  getLastPurchaseDate() {
+    return this.lastPurchase.date;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> com isso,
+
+
+VAMOS USAR ESSE METHOD, QUE FOI DEFINIDO NO OBJECT DE 'customer' (que é 
+
+passado, como parameter, a essa class de 'DeliveryJob'...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... ISSO SERIA OK,
+
+
+PQ  O 
+
+
+'getLastPurchaseDate()'
+
+
+VAI _ RETORNAR O 'lastPurchase',
+
+
+
+QUE É 
+
+
+
+1 DIRECT PROPERTY 
+
+
+
+DA CLASS/OBJECT 
+
+DE 
+
+'cUSTOMER',
+
+
+
+
+e aí 
+
+poderíamos 
+acessar o value de 'date'
+
+dentro 
+
+de 
+
+
+'lastPurchase',
+
+sem nenhum problema...
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO...
+
+
+
+
+
+
+
+
+MAS ISSO _ NÃO É UMA BOA SOLUÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+NÃO É UMA BOA SOLUÇÃO... -> PQ NÓS BASICAMENTE 
+
+
+'FORÇAMOS NOSSO CÓDIGO'
+
+A 
+SEGUIR A LEI DE DEMETER,
+
+
+
+
+MAS __ AINDA __ FICAMOS 
+
+
+
+
+COM 1 CÓDIGO MEIO SUJO...
+
+
+
+
+
+
+
+
+
+É MAIS FÁCIL DE LER, SIM,
+
+
+
+
+
+
+pq temos 1 instruction mais clear,
+
+
+
+
+
+
+MAS BASICAMENTE 'OUTSOURCEAMOS' O PROBLEMA 
+
+
+
+
+
+
+AO 'CUSTOMER' ... -> e embora 
+
+NÃO VIOLEMOS 
+
+DIRETAMENTE 
+A 
+
+LEI 
+
+
+DE 
+
+DEMETER,
+
+
+
+
+
+
+
+FICARÍAMOS RAPIDAMENTE 
+
+
+
+COM _ 1 MONTE DE HELPER GET METHODS,
+
+como 'getLastPurchaseDate',
+
+
+
+TUDO PARA 
+
+APENAS 
+
+SEGUIR TEORICAMENTE 
+
+
+A LEI DE DEMETER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A MELHOR SOLUÇÃO PARA ESSE PROBLEMA,
+
+
+A SOLUÇÃO QUE VAI REALMENTE DEIXAR SEU CÓDIGO CLEAN,
+
+
+
+É A 
+
+IDEIA DE 
+
+
+'''TELL, DONT ASK!'''
+
+
+
+
+
+
+
+
+
+
+-> NÃO 'ASK' POR INFORMATION,
+
+
+
+
+NÃO ASK PARA USAR A INFO.... __ E SIM __  
+
+
+SIMPLESMENTE 
+
+'''TELL'''
+
+ÀS OUTRAS CLASSES O QUE ELAS DEVEM FAZER,
+
+
+
+SE ISSO FOR POSSÍVEL...
+
+
+
+
+
+
+
+
+
+
+
+por exemplo, aqui,
+
+
+
+
+
+NESTE CÓDIGO:
+
+
+
+
+
+
+class DeliveryJob {
+  customer: any;
+  warehouse: any;
+
+  constructor(customer, warehouse) {
+    this.customer = customer;
+    this.warehouse = warehouse;
+  }
+
+  deliverLastPurchase() {
+    const date = this.customer.getLastPurchaseDate(); // OK: we are accessing a property of the customer object, but not a property of a property of the customer object
+    this.warehouse.deliverPurchasesByDate(this.customer, date);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+EM VEZ DE 
+
+
+
+
+PEGAR AQUELA 'date'
+
+
+
+COM A AJUDA 
+
+DE 
+
+
+'getLastPurchaseDate' (esse helper method)
+
+
+
+
+PARA 
+
+SÓ ENTÃO 
+
+
+PODER FORWARDAR ESSA INFO A 
+
+
+'deliverPurchasesByDate',
+
+
+
+
+
+
+
+
+
+
+A _ SOLUÇÃO MELHOR SERIA 
+
+
+
+
+TRABALHAR COM A 'warehouse' PROPERTY, DIRETAMENTE,
+
+
+
+
+EM VEZ 
+
+DA CLASS DE 'customer'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> por exemplo, poderíamos chamar 1 method de 
+
+
+
+
+'this.warehouse.deliverPurchase()',
+
+
+
+EM VEZ DE 
+
+
+
+'this.warehouse.deliverPurchasesByDate(this.customer, date);'
+
+
+
+
+
+
+
+
+
+
+
+--------> CERTO... AÍ, DENTRO DE 
+
+
+
+'this.warehouse.deliverPurchase',
+
+
+
+simplesmente 
+
+
+
+PASSAMOS 
+
+
+
+A PROPERTY DE 
+
+
+'this.customer.lastPurchase',
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+class DeliveryJob {
+  customer: any;
+  warehouse: any;
+
+  constructor(customer, warehouse) {
+    this.customer = customer;
+    this.warehouse = warehouse;
+  }
+
+  deliverLastPurchase() {
+    this.warehouse.deliverPurchase(this.customer.lastPurchase);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+COM ISSO,
+
+
+
+FAZEMOS COM QUE 
+
+
+SEJA 
+TRABALHO DO METHOD DE 'deliverLastPurchase',
+
+lá em 
+
+WAREHOUSE,
+
+
+EXTRAIR O VALUE 
+
+de 'date'
+
+
+DENTRO 
+
+DESSE 'lastPurchase' property/object, armazenado 
+
+
+
+dentro 
+
+
+do 
+
+object 
+
+
+de 'customer',
+
+que temos 
+
+
+dentro desse 'DeliveryJob'...
+
+
+
+
+
+
+
+
+
+
+
+ok... o 'deliverPurchase'
+
+
+
+RECEBE 
+
+
+
+1 OBJECT,
+
+
+
+COM QUE PODEMOS DEAL DA MANEIRA QUE QUISERMOS.... ->  
+
+
+
+
+
+
+PQ 
+
+'PODEMOS DEALAR COM 
+
+OBJECTS E A DATA CONTIDA NELES',
+
+
+
+
+
+SE OS OBJECTS FOREM _ _RECEBIDOS 
+
+COMO 
+
+
+
+__ PARAMETERS (
+
+    * OBJECTS WHICH ARE ____rECEIVED AS METHOD PARAMETERS 
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ISSO É PRECISAMENTE O QUE QUEREMOS FAZER...
+
+
+
+
+
+
+
+
+
+
+QUEREMOS 'TELL'
+
+O QUE NOSSO CÓDIGO DEVE FAZER,
+
+E NÃO 'ASK'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ 
+
+'this.warehouse.deliverPurchase(this.customer.lastPurchase)'
+
+
+
+É CERTAMENTE CLEAN CODE...
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÓS NÃO VAMOS PERGUNTAR 'PQ PRECISAMOS DAQUELA DATE',
+
+
+
+
+
+
+
+
+__ VAMOS SIMPLESMENTE 
+
+
+DIZER/ORDENAR AO 
+
+'deliverPurchase'
+
+
+
+
+O OBJECT QUE ELE DEVE PEGAR E MANIPULAR...
+
+
+
+
+
+
+
+
+
+OK... ESSA É A LEI DE DEMETER,
+
+
+
+
+E É ASSIM QUE DEVEMOS A SEGUIR...
+
+
+
+
+
+
+
+
+
+
+E É POR ISSO QUE ELA IMPORTA,
+
+QUANDO O ASSUNTO É O WRITE DE CLEAN CODE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMO SIDENOTE,
+
+
+
+
+
+
+
+A RAZÕA DO PROFESSOR TER INCLUÍDO
+ 
+
+
+A LEI DE DEMETER 
+
+
+
+NO CURSO 
+
+É 
+
+
+QUE 
+
+
+
+__ ELA __ 
+
+
+PODE SER APLICADA 
+
+
+TAMBÉM 
+
+
+
+EM FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VC NÃO PODE APLICAR A LAW OF DEMETER 
+
+
+
+CONCRETAMENTE COM FUNCTIONS,
+
+
+MAS PODE APLICAR SUA LÓGICA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+SE VC ESCREVE CÓDIGO 
+
+
+
+DE MODO 
+
+'FUNCTIONAL PROGRAMMING' -> VC AINDA VAI QUERER ASSEGURAR QUE 
+
+DENTRO 
+DE SUAS 
+FUNCTIONS 
+
+VC 
+
+NÃO DRILLE 
+
+TANTO 
+
+
+
+DENTRO _ EM 'RECEIVED DATA',
+
+
+
+A NÃO SER QUE 
+
+ESSA DATA 
+
+
+SEJA 
+
+1 
+
+'DATA-CONTAINER ONLY'...
+
+
+
+
+
+
+
+---> E, COM FUNCTIONS, VC TAMBÉM 
+
+
+
+
+VAI QUERER FAZER MAIS 'TELL'
+
+
+EM VEZ DE 'ASK'...
+
+
+
+
+
+
+
+
+
+
+
+--> VC SEMPRE DEVE SER PERGUNTAR SE 
+
+
+''GETTING DATA __ TO DO SOMETHING WITH IT IN THE NEXT STEP''
+
+
+É __ A MELHOR COISA POSSÍVEL, NO MOMENTO.... -> OU SE, EM VEZ DISSO,
+
+
+VC 
+DEVE 
+
+
+
+'TELL' 
+
+À 
+
+OUTRA PARTE DE SEU CÓDIGO O QUE DEVE SER FEITO, AGORA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... ISSO É ALGO QUE VC SEMPRE DEVE CONSIDERAR... PQ 
+
+'TELLING' EM VEZ DE 'ASKING'
+É 
+
+MT MAIS FÁCIL DE ENTENDER, E AUTOMATICAMENTE 
+
+LEVA A CÓDIGO MENOR E MAIS SIMPLES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... ENTÃO A LAW OF DEMETER É SUPER IMPORTANTE,
+
+ESPECIALMENTE SE TRABALHAMOS COM CLASSES E OBJECTS...
