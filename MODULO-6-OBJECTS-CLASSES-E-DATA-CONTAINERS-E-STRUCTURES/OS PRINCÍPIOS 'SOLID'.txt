@@ -1,0 +1,259 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... 
+
+AGORA QUE APRENDEMOS SOBRE A LAW OF DEMETER,
+
+
+DEVEMOS 
+
+VER 
+
+MAIS 
+
+
+ALGUNS PRINCIPLES QUE DEVEMOS TER EM MENTE,
+
+QUANDO 
+
+TRABALHAMOS COM CLASSES (
+
+    e principalmente quando 
+
+    escrevemos código OOP...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+um dos conceitos mais importantes é 
+
+
+o 
+
+
+
+'SOLID PRINCIPLES'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+O 'SOLID'
+
+
+
+
+É UM ACRÔNIMO PARA 5 DIFERENTES PRINCÍPIOS 
+
+
+QUE DEVEMOS 
+
+
+APLICAR NAS NOSSAS CLASSES,
+
+
+
+
+
+QUE DEVEMOS RESPEITAR QUANDO ESCREVEMOS CÓDIGO,
+
+
+TUDO 
+
+PARA 
+
+ACABARMOS COM CLASSES:
+
+
+
+
+
+1) WELL-WRITTEN
+
+
+
+
+
+
+2) EXTENSIBLE 
+
+
+
+
+3) MAINTAINABLE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OS 5 PRINCIPLES SÃO:
+
+
+
+
+
+
+
+
+
+1) SINGLE RESPONSIBILITY PRINCIPLE (já sabemos o que é)..
+
+
+
+
+
+
+
+2) OPEN-CLOSED PRINCIPLE
+
+
+
+
+
+
+
+3) L --> LISKOV SUBSTITUTION PRINCIPLE 
+
+
+
+
+4) INTERFACE SEGREGATION PRINCIPLE 
+
+
+
+
+
+
+
+5) DEPENDENCY INVERSION PRINCIPLE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+VC DEVE SEGUIR ESSES 5 PRINCÍPIOS 
+
+
+
+QUANDO VC 
+
+
+ESCREVE 
+
+
+OOP CODE...
+
+
+
+
+
+
+
+
+
+
+
+--> O 'S' 
+
+
+
+E 
+
+'O'
+ 
+
+ PRINCIPLES SÃO OS MAIS IMPORTANTES,
+
+ QUANDO O ASSUNTO É O WRITE 
+
+ DE CLEAN CODE...
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> ESSES 2 PRINCIPLES POSSUEM IMPACTO 
+
+ CLARO 
+ NA 
+ LIMPEZA 
+
+ DE NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+ VEREMOS BREVEMENTE O 'liskov substituion principle',
+
+ o 'interface segregation principle'  e o 'dependency inversion'...
+
+
+
+
+ 
