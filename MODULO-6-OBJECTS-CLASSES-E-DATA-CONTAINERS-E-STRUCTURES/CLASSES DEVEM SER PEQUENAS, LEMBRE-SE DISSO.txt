@@ -1,0 +1,903 @@
+
+
+
+
+
+
+
+ATÉ AGORA, APRENDEMOS A DIFERENÇA ENTRE 'REAL OBJECTS'
+
+
+E 
+
+DATA CONTAINERS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E APRENDEMOS QUE 'POLYMORPHISM' É UM 
+
+ASPECTO QUE 
+
+DEVEMOS TER EM MENTE QUANDO 
+
+TRABALHAMOS COM CLASSES,
+PARA EVITARMOS 
+
+CODE DUPLICATION 
+
+
+E 
+
+PARA 
+
+'STAY DRY',
+
+
+TUDO 
+PARA EVITAR 
+
+
+
+SE REPETIR DURANTE O WRITE DE CLEAN CODE...
+
+
+
+
+
+
+
+
+
+CERTO.... MAS AGORA O PROFESSOR QUER 
+
+
+
+DAR UMA OLHADA MAIS APROFUNDADA EM CLASSES EM GERAL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> COMO ESCREVEMOS CLASSES DE MANEIRA CLEAN?
+
+
+
+
+
+
+
+
+
+
+
+BEM, CLEAN CLASSES DEVEM SER PEQUENAS...
+
+
+
+
+
+
+
+
+
+
+-> VC DEVE PREFERIR 1 MONTE DE CLASSES PEQUENAS DO QUE 
+
+
+1 CLASS GRANDE...
+
+
+
+
+
+
+
+
+--> CLEAN FUNCTIONS DEVEM SER PEQUENAS,
+
+
+SHORT,
+
+E FOCADAS EM APENAS 1 COISA,
+
+PARA 
+
+
+GARANTIR QUE 
+
+
+
+NÃO MTAS LINHAS 
+
+
+
+DE CÓDIGO 
+
+FIQUEM EM 1 MESMA FUNCTION,
+
+E PARA GARANTIR QUE 
+SEJAM 
+
+SEMPRE 
+
+EASY TO COMPREHEND 
+
+AND READ...
+
+
+
+
+
+
+
+
+CERTO... E ISSO É O MESMO PARA CLASSES, AGORA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, HÁ UMA IMPORTANTE DIFERENÇA 
+
+
+
+NO SIGNIFICADO DE 'SMALL'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM 'FUNCTIONS',
+
+
+
+
+NÓS TÍNHAMOS O CONCEITO DE 1 FUNCTION FAZENDO APENAS 1 COISA...
+
+
+
+
+
+
+
+
+
+
+
+MAS COM CLASSES,
+
+TEMOS 1 CONCEITO 
+SIMILAR, PORÉM DIFERENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+CLASSES ------------> DEVEM TER __ UMA 'SINGLE RESPONSIBILITY'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS HÁ 1 PRINCIPLE 
+
+
+BEM CONHECIDO,
+QUE É o
+ 
+
+ 'SINGLE RESPONSIBILITY PRINCIPLE',
+
+
+ QUE SE APLICA A ISSO...
+
+
+
+
+
+
+
+
+VEREMOS ESSE PRINCIPLE LOGO LOGO..
+
+
+
+
+
+
+
+
+
+
+
+
+A IDEIA GERAL É QUE 
+
+
+1 CLASS COMO 
+
+'PRODUCT'
+
+
+DEVE 
+
+
+SER 
+
+RESPONSÁVEL
+ 
+ POR 
+
+
+
+
+
+
+
+
+
+ '''PRODUCT ISSUES''' -----> COMO, POR EXEMPLO,
+
+ A ALTERAÇÃO 
+
+
+ DO NAME 
+
+ DE 1 PRODUCT...
+
+
+
+
+
+
+
+
+
+
+
+
+ -. ISSO ALTERA O NOME DE 1 PRODUCT,
+
+ MAS NÃO VAI ALTERAR o 
+
+
+
+ NOME DE 1 USER, POR EXEMPLO...
+
+
+
+
+
+
+
+
+
+ ISSO PODE PARECER SIMPLES,
+
+
+ MAS NA VIDA REAL 
+
+ AS COISAS àS VEZES SE MISTURAM...
+
+
+
+
+
+
+
+
+
+
+ TEMOS 1 EXEMPLO DE 1 ONLINESHOP:
+
+
+
+
+
+ class OnlineShop {
+  private orders: any;
+  private offeredProducts: any;
+  private customers: any;
+
+  public addProduct(title: string, price: number) {}
+
+  public updateProduct(productId: string, title: string, price: number) {}
+
+  public removeProduct(productId: string) {}
+
+  public getAvailableProducts() {}
+
+  public restockProduct(productId: string, quantity: number) {}
+}
+
+
+
+
+
+
+
+
+
+CERTO...
+
+
+
+
+
+
+
+
+
+
+
+-> PODE PARECER TRIVIAL,
+
+
+MAS CONSEGUIR ESSAS 3 COISAS (
+
+    single responsibility,
+
+
+    várias classes em vez de 1 só 
+
+
+
+
+        E 'SMALL CLASSES'...
+
+
+)
+
+
+
+
+
+
+
+
+
+
+OK.... TEMOS ESSE EXEMPLO DAQUELA DUMMY SHOP....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TODO O CÓDIGO DE METHODS ESTÁ FALTANDO,
+
+
+MAS JÁ PODEMOS VER 
+
+OS METHODS TODOS ALI...
+
+
+
+
+
+
+
+
+
+
+
+-> a 'surface area'
+
+da class..
+
+
+
+
+
+
+
+
+
+temos 
+
+
+3 PROPERTIES:
+
+
+
+
+
+  private orders: any;
+  private offeredProducts: any;
+  private customers: any;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ORDERS, OFFEREDPRODUCTS E CUSTOMERS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> DEPOIS DISSO, TEMOS 1 MONTE DE METHODS..
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+class OnlineShop {
+  private orders: any;
+  private offeredProducts: any;
+  private customers: any;
+
+  public addProduct(title: string, price: number) {}
+
+  public updateProduct(productId: string, title: string, price: number) {}
+
+  public removeProduct(productId: string) {}
+
+  public getAvailableProducts() {}
+
+  public restockProduct(productId: string, quantity: number) {}
+
+  public createCustomer(email: string, password: string) {}
+
+  public loginCustomer(email: string, password: string) {}
+
+  public makePurchase(customerId: string, prodcutId: string) {}
+
+  public addOrder(customerId: string, prodcutId: string) {}
+
+  public refund(orderId) {}
+
+  public updateCustomerProfile(customerId: string, name: string) {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+BASTANTES METHODS... TODOS ELES FAZEM SENTIDO,
+
+
+
+
+
+
+
+
+
+
+MAS NÃO DEVEMOS TER ___ 
+
+
+TODOS ELES DENTRO DESSA CLASS....
+
+
+
+
+
+
+
+
+O PROBLEMA AQUI NÃO É O NÚMERO DE METHODS (pode fazer sentido,
+
+ter tantos methods assim em 1 class)...
+
+
+
+
+
+
+
+
+
+O PROBLEMA DESSA CLASS __ É A 'RESPONSIBILITY',
+
+
+
+
+
+
+
+PQ __ ELA _ ESTÁ COM MAIS DE 1 RESPONSIBILITY- -> 
+
+
+
+
+
+
+
+ESTÁ LIDANDO COM:
+
+
+
+
+
+1) ORDERS 
+
+
+
+2) PRODUCTS 
+
+
+3) CUSTOMERS
+
+
+
+
+
+
+
+
+
+
+
+e, mesmo acerca disso,
+
+
+
+ESTÁ LIDANDO COM DIVERSOS PROPÓSITOS...
+
+
+
+
+
+
+
+
+
+
+
+ESTÁ LIDANDO:
+
+
+
+
+
+1) COM O UPDATE DE PRODUCTS 
+
+
+2) ADD DE PRODUCTS 
+
+
+
+3) REMOVE DE PRODUCTS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS TAMBÉM ESTÁ RESPONSÁVEL PELO 'RESTOCK' 
+
+DE 
+
+PRODUCTS, QUE NÃO É A MESMA COISA QUE 'RENAME A PRODUCT'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESSA CLASS É GRANDE, SE FALAMOS EM QUESTÃO DE RESPONSABILIDADES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> UMA MANEIRA DE MELHORAR ESSE CÓDIGO É SPLITTAR 
+
+ESSA CLASS EM MÚLTIPLAS CLASSES MENORES...
+
+
+
+
+
+
+
+
+
+
+-> MÚLTIPLAS CLASSES, COM DIFERENTES RESPONSABILIDADES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SMALLER CLASSES, EM QUE 
+
+'SMALL' 
+
+
+
+QUER DIZER _ MENOS RESPONSABILIDADE...
+
+
+
+
+
+
+
+
+
+-> ISSO É CONSIDERADO CLEAN CODE,
+
+
+
+'SMALL, FOCUSED CLASSES'...
+
+
+
+
+
+
+
+É CLEAN PQ 
+
+
+
+'''SE PRECISO MUDAR ALGO SOBRE OS METHODS DE PRODUCTS,
+
+BASTA IR ATÉ A CLASS DE PRODUCTS PARA ENCONTRAR E ALTERAR ESSE METHOD'' -> esse 
+
+é o propósito 
+
+de 
+
+classes,
+
+
+
+
+serem meio pequenas,
+
+
+
+
+
+
+e 
+
+
+poderem 
+
+ser buscadas por suas RESPONSABILIDADES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... MAS MESMO QUE UMA CLASS SEJA 'SMALL',
+
+
+É CLARO QUE 
+
+
+___ ELA NÃO VAI 'DO ONE THING' (como com functions, que devem fazer apenas 1 coisa)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR EXEMPLO, A CLASS DE 'PRODUCT'
+
+FAZ O ADD E REMOVE DE PRODUCTS,
+
+
+
+QUE É MAIS DE 1 COISA.... MAS A RESPONSABILITY 
+
+
+É ___ ÚNICA____, 
+
+
+
+
+
+
+A RESPONSABILIDADE É 
+
+
+
+
+_'MANAGE THE PRODUCT DATA', e  a existence dos products..
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> responsibilities vs things to do ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> SE CLASSES FOSSEM COMO 
+
+
+
+FUNCTIONS, CADA CLASS TERIA APENAS 1 METHOD.. E ISSO SERIA NADA EFICIENTE...
+
+
+
+
+
+
+
+--> CLASSES SÃO 'ALL ABOUT HAVING 1 RESPONSIBILITY PER CLASS'...
