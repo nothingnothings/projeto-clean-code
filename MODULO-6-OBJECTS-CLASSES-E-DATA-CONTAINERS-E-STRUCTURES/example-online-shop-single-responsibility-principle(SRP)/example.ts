@@ -3,25 +3,25 @@ class OnlineShop {
   private offeredProducts: any;
   private customers: any;
 
-  public addProduct(title: string, price: number) {}
+  public addProduct(title: string, price: number) {} //offeredProducts (property afetada)
 
-  public updateProduct(productId: string, title: string, price: number) {}
+  public updateProduct(productId: string, title: string, price: number) {} //offeredProducts (property afetada)
 
-  public removeProduct(productId: string) {}
+  public removeProduct(productId: string) {} //offeredProducts (property afetada)
 
-  public getAvailableProducts() {}
+  public getAvailableProducts() {} //offeredProducts (property afetada)
 
-  public restockProduct(productId: string, quantity: number) {}
+  public restockProduct(productId: string, quantity: number) {} //offeredProducts (property afetada)
 
-  public createCustomer(email: string, password: string) {}
+  public createCustomer(email: string, password: string) {} //customers (property afetada)
 
-  public loginCustomer(email: string, password: string) {}
+  public loginCustomer(email: string, password: string) {} //customers (property afetada)
 
-  public makePurchase(customerId: string, prodcutId: string) {}
+  public makePurchase(customerId: string, prodcutId: string) {} //customers (property afetada), orders, offeredProducts
 
-  public addOrder(customerId: string, prodcutId: string) {}
+  public addOrder(customerId: string, prodcutId: string) {} //customers 
 
-  public refund(orderId) {}
+  public refund(orderId) {} //customers, orders
 
-  public updateCustomerProfile(customerId: string, name: string) {}
+  public updateCustomerProfile(customerId: string, name: string) {} // customers
 }

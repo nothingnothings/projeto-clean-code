@@ -1,0 +1,649 @@
+
+
+
+
+
+
+
+
+
+
+
+
+OK... QUANDO APRENDEMOS SOBRE FUNCTIONS,
+
+APRENDEMOS 
+
+TAMBÉM 
+
+
+SOBRE 'LEVELS OF ABSTRACTION'...
+
+
+
+
+
+
+
+
+
+
+
+--> OS LEVELS OF ABSTRACTION NOS AJUDAM A DECIDIR 
+
+''SE 1 FUNCTION ESTÁ FAZENDO MT COISA''...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E, PARA CLASSES, TEMOS 1 CONCEITO SIMILAR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE CONCEITO TAMBÉM SERVE PARA DETERMINAR SE 1 
+
+CLASS É TOO  BIG OU TOO SMALL...
+
+
+
+
+
+
+
+
+
+
+
+--> BEM... ESSE CONCEITO É CHAMADO DE 'COHESION'...
+
+
+
+
+
+
+
+
+
+
+-> MAS SOBRE O QUE É ISSO?
+
+
+
+
+
+
+
+
+
+
+
+COHESION, NO FINAL DA CONTAS,
+
+
+APENAS DEFINE 
+
+
+'''QUÃO BEM 
+
+
+OS METHODS DE 1 CLASS ESTÃO USANDO AS PROPERTIES 
+DESSA CLASS''...
+
+
+
+
+
+
+
+
+
+EM OUTRAS PALAVRAS,
+
+
+
+''O QUANTO SEUS CLASS METHODS ESTÃO USANDO AS PROPERTIES DE SUA CLASS''...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUANDO TEMOS 'MAX COHESION' em 1 class?
+
+
+
+
+
+
+
+--> É QUANDO _ TODOS OS METHODS, EM 1 CLASS,
+
+USAM ___ TODAS AS CLASS PROPERTIES...
+
+
+
+
+
+
+
+
+
+
+-> QUER DIZER QUE 
+
+
+''TODOS OS METHODS EM 1 CLASS __ USAM _ TODAS AS PROPERTIES DESSA MESMA CLASS''..
+
+
+
+
+
+
+
+
+
+
+--> SE VC TIVER 1 OBJECT/CLASS ASSIM,
+
+
+
+
+
+
+
+VC TEM _ __ COHESION MÁXIMA...
+
+
+
+
+
+
+
+
+
+
+
+--> O OPÓSITO SERIA 'NO COHESION'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NO COHESION ------> COM ISSO, COM CLASSES ASSIM,
+
+
+
+'''NENHUMA PROPERTY DE SUA CLASS ESTÁ SENDO USADA POR 
+
+ALGUM DOS METHODS DESSA CLASS''...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE NENHUMA DE SUAS CLASS PROPERTIES 
+
+
+SÃO MANAGEADAS POR SEUS METHODS --> ISSO, NO FINAL DAS CONTAS,
+
+
+QUER DIZER QUE 
+
+
+SUA CLASS É TOTALMENTE PÚBLICA,
+
+
+
+
+COM TODAS AS PROPERTIES 
+PODENDO 
+
+
+SER USADAS 
+
+DO LADO DE FORA DA CLASS -----------> OU SEJA,
+
+FICAMOS ESSENCIALMENTE 
+
+
+
+COM 
+
+'''UM DATA CONTAINER COM ALGUNS UTILITY METHODS'',
+
+
+
+
+JUSTAMENTE PQ OS __ METHODS __ NÃO ESTÃO 'WORKING ON THE CLASS'S PROPERTIES AT ALL'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, VC DEFINITIVAMENTE QUER 
+
+
+EVITAR 
+TER 1
+
+
+CLASS SEM COHESION ALGUMA...
+
+
+
+
+
+
+---> A NÃO SER QUE VC QUEIRA TER 
+
+
+'''' 1 DATA CONTAINER COM ALGUNS UTILITY METHODS'''...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE O OBJETIVO É TER 'MAX COHESION',
+
+apesar de isso nem sempre ser verdade....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O GOAL É 'HIGH COHESION'... --> PQ VC NUNCA SERÁ 
+
+CAPAZ 
+
+DE 
+
+TER MAXIMUM COHESION....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É MT DIFÍCIL TER 'MAXIMUM COHESION'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> vc sempre vai ficar entre 'no cohesion' e 'max cohesion'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS VC SEMPRE VAI QUERER ESCREVER 
+
+
+CLASSES 
+
+ALTAMENTE COHESIVE... ------> EM QUE TODOS SEUS METHODS 
+
+
+USAM 
+
+MTAS DE SUAS PROPERTIES....--> MAS VC NÃO VAI 
+
+
+SER CAPAZ 
+
+
+DE 
+
+FAZER 
+
+TODOS SEUS METHODS 
+
+USAREM 
+
+
+TODA SUAS PROPERTIES O TEMPO TODO..
+
+
+
+
+
+
+
+
+
+-> bem... 
+
+
+se inspecionamos aquela class de 'OnlineShop',
+
+TEMOS:
+
+
+
+
+
+
+
+
+
+class OnlineShop {
+  private orders: any;
+  private offeredProducts: any;
+  private customers: any;
+
+  public addProduct(title: string, price: number) {} //offeredProducts (property afetada)
+
+  public updateProduct(productId: string, title: string, price: number) {} //offeredProducts (property afetada)
+
+  public removeProduct(productId: string) {} //offeredProducts (property afetada)
+
+  public getAvailableProducts() {} //offeredProducts (property afetada)
+
+  public restockProduct(productId: string, quantity: number) {} //offeredProducts (property afetada)
+
+  public createCustomer(email: string, password: string) {} //customers (property afetada)
+
+  public loginCustomer(email: string, password: string) {} //customers (property afetada)
+
+  public makePurchase(customerId: string, prodcutId: string) {} //customers (property afetada), orders, offeredProducts
+
+  public addOrder(customerId: string, prodcutId: string) {} //customers (property afetada), orders, offeredProducts
+
+  public refund(orderId) {} //customers, orders
+
+  public updateCustomerProfile(customerId: string, name: string) {} // customers
+}
+
+
+
+
+
+
+
+
+
+
+BASICAMENTE,
+
+
+
+
+SÓ 'makePurchase'
+
+
+
+e 'addOrder',
+
+NESSE EXEMPLO,
+
+ACABAM USANDO AS 3 PROPERTIES definidas nessa class...
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ESSES SÃO OS METHODS QUE USAM TODAS AS PROPERTIES..
+
+
+
+
+
+
+
+
+-> QUER DIZER, EM OUTRAS PALAVRAS,
+
+QUE 
+
+
+
+
+ESSA CLASS __ NÃO TEM 1 COHESION MT BOA,
+
+
+
+
+PQ _ A MAIORIA DOS METHODS SE UTILIZA 
+
+DE 
+
+APENAS 1 PROPERTY, COM APENAS AQUELAS 2 EXCEÇÕES
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> NÃO EXISTE 1 REGRA FIXA PARA SPLITTAR SEU CÓDIGO,
+
+
+
+
+MAS __ ESSE MACETE 
+
+
+TE AJUDA 
+
+A SABER QUANDO 
+
+
+
+
+SPLITTAR 
+
+
+
+SUA CLASS...
+
+
+
+
+
+
+
+
+
+
+
+--> se sua class tem vários methods que se utilizam 
+
+DE APENAS 
+
+1 PROPERTY,
+
+
+
+
+ELA ESTÁ RUIM,
+
+
+
+ESTÁ NADA COHESIVE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ASSIM QUE VC SPLITTAR SUA CLASS EM VÁRIAS 
+CLASSES,
+
+
+VC VERÁ
+ 
+
+
+
+
+ SUA COHESION AUMENTAR...
+
+
+
+
+
+
+
+
+
+
+ --> mas não tente colocar ' 1 method por class',
+
+
+ pq isso é oversplitting...
+
+
+
+
+
+
+
+
+
+
+
+ --> MAS VC DEVE FAZER 
+
+ COM QUE 
+ CADA 
+
+ 1 
+
+ DE SEUS METHODS 
+
+ USE 1 PUNHADO DE SUAS PROPERTIES...
+
+
+
+
+
+
+ ESSE É O OBJETIVO...
