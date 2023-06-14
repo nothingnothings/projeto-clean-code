@@ -1,0 +1,888 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ALÉM DO SINGLE RESPONSIBILITY PRINCIPLE,
+
+
+
+HÁ 
+
+
+OUTRO PRINCIPLE QUE VC DEVE TER EM MENTE, QUANDO TRABALHA COM CLASSES...
+
+
+
+
+
+
+
+-> É O PRINCIPLE 
+
+
+DE 
+
+
+'OPEN-CLOSED'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> DE ACORDO COM ESSE PRINCIPLE,
+
+
+1 CLASS 
+
+
+
+DEVE SER:
+
+
+
+
+
+1)  __ oPEN __ FOR EXTENSION___....
+
+
+
+
+
+
+
+
+
+2) ___ CLOSED__ FOR MODIFICATION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS O QUE ISSO SIGNIFICA?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+temos este exemplo:
+
+
+
+
+
+
+
+
+
+
+class Printer {
+  printPDF(data: any) {}
+
+  printWebDocument(data: any) {}
+
+  printPage(data: any) {}
+
+  verifyData(data: any) {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok...
+
+
+
+
+
+O QUE PODEMOS VER, AQUI,
+
+É QUE 
+
+TEMOS 
+
+
+
+1 CLASS DE 'printer'
+
+QUE TEM DIVERSOS METHODS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS TAMBÉM 1 METHOD DE 'verifyData()',
+
+QUE 
+
+PROVAVELMENTE É CHAMADO INTERNAMENTE 
+
+PARA CHECAR 
+
+A DATA 
+
+DE QUALQUER 
+
+UM 
+
+DESSES METHODS DE PRINT ALI...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS QUAL É O PROBLEMA DESSA CLASS?
+
+
+
+
+
+
+
+
+
+
+
+O PROBLEMA É QUE 
+
+ELA BASICAMENTE PRECISA 'GROW'
+
+SEMPRE QUE 
+
+ADICIONARMOS 
+
+
+NOVA FUNCIONALIDADE 
+
+NO NOSSO APP....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO SIGNIFICA QUE,
+
+
+
+SE DESEJAMOS __ ADICIONAR NOVAS COISAS,
+
+
+
+COMO 
+
+
+'PRINT WORD DOCUMENTS',
+
+OU 
+
+'EXCEL SPREADSHEETS',
+
+
+
+SEREMOS FORÇADOS 
+
+
+A 
+
+
+ADICIONAR 1 NOVO METHOD...
+
+
+
+
+
+
+
+
+
+
+-> VAMOS TER DE ADICIONAR 1 NOVO METHOD, SIM....
+
+
+
+
+
+
+
+
+
+-> E SEMPRE QUE 
+
+
+
+PRECISARMOS CHAMAR 1 NEW METHOD,
+
+ALÉM DE 'verifyData()',
+
+
+DE DENTRO DE NOSSOS METHODS DE PRINT,
+
+
+
+VAMOS PRECISAR 
+
+ADICIONAR 
+
+
+ESSA LÓGICA 
+
+
+
+EM TODOS ESSES METHODS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- OK... ISSO QUER DIZER QUE O PRINTER 
+
+É 
+
+'ALL ABOUT'
+
+
+1 ÚNICA RESPONSIBILITY,
+SIM,
+
+
+
+
+
+
+
+QUE É 
+
+
+'PRINTING DATA AND GENERATING OUTPUT'... ->  MAS ISSO _ NÃO QUER 
+DIZER QUE 
+
+
+ESSA CLASS 
+
+É 
+
+'CLOSED' 
+
+
+
+
+
+A _ 'MODIFICATION' FUTURA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> QUER DIZER QUE 
+
+
+__ PRECISAMOS __ SEMPRE VOLTAR __a ESSA CLASS,
+
+SEMPRE QUE 
+
+
+QUISERMOS/PRECISARMOS ADICIONAR NOVA FUNCTIONALITY...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> QUER DIZER  QUE ESSA FUNCTION 'NÃO É MT EXTENSIBLE',
+
+
+O QUE QUER DIZER QUE 
+
+
+
+
+___ ELA __ VIOLA _ O PRINCÍPIO DE 'OPEN-CLOSED',
+
+
+
+
+
+PQ __ ELE ___ É ABERTO À MODIFICATION...
+
+
+
+(e deveria ser CLOSED à modification)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM.... VC TALVEZ SE LEMBRE 
+
+
+DO POLYMORPHISM QUE TÍNHAMOS ANTES,
+
+
+
+
+
+
+
+EM QUE TÍNHAMOS 
+
+
+
+
+MÚLTIPLAS CLASSES, ESPECÍFICAS,
+
+
+
+
+PARA _ FAZER DELIVERY DE CADA TIPO DE GOOD....
+
+
+
+
+
+
+
+
+
+
+--> E TÍNHAMOS 'DUPLICATE CODE'
+
+
+
+
+_ ANTES _ DE UTILIZARMOS POLYMORPHISM..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E, DE FATO,
+
+O PRINCIPLE 
+
+'OPEN-CLOSED'
+
+
+
+
+ESTÁ RELACIONADO COM 'POLYMORPHISM'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... QUER DIZER QUE 
+
+
+EM VEZ 
+
+
+DE 
+TER APENAS 
+
+1 
+CLASS, COMO ESSA AÍ,
+
+
+
+
+
+
+
+SERIA BEM MELHOR TER 
+
+
+1 CÓDIGO ASSIM, COM VÁRIAS CLASSES (E com 1 interface):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface Printer {
+  print(data: any);
+}
+
+class PrinterImplementation {
+  // classe FECHADA PARA MODIFICAÇÃO, MAS 'ABERTA PARA EXTENSÃO' (segue o 'open-closed principle')...
+
+  verifyData(data: any) {}
+}
+
+class WebPrinter extends PrinterImplementation implements Printer {
+  print(data: any) {
+    // print web document
+  }
+}
+
+class PDFPrinter extends PrinterImplementation implements Printer {
+  print(data: any) {
+    // print pdf document
+  }
+}
+
+class PagePrinter extends PrinterImplementation implements Printer {
+  print(data: any) {
+    // print page document
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> QUER DIZER,
+
+TER APENAS 1 BASE CLASS,
+
+COM ESSE METHOD DE 'verifyData',
+
+
+QUE 
+
+
+VAI 
+
+
+SER REPASSADA EM CADA 1 DAS CLASSES ESPECÍFICAS...
+
+
+
+
+
+
+E CADA 1 DELAS VAI IMPLEMENTAR 
+
+
+
+ESSA INTERFACE DE 'Printer'
+
+DE FORMA DIFERENTE,
+
+COM 
+
+CADA 
+
+
+
+method 'print'
+
+ÚNICO (
+    cada method faz algo diferente,
+
+
+    dependendo 
+
+    da class específica...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A VANTAGEM, AQUI,
+
+É QUE 
+
+A BASE CLASS_ _ PODE SER 'CLOSED'
+
+À MODIFICATION,
+EM ALGUM PONTO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /// A VANTAGEM É QUE ESSA 'BASE CLASS', 'PrinterImplementation',
+  PODE SER __ CLOSED_ A CERTO PONTO NO TEMPO,
+   durante o development (e isso deixa nosso código bem mais seguro).... ->
+    se quisermos EXTENDER NOSSAS FEATURES,
+ 
+  FAZEMOS ISSO NAS SUB-CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... MAS PQ ESSE PRINCIPLE NOS AJUDA COM O CLEAN CODE?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É PQ ESSA EXTENSIBILITY __ NOS FORÇA 
+
+
+A _ eSCREVER CLASSES MENORES... (1 CLASS BASE MENOR, AUTOMATICAMENTE, E VÁRIAS SUB-CLASSES MENORES)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> isso nos força a escrever classes menores,
+
+
+
+e também 
+
+
+deixa a class base __ MAIS SAFE__ (pq ela não vai mudar ao longo do tempo)...
+
+
+
+
+
+
+
+
+
+
+--> O OPEN-CLOSED PRINCIPLE TAMBÉM 
+
+
+NOS AJUDA A __ EVITAR __ 'REPEAT OURSELVES'..
+
+
+
+
+
+
+
+
+
+
+--> PQ, COM ESSE PRINCIPLE,
+
+TEMOS TODAS 
+
+ESSAS CLASSES,
+
+E AÍ 
+EVITAMOS 
+CODE DUPLICATION..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO PQ __ AMBOS ASPECTOS (
+
+
+
+    SMALL CLASSES E DRY CODE
+
+
+)
+
+
+
+
+
+
+É TUDO QUE O CLEAN CODE É ALL ABOUT...
+
+
+
+
+
+
+
+
+_> ISSO NOS AJUDA COM READABILITY E UNDERSTANDABILITY....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EM VEZ DE PRECISARMOS MERGULHAR NAQUELA CLASS GIGANTE 
+
+E PROCURARMOS PELO CÓDIGO NECESSÁRIO A NÓS,
+
+
+
+
+
+
+
+_ PODEMOS SIMPLESMENTE ENTRAR 
+
+
+NA CLASS ESPECÍFICA (SUBCLASS) 
+
+
+DE 
+
+PRINTER NECESSÁRIA
+
+A NÓS,
+
+E 
+
+
+AÍ 
+
+
+ENCONTRAR 
+
+
+O METHOD QUE DESEJAMOS USAR,
+
+IMEDIATAMENTE...
