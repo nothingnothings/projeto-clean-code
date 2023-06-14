@@ -1,0 +1,770 @@
+
+
+
+
+
+
+
+
+
+
+ESSA COURSE SECTION VAI RESUMIR O QUE APRENDEMOS...
+
+
+
+
+
+
+
+
+
+
+
+TEREMOS 1 CHECKLIST 
+
+
+DE TODAS AS COISAS QUE APRENDEMOS DURANTE O CURSO... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS VC NÃO DEVERIA 
+
+
+TRATAR ISSO COMO 1 CHECKLIST..
+
+
+
+
+
+
+
+
+
+
+--> VC DEVE QUESTIONAR ESSAS 
+
+
+RULES E CONCEPTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> EX, COM FUNCTIONS,
+
+
+VC 
+
+GERALMENTE QUER SPLITTAR FUNCTIONS, E DEIXÁ-LAS READABLE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> A RULE PRINCIPAL, QUANDO O ASSUNTO É CLEAN CODE,
+
+
+É QUE QUEREMOS 
+
+ESCREVER 
+
+'CODE WHICH IS EASY TO READ AND UNDERSTAND FOR HUMANS'..
+
+
+
+
+
+
+
+
+
+
+
+
+-> SE SEU CÓDIGO É FÁCIL DE ENTENDER, ELE É CLEAN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E HÁ CERTAS KEY AREAS, RULES E CONCEPTS QUE 
+
+PODEMOS SEGUIR,
+
+PARA 
+
+CONSEGUIR ESSE CLEAN CODE...
+
+
+
+
+
+
+
+
+
+
+
+1) NAMING DAS COISAS... DE VARIABLES, FUNCTIONS, CLASSES...
+
+
+
+
+
+
+
+2) COMMENTS E FORMATTING 
+
+
+
+
+
+
+
+3) FUNCTIONS...
+
+
+
+
+
+4) CONTROL STRUCTURES (if statements, throw de errors)
+
+
+
+
+
+
+
+
+
+5) CLASSES E OBJECTS, SEU WRITE CORRETO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AGORA O PROFESSOR VAI RESUMIR CADA 1 DESSAS ÁREAS..
+
+
+
+
+
+
+
+
+
+
+
+
+1) NAMING ..
+
+
+
+
+
+a) ESCOLHA DESCRIPTIVE NAMES -> DESCREVA QUAL DATA VC ESTÁ ARMAZENANDO EM 1 VARIABLE,
+
+OU QUAL TASK 
+
+1 FUNCTION VAI EXECUTAR... 
+
+
+
+NOUNS PARA VARIABLES E PROPERTIES (ou FRASES CURTAS, COM ADJECTIVES)..
+
+
+
+nouns para classes 
+
+
+VERBS PARA METHODS (ou PEQUENAS FRASES COM ADJECTIVES)...
+
+
+
+
+
+
+B) SEJA _ ESPECÍFICO,
+
+MAS NÃO SEJA REDUNDANTE (
+    SQLDatabase... mas não SQLDatabaseThatExistedInThePast
+)
+
+
+
+
+
+
+
+
+C) EVIDE GÍRIAS, abreviações,
+
+e seja consistente...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) COMMENTS E FORMATTING
+
+
+
+
+a) A MAIOR PARTE DOS COMMENTS É RUIM... 
+
+
+
+
+
+
+
+b) DEVEMOS ADICIONAR LEGAL INFORMATION,
+WARNINGS E 'REQUIRED INFORMATIONS'..
+
+
+
+
+c) também é bom colocar TODOs...
+
+
+
+
+
+
+
+
+d) devemos usar VERTICAL FORMATTING PARA _ MANTER 
+
+CONCEITOS RELACIONADOS 
+EM BLOCOS... (e separar conceitos, com line breaks)...
+
+
+
+
+
+
+e) ORDER --> 1 FUNCTION DEVE, POR EXEMPLO, 
+
+VIR ANTES 
+
+
+__DA FUNCTION QUE ELA CHAMA... SE TECNICAMENTE POSSÍVEL...
+
+
+
+
+
+
+f) VC QUER MANTER LINES CURTAS, HORIZONTAL FORMATTING,
+
+E __ ADD LINE BREAKS 
+
+PARA MELHORAR READABILITY...
+
+
+
+
+
+
+g) SIGA OS STYLE GUIDES 
+
+ESPECÍFICOS 
+
+DE CADA LINGUAGEM...
+
+
+
+
+h) use o IDE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3) FUNCTIONS....
+
+
+
+
+
+
+
+
+
+são a MEAT DE CADA PROGRAMA....
+
+
+
+
+
+
+
+
+
+a) DEVEMOS COMEÇAR COM OS PARAMETERS -->  DEVEMOS MANTER A LISTA
+ 
+
+ DE PARAMETERS CURTA...
+
+
+
+
+
+
+
+b) TENTE __ USAR OBJECTS/DICTS COMO PARAMETERS, 
+
+
+
+PARA 
+
+AGRUPAR 
+
+MÚLTIPLOS PARAMETERS EM 1 ÚNICO PARAMETER...
+
+
+
+
+
+
+
+
+
+c) certifique-se de que 
+
+FUNCTIONS SÃO 
+
+FÁCEIS DE CHAMAR,
+
+
+
+
+E QUE __ O CÓDIGO __ EM QUE 
+
+1 FUNCTION É CHAMADA 
+É  FÁCIL 
+
+
+DE LER E ENTENDER...
+
+
+
+
+
+
+
+
+
+d) function body --> FNCTIONS LIMPAS DEVEM SER _ SMALL,
+
+E 'DO ONE THING'...
+
+
+
+
+
+
+
+
+e)  EXPLORE OS __ LEVELS DE ABSTRACTION 
+
+DE SUA FUNCTION....
+
+
+
+
+
+
+--> FECHE 'BIG GAPS'
+
+
+entre o LEVEL DE ABSTRACTION DE 1 FUNCTION NAME 
+
+E __ O ACTUAL CODE DENTRO DA FUNCTION...
+
+
+
+
+
+
+
+--> TENTE EVITAR MISTURAR 
+
+MÚLTIPLOS LEVELS 
+
+DE ABSTRACTION EM 1 FUNCTION...
+
+
+
+
+
+
+
+
+
+
+f) dont REPEAT YOURSELF (dry) ---> ISSO É ÓBVIO..
+
+
+
+
+
+
+
+
+
+
+g) TENTE EVITAR UNEXPECTED SIDE EFFECTS... ---> SIDE EFFECTS SÃO 
+
+OK,
+
+MAS SE ELES SÃO INESPERADOS,
+
+
+
+1 FUNCTION NÃO É FÁCIL DE ENTENDER,
+
+O QUE QUER DIZER QUE 
+
+NÃO É LIMPA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4) CONTROL STRUCTURES...
+
+
+
+
+
+
+
+a) use 'positive wording',
+
+
+SE FOR POSSÍVEL, E SE FIZER SENTIDO..
+
+
+
+
+
+
+
+
+
+B) EVITE _ 'deep nesting' -> VC PODE USAR GUARDS,
+
+
+
+
+OS IF CHECKS NO INÍCIO DE FUNCTIONS,
+
+QUE CANCELA 
+
+A EXECUTION DA FUNCTION 
+
+__ CEDO,
+
+
+
+SE ALGUMA CONDITION NÃO É SATISFEITA...
+
+
+
+
+
+
+
+
+c) EVITE __ NESTING TAMBÉM POR 
+
+MEIO 
+
+DO OUTSOURCE 
+
+DE BLOCOS DE SEU CÓDIGO EM DIFERENTES FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+d) CONSIDERE  O USO DE POLYMORPHISM E FACTORY FUNCTIONS 
+
+PARA 
+
+EVITAR 
+
+CODE DUPLICATION...
+
+
+
+
+
+
+
+e) USE ERRORS DE VERDADE,
+
+COM THROW DE ERRORS E CATCH em blocos 'superiores' (bubble up),
+
+
+EM 
+
+VEZ 
+
+DE 
+
+
+ERRORS FALSOS COM 'if-statements'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5) OBJECTS E CLASSES...
+
+
+
+
+
+
+
+
+
+a) DEVEMOS DIFERENCIAR 'REAL OBJECTS'
+
+
+DE 
+
+'DATA STRUCTURES' (objects que só seguram data, sem ter methods)...
+
+
+
+
+
+
+
+
+
+b) cada object deve ser OU 1 REAL OBJECT, COM 1 API DE METHODS EXPOSTOS,
+
+
+OU 
+
+__ ENTÃO 1 DATA CONTAINER, 
+SEM QUAISQUER METHODS... MISTURAR OS 2 CONCEITOS LEVA A CODE NADA CLEAN...
+
+
+
+
+
+
+
+
+c) CLEAN CLASSES DEVEM SER PEQUENAS.. -> E VC CONSEGUE ISSO POR MEIO DO FOCO 
+
+
+EM APENAS 1 RESPONSABILIDADE...
+
+(
+
+    isso não quer dizer que devemos ter apenas 1 method em 1 class..
+)
+
+
+
+
+
+
+
+
+d) SIGA A LEI DE DEMETER, QUANDO ESTIVER TRABALHANDO COM REAL OBJECTS..
+
+
+
+
+
+
+-> PQ ISSO VAI GARANTIR QUE VC NÃO VAI 'DRILL' 
+
+
+MT DEEP 
+
+
+EM OBJECTS  E SUA API,
+
+
+
+
+E NA API DE 'LOOSELY-RELATED OBJECTS' --> pq isso leva 
+
+a 
+
+CÓDIGO DIFÍCIL DE ENTENDER E MANTER...
+
+
+
+
+
+
+
+
+
+e) siga os SOLID principles...
+
+
+
+
+
+os principles de 'SRP' (single responsibility)
+
+
+
+e o 
+
+
+
+'OPEN-CLOSED' 
+
+SÃO OS MAIS IMPORTANTES...
+
+
+
+
+
+
+
+SE FOREM SEGUIDOS,
+
+VC 
+
+
+
+FREQUENTEMENTE 
+
+ACABARÁ COM CLEAN CODE AUTOMATICAMENTE...
+
+
+
+
+
+
+
+
+
+PQ ESSES PRINCIPLES 
+
+
+
+LEVAM A MAINTAINABILITY,
+
+MAS TAMBÉM 
+
+DEIXAM SEU CÓDIGO MAIS CLEAN..
+
+
+
+
+
+
+

@@ -1,0 +1,1038 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AGORA VAMOS ACABAR COM O ESTUDO DOS 'SOLID'
+
+
+principles...
+
+
+
+
+
+
+
+
+
+
+
+veremos o principle de 'DEPENDENCY INVERSION'..
+
+
+
+
+
+
+
+
+
+
+
+ESSE PRINCIPLE DIZ QUE:
+
+
+
+
+
+
+
+''''YOU SHOULD DEPEND UPON ABSTRACTIONS,
+
+NOT CONCRETIONS'''....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ESSE É UM SUPER FANCY TERM,
+
+
+
+QUE 
+
+PODE SER TOTALMENTE UNCLEAR...
+
+
+
+
+
+
+
+
+
+
+--> MAS NÃO É TÃO COMPLICADO 
+
+QUANTO PARECE...
+
+
+
+
+
+
+
+
+
+
+
+--> SE VC SEGUE OS OUTROS PRINCIPLES,
+
+
+
+
+É BEM PROVÁVEL QUE ESSE AQUI JÁ ESTÁ SENDO SATISFEITO..
+
+
+
+
+
+
+
+
+
+
+
+
+---> É MT FÁCIL SEGUIR ESSE PRINCIPLE...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+interface Database {
+  storeData(data: any);
+}
+
+interface RemoteDatabase {
+  connect(uri: string);
+}
+
+class SQLDatabase2 implements Database, RemoteDatabase {
+  connect(uri: string) {
+    console.log('Connecting to SQL database!');
+  }
+
+  storeData(data: any) {
+        console.log('Storing data...');
+  }
+}
+
+class InMemoryDatabase2 implements Database {
+  storeData(data: any) {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok... 
+
+
+
+
+
+
+temos essas classes e essas interfaces...
+
+
+
+
+
+
+
+
+
+MAS O PROFESSOR TAMBÉM COLOCOU 1 CLASS DE 'app',
+
+ALI EMBAIXo:
+
+
+
+
+
+
+interface Database {
+  storeData(data: any);
+}
+
+interface RemoteDatabase {
+  connect(uri: string);
+}
+
+class SQLDatabase2 implements Database, RemoteDatabase {
+  connect(uri: string) {
+    console.log('Connecting to SQL database!');
+  }
+
+  storeData(data: any) {
+    console.log('Storing data...');
+  }
+}
+
+class InMemoryDatabase2 implements Database {
+  storeData(data: any) {}
+}
+
+class App {
+  private database: SQLDatabase2 | InMemoryDatabase2;
+
+  constructor(database: SQLDatabase2 | InMemoryDatabase2) {
+    if (database instanceof SQLDatabase2) {
+      database.connect('my-url');
+    }
+
+    this.database = database;
+  }
+
+  saveSettings() {
+    this.database.storeData('some data');
+  }
+}
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+ESSE APP FUNCIONA COM AMBAS AS DATABASES..
+
+
+
+
+
+
+
+MAS, DEPENDENDO DO TIPO DE DATABASE 
+
+
+
+QUE ESTOU USANDO/PASSANDO,
+
+
+
+
+
+EU 
+
+TENHO QUE RODAR O METHOD DE 'connect()',
+como 
+
+
+
+parte do constructor..
+
+
+
+
+
+
+
+
+
+
+
+-> O PROBLEMA DESSE EXEMPLO É QUE 'DEPENDEMOS DE CONCRETIONS'.....
+
+
+
+
+
+
+
+
+
+
+--> nós dependemos _ DA '''IMPLEMENTAÇÃO CONCRETA DA MINHA DATABASE'''....
+
+
+
+
+
+
+
+
+
+-> OU SEJA,
+
+
+
+ACEITAMOS AMBOS TIPOS, AQUI,
+
+E AÍ 
+
+
+__TEMOS QUE 
+
+CHECAR 
+
+
+QUAL TIPO ESTAMOS RECEBENDO,
+
+
+
+SÓ PARA EU CONSEGUIR RODAR __ ESSE CÓDIGO EXTRA,
+
+
+
+QUE PRECISO EXECUTAR..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É MEIO ÓBVIO, MAS CÓDIGO ASSIM É MEIO DIFÍCIL DE MANTER...
+
+
+
+
+
+
+
+
+
+
+--> PQ QUANTO MAIOR FOR A QUANTIDADE DE TIPOS DE DATABASES QUE 
+
+ADICIONARMOS AO NOSSO PROJETO,
+
+
+
+MAIOR SERÁ A QUANTIDADE 
+
+DE IF CHECKS NECESSÁRIOS NESSA PARTE...
+
+
+
+
+
+
+
+
+
+
+
+--> E, SEMPRE QUE O METHOD DE CONNECT MUDAR,
+
+
+TAMBÉM
+TEREMOS DE MUDÁ-LO EM TODOS OS LUGARES EM QUE 
+
+
+TEMOS 1 CHECK DESSES,
+
+E EM QUE 
+
+
+CHAMAMOS '.connect()'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE ISSO PODE SE TORNAR 1 PROBLEMA 
+
+EM PROJETOS MAIORES,
+
+
+EM QUE 
+
+
+VC 
+
+
+
+TEM DIFERENTES TIPOS DE DATABASE....
+
+
+
+
+
+
+
+
+
+
+
+--> MAS PODEMOS __ MUDAR __ O CODE,
+
+PARA QUE SIGA 
+O PRINCIPLE DE 'DEPENDENCY INVERSION'..
+
+
+
+
+
+
+
+
+
+
+
+-> E O CHANGE DESSE CÓDIGO VAI SER BEM SIMPLES,
+AGORA,
+
+
+
+PQ JÁ TEMOS __ AS DIFERENTES INTERFACES DEFINIDAS AQUI,
+
+POR CONTA 
+
+
+DO 
+
+
+
+principle da interface segregation...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AS INTERFACES,
+
+
+NO FINAL DAS CONTAS,
+
+
+
+SÃO 
+
+'ABSTRACTIONS' ---------> E PODEMOS ___ USAR _ ESSAS INTERFACES 
+
+
+PARA 
+
+
+'BUY'
+
+CERTAS FUNCIONALIDADES,
+
+PARA GARANTIR CERTAS FUNCIONALIDADES,
+
+
+
+TUDO 
+
+
+SEM SABER
+ 
+
+ 'COMO ELAS FUNCIONAM, UNDER THE HOOD'...  (sem saber que 1 funcionalidade de store ou connect está dentro desse method).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... 
+
+
+
+
+
+
+
+
+
+
+
+-> NESSE APP, TUDO O QUE QUEREMOS, NO FINAL DAS CONTAS,
+
+É 
+
+
+
+1 DATABASE...
+
+
+
+
+
+
+
+
+
+
+-> EU NÃO QUERO 'DEAL'
+
+
+COM 1 CONNECT....
+
+
+
+
+
+
+O QUE EU QUERO É APENAS QUE 
+
+
+O TYPE DESSE ARGUMENT SEJA DE 'Database'..
+
+
+
+
+
+
+
+
+
+->  COMO EU __ NÃO ME IMPORTO COM 'connect',
+
+
+ESSE METHOD AÍ,
+
+
+
+BASTA EU COLOCAR O ARGUMENT COMO SENDO DE TYPE 'Database'( que não contém esse method)...
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+class App {
+  private database: SQLDatabase2 | InMemoryDatabase2;
+
+  // constructor(database: SQLDatabase2 | InMemoryDatabase2) {
+  constructor(database: Database) {
+    if (database instanceof SQLDatabase2) {
+      database.connect('my-url');
+    }
+
+    this.database = database;
+  }
+
+  saveSettings() {
+    this.database.storeData('some data');
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+-> isso vai garantir que 
+
+TEREMOS 
+
+1 DATABASE,
+
+
+
+__ MAS NÃO VAI NOS FORÇAR A TER 1 METHOD DE 'connect()'
+
+
+dentro do constructor...
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+class App {
+  private database: Database
+
+  // constructor(database: SQLDatabase2 | InMemoryDatabase2) {
+  constructor(database: Database) {
+    // ! if (database instanceof SQLDatabase2) { // É MELHOR TIRAR ISTO, PARA SEGUIR O dependency inversion principle
+    // !  database.connect('my-url');
+    // ! }
+
+    this.database = database;
+  }
+
+  saveSettings() {
+    this.database.storeData('some data');
+  }
+}
+
+const app = new App(new SQLDatabase2());  //é chamado de 'Dependency inversion principle'
+//JUSTAMENTE PQ __ DEIXAMOS __ DE NOS IMPORTAR COM A DATA DENTRO DA CLASS DE 'app'
+
+
+//NÓS INVERTEMOS A DEPENDENCY --> NÓS NÃO DEPENDEMOS DO TYPE DE DATABASE PARA RODAR 
+/// CONNECT... E, SIM, FORÇAMOS A PESSOA QUE VAI INSTANCIAR ESSA CLASS 
+
+//A PROVIDENCIAR 1 DATABASE QUE SATISFAÇA ESSE CONTRACT DE 'Database'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+//é chamado de 'Dependency inversion principle'
+//JUSTAMENTE PQ __ DEIXAMOS __ DE NOS IMPORTAR COM A DATA DENTRO DA CLASS DE 'app'
+
+
+//NÓS INVERTEMOS A DEPENDENCY --> NÓS NÃO DEPENDEMOS DO TYPE DE DATABASE PARA RODAR 
+/// CONNECT... E, SIM, FORÇAMOS A PESSOA QUE VAI INSTANCIAR ESSA CLASS 
+
+//A PROVIDENCIAR 1 DATABASE QUE SATISFAÇA ESSE CONTRACT DE 'Database'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+const sqlDatabase = new SQLDatabase2();
+
+sqlDatabase.connect('my-url'); // ou seja, o call de 'connect' nessa database se torna MINHA RESPONSABILIDADE, E NÃO RESPONSABILIDADE DO CONSTRUCTOR/CLASS DE 'App'...
+
+const app = new App(sqlDatabase); //é chamado de 'Dependency inversion principle'
+//JUSTAMENTE PQ __ DEIXAMOS __ DE NOS IMPORTAR COM A DATA DENTRO DA CLASS DE 'app'
+
+//NÓS INVERTEMOS A DEPENDENCY --> NÓS NÃO DEPENDEMOS DO TYPE DE DATABASE PARA RODAR
+/// CONNECT... E, SIM, FORÇAMOS A PESSOA QUE VAI INSTANCIAR ESSA CLASS
+
+//A PROVIDENCIAR 1 DATABASE QUE SATISFAÇA ESSE CONTRACT DE 'Database'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+NÓS INVERTEMOS A DEPENDENCY.... 
+
+
+
+
+
+O 'APP' NÃO SE IMPORTA COM O TYPE 
+
+DE DATABASE QUE RECEBE... ----> ELE __ DIZ _ QUE _ SOU _ EU 
+
+QUE _ 
+
+DEVO ME IMPORTAR COM O TYPE, COM O VALUE E COM 
+
+CALLS DE METHODS NESSA DATABASE (
+
+    como visto com 
+
+
+    '' 
+const sqlDatabase = new SQLDatabase2();
+
+sqlDatabase.connect('my-url'); // ou seja, o call de 'connect' nessa database se torna MINHA RESPONSABILIDADE, E NÃO RESPONSABILIDADE DO CONSTRUCTOR/CLASS DE 'App'...
+
+''
+
+),
+
+
+
+
+EM _ VEZ 
+
+
+
+DE FAZER ISSO 
+
+
+
+
+DENTRO DESSA CLASS...
+
+
+
+
+
+
+
+
+
+
+
+-> E ISSO DEIXA SEU CÓDIGO MAIS MAINTAINABLE,
+
+
+
+
+
+PQ __ VC __ PODE ATÉ MESMO  USAR _ DEPENDENCY INJECTION 
+
+FRAMEWORKS E APPROACHES 
+
+
+PARA _tER 
+
+APENAS 
+
+
+ALGUNS POUCOS 
+LUGARES 
+
+
+
+EM
+
+
+SEU APP EM QUE COISAS SÃO CRIADAS (
+
+como essa DATABASE, que é criada 
+
+e conectada
+
+),
+
+
+
+
+
+E PARA ENTÃO FICARMOS COM VÁRIOS 
+
+
+
+LUGARES DE NOSSO APP DEPENDENTES 
+
+
+DESSA 'ABSTRACT DATABASE' (
+
+    esse é o flow correto...
+)
+
+
+
+
+
+
+
+
+
+
+
+OK... 
+
+
+É CLARO QUE , COMO TODOS ESSES PRINCIPLES,
+
+HÁ 
+
+
+1 CONEXÃO COM O CLEAN CODE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> COM A INVERSÃO DE DEPENDÊNCIA,
+
+NÓS AUTOMATICAMENTE 
+
+REDUZIMOS O CÓDIGO 
+
+QUE 
+
+TEMOS DENTRO DA CLASS... ->  E ISSO JÁ AUTOMATICAMENTE 
+
+DEIXA 
+
+
+ESSE CÓDIGO 
+
+MAIS READABLE, E EVITA CODE DUPLICATION.... 
+
+
+
+
+
+POR ISSO QUE CERTAMENTE IMPORTA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O 'dependency inversion'
+
+
+
+GERALMENTE É UM RESULTADO DOS OUTROS PRINCIPLES...
+
+
+
+
+
+
+
+
+
+
+
+ADICIONALMENTE, O KEY BENEFIT 
+
+É 
+
+
+'EXTENSIBILITY'
+
+
+E 'MAINTAINABILITY'...
+
+
+
+
+
+
+
+
+
+
+
+
+ELE IMPORTA, SIM,
+
+
+MAS MENOS QUE O 
+
+'single responsibility principle'
+
+
+
+
+e 
+
+'open-closed principle'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ESSES PRINCIPLES 'SOLID'
+
+SÃO IMPORTANTES 
+
+POR 
+
+RAZÕES PONTUAIS...
+
+
+
+
+
+
+SE ESTAMOS 
+
+SEGUINDO 1 OBJECT ORIENTED APPROACH, DEVEMOS 
+
+CONSIDERAR E RESPEITAR 
+
+ESSES PRINCIPLES..
+
+
+
+
+
+FICAREMOS COM CÓDIGO MAIS EXTENSIBLE, MAINTAINABLE E CLEAN...
+
+
+
